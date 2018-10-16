@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import Routes from "./Routes";
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
-class App extends React.PureComponent {
+class App extends Component {
   render() {
     return (
       <Routes />
