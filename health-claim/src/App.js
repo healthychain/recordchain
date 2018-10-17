@@ -1,14 +1,25 @@
-import React, { Component } from 'react';
-import { withRouter } from "react-router-dom";
-import Routes from "./Routes";
-import 'bootstrap/dist/css/bootstrap.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Login from "./containers/Login";
+import Doctor from "./containers/Doctor";
+import NotFound from "./containers/NotFound";
+import './App.css';
 
-class App extends Component {
+export class App extends React.PureComponent {
   render() {
     return (
-      <Routes />
+      <div className="App container">
+        <Router>
+          <Switch>
+            <Route path="/" exact component={Doctor} />
+            <Route path="/login" component={Login} />
+            { /* Finally, catch all unmatched routes */}
+            <Route component={NotFound} />
+          </Switch>
+        </Router>
+      </div>
     );
   }
 }
 
-export default withRouter(App);
+export default App;
