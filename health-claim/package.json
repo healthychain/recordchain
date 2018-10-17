@@ -28,7 +28,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {
-    "bpk-component-card": "^1.1.36"
-  }
+  "devDependencies": {}
 }
