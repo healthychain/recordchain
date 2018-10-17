@@ -116,9 +116,11 @@ typings/
 **/.idea/**/usage.statistics.xml
 **/.idea/**/dictionaries
 **/.idea/**/shelf
+**/.idea/misc.xml
 
 # Generated files
 **/.idea/**/contentModel.xml
+**/.idea/modules
 
 # Sensitive or high-churn files
 **/.idea/**/dataSources/
@@ -132,3 +134,7 @@ typings/
 # Gradle
 **/.idea/**/gradle.xml
 **/.idea/**/libraries
+backend/.gradle/*/taskArtifacts/*
+
+# Build
+backend/build
