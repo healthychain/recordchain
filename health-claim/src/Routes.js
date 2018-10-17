@@ -12,5 +12,5 @@ export default ({ childProps }) =>
         <Route path="/doctor" exact component={Doctor} props={childProps} />
         <Route path="/login" exact component={Login} props={childProps} />
         { /* Finally, catch all unmatched routes */}
-        <Route component={NotFound} />\
+        <Route component={NotFound} />
     </Switch>;
