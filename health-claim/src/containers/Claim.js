@@ -3,6 +3,7 @@ import './Claim.css';
 import { Button } from 'reactstrap';
 import RecordCard from './RecordCard.js';
 import Header from "./Header.js";
+import 'bootstrap/dist/css/bootstrap.css';
 
 export default class Claim extends Component {
 
