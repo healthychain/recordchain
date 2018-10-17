@@ -1,0 +1,9 @@
+.navbar {
+  background: linear-gradient(#0076ba, #56c1ff);
+}
+
+.header {
+  color: white;
+  font-size: 1.7em;
+  font-weight: bold;
+}

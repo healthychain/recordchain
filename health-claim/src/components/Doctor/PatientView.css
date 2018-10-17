@@ -1,0 +1,14 @@
+.patient-view-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.patient-img {
+  width: 150px;
+}
+.patient-view-column {
+  padding: 20px;
+  flex-direction: column;
+  align-content: center;
+  width: 50%;
+}

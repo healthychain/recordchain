@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "./containers/Login";
-import Doctor from "./containers/Doctor";
-import Claim from "./containers/Claim";
-import NotFound from "./containers/NotFound";
-import './App.css';
+import Login from "./components/Login/Login";
+import Doctor from "./components/Doctor/Doctor";
+import Claim from "./components/Claim/Claim";
+import NotFound from "./components/NotFound/NotFound";
+import "./App.css";
 
 export class App extends React.PureComponent {
   render() {
@@ -16,7 +16,7 @@ export class App extends React.PureComponent {
             <Route path="/claim" exact component={Claim} />
             <Route path="/doctor" exact component={Doctor} />
             <Route path="/login" exact component={Login} />
-            { /* Finally, catch all unmatched routes */}
+            {/* Finally, catch all unmatched routes */}
             <Route component={NotFound} />\
           </Switch>
         </Router>
