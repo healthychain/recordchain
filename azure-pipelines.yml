@@ -13,6 +13,6 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    cd health-record && npm install
-    cd health-record && npm test
+    cd health-claim && npm install
+    cd health-claim && npm test
   displayName: 'npm install and test'
