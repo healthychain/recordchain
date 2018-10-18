@@ -7,9 +7,125 @@ exports[`App should render without crashing 1`] = `
   <div
     className="Login"
   >
+    <div>
+      <nav
+        className="navbar navbar navbar-expand-md navbar-light"
+      >
+        <ul
+          className="nav"
+        >
+          <li
+            className="nav-item"
+          >
+             
+            <img
+              alt="logo"
+              src="./icon.png"
+            />
+          </li>
+          <li
+            className="header nav-item"
+          >
+            HEALTH CLAIMS
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <h2
+      className="welcome-title"
+    >
+       Welcome to Health Claim! 
+    </h2>
+    <p
+      className="login-text"
+    >
+       Login so you can proceed:
+    </p>
     <form
+      className=""
       onSubmit={[Function]}
     >
+      <fieldset
+        className="position-relative form-group"
+      >
+        <legend>
+          Please select
+        </legend>
+        <div
+          className="position-relative form-check"
+        >
+          <label
+            className="form-check-label"
+          >
+            <input
+              className="form-check-input"
+              name="radio1"
+              type="radio"
+            />
+            Doctor
+          </label>
+        </div>
+        <div
+          className="position-relative form-check"
+        >
+          <label
+            className="form-check-label"
+          >
+            <input
+              className="form-check-input"
+              name="radio1"
+              type="radio"
+            />
+            Patient
+          </label>
+        </div>
+        <div
+          className="position-relative form-check"
+        >
+          <label
+            className="form-check-label"
+          >
+            <input
+              className="form-check-input"
+              name="radio1"
+              type="radio"
+            />
+            Insurance Company
+          </label>
+        </div>
+      </fieldset>
+      <div
+        className="position-relative form-group"
+      >
+        <legend
+          for="exampleEmail"
+        >
+          Email or OpenID
+        </legend>
+        <input
+          className="form-control"
+          id="exampleEmail"
+          name="email"
+          placeholder="Write your email or your Id"
+          type="email"
+        />
+      </div>
+      <div
+        className="position-relative form-group"
+      >
+        <legend
+          for="examplePassword"
+        >
+          Password
+        </legend>
+        <input
+          className="form-control"
+          id="examplePassword"
+          name="password"
+          placeholder="Write your password"
+          type="password"
+        />
+      </div>
       <button
         className="LoaderButton  btn btn-lg btn-default btn-block"
         disabled={false}
