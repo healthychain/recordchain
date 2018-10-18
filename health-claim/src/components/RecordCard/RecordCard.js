@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import "./RecordCard.css";
 import { Card, CardText, CardBody, CardTitle, Button } from "reactstrap";
 
@@ -13,6 +14,15 @@ const RecordCard = props => {
       </CardBody>
     </Card>
   );
+};
+
+RecordCard.propTypes = {
+  record: PropTypes.object.isRequired,
+  onClick: PropTypes.func
+};
+
+RecordCard.DefaultProps = {
+  onClick: () => {} //noop
 };
 
 export default RecordCard;
