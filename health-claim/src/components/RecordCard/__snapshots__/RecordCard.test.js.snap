@@ -3,6 +3,7 @@
 exports[`RecordCard should render correctly 1`] = `
 <div
   className="card card"
+  onClick={[Function]}
 >
   <div
     className="card-body"

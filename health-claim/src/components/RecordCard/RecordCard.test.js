@@ -8,7 +8,7 @@ describe("RecordCard", () => {
       .create(
         <RecordCard
           record={{ title: "sample", description: "test" }}
-          onClick={console.log("")}
+          onClick={() => console.log("")}
         />
       )
       .toJSON();

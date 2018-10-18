@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import "./PatientView.css";
 
 class PatientView extends Component {
@@ -41,4 +42,9 @@ class PatientView extends Component {
     </div>
   );
 }
+
+PatientView.propTypes = {
+  patient: PropTypes.object.isRequired
+};
+
 export default PatientView;
