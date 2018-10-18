@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should render without crashing 1`] = `
+<div
+  className="App container"
+>
+  <div
+    className="Login"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <button
+        className="LoaderButton  btn btn-lg btn-default btn-block"
+        disabled={false}
+        type="submit"
+      >
+        Login using OpenID
+      </button>
+    </form>
+  </div>
+</div>
+`;

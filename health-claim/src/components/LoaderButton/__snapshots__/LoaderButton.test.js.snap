@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoaderButton should render correctly 1`] = `
+<button
+  className="LoaderButton  btn btn-default"
+  disabled={false}
+  type="button"
+/>
+`;
+
+exports[`LoaderButton should render with disabled set to true 1`] = `
+<button
+  className="LoaderButton  btn btn-default"
+  disabled={true}
+  type="button"
+/>
+`;
+
+exports[`LoaderButton should render with loading text if isLoading 1`] = `
+<button
+  className="LoaderButton  btn btn-default"
+  disabled={true}
+  type="button"
+>
+  <span
+    className="spinning glyphicon glyphicon-refresh"
+  />
+  LOADING
+</button>
+`;
+
+exports[`LoaderButton should render with normal text when not loading 1`] = `
+<button
+  className="LoaderButton  btn btn-default"
+  disabled={false}
+  type="button"
+/>
+`;

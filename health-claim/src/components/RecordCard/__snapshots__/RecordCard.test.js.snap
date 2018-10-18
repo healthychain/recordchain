@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecordCard should render correctly 1`] = `
+<div
+  className="card card"
+>
+  <div
+    className="card-body"
+  >
+    <h5
+      className="card-title"
+    >
+      sample
+    </h5>
+    <p
+      className="card-text"
+    >
+      test
+    </p>
+    <button
+      aria-label={null}
+      className="btn btn-link"
+      onClick={[Function]}
+    >
+      Open the record
+    </button>
+  </div>
+</div>
+`;
+
+exports[`RecordCard should render without onClick prop 1`] = `
+<div
+  className="card card"
+>
+  <div
+    className="card-body"
+  >
+    <h5
+      className="card-title"
+    >
+      sample
+    </h5>
+    <p
+      className="card-text"
+    >
+      test
+    </p>
+    <button
+      aria-label={null}
+      className="btn btn-link"
+      onClick={[Function]}
+    >
+      Open the record
+    </button>
+  </div>
+</div>
+`;

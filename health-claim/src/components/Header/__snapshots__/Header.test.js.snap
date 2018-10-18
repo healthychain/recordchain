@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header should render correctly 1`] = `
+<div>
+  <nav
+    className="navbar navbar navbar-expand-md navbar-light"
+  >
+    <ul
+      className="nav"
+    >
+      <li
+        className="nav-item"
+      >
+         
+        <img
+          alt="logo"
+          src="./icon.png"
+        />
+      </li>
+      <li
+        className="header nav-item"
+      >
+        HEALTH CLAIMS
+      </li>
+    </ul>
+  </nav>
+</div>
+`;
