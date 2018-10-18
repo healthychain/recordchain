@@ -2,19 +2,9 @@ import React, { Component } from "react";
 import "./RecordCard.css";
 import { Card, CardText, CardBody, CardTitle, Button } from "reactstrap";
 
-export default class RecordCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      record: props.record,
-      onClick: props.onClick
-    };
-    this.state = props;
-  }
-
+class RecordCard extends Component {
   render() {
-    const record = this.state.record;
-    const onClick = this.state.onClick;
+    const { record, onClick } = this.props;
     return (
       <Card className="card" onClick={onClick}>
         <CardBody>
@@ -26,3 +16,5 @@ export default class RecordCard extends Component {
     );
   }
 }
+
+export default RecordCard;
