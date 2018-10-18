@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Claim should render correctly with mocked records 1`] = `
+<div>
+  <div>
+    <div>
+      <nav
+        className="navbar navbar navbar-expand-md navbar-light"
+      >
+        <ul
+          className="nav"
+        >
+          <li
+            className="nav-item"
+          >
+             
+            <img
+              alt="logo"
+              src="./icon.png"
+            />
+          </li>
+          <li
+            className="header nav-item"
+          >
+            HEALTH CLAIMS
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div
+    class="record-select"
+  >
+    <h4
+      className="record-text"
+    >
+      Choose one of your health records:
+    </h4>
+    <div
+      className="health-records"
+    >
+      <div>
+        <div
+          className="card card"
+          onClick={[Function]}
+        >
+          <div
+            className="card-body"
+          >
+            <h5
+              className="card-title"
+            >
+              Health record 1
+            </h5>
+            <p
+              className="card-text"
+            >
+              Issued by doctor Smith
+            </p>
+            <button
+              aria-label={null}
+              className="btn btn-link"
+              onClick={[Function]}
+            >
+              Open the record
+            </button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          className="card card"
+          onClick={[Function]}
+        >
+          <div
+            className="card-body"
+          >
+            <h5
+              className="card-title"
+            >
+              Health record 2
+            </h5>
+            <p
+              className="card-text"
+            >
+              Issued by doctor Ben
+            </p>
+            <button
+              aria-label={null}
+              className="btn btn-link"
+              onClick={[Function]}
+            >
+              Open the record
+            </button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          className="card card"
+          onClick={[Function]}
+        >
+          <div
+            className="card-body"
+          >
+            <h5
+              className="card-title"
+            >
+              Health record 3
+            </h5>
+            <p
+              className="card-text"
+            >
+              Issued by doctor Michael
+            </p>
+            <button
+              aria-label={null}
+              className="btn btn-link"
+              onClick={[Function]}
+            >
+              Open the record
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="records-button"
+    >
+      <button
+        aria-label={null}
+        className="btn btn-link"
+        onClick={[Function]}
+      >
+        See older health records
+      </button>
+    </div>
+  </div>
+  <div
+    className="bar"
+  >
+     
+  </div>
+  <div
+    className="make-claim"
+  >
+    <h5>
+       Make a claim 
+    </h5>
+    <text>
+       Choose the type of your claim: 
+    </text>
+  </div>
+  <button
+    aria-label={null}
+    className="claim-button btn btn-secondary"
+    onClick={[Function]}
+  >
+    Post claim
+  </button>
+</div>
+`;

@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Doctor should render correctly with mocked records 1`] = `
+<div>
+  <div>
+    <nav
+      className="navbar navbar navbar-expand-md navbar-light"
+    >
+      <ul
+        className="nav"
+      >
+        <li
+          className="nav-item"
+        >
+           
+          <img
+            alt="logo"
+            src="./icon.png"
+          />
+        </li>
+        <li
+          className="header nav-item"
+        >
+          HEALTH CLAIMS
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div
+    className="record-select"
+  >
+    <div
+      className="search-main btn-group"
+      onKeyDown={[Function]}
+    >
+      <button
+        aria-expanded={false}
+        aria-haspopup={true}
+        aria-label={null}
+        className="search-main dropdown-toggle btn btn-primary btn-block"
+        onClick={[Function]}
+        type="button"
+      >
+        Select a patient
+      </button>
+      <div
+        aria-hidden={true}
+        className="search-main dropdown-menu"
+        role="menu"
+        tabIndex="-1"
+      >
+        <div>
+          <button
+            className="dropdown-item"
+            onClick={[Function]}
+            tabIndex="0"
+            type="button"
+          >
+            John Cena - ID10101010101010
+          </button>
+        </div>
+        <div>
+          <button
+            className="dropdown-item"
+            onClick={[Function]}
+            tabIndex="0"
+            type="button"
+          >
+            Andrej Kiska - ID69696969696969
+          </button>
+        </div>
+        <div>
+          <button
+            className="dropdown-item"
+            onClick={[Function]}
+            tabIndex="0"
+            type="button"
+          >
+            Jeorrej Olasxzu - ID15151515151515
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="patient-display"
+  >
+    <div>
+      No patient selected
+    </div>
+  </div>
+</div>
+`;
