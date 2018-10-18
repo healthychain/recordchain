@@ -118,11 +118,11 @@ public class Main {
     return schemaDataJSON;
   }
 
-  public static String getCredDef(String defaultStewardDid, String schemaDataJSON, Wallet walletHandle, DidResults.CreateAndStoreMyDidResult trustAnchorResult) throws IndyException, ExecutionException, InterruptedException {
+  public static AnoncredsResults.IssuerCreateAndStoreCredentialDefResult getCredDef(String defaultStewardDid, String schemaDataJSON, Wallet walletHandle, DidResults.CreateAndStoreMyDidResult trustAnchorResult) throws IndyException, ExecutionException, InterruptedException {
     System.out.println("\n11. Creating and storing CRED DEF using anoncreds as Trust Anchor, for the given Schema\n");
     String  credDefJSON = "{\"seqNo\": 1, \"dest\": \"" + defaultStewardDid + "\", \"data\": " + schemaDataJSON + "}";
     System.out.println("Cred Def JSON:\n" + credDefJSON);
-    String credDef = issuerCreateAndStoreCredentialDef(walletHandle, trustAnchorResult.getDid(), schemaDataJSON, "cred_def_tag","CL", "{\"support_revocation\": false}").get().getCredDefId();
+    AnoncredsResults.IssuerCreateAndStoreCredentialDefResult credDef = issuerCreateAndStoreCredentialDef(walletHandle, trustAnchorResult.getDid(), schemaDataJSON, "cred_def_tag","CL", "{\"support_revocation\": false}").get();
     System.out.println("Returned Cred Definition:\n" + credDef);
     return credDef;
   }
@@ -134,7 +134,8 @@ public class Main {
     DidResults.CreateAndStoreMyDidResult trustAnchorResult = getTrustAnchorResult(walletHandle);
     nymRequest(defaultStewardDid, trustAnchorResult, pool, walletHandle);
     String schemaJSON = getSchemaData(defaultStewardDid, pool, walletHandle);
-    String claimDef = getCredDef(defaultStewardDid, schemaJSON, walletHandle, trustAnchorResult);
+    AnoncredsResults.IssuerCreateAndStoreCredentialDefResult credDef = getCredDef(defaultStewardDid, schemaJSON, walletHandle, trustAnchorResult);
+
 
     // 12
     System.out.println("\n12. Creating Prover wallet and opening it to get the handle\n");
@@ -154,13 +155,14 @@ public class Main {
 
     // 14
     System.out.println("\n14. Issuer (Trust Anchor) is creating a Claim Offer for Prover\n");
-    String credOfferJSON = Anoncreds.issuerCreateCredentialOffer(walletHandle, claimDef).get();
+    String credOfferJSON = Anoncreds.issuerCreateCredentialOffer(walletHandle, credDef.getCredDefId()).get();
     System.out.println("Claim Offer:\n" + credOfferJSON);
+
 
     // 15
     System.out.println("\n15. Prover creates Claim Request\n");
     AnoncredsResults.ProverCreateCredentialRequestResult result = Anoncreds.proverCreateCredentialReq(proverWalletHandle, proverDID, credOfferJSON,
-          claimDef, masterSecretName).get();
+          credDef.getCredDefJson(), masterSecretName).get();
 
     System.out.println("Claim Request:\n" + result.getCredentialRequestJson());
 
@@ -175,7 +177,7 @@ public class Main {
         "               \"age\":[\"28\",\"28\"]\n" +
         "        }";
     AnoncredsResults.IssuerCreateCredentialResult createClaimResult = Anoncreds.issuerCreateCredential(walletHandle, credOfferJSON, result.getCredentialRequestJson(),
-        credAttribsJson, "a",- 1).get();
+        credAttribsJson, null,- k1).get();
     String claimJSON = createClaimResult.getCredentialJson();
     System.out.println("Claim:\n" + claimJSON);
 
