@@ -41,6 +41,4 @@ class PatientView extends Component {
     </div>
   );
 }
-// } = props => <div>NOTHING YET NI🅱️️️️🅱️A </div>;
-
 export default PatientView;
