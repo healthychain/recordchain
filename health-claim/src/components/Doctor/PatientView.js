@@ -11,7 +11,10 @@ class PatientView extends Component {
   }
 
   claims = patient => {
-    //Get possible claims here from ID
+    fetch("http://51.140.229.104:5000/api/patients-claims/" + patient.id)
+      .then(response => response.json())
+      .then(data => console.log(data));
+
     return <div className="patient-view-column">No claims requested</div>;
   };
 
@@ -38,7 +41,7 @@ class PatientView extends Component {
   render = () => (
     <div className="patient-view-container">
       {this.patientDetails(this.props.patient)}
-      {this.claims(null)}
+      {this.claims(this.props.patient)}
     </div>
   );
 }

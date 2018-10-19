@@ -56,11 +56,10 @@ export default class Doctor extends Component {
     const mockPatients = [
       {
         name: "John Cena",
-        id: 10101010101010,
-        birthDate: new Date(1977, 23, 4)
+        id: 1
       },
-      { name: "Andrej Kiska", id: 69696969696969 },
-      { name: "Jeorrej Olasxzu", id: 15151515151515 }
+      { name: "Andrej Kiska", id: 2 },
+      { name: "Jeorrej Olasxzu", id: 3 }
     ];
 
     const { selectedPatient } = this.state;
