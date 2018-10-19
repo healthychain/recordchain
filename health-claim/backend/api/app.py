@@ -100,8 +100,7 @@ def create_claim():
         'patient': request.json['patient'],
         'id': claims[-1]['id'] + 1,
         'title': request.json['title'],
-        'description': request.json.get('description', ""),
-        'done': False
+        'validated': False
     }
     claims.append(claim)
     return jsonify({'claim': claim}), 201
@@ -116,13 +115,10 @@ def update_claim(claim_id):
         abort(400)
     if 'title' in request.json and type(request.json['title']) != unicode:
         abort(400)
-    if 'description' in request.json and type(request.json['description']) is not unicode:
-        abort(400)
-    if 'done' in request.json and type(request.json['done']) is not bool:
+    if 'validated' in request.json and type(request.json['done']) is not bool:
         abort(400)
     claim[0]['title'] = request.json.get('title', claim[0]['title'])
-    claim[0]['description'] = request.json.get('description', claim[0]['description'])
-    claim[0]['done'] = request.json.get('done', claim[0]['done'])
+    claim[0]['validated'] = request.json.get('validated', claim[0]['validated'])
     return jsonify({'claim': claim[0]})
 
 @app.route('/api/claim/<int:claim_id>', methods=['DELETE'])
