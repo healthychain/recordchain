@@ -5,18 +5,17 @@ import "./PatientView.css";
 class PatientView extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      claims: []
+    };
     this.claims = this.claims.bind(this);
     this.patientDetails = this.patientDetails.bind(this);
   }
 
-  claims = patient => {
+  claims = patient =>
     fetch("http://51.140.229.104:5000/api/patients-claims/" + patient.id)
       .then(response => response.json())
-      .then(data => console.log(data));
-
-    return <div className="patient-view-column">No claims requested</div>;
-  };
+      .then(responseJson => this.setState({ ...responseJson }));
 
   patientDetails = patient => {
     //Fetch health record here from ID
@@ -38,12 +37,21 @@ class PatientView extends Component {
     );
   };
 
-  render = () => (
-    <div className="patient-view-container">
-      {this.patientDetails(this.props.patient)}
-      {this.claims(this.props.patient)}
-    </div>
-  );
+  componentDidMount() {
+    this.claims(this.props.patient);
+  }
+
+  render = () => {
+    console.log(this.state.claims);
+    return (
+      <div className="patient-view-container">
+        {this.patientDetails(this.props.patient)}
+        {this.state.claims.map(({ title }) => (
+          <p>{title} </p>
+        ))}
+      </div>
+    );
+  };
 }
 
 PatientView.propTypes = {
