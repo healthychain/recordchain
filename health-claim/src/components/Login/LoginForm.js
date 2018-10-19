@@ -10,6 +10,7 @@ export default class LoginForm extends React.Component {
         this.state = {
             isLoading: false,
             email: "no email found yet",
+            user: "",
             access_token: "no token found yet"
         };
     }
@@ -18,9 +19,9 @@ export default class LoginForm extends React.Component {
         loginHandler: PropTypes.func.isRequired
     }
 
-    handleChange = event => {
+    handleIdentitySelection = event => {
         this.setState({
-            [event.target.id]: event.target.value
+            user: event.target.name
         });
     };
 
@@ -28,7 +29,7 @@ export default class LoginForm extends React.Component {
     handleSubmit = async event => {
         event.preventDefault();
         this.setState({ isLoading: true });
-        this.props.loginHandler({email: this.state.email});
+        this.props.loginHandler({user: this.state.user});
     };
 
     render() {
@@ -38,26 +39,26 @@ export default class LoginForm extends React.Component {
                     <legend>Please select</legend>
                     <FormGroup check>
                         <Label check>
-                            <Input type="radio" name="radio1" />
+                            <Input type="radio" name="doctor" onChange={this.handleIdentitySelection} /> 
                             Doctor
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                            <Input type="radio" name="radio1" />
+                            <Input type="radio" name="patient" onChange={this.handleIdentitySelection} />
                             Patient
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                            <Input type="radio" name="radio1" />
+                            <Input type="radio" name="insuranceCompany" onChange={this.handleIdentitySelection} />
                             Insurance Company
                         </Label>
                     </FormGroup>
                 </FormGroup>
                 <FormGroup>
                     <legend for="exampleEmail">Email or OpenID</legend>
-                    <Input type="email" name="email" id="exampleEmail" placeholder="Write your email or your Id" />
+                    <Input type="email" name="email" id="exampleEmail" placeholder="Write your email or your ID" />
                 </FormGroup>
                 <FormGroup>
                     <legend for="examplePassword">Password</legend>

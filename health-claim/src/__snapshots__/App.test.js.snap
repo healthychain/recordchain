@@ -4,9 +4,7 @@ exports[`App should render without crashing 1`] = `
 <div
   className="App container"
 >
-  <div
-    className="Login"
-  >
+  <div>
     <div>
       <nav
         className="navbar navbar navbar-expand-md navbar-light"
@@ -59,7 +57,8 @@ exports[`App should render without crashing 1`] = `
           >
             <input
               className="form-check-input"
-              name="radio1"
+              name="doctor"
+              onChange={[Function]}
               type="radio"
             />
             Doctor
@@ -73,7 +72,8 @@ exports[`App should render without crashing 1`] = `
           >
             <input
               className="form-check-input"
-              name="radio1"
+              name="patient"
+              onChange={[Function]}
               type="radio"
             />
             Patient
@@ -87,7 +87,8 @@ exports[`App should render without crashing 1`] = `
           >
             <input
               className="form-check-input"
-              name="radio1"
+              name="insuranceCompany"
+              onChange={[Function]}
               type="radio"
             />
             Insurance Company
@@ -106,7 +107,7 @@ exports[`App should render without crashing 1`] = `
           className="form-control"
           id="exampleEmail"
           name="email"
-          placeholder="Write your email or your Id"
+          placeholder="Write your email or your ID"
           type="email"
         />
       </div>
