@@ -68,6 +68,9 @@ bower_components
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
+# Indy-SDK
+indy-sdk
+
 # Dependency directories
 node_modules/
 jspm_packages/
@@ -137,4 +140,53 @@ typings/
 backend/.gradle/*/taskArtifacts/*
 
 # Build
-backend/build
+backend/buil
+
+
+# User-specific stuff:
+ backend/.idea/workspace.xml
+ backend/.idea/tasks.xml
+ backend/.idea/dictionaries
+ backend/.idea/vcs.xml
+ backend/.idea/jsLibraryMappings.xml
+
+ # Sensitive or high-churn files:
+ backend/.idea/dataSources.ids
+ backend/.idea/dataSources.xml
+ backend/.idea/dataSources.local.xml
+ backend/.idea/sqlDataSources.xml
+ backend/.idea/dynamic.xml
+ backend/.idea/uiDesigner.xml
+
+ # Gradle:
+ backend/.idea/gradle.xml
+ backend/.idea/libraries
+
+ # Mongo Explorer plugin:
+ backend/.idea/mongoSettings.xml
+
+ ## File-based project format:
+ *.iws
+
+ ## Plugin-specific files:
+
+ # IntelliJ
+ /out/
+
+ # mpeltonen/sbt-idea plugin
+ backend/.idea_modules/
+
+ # JIRA plugin
+ atlassian-ide-plugin.xml
+
+ # Crashlytics plugin (for Android Studio and IntelliJ)
+ com_crashlytics_export_strings.xml
+ crashlytics.properties
+ crashlytics-build.properties
+ fabric.properties
+
+ ### Intellij Patch ###
+ # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
+
+ # *.iml
+ # modules.xmld

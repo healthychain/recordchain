@@ -1,15 +1,18 @@
 package eu.mhutti1.healthchain;
 
-import static eu.mhutti1.healthchain.Constants.*;
+import static eu.mhutti1.healthchain.constants.Constants.*;
 import static org.hyperledger.indy.sdk.anoncreds.Anoncreds.issuerCreateAndStoreCredentialDef;
 import static org.hyperledger.indy.sdk.ledger.Ledger.*;
 
 import java.util.concurrent.ExecutionException;
-import org.hyperledger.indy.sdk.IOException;
+
+import eu.mhutti1.healthchain.constants.Constants;
+import eu.mhutti1.healthchain.roles.IdentityOwner;
+import eu.mhutti1.healthchain.roles.Steward;
+import eu.mhutti1.healthchain.roles.TrustAnchor;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
-import org.hyperledger.indy.sdk.anoncreds.CredentialsSearchForProofReq;
 import org.hyperledger.indy.sdk.did.Did;
 import org.hyperledger.indy.sdk.did.DidResults;
 import org.hyperledger.indy.sdk.pool.Pool;
@@ -22,10 +25,28 @@ public class Main {
 
 
   public static void main(String[] args) throws Exception {
-   //tut1();
-   //tut2();
-   //tut3();
-    //tut4_test();
+
+    Pool pool = getPool();
+    Wallet wallet = getWallet();
+
+    //this is hardcoded steward from genesis transaction file
+    String did_json = "{\"seed\": \"" + STEWARD_SEED + "\"}";
+    DidResults.CreateAndStoreMyDidResult stewardResult = Did.createAndStoreMyDid(wallet, did_json).get();
+
+    Steward steward = new Steward(wallet, stewardResult.getDid(), stewardResult.getVerkey());
+    TrustAnchor doctor = new TrustAnchor(pool, steward);
+
+    IdentityOwner client = new IdentityOwner(pool, doctor);
+
+    String getNymRequest = buildGetNymRequest(client.getDid(), doctor.getDid()).get();
+    String getNymResponse = submitRequest(pool, getNymRequest).get();
+
+    String responseData = new JSONObject(getNymResponse).getJSONObject("result").getString("data");
+    String trustAnchorVerkeyFromLedger = new JSONObject(responseData).getString("verkey");
+
+    System.out.println("Written by Steward: " + doctor.getVerKey());
+    System.out.println("Queried from Ledger: " + trustAnchorVerkeyFromLedger);
+
   }
 
   public static Pool getPool() throws IndyException, InterruptedException, ExecutionException {
@@ -73,8 +94,8 @@ public class Main {
     String did_json = "{\"seed\": \"" + STEWARD_SEED + "\"}";
     DidResults.CreateAndStoreMyDidResult stewardResult = Did.createAndStoreMyDid(wallet, did_json).get();
     String defaultStewardDid = stewardResult.getDid();
-    System.out.println("Steward DID: " + defaultStewardDid);
-    System.out.println("Steward Verkey: " + stewardResult.getVerkey());
+    System.out.println("StewardPermissions DID: " + defaultStewardDid);
+    System.out.println("StewardPermissions Verkey: " + stewardResult.getVerkey());
     return defaultStewardDid;
   }
 
@@ -109,7 +130,7 @@ public class Main {
   }
 
   public static String getSchemaData(String defaultStewardDid, Pool pool, Wallet wallet) throws IndyException, ExecutionException, InterruptedException {
-    System.out.println("\n9. Build the SCHEMA request to add new schema to the ledger as a Steward\n");
+    System.out.println("\n9. Build the SCHEMA request to add new schema to the ledger as a StewardPermissions\n");
     String name = "gvt";
     String version = "1.0";
     String attributes = "[\"age\", \"sex\", \"height\", \"name\"]";
@@ -273,10 +294,10 @@ public class Main {
     System.out.println("GET_NYM response json:\n" + getNymResponse);
 
     // See whether we received the same info that we wrote the ledger in step 4.
-    System.out.println("\n12. Comparing Trust Anchor Verkey as written by Steward and as retrieved in Client's query\n");
+    System.out.println("\n12. Comparing Trust Anchor Verkey as written by StewardPermissions and as retrieved in Client's query\n");
     String responseData = new JSONObject(getNymResponse).getJSONObject("result").getString("data");
     String trustAnchorVerkeyFromLedger = new JSONObject(responseData).getString("verkey");
-    System.out.println("Written by Steward: " + trustAnchorResult.getVerkey());
+    System.out.println("Written by StewardPermissions: " + trustAnchorResult.getVerkey());
     System.out.println("Queried from Ledger: " + trustAnchorVerkeyFromLedger);
     System.out.println("Matching: " + trustAnchorResult.getVerkey().equals(trustAnchorVerkeyFromLedger));
 
@@ -305,7 +326,7 @@ public class Main {
     String schemaJSON = getSchemaData(defaultStewardDid, pool, walletHandle);
     AnoncredsResults.IssuerCreateAndStoreCredentialDefResult credDef = getCredDef(defaultStewardDid, schemaJSON, walletHandle, trustAnchorResult);
 
-    String schema = new JSONObject(String.format("{\"%s\": %s}", credDef.getCredDefId(), credDef.getCredDefJson())).toString();
+      String schema = new JSONObject(String.format("{\"%s\": %s}", credDef.getCredDefId(), credDef.getCredDefJson())).toString();
 
     JSONObject credDefJsonObject  = new JSONObject(credDef.getCredDefJson());
 
@@ -388,11 +409,11 @@ public class Main {
     TestContants.pool = Pool.openPoolLedger(POOL_NAME, config2.toJson()).get();
 
 
-    // Issuer Create and Open Wallet
+    // Issuer Create and Open wallet
     Wallet.createWallet(TestContants.issuerWalletConfig, TestContants.WALLET_CREDENTIALS).get();
     TestContants.issuerWallet = Wallet.openWallet(TestContants.issuerWalletConfig, TestContants.WALLET_CREDENTIALS).get();
 
-    // Prover Create and Open Wallet
+    // Prover Create and Open wallet
     Wallet.createWallet(TestContants.proverWalletConfig, TestContants.WALLET_CREDENTIALS).get();
     TestContants.proverWallet = Wallet.openWallet(TestContants.proverWalletConfig, TestContants.WALLET_CREDENTIALS).get();
   }

@@ -1,7 +1,6 @@
-package eu.mhutti1.healthchain;
+package eu.mhutti1.healthchain.constants;
 
 import org.hyperledger.indy.sdk.pool.PoolJSONParameters;
-import org.hyperledger.indy.sdk.wallet.WalletJSONParameters;
 
 /**
  * Created by mhutti1 on 17/10/18.
@@ -18,5 +17,12 @@ public class Constants {
 
   public static String WALLET_CREDS = "{\"key\": \"wallet_key\"}";
   public static int PROTOCOL_VERSION = 2;
+
+
+  //  ROLES
+
+  public static String TRUST_ANCHOR = "TRUST_ANCHOR";
+  public static String STEWARD = "STEWARD";
+  public static String IDENTITY_OWNER = null;
 
 }
