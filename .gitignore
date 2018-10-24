@@ -140,7 +140,7 @@ typings/
 backend/.gradle/*/taskArtifacts/*
 
 # Build
-backend/buil
+backend/build
 
 
 # User-specific stuff:
