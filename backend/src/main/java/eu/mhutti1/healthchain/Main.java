@@ -47,6 +47,7 @@ public class Main {
     System.out.println("Written by Steward: " + doctor.getVerKey());
     System.out.println("Queried from Ledger: " + trustAnchorVerkeyFromLedger);
 
+
   }
 
   public static Pool getPool() throws IndyException, InterruptedException, ExecutionException {

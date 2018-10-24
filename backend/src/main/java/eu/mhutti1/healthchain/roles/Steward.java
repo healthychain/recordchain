@@ -23,14 +23,7 @@ public class Steward extends Role{
   }
 
   public Steward(Pool pool, Role role) throws IndyException, ExecutionException, InterruptedException {
-
-    System.out.println("Create a Steward\n");
-
-    this.wallet = new IndyWallet().getWallet();
-
-    DidResults.CreateAndStoreMyDidResult stewardResult = Did.createAndStoreMyDid(this.wallet, "{}").get();
-    this.did = stewardResult.getDid();
-    this.verKey = stewardResult.getVerkey();
+    super();
 
     System.out.println("Steward DID: " + this.did + " Steward Verkey: " + this.verKey);
     System.out.println("Build NYM request to add Trust Anchor to the ledger\n");

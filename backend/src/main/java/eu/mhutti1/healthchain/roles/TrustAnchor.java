@@ -19,19 +19,12 @@ import static org.hyperledger.indy.sdk.ledger.Ledger.signAndSubmitRequest;
 public class TrustAnchor extends Role{
 
   public TrustAnchor(Pool pool, Role role) throws IndyException, ExecutionException, InterruptedException {
-
-    this.wallet = new IndyWallet().getWallet();
-
-    System.out.println("Create DID for Trust Anchor\n");
-
-    DidResults.CreateAndStoreMyDidResult trustAnchorResult = Did.createAndStoreMyDid(wallet, "{}").get();
-    this.did = trustAnchorResult.getDid();
-    this.verKey = trustAnchorResult.getVerkey();
+    super();
 
     System.out.println("Trust anchor DID: " + this.did + " Trust anchor Verkey: " + this.verKey);
     System.out.println("Build NYM request to add Trust Anchor to the ledger\n");
 
-    String nymRequest = buildNymRequest(role.getDid(), trustAnchorResult.getDid(), trustAnchorResult.getVerkey(), null, Constants.TRUST_ANCHOR).get();
+    String nymRequest = buildNymRequest(role.getDid(), this.did, this.verKey, null, Constants.TRUST_ANCHOR).get();
 
     System.out.println("NYM request JSON:\n" + nymRequest);
 
