@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Media } from "reactstrap";
+import PropTypes from "prop-types";
 import "./PatientView.css";
 
 class PatientView extends Component {
@@ -21,6 +21,7 @@ class PatientView extends Component {
       <div className="patient-view-column">
         {" "}
         <img
+          alt="patient"
           className="patient-img"
           src="http://www.rw-designer.com/icon-image/14771-256x256x32.png"
         />
@@ -41,6 +42,9 @@ class PatientView extends Component {
     </div>
   );
 }
-// } = props => <div>NOTHING YET NI🅱️️️️🅱️A </div>;
+
+PatientView.propTypes = {
+  patient: PropTypes.object.isRequired
+};
 
 export default PatientView;

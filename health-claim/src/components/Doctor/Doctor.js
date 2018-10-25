@@ -26,7 +26,7 @@ export default class Doctor extends Component {
   patientSuggestion = patient => {
     const { name, id } = patient;
     return (
-      <div>
+      <div key={id}>
         <DropdownItem
           onClick={() => {
             this.selectPatient(patient);

@@ -13,7 +13,7 @@ export class App extends React.PureComponent {
         <Router>
           <Switch>
             <Route path="/" exact component={Login} />
-            <Route path="/claim" exact component={Claim} />
+            <Route path="/patient" exact component={Claim} />
             <Route path="/doctor" exact component={Doctor} />
             <Route path="/login" exact component={Login} />
             {/* Finally, catch all unmatched routes */}

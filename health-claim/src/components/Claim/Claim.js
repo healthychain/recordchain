@@ -12,7 +12,7 @@ export default class Claim extends Component {
     return (
       <div className="health-records">
         {records.map(record => (
-          <div>
+          <div key={record.title}>
             <RecordCard record={record} onClick={this.handleClick} />
           </div>
         ))}
