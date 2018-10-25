@@ -20,10 +20,10 @@ public class IdentityOwner extends Role{
   public IdentityOwner(Pool pool, Role role) throws InterruptedException, ExecutionException, IndyException {
     super();
 
-    System.out.println("User DID: " + this.did + " User Verkey: " + this.verKey);
+    System.out.println("User DID: " + this.getDid() + " User Verkey: " + this.getVerKey());
     System.out.println("Build NYM request to add User to the ledger\n");
 
-    String nymRequest = buildNymRequest(role.getDid(), this.did, this.verKey, null, Constants.IDENTITY_OWNER).get();
+    String nymRequest = buildNymRequest(role.getDid(), this.getDid(), this.getVerKey(), null, Constants.IDENTITY_OWNER).get();
 
     System.out.println("NYM request JSON:\n" + nymRequest);
 

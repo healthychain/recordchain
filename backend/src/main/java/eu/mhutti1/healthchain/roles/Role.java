@@ -16,12 +16,14 @@ import static org.hyperledger.indy.sdk.ledger.Ledger.signAndSubmitRequest;
  * Created by jedraz on 24/10/2018.
  */
 public abstract class Role {
-  public Wallet wallet;
-  public String did;
-  public String verKey;
+  private Wallet wallet;
+  private IndyWallet indyWallet;
+  private String did;
+  private String verKey;
 
   public Role() throws InterruptedException, ExecutionException, IndyException {
-    this.wallet = new IndyWallet().getWallet();
+    this.indyWallet = new IndyWallet();
+    this.wallet = indyWallet.getWallet();
     DidResults.CreateAndStoreMyDidResult result = Did.createAndStoreMyDid(this.wallet, "{}").get();
     this.did = result.getDid();
     this.verKey = result.getVerkey();
@@ -41,6 +43,14 @@ public abstract class Role {
     System.out.println("\nSending the SCHEMA request to the ledger\n");
     String schemaResponse = signAndSubmitRequest(pool, this.wallet, this.did, schemaRequest).get();
     System.out.println("Schema response:\n" + schemaResponse);
+  }
+
+  public void closeWallet() throws IndyException, ExecutionException, InterruptedException {
+    wallet.closeWallet().get();
+  }
+
+  public void deleteWallet() throws IndyException, ExecutionException, InterruptedException {
+    Wallet.deleteWallet(indyWallet.getWalletConfig(), indyWallet.getWalletCred()).get();
   }
 
   public Wallet getWallet() {

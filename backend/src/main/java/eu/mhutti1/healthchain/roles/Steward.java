@@ -25,14 +25,14 @@ public class Steward extends Role{
   public Steward(Pool pool, Role role) throws IndyException, ExecutionException, InterruptedException {
     super();
 
-    System.out.println("Steward DID: " + this.did + " Steward Verkey: " + this.verKey);
+    System.out.println("Steward DID: " + this.getDid() + " Steward Verkey: " + this.getVerKey());
     System.out.println("Build NYM request to add Trust Anchor to the ledger\n");
 
-    String nymRequest = buildNymRequest(role.getDid(), this.did, this.verKey, null, Constants.STEWARD).get();
+    String nymRequest = buildNymRequest(role.getDid(), this.getDid(), this.getVerKey(), null, Constants.STEWARD).get();
 
     System.out.println("NYM request JSON:\n" + nymRequest);
 
-    String nymResponseJson = signAndSubmitRequest(pool, role.getWallet(), this.did, nymRequest).get();
+    String nymResponseJson = signAndSubmitRequest(pool, role.getWallet(), this.getDid(), nymRequest).get();
     System.out.println("NYM transaction response:\n" + nymResponseJson);
   }
 }
