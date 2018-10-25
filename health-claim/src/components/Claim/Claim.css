@@ -1,0 +1,46 @@
+.record-text {
+  font-size: 1em;
+  align-self: flex-start;
+  margin-top: 2em;
+  margin-left: 3em;
+}
+
+.bar {
+  background-color: black;
+  width: 70em;
+  height: 0.07em;
+  margin-top: 4em;
+  margin-right: 9em;
+}
+
+.make-claim {
+  margin-left: 4em;
+  margin-top: 1em;
+}
+
+.records-button {
+  text-align: end;
+  margin-top: 1em;
+  margin-right: 19em;
+}
+
+.record-select {
+  margin: auto;
+}
+
+.health-records {
+  justify-self: center;
+  align-self: center;
+  display: flex;
+  margin: 0 auto;
+  width: 60em;
+  margin-top: 3em;
+}
+
+.claim-button {
+  margin-top: 7em;
+  align-self: flex-end;
+  background: linear-gradient(#0076ba, #56c1ff);
+  margin-top: 3em;
+  margin-left: 60em;
+}
