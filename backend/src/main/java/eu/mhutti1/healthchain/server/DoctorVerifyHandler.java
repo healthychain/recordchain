@@ -15,11 +15,11 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by jedraz on 25/10/2018.
  */
-public class PatientVerifyHandler implements HttpHandler {
+public class DoctorVerifyHandler implements HttpHandler {
 
   private Pool pool;
 
-  public PatientVerifyHandler(Pool pool) {
+  public DoctorVerifyHandler(Pool pool) {
     this.pool = pool;
   }
 
@@ -40,8 +40,8 @@ public class PatientVerifyHandler implements HttpHandler {
     String response = "";
 
     try {
-      Wallet patientWallet = IndyWallet.openWallet(walletId, key);
-      patientWallet.closeWallet();
+      Wallet doctorWallet = IndyWallet.openWallet(walletId, key);
+      doctorWallet.closeWallet();
       response = "Account verified!";
       httpExchange.sendResponseHeaders(200, response.length());
     } catch (IndyException e) {

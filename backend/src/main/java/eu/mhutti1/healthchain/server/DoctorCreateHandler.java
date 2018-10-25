@@ -3,33 +3,26 @@ package eu.mhutti1.healthchain.server;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.roles.IdentityOwner;
-import eu.mhutti1.healthchain.roles.Role;
+import eu.mhutti1.healthchain.roles.Steward;
 import eu.mhutti1.healthchain.roles.TrustAnchor;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.pool.Pool;
 import org.hyperledger.indy.sdk.wallet.Wallet;
-import org.hyperledger.indy.sdk.wallet.WalletAlreadyOpenedException;
-import org.hyperledger.indy.sdk.wallet.WalletExistsException;
-import org.hyperledger.indy.sdk.wallet.WalletItemAlreadyExistsException;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import static eu.mhutti1.healthchain.constants.Constants.WALLET_CONFIG;
-import static eu.mhutti1.healthchain.constants.Constants.WALLET_CREDS;
-
 /**
  * Created by jedraz on 25/10/2018.
  */
-public class PatientCreateHandler implements HttpHandler {
+public class DoctorCreateHandler implements HttpHandler{
 
   private Pool pool;
 
-  public PatientCreateHandler(Pool pool) {
+  public DoctorCreateHandler(Pool pool) {
     this.pool = pool;
   }
 
@@ -57,16 +50,16 @@ public class PatientCreateHandler implements HttpHandler {
       String walletId = String.valueOf(password.concat(username).hashCode());
       String key = String.valueOf(password.hashCode());
 
-      //trust anchor
-      TrustAnchor doctor = new TrustAnchor(
+      // steward
+      Steward steward = new Steward(
               issuerWallet,
               issuerDid,
               null);
 
-      IdentityOwner newIdentityOwner = new IdentityOwner(pool, doctor, walletId, key);
+      TrustAnchor newTrustAnchor = new TrustAnchor(pool, steward, walletId, key);
 
       issuerWallet.closeWallet();
-      newIdentityOwner.closeWallet();
+      newTrustAnchor.closeWallet();
 
       response = "Account created";
       httpExchange.sendResponseHeaders(200, response.length());

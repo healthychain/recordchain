@@ -15,6 +15,8 @@ public class Server {
     HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
     server.createContext("/patient_create", new PatientCreateHandler(pool));
     server.createContext("/patient_verify", new PatientVerifyHandler(pool));
+    server.createContext("/doctor_create", new DoctorCreateHandler(pool));
+    server.createContext("/doctor_verify", new PatientVerifyHandler(pool));
     server.setExecutor(null); // creates a default executor
     server.start();
   }
