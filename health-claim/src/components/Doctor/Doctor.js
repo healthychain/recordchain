@@ -6,7 +6,6 @@ import {
   DropdownItem
 } from "reactstrap";
 import "./Doctor.css";
-import PatientView from "./PatientView";
 import Header from "../Header/Header";
 import PatientViewContainer from "../../containers/PatientViewContainer";
 
@@ -15,12 +14,10 @@ class Doctor extends Component {
     super(props);
 
     this.state = {
-      dropdownOpen: false,
-      selectedPatient: null
+      dropdownOpen: false
     };
 
     this.patientSuggestion = this.patientSuggestion.bind(this);
-    this.selectPatient = this.selectPatient.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
@@ -30,7 +27,7 @@ class Doctor extends Component {
       <div key={id}>
         <DropdownItem
           onClick={() => {
-            this.selectPatient(patient);
+            this.props.selectPatient({ id, name });
           }}
         >
           {name + " - ID" + id}
@@ -39,8 +36,11 @@ class Doctor extends Component {
     );
   };
 
-  selectPatient(patient) {
-    this.setState({ selectedPatient: patient });
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      this.props.id !== nextProps.id ||
+      this.state.dropdownOpen !== nextState.dropdownOpen
+    );
   }
 
   toggleDropdown() {
@@ -56,8 +56,6 @@ class Doctor extends Component {
       { name: "Jeorrej Olasxzu", id: 3 }
     ];
 
-    const { selectedPatient } = this.state;
-
     return (
       <div>
         <Header />
@@ -66,9 +64,10 @@ class Doctor extends Component {
             className="search-main"
             isOpen={this.state.dropdownOpen}
             toggle={this.toggleDropdown}
+            onClick={() => this.toggleDropdown()}
           >
             <DropdownToggle block color="primary" className="search-main" caret>
-              {selectedPatient ? selectedPatient.name : "Select a patient"}
+              {this.props.name ? this.props.name : "Select a patient"}
             </DropdownToggle>
             <DropdownMenu className="search-main">
               {mockPatients.map(this.patientSuggestion)}
@@ -76,11 +75,11 @@ class Doctor extends Component {
           </ButtonDropdown>
         </div>
         <div className="patient-display">
-          {this.state.selectedPatient ? (
+          {this.props.id ? (
             <PatientViewContainer
-              name={this.state.selectedPatient.name}
-              id={this.state.selectedPatient.id}
-              birthDate={this.state.selectedPatient.birthDate}
+              name={this.props.name}
+              id={this.props.id}
+              birthDate={this.props.birthDate}
             />
           ) : (
             <div>No patient selected</div>

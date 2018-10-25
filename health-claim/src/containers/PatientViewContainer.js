@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import PatientView from "../components/Doctor/PatientView";
-import { fetchClaims } from "../actions/fetchPatientClaims";
+import fetchClaims from "../actions/fetchPatientClaims";
 
 const mapStateToProps = (state, props) => ({
   ...props,

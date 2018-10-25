@@ -6,10 +6,11 @@ import { createLogger } from "redux-logger";
 // redux logger dev tools
 
 import fetchPatientClaims from "./reducers/fetchPatientClaims";
+import selectPatient from "./reducers/selectPatient";
 
 const loggerMiddleware = createLogger();
 
-const reducer = combineReducers({ fetchPatientClaims });
+const reducer = combineReducers({ fetchPatientClaims, selectPatient });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

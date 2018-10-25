@@ -1,4 +1,5 @@
 import { apiEndpoint } from "../apiEndpoint";
+import fetchPatientClaims from "../reducers/fetchPatientClaims";
 
 export const FETCH_CLAIMS_BEGIN = "FETCH_CLAIMS_BEGIN";
 export const FETCH_CLAIMS_SUCCESS = "FETCH_CLAIMS_SUCCESS";
@@ -16,7 +17,7 @@ export const fetchClaimsSuccess = claims => ({
   payload: { claims }
 });
 
-export function fetchClaims(patientID) {
+function fetchClaims(patientID) {
   return dispatch => {
     dispatch(fetchClaimsBegin());
     return fetch(`${apiEndpoint}/patients-claims/${patientID}`)
@@ -36,3 +37,5 @@ const handleErrors = response => {
   }
   return response;
 };
+
+export default fetchClaims;

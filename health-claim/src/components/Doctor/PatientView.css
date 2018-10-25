@@ -8,6 +8,7 @@
 }
 .patient-view-column {
   padding: 20px;
+  justify-content: center;
   flex-direction: column;
   align-content: center;
   width: 50%;

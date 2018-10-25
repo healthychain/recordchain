@@ -4,7 +4,6 @@ import "./PatientView.css";
 
 class PatientView extends Component {
   componentDidMount() {
-    console.log("Did mount");
     const { id } = this.props;
     this.props.fetchClaims(id);
   }
@@ -40,9 +39,9 @@ class PatientView extends Component {
               </h4>
             </div>
             <div className="patient-view-column">
-              {this.props.claims.map(
-                claim => (console.log(claim), <p>{claim.title}</p>)
-              )}
+              {this.props.claims.map(claim => (
+                <p>{claim.title}</p>
+              ))}
             </div>
           </div>
         )}
