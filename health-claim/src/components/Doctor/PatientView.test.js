@@ -5,7 +5,7 @@ import PatientView from "./PatientView";
 describe("PatientView", () => {
   it("should render given name and ID", () => {
     const patient = renderer.create(
-      <PatientView patient={{ name: "Name", id: 10 }} />
+      <PatientView name="Name" id={10} fetchClaims={() => null} />
     );
     expect(patient).toMatchSnapshot();
   });
