@@ -18,6 +18,11 @@ import static org.hyperledger.indy.sdk.ledger.Ledger.signAndSubmitRequest;
  */
 public class TrustAnchor extends Role{
 
+  public TrustAnchor(Wallet wallet, String did, String verKey) {
+    super(wallet, did, verKey);
+  }
+
+
   public TrustAnchor(Pool pool, Role role) throws IndyException, ExecutionException, InterruptedException {
     super();
 

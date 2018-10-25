@@ -11,6 +11,7 @@ import eu.mhutti1.healthchain.roles.IdentityOwner;
 import eu.mhutti1.healthchain.roles.Steward;
 import eu.mhutti1.healthchain.roles.TrustAnchor;
 import eu.mhutti1.healthchain.schema.HealthRecord;
+import eu.mhutti1.healthchain.server.Server;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
@@ -26,8 +27,8 @@ public class Main {
 
 
   public static void main(String[] args) throws Exception {
-
     Pool pool = getPool();
+
     Wallet wallet = getWallet();
 
     //this is hardcoded steward from genesis transaction file
@@ -35,59 +36,63 @@ public class Main {
     DidResults.CreateAndStoreMyDidResult stewardResult = Did.createAndStoreMyDid(wallet, did_json).get();
 
     Steward steward = new Steward(wallet, stewardResult.getDid(), stewardResult.getVerkey());
-    TrustAnchor doctor = new TrustAnchor(pool, steward);
 
-    IdentityOwner patient = new IdentityOwner(pool, doctor);
-
-    String getNymRequest = buildGetNymRequest(patient.getDid(), doctor.getDid()).get();
-    String getNymResponse = submitRequest(pool, getNymRequest).get();
-
-    String responseData = new JSONObject(getNymResponse).getJSONObject("result").getString("data");
-    String trustAnchorVerkeyFromLedger = new JSONObject(responseData).getString("verkey");
-
-    System.out.println("Written by Steward: " + doctor.getVerKey());
-    System.out.println("Queried from Ledger: " + trustAnchorVerkeyFromLedger);
-
-//    steward.buildAndSubmitSchema(pool, new HealthRecord().getSchemaDataJSON());
-
-    String masterSecretId = "master_secret";
-
-    // Issuer create CredentialDef
-    String credDefJSON = "{\"seqNo\": 1, \"dest\": \"" + patient.getDid() + "\", \"data\": " + new HealthRecord().getSchemaDataJSON() + "}";
-    System.out.println("Cred Def JSON:\n" + credDefJSON);
-    AnoncredsResults.IssuerCreateAndStoreCredentialDefResult credDef = issuerCreateAndStoreCredentialDef(doctor.getWallet(), doctor.getDid(), new HealthRecord().getSchemaDataJSON(), "cred_def_tag","CL", "{\"support_revocation\": false}").get();
-    System.out.println("Returned Cred Definition:\n" + credDef);
-
-    // Prover create Master Secret
-    Anoncreds.proverCreateMasterSecret(patient.getWallet(), masterSecretId).get();
-
-    // Issuer create Credential Offer
-    String credOfferJSON = Anoncreds.issuerCreateCredentialOffer(doctor.getWallet(), credDef.getCredDefId()).get();
-    System.out.println("Claim Offer:\n" + credOfferJSON);
-
-    // Prover create CredentialReq
-    System.out.println("\nProver creates credential Request\n");
-    AnoncredsResults.ProverCreateCredentialRequestResult createCredReqResult = Anoncreds.proverCreateCredentialReq(patient.getWallet(), patient.getDid(), credOfferJSON,
-            credDef.getCredDefJson(), masterSecretId).get();
+    new Server(pool);
 
 
-    String GVT_CRED_VALUES = "{\n" +
-            "        \"sex\": {\"raw\": \"male\", \"encoded\": \"5944657099558967239210949258394887428692050081607692519917050\"},\n" +
-            "        \"name\": {\"raw\": \"Alex\", \"encoded\": \"1139481716457488690172217916278103335\"},\n" +
-            "        \"height\": {\"raw\": \"175\", \"encoded\": \"175\"},\n" +
-            "        \"age\": {\"raw\": \"28\", \"encoded\": \"28\"}\n" +
-            "    }";
+//    TrustAnchor doctor = new TrustAnchor(pool, steward);
+//
+//    IdentityOwner patient = new IdentityOwner(pool, doctor);
+//
+//    String getNymRequest = buildGetNymRequest(patient.getDid(), doctor.getDid()).get();
+//    String getNymResponse = submitRequest(pool, getNymRequest).get();
+//
+//    String responseData = new JSONObject(getNymResponse).getJSONObject("result").getString("data");
+//    String trustAnchorVerkeyFromLedger = new JSONObject(responseData).getString("verkey");
+//
+//    System.out.println("Written by Steward: " + doctor.getVerKey());
+//    System.out.println("Queried from Ledger: " + trustAnchorVerkeyFromLedger);
+//
+////    steward.buildAndSubmitSchema(pool, new HealthRecord().getSchemaDataJSON());
+//
+//    String masterSecretId = "master_secret";
+//
+//    // Issuer create CredentialDef
+//    String credDefJSON = "{\"seqNo\": 1, \"dest\": \"" + patient.getDid() + "\", \"data\": " + new HealthRecord().getSchemaDataJSON() + "}";
+//    System.out.println("Cred Def JSON:\n" + credDefJSON);
+//    AnoncredsResults.IssuerCreateAndStoreCredentialDefResult credDef = issuerCreateAndStoreCredentialDef(doctor.getWallet(), doctor.getDid(), new HealthRecord().getSchemaDataJSON(), "cred_def_tag","CL", "{\"support_revocation\": false}").get();
+//    System.out.println("Returned Cred Definition:\n" + credDef);
+//
+//    // Prover create Master Secret
+//    Anoncreds.proverCreateMasterSecret(patient.getWallet(), masterSecretId).get();
+//
+//    // Issuer create Credential Offer
+//    String credOfferJSON = Anoncreds.issuerCreateCredentialOffer(doctor.getWallet(), credDef.getCredDefId()).get();
+//    System.out.println("Claim Offer:\n" + credOfferJSON);
+//
+//    // Prover create CredentialReq
+//    System.out.println("\nProver creates credential Request\n");
+//    AnoncredsResults.ProverCreateCredentialRequestResult createCredReqResult = Anoncreds.proverCreateCredentialReq(patient.getWallet(), patient.getDid(), credOfferJSON,
+//            credDef.getCredDefJson(), masterSecretId).get();
 
-    // Issuer create Credential
-    AnoncredsResults.IssuerCreateCredentialResult createCredentialResult =
-            Anoncreds.issuerCreateCredential(doctor.getWallet(), credOfferJSON, createCredReqResult.getCredentialRequestJson(),
-                    GVT_CRED_VALUES, null, - 1).get();
-    String credential = createCredentialResult.getCredentialJson();
-
-    // Prover store Credential
-    Anoncreds.proverStoreCredential(patient.getWallet(), "id1", createCredReqResult.getCredentialRequestMetadataJson(), credential, credDef.getCredDefJson(), null).get();
-
-    System.out.println("Credentials issued successfully");
+//
+//    String GVT_CRED_VALUES = "{\n" +
+//            "        \"sex\": {\"raw\": \"male\", \"encoded\": \"5944657099558967239210949258394887428692050081607692519917050\"},\n" +
+//            "        \"name\": {\"raw\": \"Alex\", \"encoded\": \"1139481716457488690172217916278103335\"},\n" +
+//            "        \"height\": {\"raw\": \"175\", \"encoded\": \"175\"},\n" +
+//            "        \"age\": {\"raw\": \"28\", \"encoded\": \"28\"}\n" +
+//            "    }";
+//
+//    // Issuer create Credential
+//    AnoncredsResults.IssuerCreateCredentialResult createCredentialResult =
+//            Anoncreds.issuerCreateCredential(doctor.getWallet(), credOfferJSON, createCredReqResult.getCredentialRequestJson(),
+//                    GVT_CRED_VALUES, null, - 1).get();
+//    String credential = createCredentialResult.getCredentialJson();
+//
+//    // Prover store Credential
+//    Anoncreds.proverStoreCredential(patient.getWallet(), "id1", createCredReqResult.getCredentialRequestMetadataJson(), credential, credDef.getCredDefJson(), null).get();
+//
+//    System.out.println("Credentials issued successfully");
 
 //    // Prover gets Credentials for Proof Request
 //    String proofRequestJson = new JSONObject("{" +
@@ -143,15 +148,15 @@ public class Main {
 
 
     steward.closeWallet();
-    Wallet.deleteWallet(WALLET_CONFIG, WALLET_CREDS).get();
-    doctor.closeWallet();
-    doctor.deleteWallet();
-    patient.closeWallet();
-    patient.deleteWallet();
+//    Wallet.deleteWallet(WALLET_CONFIG, WALLET_CREDS).get();
+//    doctor.closeWallet();
+//    doctor.deleteWallet();
+//    patient.closeWallet();
+//    patient.deleteWallet();
 
     //housekeeping
-    pool.closePoolLedger().get();
-    Pool.deletePoolLedgerConfig(POOL_NAME).get();
+//    pool.closePoolLedger().get();
+//    Pool.deletePoolLedgerConfig(POOL_NAME).get();
 
 
   }

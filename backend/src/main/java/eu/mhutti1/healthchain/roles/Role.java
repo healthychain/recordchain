@@ -29,6 +29,16 @@ public abstract class Role {
     this.verKey = result.getVerkey();
   }
 
+
+  public Role(String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
+    this.indyWallet = new IndyWallet(walletId, walletKey);
+    this.wallet = indyWallet.getWallet();
+    DidResults.CreateAndStoreMyDidResult result = Did.createAndStoreMyDid(this.wallet, "{}").get();
+    this.did = result.getDid();
+    this.verKey = result.getVerkey();
+
+  }
+
   public Role(Wallet wallet, String did, String verKey) {
     this.wallet = wallet;
     this.did = did;
