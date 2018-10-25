@@ -8,8 +8,9 @@ import {
 import "./Doctor.css";
 import PatientView from "./PatientView";
 import Header from "../Header/Header";
+import PatientViewContainer from "../../containers/PatientViewContainer";
 
-export default class Doctor extends Component {
+class Doctor extends Component {
   constructor(props) {
     super(props);
 
@@ -48,16 +49,9 @@ export default class Doctor extends Component {
     });
   }
 
-  async componentDidMount() {
-    this.setState({ isLoading: false });
-  }
-
   render() {
     const mockPatients = [
-      {
-        name: "John Cena",
-        id: 1
-      },
+      { name: "John Cena", id: 1 },
       { name: "Andrej Kiska", id: 2 },
       { name: "Jeorrej Olasxzu", id: 3 }
     ];
@@ -83,7 +77,11 @@ export default class Doctor extends Component {
         </div>
         <div className="patient-display">
           {this.state.selectedPatient ? (
-            <PatientView patient={this.state.selectedPatient} />
+            <PatientViewContainer
+              name={this.state.selectedPatient.name}
+              id={this.state.selectedPatient.id}
+              birthDate={this.state.selectedPatient.birthDate}
+            />
           ) : (
             <div>No patient selected</div>
           )}
@@ -92,3 +90,5 @@ export default class Doctor extends Component {
     );
   }
 }
+
+export default Doctor;
