@@ -1,0 +1,35 @@
+.Box {
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.01), 0 8px 32px -8px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  padding: 48px;
+}
+.Box__NP {
+  padding: 0;
+}
+.Flex__Double {
+  width: 100%;
+  display: flex;
+}
+.Flex__Separator {
+  flex: 3 !important;
+}
+.Flex__Half {
+  flex: 2;
+  padding: 42px;
+}
+.Flex__Grey {
+  background: #f7faff;
+}
+.Page__Halftitle {
+  margin-top: 0;
+}
+.Page__Pretitle {
+  margin-top: 32px;
+}
+.Flex__Half .Page__Text {
+  color: #151719;
+  line-height: 1.4;
+  margin-bottom: 24px;
+  margin-top: 12px;
+}
