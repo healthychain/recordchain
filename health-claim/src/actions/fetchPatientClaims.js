@@ -1,4 +1,5 @@
 import { apiEndpoint } from "../apiEndpoint";
+import fetchPatientClaims from "../reducers/fetchPatientClaims";
 
 export const FETCH_CLAIMS_BEGIN = "FETCH_CLAIMS_BEGIN";
 export const FETCH_CLAIMS_SUCCESS = "FETCH_CLAIMS_SUCCESS";
