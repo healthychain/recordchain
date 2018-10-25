@@ -6,20 +6,18 @@ import {
   DropdownItem
 } from "reactstrap";
 import "./Doctor.css";
-import PatientView from "./PatientView";
 import Header from "../Header/Header";
+import PatientViewContainer from "../../containers/PatientViewContainer";
 
-export default class Doctor extends Component {
+class Doctor extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      dropdownOpen: false,
-      selectedPatient: null
+      dropdownOpen: false
     };
 
     this.patientSuggestion = this.patientSuggestion.bind(this);
-    this.selectPatient = this.selectPatient.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
@@ -29,7 +27,7 @@ export default class Doctor extends Component {
       <div key={id}>
         <DropdownItem
           onClick={() => {
-            this.selectPatient(patient);
+            this.props.selectPatient({ id, name });
           }}
         >
           {name + " - ID" + id}
@@ -38,8 +36,11 @@ export default class Doctor extends Component {
     );
   };
 
-  selectPatient(patient) {
-    this.setState({ selectedPatient: patient });
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      this.props.id !== nextProps.id ||
+      this.state.dropdownOpen !== nextState.dropdownOpen
+    );
   }
 
   toggleDropdown() {
@@ -48,22 +49,12 @@ export default class Doctor extends Component {
     });
   }
 
-  async componentDidMount() {
-    this.setState({ isLoading: false });
-  }
-
   render() {
     const mockPatients = [
-      {
-        name: "John Cena",
-        id: 10101010101010,
-        birthDate: new Date(1977, 23, 4)
-      },
-      { name: "Andrej Kiska", id: 69696969696969 },
-      { name: "Jeorrej Olasxzu", id: 15151515151515 }
+      { name: "John Cena", id: 1 },
+      { name: "Andrej Kiska", id: 2 },
+      { name: "Jeorrej Olasxzu", id: 3 }
     ];
-
-    const { selectedPatient } = this.state;
 
     return (
       <div>
@@ -73,9 +64,10 @@ export default class Doctor extends Component {
             className="search-main"
             isOpen={this.state.dropdownOpen}
             toggle={this.toggleDropdown}
+            onClick={() => this.toggleDropdown()}
           >
             <DropdownToggle block color="primary" className="search-main" caret>
-              {selectedPatient ? selectedPatient.name : "Select a patient"}
+              {this.props.name ? this.props.name : "Select a patient"}
             </DropdownToggle>
             <DropdownMenu className="search-main">
               {mockPatients.map(this.patientSuggestion)}
@@ -83,8 +75,12 @@ export default class Doctor extends Component {
           </ButtonDropdown>
         </div>
         <div className="patient-display">
-          {this.state.selectedPatient ? (
-            <PatientView patient={this.state.selectedPatient} />
+          {this.props.id ? (
+            <PatientViewContainer
+              name={this.props.name}
+              id={this.props.id}
+              birthDate={this.props.birthDate}
+            />
           ) : (
             <div>No patient selected</div>
           )}
@@ -93,3 +89,5 @@ export default class Doctor extends Component {
     );
   }
 }
+
+export default Doctor;

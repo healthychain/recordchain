@@ -31,6 +31,7 @@ exports[`Doctor should render correctly with mocked records 1`] = `
   >
     <div
       className="search-main btn-group"
+      onClick={[Function]}
       onKeyDown={[Function]}
     >
       <button
@@ -56,7 +57,7 @@ exports[`Doctor should render correctly with mocked records 1`] = `
             tabIndex="0"
             type="button"
           >
-            John Cena - ID10101010101010
+            John Cena - ID1
           </button>
         </div>
         <div>
@@ -66,7 +67,7 @@ exports[`Doctor should render correctly with mocked records 1`] = `
             tabIndex="0"
             type="button"
           >
-            Andrej Kiska - ID69696969696969
+            Andrej Kiska - ID2
           </button>
         </div>
         <div>
@@ -76,7 +77,7 @@ exports[`Doctor should render correctly with mocked records 1`] = `
             tabIndex="0"
             type="button"
           >
-            Jeorrej Olasxzu - ID15151515151515
+            Jeorrej Olasxzu - ID3
           </button>
         </div>
       </div>
