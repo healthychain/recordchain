@@ -3,6 +3,11 @@
 # dependencies
 /node_modules
 
+# flask
+/backend/api/flask
+/backend/api/__pycache__
+
+
 # testing
 /coverage
 
