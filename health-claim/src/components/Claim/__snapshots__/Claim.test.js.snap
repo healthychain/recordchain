@@ -29,7 +29,7 @@ exports[`Claim should render correctly with mocked records 1`] = `
     </div>
   </div>
   <div
-    class="record-select"
+    className="record-select"
   >
     <h4
       className="record-text"
@@ -41,8 +41,9 @@ exports[`Claim should render correctly with mocked records 1`] = `
     >
       <div>
         <div
-          className="card card"
+          className="card"
           onClick={[Function]}
+          style={null}
         >
           <div
             className="card-body"
@@ -69,8 +70,9 @@ exports[`Claim should render correctly with mocked records 1`] = `
       </div>
       <div>
         <div
-          className="card card"
+          className="card"
           onClick={[Function]}
+          style={null}
         >
           <div
             className="card-body"
@@ -97,8 +99,9 @@ exports[`Claim should render correctly with mocked records 1`] = `
       </div>
       <div>
         <div
-          className="card card"
+          className="card"
           onClick={[Function]}
+          style={null}
         >
           <div
             className="card-body"
@@ -136,6 +139,12 @@ exports[`Claim should render correctly with mocked records 1`] = `
       </button>
     </div>
   </div>
+  <h5
+    className="record"
+  >
+     Record number 
+     
+  </h5>
   <div
     className="bar"
   >
@@ -144,19 +153,67 @@ exports[`Claim should render correctly with mocked records 1`] = `
   <div
     className="make-claim"
   >
-    <h5>
-       Make a claim 
-    </h5>
-    <text>
-       Choose the type of your claim: 
-    </text>
+    Make a claim about your record
+    <div
+      className="search btn-group"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+    >
+      <button
+        aria-expanded={false}
+        aria-haspopup={true}
+        aria-label={null}
+        className="btn btn-primary"
+        onClick={[Function]}
+        type="button"
+      >
+        Select a claim type
+      </button>
+      <div
+        aria-hidden={true}
+        className="dropdown-menu"
+        role="menu"
+        tabIndex="-1"
+      >
+        <div>
+          <button
+            className="dropdown-item"
+            onClick={[Function]}
+            tabIndex="0"
+            type="button"
+          >
+            Age
+          </button>
+        </div>
+        <div>
+          <button
+            className="dropdown-item"
+            onClick={[Function]}
+            tabIndex="0"
+            type="button"
+          >
+            Hearth
+          </button>
+        </div>
+        <div>
+          <button
+            className="dropdown-item"
+            onClick={[Function]}
+            tabIndex="0"
+            type="button"
+          >
+            Height
+          </button>
+        </div>
+      </div>
+    </div>
+    <button
+      aria-label={null}
+      className="claim-button btn btn-secondary"
+      onClick={[Function]}
+    >
+      Post claim
+    </button>
   </div>
-  <button
-    aria-label={null}
-    className="claim-button btn btn-secondary"
-    onClick={[Function]}
-  >
-    Post claim
-  </button>
 </div>
 `;

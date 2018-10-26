@@ -47,7 +47,7 @@ exports[`App should render without crashing 1`] = `
         className="position-relative form-group"
       >
         <legend>
-          Please select
+          Radio Buttons
         </legend>
         <div
           className="position-relative form-check"
@@ -57,10 +57,12 @@ exports[`App should render without crashing 1`] = `
           >
             <input
               className="form-check-input"
-              name="doctor"
+              id="doctor"
+              name="radio1"
               onChange={[Function]}
               type="radio"
             />
+             
             Doctor
           </label>
         </div>
@@ -72,30 +74,34 @@ exports[`App should render without crashing 1`] = `
           >
             <input
               className="form-check-input"
-              name="patient"
+              id="patient"
+              name="radio1"
               onChange={[Function]}
               type="radio"
             />
+             
             Patient
           </label>
         </div>
         <div
-          className="position-relative form-check"
+          className="position-relative form-check disabled"
         >
           <label
             className="form-check-label"
           >
             <input
               className="form-check-input"
-              name="insuranceCompany"
+              id="insuranceCompany"
+              name="radio1"
               onChange={[Function]}
               type="radio"
             />
+             
             Insurance Company
           </label>
         </div>
       </fieldset>
-      <div
+      <fieldset
         className="position-relative form-group"
       >
         <legend
@@ -110,7 +116,7 @@ exports[`App should render without crashing 1`] = `
           placeholder="Write your email or your ID"
           type="email"
         />
-      </div>
+      </fieldset>
       <div
         className="position-relative form-group"
       >

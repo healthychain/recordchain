@@ -21,7 +21,7 @@ export default class LoginForm extends React.Component {
 
     handleIdentitySelection = event => {
         this.setState({
-            user: event.target.name
+            user: event.target.id
         });
     };
 
@@ -29,34 +29,34 @@ export default class LoginForm extends React.Component {
     handleSubmit = async event => {
         event.preventDefault();
         this.setState({ isLoading: true });
-        this.props.loginHandler({user: this.state.user});
+        this.props.loginHandler({ user: this.state.user });
     };
 
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
                 <FormGroup tag="fieldset">
-                    <legend>Please select</legend>
+                    <legend>Radio Buttons</legend>
                     <FormGroup check>
                         <Label check>
-                            <Input type="radio" name="doctor" onChange={this.handleIdentitySelection} /> 
+                            <Input type="radio" name="radio1" id="doctor" onChange={this.handleIdentitySelection} />{' '}
                             Doctor
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                            <Input type="radio" name="patient" onChange={this.handleIdentitySelection} />
+                            <Input type="radio" name="radio1" id="patient" onChange={this.handleIdentitySelection} />{' '}
                             Patient
                         </Label>
                     </FormGroup>
-                    <FormGroup check>
+                    <FormGroup check disabled>
                         <Label check>
-                            <Input type="radio" name="insuranceCompany" onChange={this.handleIdentitySelection} />
+                            <Input type="radio" name="radio1" id="insuranceCompany" onChange={this.handleIdentitySelection} />{' '}
                             Insurance Company
                         </Label>
                     </FormGroup>
                 </FormGroup>
-                <FormGroup>
+                <FormGroup tag="fieldset" >
                     <legend for="exampleEmail">Email or OpenID</legend>
                     <Input type="email" name="email" id="exampleEmail" placeholder="Write your email or your ID" />
                 </FormGroup>

@@ -1,11 +1,16 @@
 .record-select {
-  padding-top: 10px;
+  align-content: center;
+  margin: 0 auto;
+  margin-top: 3em;
 }
 
-.search-main {
-  width: 100%;
+.search-button {
+  margin-top: 3em;
+  width: 13em;
+  height: 2.2em;
+  background-color:rgb(151, 198, 230);
 }
 
 .patient-display {
-  padding-top: 10px;
+  margin-top: 2em;
 }
