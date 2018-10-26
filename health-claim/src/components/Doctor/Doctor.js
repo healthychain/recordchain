@@ -58,7 +58,6 @@ class Doctor extends Component {
 
     return (
       <div>
-        <Header />
         <div className="record-select">
           <ButtonDropdown
             className="search-main"

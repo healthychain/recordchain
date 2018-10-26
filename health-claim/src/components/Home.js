@@ -35,7 +35,7 @@ export default class Home extends Component {
                 Create your account now to keep your medical records safe.
               </p>
               <p className="Page__Text">
-                <LinkButton to="/current" className="Button Button__Secondary">
+                <LinkButton to="/register" className="Button Button__Secondary">
                   Sign up
                 </LinkButton>
               </p>
