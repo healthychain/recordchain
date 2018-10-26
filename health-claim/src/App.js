@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "./components/Login/Login";
 import Claim from "./components/Claim/Claim";
 import NotFound from "./components/NotFound/NotFound";
 import Home from "./components/Home";
 import "./App.scss";
 import DoctorContainer from "./containers/DoctorContainer";
-import LoginForm from "./components/Login/LoginForm";
+import LoginFormContainer from "./containers/LoginFormContainer";
+import RegisterFormContainer from "./containers/RegisterFormContainer";
 
 export class App extends React.PureComponent {
   render() {
@@ -29,12 +29,17 @@ export class App extends React.PureComponent {
               <Route
                 path="/login-doctor"
                 exact
-                render={() => <LoginForm userType="Doctor" />}
+                render={() => <LoginFormContainer userType="Doctor" />}
               />
               <Route
                 path="/login-patient"
                 exact
-                render={() => <LoginForm userType="Patient" />}
+                render={() => <LoginFormContainer userType="Patient" />}
+              />
+              <Route
+                path="/register"
+                exact
+                render={() => <RegisterFormContainer />}
               />
               <Route path="/patient" exact component={Claim} />
               <Route path="/doctor" exact component={DoctorContainer} />

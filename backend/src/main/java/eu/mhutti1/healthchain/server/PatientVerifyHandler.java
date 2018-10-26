@@ -43,6 +43,7 @@ public class PatientVerifyHandler implements HttpHandler {
       Wallet patientWallet = IndyWallet.openWallet(walletId, key);
       patientWallet.closeWallet();
       response = "Account verified!";
+      httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
       httpExchange.sendResponseHeaders(200, response.length());
     } catch (IndyException e) {
       e.printStackTrace();

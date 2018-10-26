@@ -41,6 +41,7 @@ public class DoctorCreateHandler implements HttpHandler{
     String issuerWalletKey = params.get("issuer_wallet_key");
 
     String response = "";
+    httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
 
     try {
@@ -62,6 +63,7 @@ public class DoctorCreateHandler implements HttpHandler{
       newTrustAnchor.closeWallet();
 
       response = "Account created";
+
       httpExchange.sendResponseHeaders(200, response.length());
 
 
