@@ -1,12 +1,20 @@
 .patient-view-container {
   display: flex;
   flex-direction: row;
+  border-color:#0076ba;
+  border-width: 0.1em;
+  border-style: solid;
+  width: 70em;
+  height: 20em;
+  margin-top: 5em;
+
 }
 
 .patient-img {
   width: 150px;
 }
 .patient-view-column {
+  border-left: 0.8em solid black;
   padding: 20px;
   justify-content: center;
   flex-direction: column;
