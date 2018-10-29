@@ -7,7 +7,7 @@ export default class Home extends Component {
   render() {
     return (
       <>
-        <h3 className="Page__Pretitle">Welcome</h3>
+        <h3 className="Page__Title">Welcome</h3>
         <Box nopad>
           <div className="Flex__Double">
             <div className="Flex__Half Flex__Grey Flex__Separator">
