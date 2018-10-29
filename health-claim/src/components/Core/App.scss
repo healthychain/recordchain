@@ -4,14 +4,17 @@
 html {
   background: #f2f2f2;
 }
+.Body {
+  background: #f2f2f2;
+}
+
 .Main {
   max-width: 960px;
-  // margin: 60px auto;
   margin: 0 auto;
   padding-bottom: 96px;
 }
 .Page__Title {
-  margin-top: 1.67em;
+  padding-top: 1.67em;
   margin-bottom: 0.33em;
   position: relative;
   display: block;
@@ -19,7 +22,7 @@ html {
     float: right;
     position: absolute;
     font-size: 0.67em;
-    margin-top: 0.51em;
+    padding-top: 0.51em;
     line-height: 1;
     right: 0;
     opacity: 0.7;
