@@ -7,7 +7,4 @@ import org.hyperledger.indy.sdk.pool.Pool;
  */
 public class DoctorVerifyHandler extends VerifyHandler {
 
-  public DoctorVerifyHandler(Pool pool) {
-    super(pool);
-  }
 }

@@ -5,7 +5,6 @@ import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
 import org.hyperledger.indy.sdk.IndyException;
-import org.hyperledger.indy.sdk.pool.Pool;
 import org.hyperledger.indy.sdk.wallet.Wallet;
 
 import java.io.IOException;
@@ -17,12 +16,6 @@ import java.util.concurrent.ExecutionException;
  * Created by jedraz on 29/10/2018.
  */
 public abstract class VerifyHandler implements HttpHandler {
-
-  public Pool pool;
-
-  public VerifyHandler(Pool pool) {
-    this.pool = pool;
-  }
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {

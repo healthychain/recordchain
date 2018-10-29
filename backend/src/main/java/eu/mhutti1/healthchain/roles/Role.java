@@ -1,5 +1,6 @@
 package eu.mhutti1.healthchain.roles;
 
+import eu.mhutti1.healthchain.constants.IndyPool;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.did.Did;
@@ -45,13 +46,13 @@ public abstract class Role {
     this.verKey = verKey;
   }
 
-  public void buildAndSubmitSchema(Pool pool, String schemaJSON) throws IndyException, ExecutionException, InterruptedException {
+  public void buildAndSubmitSchema(String schemaJSON) throws IndyException, ExecutionException, InterruptedException {
     System.out.println("Schema: " + schemaJSON);
     String schemaRequest = buildSchemaRequest(this.did, schemaJSON).get();
     System.out.println("Schema request:\n" + schemaRequest);
 
     System.out.println("\nSending the SCHEMA request to the ledger\n");
-    String schemaResponse = signAndSubmitRequest(pool, this.wallet, this.did, schemaRequest).get();
+    String schemaResponse = signAndSubmitRequest(IndyPool.getPoolInstance(), this.wallet, this.did, schemaRequest).get();
     System.out.println("Schema response:\n" + schemaResponse);
   }
 
