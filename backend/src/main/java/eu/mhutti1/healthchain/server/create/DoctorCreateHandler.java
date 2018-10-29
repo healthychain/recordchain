@@ -15,19 +15,14 @@ import java.util.concurrent.ExecutionException;
  */
 public class DoctorCreateHandler extends CreateHandler{
 
-
-  public DoctorCreateHandler(Pool pool) {
-    super(pool);
-  }
-
   @Override
   public Role createVerifier(Wallet wallet, String did, String verKey) {
     return new Steward(wallet, did, verKey);
   }
 
   @Override
-  public Role createAccountHolder(Pool pool, Role role, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
-    return new TrustAnchor(pool, role, walletId, walletKey);
+  public Role createAccountHolder(Role role, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
+    return new TrustAnchor(role, walletId, walletKey);
   }
 
 

@@ -1,6 +1,7 @@
 package eu.mhutti1.healthchain.roles;
 
 import eu.mhutti1.healthchain.constants.Constants;
+import eu.mhutti1.healthchain.constants.IndyPool;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.did.Did;
@@ -22,7 +23,7 @@ public class TrustAnchor extends Role{
     super(wallet, did, verKey);
   }
 
-  public TrustAnchor(Pool pool, Role role, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
+  public TrustAnchor(Role role, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
     super(walletId, walletKey);
     System.out.println("Trust anchor DID: " + this.getDid() + " Trust anchor Verkey: " + this.getVerKey());
     System.out.println("Build NYM request to add Trust Anchor to the ledger\n");
@@ -31,12 +32,12 @@ public class TrustAnchor extends Role{
 
     System.out.println("NYM request JSON:\n" + nymRequest);
 
-    String nymResponseJson = signAndSubmitRequest(pool, role.getWallet(), role.getDid(), nymRequest).get();
+    String nymResponseJson = signAndSubmitRequest(IndyPool.getPoolInstance(), role.getWallet(), role.getDid(), nymRequest).get();
     System.out.println("NYM transaction response:\n" + nymResponseJson);
   }
 
 
-  public TrustAnchor(Pool pool, Role role) throws IndyException, ExecutionException, InterruptedException {
+  public TrustAnchor(Role role) throws IndyException, ExecutionException, InterruptedException {
     super();
 
     System.out.println("Trust anchor DID: " + this.getDid() + " Trust anchor Verkey: " + this.getVerKey());
@@ -46,7 +47,7 @@ public class TrustAnchor extends Role{
 
     System.out.println("NYM request JSON:\n" + nymRequest);
 
-    String nymResponseJson = signAndSubmitRequest(pool, role.getWallet(), role.getDid(), nymRequest).get();
+    String nymResponseJson = signAndSubmitRequest(IndyPool.getPoolInstance(), role.getWallet(), role.getDid(), nymRequest).get();
     System.out.println("NYM transaction response:\n" + nymResponseJson);
 
   }
