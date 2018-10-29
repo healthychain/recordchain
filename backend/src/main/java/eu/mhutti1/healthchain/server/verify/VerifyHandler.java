@@ -31,28 +31,29 @@ public abstract class VerifyHandler implements HttpHandler {
     String walletId = String.valueOf(password.concat(username).hashCode());
     String key = String.valueOf(password.hashCode());
 
-    String response = "";
+    String response = "Account verified";
+    int responseCode = 200;
 
     try {
       Wallet wallet = IndyWallet.openWallet(walletId, key);
       wallet.closeWallet();
-      response = "Account verified";
-      httpExchange.sendResponseHeaders(200, response.length());
     } catch (IndyException e) {
       response = "No such account";
-      httpExchange.sendResponseHeaders(204, response.length());
+      responseCode = 400;
     } catch (ExecutionException e) {
       response = "No such account";
-      httpExchange.sendResponseHeaders(204, response.length());
+      responseCode = 400;
     } catch (InterruptedException e) {
       e.printStackTrace();
       response = "Internal server error";
-      httpExchange.sendResponseHeaders(500, response.length());
-    } finally {
-      OutputStream os = httpExchange.getResponseBody();
-      os.write(response.getBytes());
-      os.close();
+      responseCode = 400;
     }
+
+    httpExchange.sendResponseHeaders(responseCode, response.length());
+    OutputStream os = httpExchange.getResponseBody();
+    os.write(response.getBytes());
+    os.close();
+
   }
 
 }
