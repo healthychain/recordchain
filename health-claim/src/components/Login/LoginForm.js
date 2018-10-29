@@ -12,7 +12,6 @@ export default class LoginForm extends Component {
   }
 
   handleChange(event) {
-    console.log(this.state);
     this.setState({ [event.target.name]: event.target.value });
   }
 
@@ -60,12 +59,11 @@ export default class LoginForm extends Component {
 
             <input
               type="submit"
-              value="Submit"
+              value="Log in"
               className="Button Button__Green"
             />
           </form>
         </Box>
-        <button onClick={() => this.props.login("test", "testpass")} />
       </>
     );
   }

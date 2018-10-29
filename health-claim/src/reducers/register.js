@@ -13,7 +13,7 @@ const initialState = {
 const register = (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_BEGIN:
-      return { ...state, loading: true, error: null };
+      return { ...state, loading: true, error: null, success: false };
     case REGISTER_ERROR:
       return {
         ...state,
