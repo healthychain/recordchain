@@ -1,10 +1,10 @@
-package eu.mhutti1.healthchain.server;
+package eu.mhutti1.healthchain.server.create;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import eu.mhutti1.healthchain.roles.IdentityOwner;
-import eu.mhutti1.healthchain.roles.Steward;
+import eu.mhutti1.healthchain.roles.Role;
 import eu.mhutti1.healthchain.roles.TrustAnchor;
+import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.pool.Pool;
@@ -16,18 +16,24 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Created by jedraz on 25/10/2018.
+ * Created by jedraz on 29/10/2018.
  */
-public class DoctorCreateHandler implements HttpHandler{
+public abstract class CreateHandler implements HttpHandler {
 
   private Pool pool;
 
-  public DoctorCreateHandler(Pool pool) {
+  public CreateHandler(Pool pool) {
     this.pool = pool;
   }
 
+  public abstract Role createVerifier(Wallet wallet, String did, String verKey);
+
+  public abstract Role createAccountHolder(Pool pool, Role role, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException;
+
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
+
+    httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
     String query = httpExchange.getRequestURI().getQuery();
     Map<String, String> params = RequestUtils.queryToMap(query);
@@ -35,48 +41,35 @@ public class DoctorCreateHandler implements HttpHandler{
     String password = params.get("password");
     String username = params.get("username");
 
-    // issuer credentials
     String issuerDid = params.get("issuer_did");
     String issuerWalletId = params.get("issuer_wallet_id");
     String issuerWalletKey = params.get("issuer_wallet_key");
 
     String response = "";
-    httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
-
 
     try {
       Wallet issuerWallet = IndyWallet.openWallet(issuerWalletId, issuerWalletKey);
 
-      // new user credentials
       String walletId = String.valueOf(password.concat(username).hashCode());
       String key = String.valueOf(password.hashCode());
 
-      // steward
-      Steward steward = new Steward(
-              issuerWallet,
-              issuerDid,
-              null);
-
-      TrustAnchor newTrustAnchor = new TrustAnchor(pool, steward, walletId, key);
+      Role accountHolder = createAccountHolder(pool, createVerifier(issuerWallet, issuerDid, null), walletId, key);
 
       issuerWallet.closeWallet();
-      newTrustAnchor.closeWallet();
+      accountHolder.closeWallet();
 
       response = "Account created";
-
       httpExchange.sendResponseHeaders(200, response.length());
-
-
-
     } catch (IndyException e) {
-      response = "Couldn't load trust anchor credentials";
-      httpExchange.sendResponseHeaders(500, response.length());
+      response = "Error creating the account";
+      httpExchange.sendResponseHeaders(204, response.length());
     } catch (ExecutionException e) {
-      response = "Given account already exists";
-      httpExchange.sendResponseHeaders(500, response.length());
-      e.printStackTrace();
+      response = "Error creating the account";
+      httpExchange.sendResponseHeaders(204, response.length());
     } catch (InterruptedException e) {
       e.printStackTrace();
+      response = "Internal server error";
+      httpExchange.sendResponseHeaders(500, response.length());
     } finally {
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
