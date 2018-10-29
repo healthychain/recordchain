@@ -23,6 +23,10 @@ public class IndyPool {
     return pool;
   }
 
+  public static void initlaizePool() throws InterruptedException, ExecutionException, IndyException {
+    pool = createPool();
+  }
+
   private static Pool createPool() throws IndyException, ExecutionException, InterruptedException {
     Pool.setProtocolVersion(Constants.PROTOCOL_VERSION);
     try {

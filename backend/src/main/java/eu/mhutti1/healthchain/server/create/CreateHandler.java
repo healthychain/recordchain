@@ -37,9 +37,8 @@ public abstract class CreateHandler implements HttpHandler {
     String issuerWalletId = params.get("issuer_wallet_id");
     String issuerWalletKey = params.get("issuer_wallet_key");
 
-    String response = "";
-
-
+    String response = "Account created";
+    int responseCode = 200;
 
     Wallet issuerWallet = null;
     Role accountHolder = null;
@@ -50,17 +49,18 @@ public abstract class CreateHandler implements HttpHandler {
       issuerWallet = IndyWallet.openWallet(issuerWalletId, issuerWalletKey);
     } catch (IndyException e) {
       response = "Authority credentials invalid";
-      httpExchange.sendResponseHeaders(204, response.length());
+      responseCode = 400;
     } catch (ExecutionException e) {
       response = "Authority credentials invalid";
-      httpExchange.sendResponseHeaders(204, response.length());
+      responseCode = 400;
     } catch (InterruptedException e) {
       e.printStackTrace();
       response = "Internal server error";
-      httpExchange.sendResponseHeaders(500, response.length());
+      responseCode = 500;
     }
 
     if(issuerWallet == null) {
+      httpExchange.sendResponseHeaders(responseCode, response.length());
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
       os.close();
@@ -71,32 +71,36 @@ public abstract class CreateHandler implements HttpHandler {
       accountHolder = createAccountHolder(createVerifier(issuerWallet, issuerDid, null), walletId, key);
     } catch (IndyException e) {
       response = "Error creating the account";
-      httpExchange.sendResponseHeaders(204, response.length());
+      responseCode = 400;
     } catch (ExecutionException e) {
       response = "Error creating the account";
-      httpExchange.sendResponseHeaders(204, response.length());
+      responseCode = 400;
     } catch (InterruptedException e) {
       e.printStackTrace();
       response = "Internal server error";
-      httpExchange.sendResponseHeaders(500, response.length());
-    } finally {
-      try {
-        issuerWallet.closeWallet();
-      } catch (IndyException e) {
-        e.printStackTrace();
-        response = "Internal server error";
-        httpExchange.sendResponseHeaders(500, response.length());
-      }
+      responseCode = 500;
+    }
+
+    try {
+      issuerWallet.closeWallet();
+    } catch (IndyException e) {
+      e.printStackTrace();
+      response = "Internal server error";
+      responseCode = 500;
+    }
+
+    if(accountHolder != null) {
       try {
         accountHolder.closeWallet();
       } catch (Exception e) {
-        e.printStackTrace();
         response = "Internal server error";
-        httpExchange.sendResponseHeaders(500, response.length());
+        responseCode = 500;
       }
-      OutputStream os = httpExchange.getResponseBody();
-      os.write(response.getBytes());
-      os.close();
     }
+
+    httpExchange.sendResponseHeaders(responseCode, response.length());
+    OutputStream os = httpExchange.getResponseBody();
+    os.write(response.getBytes());
+    os.close();
   }
 }
