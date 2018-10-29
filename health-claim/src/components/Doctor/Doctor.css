@@ -10,6 +10,7 @@
   margin-top: 3em;
   width: 13em;
   height: 2.2em;
+  color: black;
 }
 
 .bg-search-button {
@@ -19,8 +20,6 @@
   border-color: #0076ba;;
   border-width: 0.07em;
   border-style: solid;
-  align-left: 9em;
-
 }
 
 .bg-search-button:hover {

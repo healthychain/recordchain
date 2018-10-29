@@ -25,7 +25,7 @@ class Doctor extends Component {
     const { name, id } = patient;
     return (
       <div key={id}>
-        <DropdownItem 
+        <DropdownItem
           onClick={() => {
             this.props.selectPatient({ id, name });
           }}
@@ -66,7 +66,7 @@ class Doctor extends Component {
             onClick={() => this.toggleDropdown()}
           >
             <DropdownToggle block caret className="search-button bg-search-button">
-              {this.props.name ? this.props.name : "Select a patient"}
+              {this.props.name || "Select a patient"}
             </DropdownToggle>
             <DropdownMenu className="bg-search-button">
               {mockPatients.map(this.patientSuggestion)}
@@ -81,8 +81,8 @@ class Doctor extends Component {
               birthDate={this.props.birthDate}
             />
           ) : (
-            <div>No patient selected</div>
-          )}
+              <div>No patient selected</div>
+            )}
         </div>
       </div>
     );
