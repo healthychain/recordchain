@@ -61,15 +61,14 @@ class Doctor extends Component {
         <Header />
         <div className="record-select">
           <ButtonDropdown
-            className="search-main"
             isOpen={this.state.dropdownOpen}
             toggle={this.toggleDropdown}
             onClick={() => this.toggleDropdown()}
           >
-            <DropdownToggle block color="primary" className="search-main" caret>
-              {this.props.name ? this.props.name : "Select a patient"}
+            <DropdownToggle block caret className="search-button bg-search-button">
+              {this.props.name || "Select a patient"}
             </DropdownToggle>
-            <DropdownMenu className="search-main">
+            <DropdownMenu className="bg-search-button">
               {mockPatients.map(this.patientSuggestion)}
             </DropdownMenu>
           </ButtonDropdown>
@@ -82,8 +81,8 @@ class Doctor extends Component {
               birthDate={this.props.birthDate}
             />
           ) : (
-            <div>No patient selected</div>
-          )}
+              <div>No patient selected</div>
+            )}
         </div>
       </div>
     );

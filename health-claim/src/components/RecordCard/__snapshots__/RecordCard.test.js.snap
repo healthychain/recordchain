@@ -2,8 +2,9 @@
 
 exports[`RecordCard should render correctly 1`] = `
 <div
-  className="card card"
+  className="card"
   onClick={[Function]}
+  style={null}
 >
   <div
     className="card-body"
@@ -31,7 +32,8 @@ exports[`RecordCard should render correctly 1`] = `
 
 exports[`RecordCard should render without onClick prop 1`] = `
 <div
-  className="card card"
+  className="card"
+  style={null}
 >
   <div
     className="card-body"
