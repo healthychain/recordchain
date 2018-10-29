@@ -8,7 +8,4 @@ import org.hyperledger.indy.sdk.pool.Pool;
  */
 public class PatientVerifyHandler extends VerifyHandler {
 
-  public PatientVerifyHandler(Pool pool) {
-    super(pool);
-  }
 }

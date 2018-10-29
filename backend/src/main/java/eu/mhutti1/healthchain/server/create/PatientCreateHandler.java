@@ -16,18 +16,13 @@ import java.util.concurrent.ExecutionException;
  */
 public class PatientCreateHandler extends CreateHandler {
 
-
-  public PatientCreateHandler(Pool pool) {
-    super(pool);
-  }
-
   @Override
   public Role createVerifier(Wallet wallet, String did, String verKey) {
     return new TrustAnchor(wallet, did, verKey);
   }
 
   @Override
-  public Role createAccountHolder(Pool pool, Role role, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
-    return new IdentityOwner(pool, role, walletId, walletKey);
+  public Role createAccountHolder(Role role, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
+    return new IdentityOwner(role, walletId, walletKey);
   }
 }
