@@ -74,7 +74,7 @@ public class Main {
 //    System.out.println("\nProver creates credential Request\n");
 //    AnoncredsResults.ProverCreateCredentialRequestResult createCredReqResult = Anoncreds.proverCreateCredentialReq(patient.getWallet(), patient.getDid(), credOfferJSON,
 //            credDef.getCredDefJson(), masterSecretId).get();
-
+//
 //
 //    String GVT_CRED_VALUES = "{\n" +
 //            "        \"sex\": {\"raw\": \"male\", \"encoded\": \"5944657099558967239210949258394887428692050081607692519917050\"},\n" +
@@ -174,12 +174,12 @@ public class Main {
 
     }
 
-    System.out.println("\n2. Open pool ledger and get the pool handle from libindy.\n");
+    System.out.println("Open pool ledger and get the pool handle from libindy.\n");
     return Pool.openPoolLedger(POOL_NAME, "{}").get();
   }
 
   public static Wallet getWallet() throws IndyException, ExecutionException, InterruptedException {
-    System.out.println("\n3. Creates a new identity wallet\n");
+    System.out.println("Creates a new identity wallet.\n");
     try {
       Wallet.createWallet(WALLET_CONFIG, WALLET_CREDS).get();
     } catch (ExecutionException e) {
@@ -187,7 +187,7 @@ public class Main {
       Wallet.createWallet(WALLET_CONFIG, WALLET_CREDS).get();
     }
 
-    System.out.println("\n4. Open identity wallet and get the wallet handle from libindy\n");
+    System.out.println("Open identity wallet and get the wallet handle from libindy.\n");
     return Wallet.openWallet(WALLET_CONFIG, WALLET_CREDS).get();
   }
 
