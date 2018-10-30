@@ -33,7 +33,7 @@ public class CredentialRequestHandler implements HttpHandler {
 
 
     // Prover create CredentialReq
-    System.out.println("\nProver creates credential Request\n");
+//    System.out.println("\nProver creates credential Request\n");
 //    AnoncredsResults.ProverCreateCredentialRequestResult createCredReqResult = Anoncreds.proverCreateCredentialReq(proverWallet, proverDid, credOfferJSON,
 //            credDef.getCredDefJson(), masterSecret).get();
 
