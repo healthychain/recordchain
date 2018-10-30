@@ -9,19 +9,24 @@
   background-color: black;
   width: 70em;
   height: 0.07em;
-  margin-top: 4em;
   margin-right: 9em;
 }
 
 .make-claim {
-  margin-left: 4em;
-  margin-top: 1em;
+  margin-left: 2em;
+  margin-top: 2em;
+  align-content: flex-end;
 }
 
 .records-button {
   text-align: end;
   margin-top: 1em;
   margin-right: 19em;
+}
+
+.record {
+  text-align: center;
+  margin-top: 2em;
 }
 
 .record-select {
@@ -37,10 +42,23 @@
   margin-top: 3em;
 }
 
+.search {
+  width: 11em;
+  height: 2.3em;
+  border-color:  black;
+  border-width: 3em;
+  margin-left: 0.2em;
+}
+
 .claim-button {
   margin-top: 7em;
   align-self: flex-end;
   background: linear-gradient(#0076ba, #56c1ff);
   margin-top: 3em;
   margin-left: 60em;
+}
+
+.claim {
+  margin-top: 1em;
+  align-content: flex-end;
 }

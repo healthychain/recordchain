@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+
 /**
  * Created by jedraz on 29/10/2018.
  */
@@ -79,6 +80,5 @@ public class CredentialRequestHandler implements HttpHandler {
     OutputStream os = httpExchange.getResponseBody();
     os.write(response.getBytes());
     os.close();
-
   }
 }

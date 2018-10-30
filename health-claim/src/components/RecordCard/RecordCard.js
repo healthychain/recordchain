@@ -4,9 +4,11 @@ import "./RecordCard.css";
 import { Card, CardText, CardBody, CardTitle, Button } from "reactstrap";
 
 const RecordCard = props => {
-  const { record, onClick } = props;
+  const { record, onClick, isSelected } = props;
+
+  const style = isSelected ? {borderColor: "#FFFF00"} : null;
   return (
-    <Card className="card" onClick={onClick}>
+    <Card onClick={onClick} style={style}>
       <CardBody>
         <CardTitle>{record.title}</CardTitle>
         <CardText>{record.description}</CardText>

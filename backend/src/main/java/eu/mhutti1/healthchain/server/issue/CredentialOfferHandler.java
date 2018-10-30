@@ -132,6 +132,5 @@ public class CredentialOfferHandler implements HttpHandler {
     OutputStream os = httpExchange.getResponseBody();
     os.write(response.getBytes());
     os.close();
-
   }
 }

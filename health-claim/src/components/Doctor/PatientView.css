@@ -1,15 +1,42 @@
 .patient-view-container {
   display: flex;
   flex-direction: row;
+  border-color:#0076ba;
+  border-width: 0.1em;
+  border-style: solid;
+  width: 60em;
+  margin-top: 5em;
+  border-radius: 2em;
+}
+
+.claim-title {
+ color: #0076ba;
+ size: 1.5em;
+ margin-top: 0.7em;
+ margin-left: 0.1em;
+}
+
+.claim-table {
+  margin-left: 1em;
+}
+
+.info {
+  border-right: 0.05em solid #0076ba; 
+  justify-content: center;
+  width: 17em;
+  margin: 0 auto;
 }
 
 .patient-img {
-  width: 150px;
+  width: 140px;
+  padding: 20px;
+  padding-bottom: 50px;
 }
 .patient-view-column {
+  border-radius: 3em;
   padding: 20px;
+  padding-left: 50px;
   justify-content: center;
   flex-direction: column;
   align-content: center;
-  width: 50%;
 }
