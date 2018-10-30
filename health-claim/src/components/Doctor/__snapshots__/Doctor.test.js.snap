@@ -6,7 +6,7 @@ exports[`Doctor should render correctly with mocked records 1`] = `
     className="record-select"
   >
     <div
-      className="search-main btn-group"
+      className="btn-group"
       onClick={[Function]}
       onKeyDown={[Function]}
     >
@@ -14,7 +14,7 @@ exports[`Doctor should render correctly with mocked records 1`] = `
         aria-expanded={false}
         aria-haspopup={true}
         aria-label={null}
-        className="search-main dropdown-toggle btn btn-primary btn-block"
+        className="search-button bg-search-button dropdown-toggle btn btn-secondary btn-block"
         onClick={[Function]}
         type="button"
       >
@@ -22,7 +22,7 @@ exports[`Doctor should render correctly with mocked records 1`] = `
       </button>
       <div
         aria-hidden={true}
-        className="search-main dropdown-menu"
+        className="bg-search-button dropdown-menu"
         role="menu"
         tabIndex="-1"
       >
