@@ -1,0 +1,26 @@
+.Button {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 4px;
+  height: 48px;
+  border: none;
+  box-shadow: none;
+  font-weight: 600;
+  &.Button__Green {
+    background: #2cbd69;
+    color: #fff;
+  }
+  &.Button__Red {
+    background: #e91e63;
+    color: #fff;
+  }
+  &.Button__Secondary {
+    background: #eee;
+    color: rgba(48, 94, 212, 1);
+  }
+  &.Button__Disabled {
+    background: #eee;
+    color: #999;
+    cursor: not-allowed;
+  }
+}

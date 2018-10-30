@@ -2,30 +2,6 @@
 
 exports[`Doctor should render correctly with mocked records 1`] = `
 <div>
-  <div>
-    <nav
-      className="navbar navbar navbar-expand-md navbar-light"
-    >
-      <ul
-        className="nav"
-      >
-        <li
-          className="nav-item"
-        >
-           
-          <img
-            alt="logo"
-            src="./icon.png"
-          />
-        </li>
-        <li
-          className="header nav-item"
-        >
-          HEALTH CLAIMS
-        </li>
-      </ul>
-    </nav>
-  </div>
   <div
     className="record-select"
   >

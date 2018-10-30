@@ -7,10 +7,17 @@ import { createLogger } from "redux-logger";
 
 import fetchPatientClaims from "./reducers/fetchPatientClaims";
 import selectPatient from "./reducers/selectPatient";
+import login from "./reducers/login";
+import register from "./reducers/register";
 
 const loggerMiddleware = createLogger();
 
-const reducer = combineReducers({ fetchPatientClaims, selectPatient });
+const reducer = combineReducers({
+  fetchPatientClaims,
+  selectPatient,
+  login,
+  register
+});
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

@@ -3,7 +3,7 @@ import Box from "../UI/Containers";
 import "./LoginForm.scss";
 import { Redirect } from "react-router-dom";
 
-export default class LoginForm extends Component {
+export default class RegisterForm extends Component {
   constructor(props) {
     super(props);
 
@@ -16,22 +16,22 @@ export default class LoginForm extends Component {
   }
 
   handleSubmit(event) {
-    this.props.login(this.state.username, this.state.password);
+    this.props.register(this.state.username, this.state.password);
     event.stopPropagation();
     event.preventDefault();
   }
 
   render() {
     if (this.props.loginSuccess) {
-      return <Redirect to="/doctor" />;
+      return <Redirect to="/register-success" />;
     } else if (this.props.error) {
-      return <h1>Error</h1>;
+      return <Redirect to="/register-failure" />;
     } else if (this.props.loading) {
       return <h1>Loading</h1>;
     }
     return (
       <>
-        <h1 className="Page__Title">{`${this.props.userType} Login`}</h1>
+        <h1 className="Page__Title">Sign up</h1>
         <Box>
           <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
             <label className="Input__Label" htmlFor="username">
@@ -59,7 +59,7 @@ export default class LoginForm extends Component {
 
             <input
               type="submit"
-              value="Log in"
+              value="Sign up"
               className="Button Button__Green"
             />
           </form>

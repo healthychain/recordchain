@@ -8,7 +8,8 @@ const mapStateToProps = (state, props) => ({
   ...props,
   id: state.selectPatient.selectedPatientID,
   name: state.selectPatient.selectedPatientName,
-  birthDate: state.selectPatient.selectedPatientBirthDate
+  birthDate: state.selectPatient.selectedPatientBirthDate,
+  loggedIn: state.login.success
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

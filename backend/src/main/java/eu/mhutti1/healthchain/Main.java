@@ -6,28 +6,24 @@ import static org.hyperledger.indy.sdk.ledger.Ledger.*;
 
 import java.util.concurrent.ExecutionException;
 
-import eu.mhutti1.healthchain.constants.Constants;
+import eu.mhutti1.healthchain.constants.IndyPool;
 import eu.mhutti1.healthchain.roles.IdentityOwner;
 import eu.mhutti1.healthchain.roles.Steward;
 import eu.mhutti1.healthchain.roles.TrustAnchor;
-import eu.mhutti1.healthchain.schema.HealthRecord;
+import eu.mhutti1.healthchain.constants.HealthRecord;
 import eu.mhutti1.healthchain.server.Server;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
 import org.hyperledger.indy.sdk.did.Did;
 import org.hyperledger.indy.sdk.did.DidResults;
-import org.hyperledger.indy.sdk.pool.Pool;
-import org.hyperledger.indy.sdk.pool.PoolJSONParameters;
 import org.hyperledger.indy.sdk.wallet.Wallet;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Main {
 
 
   public static void main(String[] args) throws Exception {
-    Pool pool = getPool();
 
     Wallet wallet = getWallet();
 
@@ -37,15 +33,15 @@ public class Main {
 
     Steward steward = new Steward(wallet, stewardResult.getDid(), stewardResult.getVerkey());
 
-    new Server(pool);
+    new Server();
 
 
-//    TrustAnchor doctor = new TrustAnchor(pool, steward);
+//    TrustAnchor doctor = new TrustAnchor(steward);
 //
-//    IdentityOwner patient = new IdentityOwner(pool, doctor);
+//    IdentityOwner patient = new IdentityOwner(doctor);
 //
 //    String getNymRequest = buildGetNymRequest(patient.getDid(), doctor.getDid()).get();
-//    String getNymResponse = submitRequest(pool, getNymRequest).get();
+//    String getNymResponse = submitRequest(IndyPool.getPoolInstance(), getNymRequest).get();
 //
 //    String responseData = new JSONObject(getNymResponse).getJSONObject("result").getString("data");
 //    String trustAnchorVerkeyFromLedger = new JSONObject(responseData).getString("verkey");
@@ -58,7 +54,7 @@ public class Main {
 //    String masterSecretId = "master_secret";
 //
 //    // Issuer create CredentialDef
-//    String credDefJSON = "{\"seqNo\": 1, \"dest\": \"" + patient.getDid() + "\", \"data\": " + new HealthRecord().getSchemaDataJSON() + "}";
+//    String credDefJSON = "{\"seqNo\": 1, \"dest\": \"" + patient.getDid() + "\", \"data\": " + HealthRecord.getSchemaDataJSON() + "}";
 //    System.out.println("Cred Def JSON:\n" + credDefJSON);
 //    AnoncredsResults.IssuerCreateAndStoreCredentialDefResult credDef = issuerCreateAndStoreCredentialDef(doctor.getWallet(), doctor.getDid(), new HealthRecord().getSchemaDataJSON(), "cred_def_tag","CL", "{\"support_revocation\": false}").get();
 //    System.out.println("Returned Cred Definition:\n" + credDef);
@@ -74,7 +70,7 @@ public class Main {
 //    System.out.println("\nProver creates credential Request\n");
 //    AnoncredsResults.ProverCreateCredentialRequestResult createCredReqResult = Anoncreds.proverCreateCredentialReq(patient.getWallet(), patient.getDid(), credOfferJSON,
 //            credDef.getCredDefJson(), masterSecretId).get();
-
+//
 //
 //    String GVT_CRED_VALUES = "{\n" +
 //            "        \"sex\": {\"raw\": \"male\", \"encoded\": \"5944657099558967239210949258394887428692050081607692519917050\"},\n" +
@@ -161,25 +157,8 @@ public class Main {
 
   }
 
-  public static Pool getPool() throws IndyException, InterruptedException, ExecutionException {
-    Pool.setProtocolVersion(Constants.PROTOCOL_VERSION);
-
-    // Tell SDK which pool you are going to use. You should have already started
-    // this pool using docker compose or similar.
-    try {
-      Pool.createPoolLedgerConfig(POOL_NAME, POOL_CONFIG).get();
-    } catch (ExecutionException e) {
-      Pool.deletePoolLedgerConfig(POOL_NAME).get();
-      Pool.createPoolLedgerConfig(POOL_NAME, POOL_CONFIG).get();
-
-    }
-
-    System.out.println("\n2. Open pool ledger and get the pool handle from libindy.\n");
-    return Pool.openPoolLedger(POOL_NAME, "{}").get();
-  }
-
   public static Wallet getWallet() throws IndyException, ExecutionException, InterruptedException {
-    System.out.println("\n3. Creates a new identity wallet\n");
+    System.out.println("Creates a new identity wallet.\n");
     try {
       Wallet.createWallet(WALLET_CONFIG, WALLET_CREDS).get();
     } catch (ExecutionException e) {
@@ -187,7 +166,7 @@ public class Main {
       Wallet.createWallet(WALLET_CONFIG, WALLET_CREDS).get();
     }
 
-    System.out.println("\n4. Open identity wallet and get the wallet handle from libindy\n");
+    System.out.println("Open identity wallet and get the wallet handle from libindy.\n");
     return Wallet.openWallet(WALLET_CONFIG, WALLET_CREDS).get();
   }
 

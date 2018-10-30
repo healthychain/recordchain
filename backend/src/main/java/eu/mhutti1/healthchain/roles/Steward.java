@@ -1,6 +1,7 @@
 package eu.mhutti1.healthchain.roles;
 
 import eu.mhutti1.healthchain.constants.Constants;
+import eu.mhutti1.healthchain.constants.IndyPool;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.did.Did;
@@ -22,17 +23,9 @@ public class Steward extends Role{
     super(wallet, did, verKey);
   }
 
-  public Steward(Pool pool, Role role) throws IndyException, ExecutionException, InterruptedException {
-    super();
-
-    System.out.println("Steward DID: " + this.getDid() + " Steward Verkey: " + this.getVerKey());
-    System.out.println("Build NYM request to add Trust Anchor to the ledger\n");
-
-    String nymRequest = buildNymRequest(role.getDid(), this.getDid(), this.getVerKey(), null, Constants.STEWARD).get();
-
-    System.out.println("NYM request JSON:\n" + nymRequest);
-
-    String nymResponseJson = signAndSubmitRequest(pool, role.getWallet(), this.getDid(), nymRequest).get();
-    System.out.println("NYM transaction response:\n" + nymResponseJson);
+  @Override
+  public String getRole() {
+    return Constants.STEWARD;
   }
+
 }
