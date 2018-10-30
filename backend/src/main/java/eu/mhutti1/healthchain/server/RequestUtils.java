@@ -21,4 +21,28 @@ public class RequestUtils {
     return result;
   }
 
+  public static String messageOK(){
+    return "OK";
+  }
+
+  public static int statusOK() {
+    return 200;
+  }
+
+  public static String messageInternalServerError() {
+    return "Internal Server Error";
+  }
+
+  public static int statuSInternalServerError() {
+    return 500;
+  }
+
+  public static String messageUnauthorized() {
+    return "Unauthorized request";
+  }
+
+  public static int statusUnauthorized() {
+    return 400;
+  }
+
 }
