@@ -12,11 +12,15 @@ Array [
         className="Header__Nav"
       >
         <div
-          className="Header__Logo"
+          className="Header__Layout"
         >
-          HealthClaim
+          <div
+            className="Header__Logo"
+          >
+            HealthClaim
+          </div>
+           
         </div>
-         
       </div>
     </div>
     <div
