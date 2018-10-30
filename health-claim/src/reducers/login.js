@@ -1,4 +1,9 @@
-import { LOGIN_BEGIN, LOGIN_ERROR, LOGIN_SUCCESS } from "../actions/login";
+import {
+  LOGIN_BEGIN,
+  LOGIN_ERROR,
+  LOGIN_SUCCESS,
+  LOGOUT
+} from "../actions/login";
 
 const initialState = {
   success: false,
@@ -22,6 +27,13 @@ const login = (state = initialState, action) => {
         ...state,
         loading: false,
         success: true
+      };
+    }
+    case LOGOUT: {
+      return {
+        ...state,
+        loading: false,
+        success: false
       };
     }
     default:

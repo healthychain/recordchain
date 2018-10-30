@@ -1,23 +1,21 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import LoginForm from "../components/Login/LoginForm";
-import login from "../actions/login";
+import App from "../components/Core/App";
+import { logoutCall } from "../actions/login";
 
 const mapStateToProps = (state, props) => ({
   ...props,
-  loginSuccess: state.login.success,
-  loading: state.login.loading,
-  error: state.login.error
+  loggedIn: state.login.success
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
   ...props,
-  login: (username, password) => dispatch(login(username, password))
+  logout: () => dispatch(logoutCall())
 });
 
 export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(LoginForm)
+  )(App)
 );

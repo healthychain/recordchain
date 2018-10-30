@@ -5,8 +5,8 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import { Redirect } from "react-router-dom";
 import "./Doctor.css";
-import Header from "../Header/Header";
 import PatientViewContainer from "../../containers/PatientViewContainer";
 
 class Doctor extends Component {
@@ -38,6 +38,7 @@ class Doctor extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
+      this.props.loggedIn !== nextProps.loggedIn ||
       this.props.id !== nextProps.id ||
       this.state.dropdownOpen !== nextState.dropdownOpen
     );
@@ -55,6 +56,10 @@ class Doctor extends Component {
       { name: "Andrej Kiska", id: 2 },
       { name: "Jeorrej Olasxzu", id: 3 }
     ];
+
+    if (!this.props.loggedIn) {
+      return <Redirect to="/" />;
+    }
 
     return (
       <div>
