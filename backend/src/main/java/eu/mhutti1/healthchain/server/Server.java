@@ -27,7 +27,7 @@ public class Server {
     server.createContext("/patient_verify", new PatientVerifyHandler());
     server.createContext("/doctor_create", new DoctorCreateHandler());
     server.createContext("/doctor_verify", new DoctorVerifyHandler());
-    server.createContext("/credential_offer", new CredentialOfferHandler());
+    server.createContext("/doctor_credential_offer", new CredentialOfferHandler());
     server.setExecutor(null); // creates a default executor
     server.start();
   }
