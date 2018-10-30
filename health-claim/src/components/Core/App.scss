@@ -49,6 +49,13 @@ html {
   position: relative;
   top: 0;
 }
+.Header__Layout {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .Header__Upper {
   background: rgb(28, 29, 92);
   height: 56px;

@@ -21,14 +21,16 @@ export class App extends React.PureComponent {
           <div className="Header">
             <div className="Header__Upper">
               <div className="Header__Nav">
-                <div className="Header__Logo">HealthClaim</div>{" "}
-                {this.props.loggedIn ? (
-                  <div className="Header__Link">
-                    <Link to="/" onClick={() => this.props.logout()}>
-                      Logout
-                    </Link>
-                  </div>
-                ) : null}
+                <div className="Header__Layout">
+                  <div className="Header__Logo">HealthClaim</div>{" "}
+                  {this.props.loggedIn ? (
+                    <div className="Header__Link">
+                      <Link to="/" onClick={() => this.props.logout()}>
+                        Logout
+                      </Link>
+                    </div>
+                  ) : null}
+                </div>
               </div>
             </div>
             <div className="Header__Lower">
