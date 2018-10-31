@@ -1,30 +1,27 @@
 package eu.mhutti1.healthchain.utils;
 
-import java.math.BigInteger;
-import java.nio.charset.Charset;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  * Created by jedraz on 26/10/2018.
  */
 public class Crypto {
 
-  public static String generateWalletId(String username) throws NoSuchAlgorithmException {
+  public static String generateWalletId(String username) {
     return hashPlainText(username);
   }
 
-  public static String generateWalletKey(String password) throws NoSuchAlgorithmException {
+  public static String generateWalletKey(String password) {
     return hashPlainText(password);
   }
 
-  private static String hashPlainText(String plainText) throws NoSuchAlgorithmException {
-    MessageDigest md = MessageDigest.getInstance("MD5");
-    byte[] array = md.digest(plainText.getBytes(Charset.forName("UTF-8")));
-    StringBuffer sb = new StringBuffer();
-    for (int i = 0; i < array.length; ++i) {
-      sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
-    }
-    return sb.toString();
+  public static String hashPlainText(String plainText) {
+    return DigestUtils.sha1Hex(plainText);
   }
+
+  public static String createToken() {
+    return RandomStringUtils.randomAlphanumeric(32);
+  }
+
 }

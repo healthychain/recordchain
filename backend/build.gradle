@@ -9,6 +9,9 @@ repositories {
     mavenCentral()
     maven {
         url 'https://repo.evernym.com/artifactory/libindy-maven-local'
+        }
+    maven {
+        url 'https://mvnrepository.com/artifact/commons-codec/commons-codec'
     }
 }
 
@@ -16,4 +19,5 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile 'org.hyperledger:indy:1.6.7'
     compile 'org.json:json:20180813'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
 }

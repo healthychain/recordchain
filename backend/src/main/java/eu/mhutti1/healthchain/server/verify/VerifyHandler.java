@@ -3,6 +3,7 @@ package eu.mhutti1.healthchain.server.verify;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.wallet.Wallet;
@@ -31,7 +32,7 @@ public abstract class VerifyHandler implements HttpHandler {
     String walletId = String.valueOf(password.concat(username).hashCode());
     String key = String.valueOf(password.hashCode());
 
-    String response = "Account verified";
+    String response = null;
     int responseCode = 200;
 
     try {
@@ -48,6 +49,8 @@ public abstract class VerifyHandler implements HttpHandler {
       response = "Internal server error";
       responseCode = 400;
     }
+
+    SessionManager.addSession();
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();
