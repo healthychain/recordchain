@@ -7,22 +7,18 @@ export default class QRReaderButton extends React.Component {
     super(props);
 
     this.state = {
-      render: "",
       qrRendered: false,
       buttonText: "Scan doctor's QR Code"
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(compName, e) {
-    console.log(compName);
-    if (compName == "QRReader" && this.state.qrRendered) {
-      this.setState({ render: "NoQRReader" });
+  handleClick(e) {
+    if (this.state.qrRendered) {
       this.setState({ qrRendered: false });
       this.setState({ buttonText: "Scan doctor's QR Code" });
       console.log("Stopping");
     } else {
-      this.setState({ render: compName });
       this.setState({ qrRendered: true });
       this.setState({ buttonText: "Hide" });
       console.log("Starting");
@@ -30,12 +26,10 @@ export default class QRReaderButton extends React.Component {
   }
 
   _renderSubComp() {
-    switch (this.state.render) {
-      case "QRReader":
-        return <QRReader />;
-      case "NOQRReader":
-        return <></>;
+    if (this.state.qrRendered) {
+      return <QRReader />;
     }
+    return <></>;
   }
 
   render() {
@@ -45,7 +39,7 @@ export default class QRReaderButton extends React.Component {
           bsStyle="primary"
           block
           value="QR"
-          onClick={this.handleClick.bind(this, "QRReader")}
+          onClick={this.handleClick.bind(this)}
         >
           {this.state.buttonText}
         </Button>

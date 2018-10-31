@@ -69,7 +69,11 @@ class Doctor extends Component {
             toggle={this.toggleDropdown}
             onClick={() => this.toggleDropdown()}
           >
-            <DropdownToggle block caret className="search-button bg-search-button">
+            <DropdownToggle
+              block
+              caret
+              className="search-button bg-search-button"
+            >
               {this.props.name || "Select a patient"}
             </DropdownToggle>
             <DropdownMenu className="bg-search-button">
@@ -85,8 +89,8 @@ class Doctor extends Component {
               birthDate={this.props.birthDate}
             />
           ) : (
-              <div>No patient selected</div>
-            )}
+            <div>No patient selected</div>
+          )}
         </div>
       </div>
     );

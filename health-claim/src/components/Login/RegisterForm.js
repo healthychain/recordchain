@@ -8,11 +8,8 @@ export default class RegisterForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { render: "" };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(event) {
@@ -24,18 +21,6 @@ export default class RegisterForm extends Component {
     console.log(this.state.username);
     event.stopPropagation();
     event.preventDefault();
-  }
-
-  handleClick(compName, e) {
-    console.log(compName);
-    this.setState({ render: compName });
-  }
-
-  _renderSubComp() {
-    switch (this.state.render) {
-      case "QRReader":
-        return <QRReader />;
-    }
   }
 
   render() {
