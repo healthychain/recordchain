@@ -33,13 +33,14 @@ public abstract class VerifyHandler implements HttpHandler {
 
     String walletId = Crypto.hashPlainText(password.concat(username));
     String walletKey = Crypto.hashPlainText(password);
+    String did = Crypto.getDid(username);
 
-    String response = "";
-    String token = "";
+    String response;
+    String token;
     int responseCode = 200;
 
     try {
-      token = SessionManager.addSession(walletId, walletKey);
+      token = SessionManager.addSession(did, walletId, walletKey);
       response = token;
     } catch (IndyException e) {
       response = "No such account";

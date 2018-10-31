@@ -17,9 +17,9 @@ public class SessionManager {
 
   private static final Map<String, SessionCredentials> sessions = new HashMap<>();
 
-  public static String addSession(String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
+  public static String addSession(String did, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
     String token = Crypto.createToken();
-    sessions.put(token, new SessionCredentials(walletId, walletKey));
+    sessions.put(token, new SessionCredentials(did, walletId, walletKey));
     return token;
   }
 

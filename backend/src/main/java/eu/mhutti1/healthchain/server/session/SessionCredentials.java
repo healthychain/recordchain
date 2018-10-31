@@ -12,13 +12,18 @@ import java.util.concurrent.ExecutionException;
  */
 public class SessionCredentials {
   private final Wallet wallet;
+  private final String did;
   private Timestamp expires;
-  private Timestamp created;
 
 
-  public SessionCredentials(String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
-    wallet = IndyWallet.openWallet(walletId, walletKey);
-    created = new Timestamp(System.currentTimeMillis());
+  public String getDid() {
+    return did;
+  }
+
+  public SessionCredentials(String did, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
+    this.did = did;
+    this.wallet = IndyWallet.openWallet(walletId, walletKey);
+
     extendSession();
   }
 
@@ -27,7 +32,7 @@ public class SessionCredentials {
   }
 
   public void extendSession() {
-    expires = new Timestamp(System.currentTimeMillis() + SessionManager.getSessionDuration());
+    this.expires = new Timestamp(System.currentTimeMillis() + SessionManager.getSessionDuration());
   }
 
   public boolean isValid() {
