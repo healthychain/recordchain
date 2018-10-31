@@ -1,18 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./RecordCard.css";
-import { Card, CardText, CardBody, CardTitle, Button } from "reactstrap";
+import { Card, CardText, CardBody, CardTitle, Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
+import ModalExample from "./Popup.js"
 
 const RecordCard = props => {
   const { record, onClick, isSelected } = props;
 
   const style = isSelected ? {borderColor: "#FFFF00"} : null;
+  
   return (
     <Card onClick={onClick} style={style}>
       <CardBody>
         <CardTitle>{record.title}</CardTitle>
         <CardText>{record.description}</CardText>
-        <Button color="link">Open the record</Button>
+        <ModalExample></ModalExample>
       </CardBody>
     </Card>
   );
