@@ -32,14 +32,11 @@ public class CredentialRequestHandler implements HttpHandler {
     String masterSecret = params.get("mater_secret");
 
     Wallet proverWallet = null;
+    AnoncredsResults.ProverCreateCredentialRequestResult createCredReqResult = null;
     String credOfferJSON = null; //take from local db
     String credDefJSON = null; // take from local db
-
-
     String response = RequestUtils.messageOK();
     int responseCode = RequestUtils.statusOK();
-
-    AnoncredsResults.ProverCreateCredentialRequestResult createCredReqResult = null;
 
     System.out.println("\nProver creates credential Request");
 

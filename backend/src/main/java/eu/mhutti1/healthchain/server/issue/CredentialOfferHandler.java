@@ -36,6 +36,7 @@ public class CredentialOfferHandler implements HttpHandler {
     String proverDid = params.get("prover_did");
 
     Wallet issuerWallet = null;
+    //get from local db
     AnoncredsResults.IssuerCreateAndStoreCredentialDefResult credDef = null;
     String credOfferJSON = null;
 

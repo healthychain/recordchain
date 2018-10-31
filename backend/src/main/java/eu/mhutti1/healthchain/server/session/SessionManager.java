@@ -25,7 +25,7 @@ public class SessionManager {
 
   public static SessionCredentials getSessionCredentials(String token) throws SessionInvalidException {
     if(isSessionValid(token)){
-      System.out.println("Get session credentials for token: " + token + " \n");
+      System.out.println("Get session credentials for token: " + token + "\n");
       return sessions.get(token);
     }
     else throw new SessionInvalidException();
