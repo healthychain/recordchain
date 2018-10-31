@@ -36,7 +36,6 @@ public class CreateMasterKeyHandler implements HttpHandler {
 
     try {
       proverWallet = SessionManager.getSessionCredentials(token).getWallet();
-      System.out.println("Open prover wallet.\n");
     } catch (SessionInvalidException e) {
       response = "Invalid session token";
       responseCode = 400;
