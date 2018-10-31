@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpServer;
 import eu.mhutti1.healthchain.constants.IndyPool;
 import eu.mhutti1.healthchain.server.create.DoctorCreateHandler;
 import eu.mhutti1.healthchain.server.create.PatientCreateHandler;
+import eu.mhutti1.healthchain.server.events.GetNotificationsHandler;
 import eu.mhutti1.healthchain.server.issue.CreateMasterKeyHandler;
 import eu.mhutti1.healthchain.server.issue.CredentialOfferHandler;
 import eu.mhutti1.healthchain.server.issue.CredentialRequestHandler;
@@ -32,6 +33,7 @@ public class Server {
     server.createContext("/create_master_secret", new CreateMasterKeyHandler());
     server.createContext("/credential_offer", new CredentialOfferHandler());
     server.createContext("/credential_request", new CredentialRequestHandler());
+    server.createContext("/get_events", new GetNotificationsHandler());
     server.setExecutor(null); // creates a default executor
     server.start();
   }

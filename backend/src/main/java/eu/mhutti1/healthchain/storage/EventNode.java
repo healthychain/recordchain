@@ -2,6 +2,7 @@ package eu.mhutti1.healthchain.storage;
 
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.Timestamp;
@@ -43,4 +44,14 @@ public class EventNode {
   public JSONObject getPayload() {
     return payload;
   }
+
+  public String toJSON() {
+    return new JSONObject()
+            .put("id", id)
+            .put("type", type)
+            .put("fromDid", fromDid)
+            .put("payload", payload)
+            .toString();
+  }
+
 }
