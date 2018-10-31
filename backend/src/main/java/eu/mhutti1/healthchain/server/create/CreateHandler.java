@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.roles.Role;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.utils.Crypto;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.wallet.Wallet;
@@ -42,8 +43,8 @@ public abstract class CreateHandler implements HttpHandler {
 
     Wallet issuerWallet = null;
     Role accountHolder = null;
-    String walletId = String.valueOf(password.concat(username).hashCode());
-    String key = String.valueOf(password.hashCode());
+    String walletId = Crypto.hashPlainText(password.concat(username));
+    String walletKey = Crypto.hashPlainText(password);
 
     try {
       issuerWallet = IndyWallet.openWallet(issuerWalletId, issuerWalletKey);
@@ -68,7 +69,7 @@ public abstract class CreateHandler implements HttpHandler {
     }
 
     try {
-      accountHolder = createAccountHolder(createVerifier(issuerWallet, issuerDid, null), walletId, key);
+      accountHolder = createAccountHolder(createVerifier(issuerWallet, issuerDid, null), walletId, walletKey);
     } catch (IndyException e) {
       response = "Error creating the account";
       responseCode = 400;

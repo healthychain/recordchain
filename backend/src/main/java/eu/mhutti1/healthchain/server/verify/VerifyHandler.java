@@ -4,9 +4,11 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.session.SessionManager;
+import eu.mhutti1.healthchain.utils.Crypto;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.wallet.Wallet;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -29,15 +31,16 @@ public abstract class VerifyHandler implements HttpHandler {
     String password = params.get("password");
     String username = params.get("username");
 
-    String walletId = String.valueOf(password.concat(username).hashCode());
-    String key = String.valueOf(password.hashCode());
+    String walletId = Crypto.hashPlainText(password.concat(username));
+    String walletKey = Crypto.hashPlainText(password);
 
-    String response = null;
+    String response = "";
+    String token = "";
     int responseCode = 200;
 
     try {
-      Wallet wallet = IndyWallet.openWallet(walletId, key);
-      wallet.closeWallet();
+      token = SessionManager.addSession(walletId, walletKey);
+      response = token;
     } catch (IndyException e) {
       response = "No such account";
       responseCode = 400;
@@ -50,7 +53,6 @@ public abstract class VerifyHandler implements HttpHandler {
       responseCode = 400;
     }
 
-    SessionManager.addSession();
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

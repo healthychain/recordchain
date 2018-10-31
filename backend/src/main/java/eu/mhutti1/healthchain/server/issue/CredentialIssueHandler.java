@@ -15,8 +15,6 @@ public class CredentialIssueHandler implements HttpHandler {
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
 
-
-
     String cred_values = "{\n" +
             "        \"sex\": {\"raw\": \"male\", \"encoded\": \"5944657099558967239210949258394887428692050081607692519917050\"},\n" +
             "        \"name\": {\"raw\": \"Alex\", \"encoded\": \"1139481716457488690172217916278103335\"},\n" +
@@ -24,10 +22,10 @@ public class CredentialIssueHandler implements HttpHandler {
             "        \"age\": {\"raw\": \"28\", \"encoded\": \"28\"}\n" +
             "    }";
 
-    // Issuer create Credential
-    AnoncredsResults.IssuerCreateCredentialResult createCredentialResult =
-            Anoncreds.issuerCreateCredential(doctor.getWallet(), credOfferJSON, createCredReqResult.getCredentialRequestJson(),
-                    cred_values, null, - 1).get();
-    String credential = createCredentialResult.getCredentialJson();
+//    // Issuer create Credential
+//    AnoncredsResults.IssuerCreateCredentialResult createCredentialResult =
+//            Anoncreds.issuerCreateCredential(doctor.getWallet(), credOfferJSON, createCredReqResult.getCredentialRequestJson(),
+//                    cred_values, null, - 1).get();
+//    String credential = createCredentialResult.getCredentialJson();
   }
 }

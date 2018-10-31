@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpServer;
 import eu.mhutti1.healthchain.constants.IndyPool;
 import eu.mhutti1.healthchain.server.create.DoctorCreateHandler;
 import eu.mhutti1.healthchain.server.create.PatientCreateHandler;
+import eu.mhutti1.healthchain.server.issue.CreateMasterKeyHandler;
 import eu.mhutti1.healthchain.server.issue.CredentialOfferHandler;
 import eu.mhutti1.healthchain.server.issue.CredentialRequestHandler;
 import eu.mhutti1.healthchain.server.verify.DoctorVerifyHandler;
@@ -28,6 +29,7 @@ public class Server {
     server.createContext("/patient_verify", new PatientVerifyHandler());
     server.createContext("/doctor_create", new DoctorCreateHandler());
     server.createContext("/doctor_verify", new DoctorVerifyHandler());
+    server.createContext("/create_master_secret", new CreateMasterKeyHandler());
     server.createContext("/credential_offer", new CredentialOfferHandler());
     server.createContext("/credential_request", new CredentialRequestHandler());
     server.setExecutor(null); // creates a default executor

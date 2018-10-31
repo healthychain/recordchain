@@ -17,12 +17,20 @@ public class SessionManager {
 
   private static final Map<String, SessionCredentials> sessions = new HashMap<>();
 
-  public static void addSession(String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
+  public static String addSession(String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
     String token = Crypto.createToken();
     sessions.put(token, new SessionCredentials(walletId, walletKey));
+    return token;
   }
 
-  public static boolean verifySession(String token) {
+  public static SessionCredentials getSessionCredentials(String token) throws SessionInvalidException {
+    if(isSessionValid(token)){
+      return sessions.get(token);
+    }
+    else throw new SessionInvalidException();
+  }
+
+  public static boolean isSessionValid(String token) {
     if(sessions.containsKey(token)){
       return sessions.get(token).isValid();
     }

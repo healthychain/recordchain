@@ -13,11 +13,17 @@ import java.util.concurrent.ExecutionException;
 public class SessionCredentials {
   private final Wallet wallet;
   private Timestamp expires;
+  private Timestamp created;
 
 
   public SessionCredentials(String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
     wallet = IndyWallet.openWallet(walletId, walletKey);
+    created = new Timestamp(System.currentTimeMillis());
     extendSession();
+  }
+
+  public Wallet getWallet() {
+    return wallet;
   }
 
   public void extendSession() {
@@ -25,6 +31,6 @@ public class SessionCredentials {
   }
 
   public boolean isValid() {
-    return expires.before(new Timestamp(System.currentTimeMillis()));
+    return expires.after(new Timestamp(System.currentTimeMillis()));
   }
 }
