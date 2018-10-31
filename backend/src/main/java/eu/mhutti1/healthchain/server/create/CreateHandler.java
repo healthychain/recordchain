@@ -21,7 +21,7 @@ public abstract class CreateHandler implements HttpHandler {
 
   public abstract Role createVerifier(Wallet wallet, String did, String verKey);
 
-  public abstract Role createAccountHolder(Role role, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException;
+  public abstract Role createAccountHolder(Role role, String did, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException;
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
@@ -45,6 +45,7 @@ public abstract class CreateHandler implements HttpHandler {
     Role accountHolder = null;
     String walletId = Crypto.hashPlainText(password.concat(username));
     String walletKey = Crypto.hashPlainText(password);
+    String did = Crypto.getDid(username);
 
     try {
       issuerWallet = IndyWallet.openWallet(issuerWalletId, issuerWalletKey);
@@ -69,11 +70,13 @@ public abstract class CreateHandler implements HttpHandler {
     }
 
     try {
-      accountHolder = createAccountHolder(createVerifier(issuerWallet, issuerDid, null), walletId, walletKey);
+      accountHolder = createAccountHolder(createVerifier(issuerWallet, issuerDid, null), did, walletId, walletKey);
     } catch (IndyException e) {
+      e.printStackTrace();
       response = "Error creating the account";
       responseCode = 400;
     } catch (ExecutionException e) {
+      e.printStackTrace();
       response = "Error creating the account";
       responseCode = 400;
     } catch (InterruptedException e) {

@@ -21,8 +21,8 @@ public class DoctorCreateHandler extends CreateHandler{
   }
 
   @Override
-  public Role createAccountHolder(Role role, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
-    return new TrustAnchor(role, walletId, walletKey);
+  public Role createAccountHolder(Role role, String did, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
+    return new TrustAnchor(role, did, walletId, walletKey);
   }
 
 

@@ -5,6 +5,7 @@ import eu.mhutti1.healthchain.constants.IndyPool;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.did.Did;
+import org.hyperledger.indy.sdk.did.DidJSONParameters;
 import org.hyperledger.indy.sdk.did.DidResults;
 import org.hyperledger.indy.sdk.pool.Pool;
 import org.hyperledger.indy.sdk.wallet.Wallet;
@@ -30,10 +31,13 @@ public abstract class Role {
     this.verKey = verKey;
   }
 
-  public Role(Role issuerRole, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
+  public Role(Role issuerRole, String did, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
     this.indyWallet = new IndyWallet(walletId, walletKey);
     this.wallet = indyWallet.getWallet();
-    DidResults.CreateAndStoreMyDidResult result = Did.createAndStoreMyDid(wallet, "{}").get();
+    DidResults.CreateAndStoreMyDidResult result = Did.createAndStoreMyDid(
+            wallet,
+            new DidJSONParameters.CreateAndStoreMyDidJSONParameter(null, null, null, null).toString()
+    ).get();
     this.did = result.getDid();
     this.verKey = result.getVerkey();
 
