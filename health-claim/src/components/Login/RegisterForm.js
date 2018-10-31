@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import Box from "../UI/Containers";
 import QRReader from "../QRReader/QRReader";
-import { Button } from "react-bootstrap";
-import RegistrationForm from "./RegistrationForm";
+import RegistrationFormBox from "./RegistrationFormBox";
 import "./LoginForm.scss";
 import { Redirect } from "react-router-dom";
 
@@ -48,6 +46,6 @@ export default class RegisterForm extends Component {
     } else if (this.props.loading) {
       return <h1>Loading</h1>;
     }
-    return <RegistrationForm />;
+    return <RegistrationFormBox />;
   }
 }

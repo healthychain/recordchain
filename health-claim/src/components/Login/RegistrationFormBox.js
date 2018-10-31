@@ -1,10 +1,9 @@
 import React from "react";
 import Box from "../UI/Containers";
-import QRReader from "../QRReader/QRReader";
 import QRReaderButton from "../QRReader/QRReaderButton";
 import "./LoginForm.scss";
 
-export default class RegistrationForm extends React.Component {
+export default class RegistrationFormBox extends React.Component {
   constructor(props) {
     super(props);
 
