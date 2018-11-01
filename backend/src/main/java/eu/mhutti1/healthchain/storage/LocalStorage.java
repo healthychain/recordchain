@@ -17,11 +17,11 @@ public class LocalStorage {
     if(instance == null) {
       instance = DBMaker.fileDB("storage.db").checksumHeaderBypass().make();
       if(store == null) {
-        store = instance.hashMap("store")
-                .keySerializer(Serializer.STRING)
-                .valueSerializer(Serializer.JAVA)
-                .createOrOpen();
-        //store = new HashMap<>();
+//        store = instance.hashMap("store")
+//                .keySerializer(Serializer.STRING)
+//                .valueSerializer(Serializer.JAVA)
+//                .createOrOpen();
+        store = new HashMap<>();
         if(store == null) {
           throw new RuntimeException("Store could not be instantiated");
         }
@@ -36,7 +36,7 @@ public class LocalStorage {
     }
     eventQueue.insertEvent(node);
     store.put(key, eventQueue);
-    instance.commit();
+//    instance.commit();
   }
 
   public static void rollbackLastCommit() {

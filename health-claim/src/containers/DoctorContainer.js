@@ -14,7 +14,7 @@ const mapStateToProps = (state, props) => ({
   sessionID: state.login.token,
   notificationsLoading: state.fetchNotifications.loading,
   notificationsError: state.fetchNotifications.error,
-  notifications: state.notifications
+  notifications: state.fetchNotifications.notifications
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

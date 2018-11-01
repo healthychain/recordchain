@@ -67,7 +67,8 @@ export default class RegistrationFormBox extends React.Component {
                 <RoleButton isPatient={isPatient} toggle={this.toggleRole} />
                 <hr />
                 <input
-                  type="submit"
+                  onClick={this.handleSubmit}
+                  type="button"
                   value="Sign up"
                   className="Button Button__Green"
                 />

@@ -3,6 +3,8 @@ package eu.mhutti1.healthchain.server;
 import com.sun.net.httpserver.HttpServer;
 import eu.mhutti1.healthchain.constants.IndyPool;
 import eu.mhutti1.healthchain.server.create.*;
+import eu.mhutti1.healthchain.server.createOLD.DoctorCreateHandler;
+import eu.mhutti1.healthchain.server.createOLD.PatientCreateHandler;
 import eu.mhutti1.healthchain.server.events.GetNotificationsHandler;
 import eu.mhutti1.healthchain.server.issue.CreateMasterKeyHandler;
 import eu.mhutti1.healthchain.server.issue.CredentialOfferHandler;
@@ -31,18 +33,26 @@ public class Server {
     server.createContext("/patient_create", new PatientCreateHandler());
     server.createContext("/doctor_create", new DoctorCreateHandler());
 
-    //new creation
-    server.createContext("/create_user_req", new CreateRequestHandler());
+    //creation
+    server.createContext("/create_patient_req", new CreateRequestPatientHandler());
     server.createContext("/create_patient_approve", new CreateApprovePatientHandler());
+    server.createContext("/create_doctor_req", new CreateRequestDoctorHandler());
+    server.createContext("/create_doctor_approve", new CreateApproveDoctorHandler());
 
     //verification
     server.createContext("/patient_verify", new PatientVerifyHandler());
     server.createContext("/doctor_verify", new DoctorVerifyHandler());
 
+    //master secret creation
     server.createContext("/create_master_secret", new CreateMasterKeyHandler());
+
+    //issue credential handshake
     server.createContext("/credential_offer", new CredentialOfferHandler());
     server.createContext("/credential_request", new CredentialRequestHandler());
+
+    //notifications
     server.createContext("/get_events", new GetNotificationsHandler());
+
     server.setExecutor(null); // creates a default executor
     server.start();
   }

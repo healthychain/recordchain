@@ -1,3 +1,5 @@
+import { apiEndpoint } from "../apiEndpoint";
+
 export const FETCH_NOTIFICATIONS_BEGIN = "FETCH_NOTIFICATIONS_BEGIN";
 export const FETCH_NOTIFICATIONS_SUCCESS = "FETCH_NOTIFICATIONS_SUCCESS";
 export const FETCH_NOTIFICATIONS_ERROR = "FETCH_NOTIFICATIONS_ERROR";
@@ -19,12 +21,11 @@ export const fetchNotificationsSuccess = notifications => ({
 function fetchNotifications(sessionID) {
   return dispatch => {
     dispatch(fetchNotificationsBegin());
-    return fetch(`http://localhost:8000/get_events/?token=${sessionID}`)
+    return fetch(`${apiEndpoint}/get_events/?token=${sessionID}`)
       .then(raw => handleErrors(raw))
       .then(response => response.json())
       .then(json => {
-        console.log(json);
-        dispatch(fetchNotificationsSuccess(json.events));
+        dispatch(fetchNotificationsSuccess(JSON.parse(json.events)));
         return json.notifications;
       })
       .catch(error => fetchNotificationsError(error));

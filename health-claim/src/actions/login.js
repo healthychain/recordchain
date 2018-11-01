@@ -1,3 +1,5 @@
+import { apiEndpoint } from "../apiEndpoint";
+
 // import { apiEndpoint } from "../apiEndpoint";
 
 export const LOGIN_BEGIN = "LOGIN_BEGIN";
@@ -25,7 +27,7 @@ function login(username, password) {
   return dispatch => {
     dispatch(loginBegin());
     return fetch(
-      `http://localhost:8000/doctor_verify/?username=${username}&password=${password}`
+      `${apiEndpoint}/doctor_verify/?username=${username}&password=${password}`
     )
       .then(raw => handleErrors(raw))
       .then(response => response.json())

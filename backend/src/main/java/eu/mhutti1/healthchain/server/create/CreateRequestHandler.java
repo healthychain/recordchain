@@ -14,7 +14,10 @@ import java.util.Map;
 /**
  * Created by jedraz on 31/10/2018.
  */
-public class CreateRequestHandler implements HttpHandler {
+public abstract class CreateRequestHandler implements HttpHandler {
+
+  public abstract String getApproveEndpoint();
+  public abstract String getDismissEndpoint();
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
@@ -38,7 +41,7 @@ public class CreateRequestHandler implements HttpHandler {
 
     // later on register for email notofication
 
-    LocalStorage.store(issuerDid, new EventNode("", null, payload));
+    LocalStorage.store(issuerDid, new EventNode("", null, payload, getApproveEndpoint(), getDismissEndpoint()));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

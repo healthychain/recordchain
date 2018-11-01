@@ -26,13 +26,21 @@ public class EventNode implements Serializable {
   private String fromDid;
   private Timestamp created;
   private JSONObject payload;
+  private String acceptAction;
+  private String dismissAction;
 
-  public EventNode(String type, String fromDid, JSONObject payload) {
+  public EventNode(String type, String fromDid, JSONObject payload, String acceptEndpoint, String dismissEndpoint) {
     this.id = RandomStringUtils.randomAlphanumeric(16);
     this.type = type;
     this.fromDid = fromDid;
     this.created = new Timestamp(System.currentTimeMillis());
     this.payload = payload;
+    this.acceptAction = acceptEndpoint != null ? createAction(acceptEndpoint, id) : "";
+    this.dismissAction = dismissEndpoint != null ? createAction(dismissEndpoint, id) : "";
+  }
+
+  private String createAction(String endpoint, String id) {
+    return String.format("%s?event_id=%s&", endpoint, id);
   }
 
   public String getId() {
@@ -59,8 +67,8 @@ public class EventNode implements Serializable {
     return new JSONObject()
             .put("id", id)
             .put("type", type)
-            .put("fromDid", fromDid)
-            .put("payload", payload);
+            .put("acceptAction", acceptAction)
+            .put("dismissAction", dismissAction);
   }
 
 
@@ -72,6 +80,8 @@ public class EventNode implements Serializable {
     oos.writeObject(fromDid);
     oos.writeObject(created);
     oos.writeObject(payload.toString());
+    oos.writeObject(acceptAction);
+    oos.writeObject(dismissAction);
   }
 
   private void readObject(ObjectInputStream ois)
@@ -82,5 +92,7 @@ public class EventNode implements Serializable {
     fromDid = (String) ois.readObject();
     created = (Timestamp) ois.readObject();
     payload = new JSONObject((String) ois.readObject());
+    acceptAction = (String) ois.readObject();
+    dismissAction = (String) ois.readObject();
   }
 }

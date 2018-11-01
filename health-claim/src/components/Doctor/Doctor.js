@@ -58,7 +58,6 @@ class Doctor extends Component {
   }
 
   render() {
-    debugger;
     const mockPatients = [
       { name: "John Cena", id: 1 },
       { name: "Andrej Kiska", id: 2 },

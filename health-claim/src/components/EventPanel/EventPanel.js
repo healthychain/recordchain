@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import NotificationEvent from "./NotificationEvent";
 
 import "./EventPanel.scss";
+import NotificationEventContainer from "../../containers/NotificationEventContainer";
 
 export default class EventPanel extends Component {
   constructor(props) {
@@ -42,8 +42,9 @@ export default class EventPanel extends Component {
               Minimize
             </div>
             {this.props.events &&
-              this.props.events.map(event => <NotificationEvent />)}
-            Open
+              this.props.events.map((event, idx) => (
+                <NotificationEventContainer {...event} idx={idx} />
+              ))}
           </div>
         )}
       </div>
