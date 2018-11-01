@@ -6,27 +6,30 @@ import org.mapdb.HTreeMap;
 import org.mapdb.Serializer;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 public class LocalStorage {
 
   private static DB instance = null;
-  private static HTreeMap<String, EventQueue> store;
+//  private static HTreeMap<String, EventQueue> store;
+  private static Map<String, EventQueue> store;
 
-  public static ConcurrentMap getStore() {
+  public static void getStore() {
     if(instance == null) {
-      instance = DBMaker.fileDB("storage.db").make();
+//      instance = DBMaker.fileDB("storage.db").make();
       if(store == null) {
-        store = instance.hashMap("store")
-                .keySerializer(Serializer.STRING)
-                .valueSerializer(Serializer.JAVA)
-                .createOrOpen();
+//        store = instance.hashMap("store")
+//                .keySerializer(Serializer.STRING)
+//                .valueSerializer(Serializer.JAVA)
+//                .createOrOpen();
+        store = new HashMap<>();
         if(store == null) {
           throw new RuntimeException("Store could not be instantiated");
         }
       }
     }
-    return store;
   }
 
   public static void store(String key, EventNode node) {
@@ -34,7 +37,7 @@ public class LocalStorage {
       store.put(key, new EventQueue());
     }
     store.get(key).insertEvent(node);
-    instance.commit();
+//    instance.commit();
   }
 
   public static void rollbackLastCommit() {

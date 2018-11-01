@@ -8,6 +8,7 @@ import eu.mhutti1.healthchain.storage.LocalStorage;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Map;
 
 /**
@@ -27,6 +28,9 @@ public class CreateRequestHandler implements HttpHandler {
     String username = params.get("username");
     String issuerDid = params.get("issuer_did");
 
+    String response = "Request sent";
+    int responseCode = RequestUtils.statusOK();
+
 
     JSONObject payload = new JSONObject()
             .put("password", password)
@@ -35,5 +39,10 @@ public class CreateRequestHandler implements HttpHandler {
     // later on register for email notofication
 
     LocalStorage.store(issuerDid, new EventNode("", null, payload));
+
+    httpExchange.sendResponseHeaders(responseCode, response.length());
+    OutputStream os = httpExchange.getResponseBody();
+    os.write(response.getBytes());
+    os.close();
   }
 }

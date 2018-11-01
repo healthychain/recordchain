@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class SessionManager {
 
-  public static long SESSION_DURATION_MINUTES = 2;
+  public static long SESSION_DURATION_MINUTES = 15;
 
   private static final Map<String, SessionCredentials> sessions = new HashMap<>();
 

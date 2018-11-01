@@ -9,6 +9,7 @@ import eu.mhutti1.healthchain.server.issue.CredentialOfferHandler;
 import eu.mhutti1.healthchain.server.issue.CredentialRequestHandler;
 import eu.mhutti1.healthchain.server.verify.DoctorVerifyHandler;
 import eu.mhutti1.healthchain.server.verify.PatientVerifyHandler;
+import eu.mhutti1.healthchain.storage.LocalStorage;
 import org.hyperledger.indy.sdk.IndyException;
 
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class Server {
   public Server() throws IOException, InterruptedException, ExecutionException, IndyException {
 
     IndyPool.initlaizePool();
+    LocalStorage.getStore();
 
     HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
     //old creation

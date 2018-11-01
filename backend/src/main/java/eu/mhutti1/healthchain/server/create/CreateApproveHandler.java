@@ -47,12 +47,13 @@ public abstract class CreateApproveHandler implements HttpHandler {
       issuerWallet = SessionManager.getSessionCredentials(token).getWallet();
       issuerDid = SessionManager.getSessionCredentials(token).getDid();
     } catch (SessionInvalidException e) {
+      e.printStackTrace();
       response = "Invalid session token";
       responseCode = 400;
     }
 
     EventNode event = LocalStorage.getEvent(issuerDid, eventId);
-    JSONObject payload = new JSONObject(event.getPayload());
+    JSONObject payload = event.getPayload();
 
     String username = payload.getString("username");
     String password = payload.getString("password");
@@ -89,6 +90,7 @@ public abstract class CreateApproveHandler implements HttpHandler {
       try {
         accountHolder.closeWallet();
       } catch (Exception e) {
+        e.printStackTrace();
         response = "Internal server error";
         responseCode = 500;
       }

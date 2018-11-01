@@ -43,7 +43,7 @@ public abstract class CreateHandler implements HttpHandler {
 
     Wallet issuerWallet = null;
     Role accountHolder = null;
-    String walletId = Crypto.hashPlainText(password.concat(username));
+    String walletId = Crypto.hashPlainText(username);
     String walletKey = Crypto.hashPlainText(password);
     String did = Crypto.getDid(username);
 

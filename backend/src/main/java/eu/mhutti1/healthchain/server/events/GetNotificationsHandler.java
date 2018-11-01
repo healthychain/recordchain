@@ -38,7 +38,7 @@ public class GetNotificationsHandler implements HttpHandler {
     String did = null;
 
     try {
-      SessionManager.getSessionCredentials(token).getDid();
+      did = SessionManager.getSessionCredentials(token).getDid();
     } catch (SessionInvalidException e) {
       e.printStackTrace();
       response = "Invalid token";

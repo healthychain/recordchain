@@ -31,7 +31,7 @@ public abstract class VerifyHandler implements HttpHandler {
     String password = params.get("password");
     String username = params.get("username");
 
-    String walletId = Crypto.hashPlainText(password.concat(username));
+    String walletId = Crypto.hashPlainText(username);
     String walletKey = Crypto.hashPlainText(password);
     String did = Crypto.getDid(username);
 
