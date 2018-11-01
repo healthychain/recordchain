@@ -5,6 +5,7 @@ import { createLogger } from "redux-logger";
 // import { composeWithDevTools } from "redux-devtools-extension";
 // redux logger dev tools
 
+import fetchNotifications from "./reducers/fetchNotifications";
 import fetchPatientClaims from "./reducers/fetchPatientClaims";
 import selectPatient from "./reducers/selectPatient";
 import login from "./reducers/login";
@@ -14,6 +15,7 @@ const loggerMiddleware = createLogger();
 
 const reducer = combineReducers({
   fetchPatientClaims,
+  fetchNotifications,
   selectPatient,
   login,
   register

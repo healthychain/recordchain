@@ -6,8 +6,9 @@ import {
   DropdownItem
 } from "reactstrap";
 import { Redirect } from "react-router-dom";
-import "./Doctor.css";
+import "./Doctor.scss";
 import PatientViewContainer from "../../containers/PatientViewContainer";
+import EventPanel from "../EventPanel/EventPanel";
 
 class Doctor extends Component {
   constructor(props) {
@@ -62,36 +63,41 @@ class Doctor extends Component {
     }
 
     return (
-      <div>
-        <div className="record-select">
-          <ButtonDropdown
-            isOpen={this.state.dropdownOpen}
-            toggle={this.toggleDropdown}
-            onClick={() => this.toggleDropdown()}
-          >
-            <DropdownToggle
-              block
-              caret
-              className="search-button bg-search-button"
+      <div className="doctor-layout">
+        <div className="doctor-main">
+          <div className="record-select">
+            <ButtonDropdown
+              isOpen={this.state.dropdownOpen}
+              toggle={this.toggleDropdown}
+              onClick={() => this.toggleDropdown()}
             >
-              {this.props.name || "Select a patient"}
-            </DropdownToggle>
-            <DropdownMenu className="bg-search-button">
-              {mockPatients.map(this.patientSuggestion)}
-            </DropdownMenu>
-          </ButtonDropdown>
+              <DropdownToggle
+                block
+                caret
+                className="search-button bg-search-button"
+              >
+                {this.props.name || "Select a patient"}
+              </DropdownToggle>
+              <DropdownMenu className="bg-search-button">
+                {mockPatients.map(this.patientSuggestion)}
+              </DropdownMenu>
+            </ButtonDropdown>
+          </div>
+          <div className="patient-display">
+            {this.props.id ? (
+              <PatientViewContainer
+                name={this.props.name}
+                id={this.props.id}
+                birthDate={this.props.birthDate}
+              />
+            ) : (
+              <div>No patient selected</div>
+            )}
+          </div>
         </div>
-        <div className="patient-display">
-          {this.props.id ? (
-            <PatientViewContainer
-              name={this.props.name}
-              id={this.props.id}
-              birthDate={this.props.birthDate}
-            />
-          ) : (
-            <div>No patient selected</div>
-          )}
-        </div>
+        <EventPanel
+          events={this.props.fetchNotifications(this.props.sessionID)}
+        />
       </div>
     );
   }

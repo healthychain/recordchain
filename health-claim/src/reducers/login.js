@@ -26,7 +26,8 @@ const login = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        success: true
+        success: true,
+        token: action.payload.response
       };
     }
     case LOGOUT: {

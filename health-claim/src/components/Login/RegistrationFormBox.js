@@ -34,7 +34,7 @@ export default class RegistrationFormBox extends React.Component {
   render() {
     const { isPatient } = this.state;
     return (
-      <div>
+      <div className="Form__Container">
         <h1 className="Page__Title">Sign up</h1>
         <div className="Box Box__NP">
           <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
@@ -62,6 +62,8 @@ export default class RegistrationFormBox extends React.Component {
                   name="password"
                   id="passowrd"
                 />
+                <br />
+                <label className="Input__Label">I am a:</label>
                 <RoleButton isPatient={isPatient} toggle={this.toggleRole} />
                 <hr />
                 <input

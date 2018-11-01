@@ -1,0 +1,43 @@
+.record-select {
+  align-content: center;
+  margin: 0 auto;
+  margin-top: 3em;
+  margin-left: 0 auto;
+  text-align: center;
+}
+.doctor-main {
+  margin: 0 auto;
+  max-width: 960px;
+}
+
+.doctor-layout {
+  display: flex;
+  height: calc(100vh - 56px - 56px);
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.search-button {
+  margin-top: 3em;
+  width: 13em;
+  height: 2.2em;
+  color: black;
+}
+
+.bg-search-button {
+  background-color: white;
+  width: 25em;
+  align-self: auto;
+  border-color: #0076ba;
+  border-width: 0.07em;
+  border-style: solid;
+}
+
+.bg-search-button:hover {
+  background-color: rgb(140, 180, 220);
+  margin: 2em black;
+}
+
+.patient-display {
+  margin-top: 2em;
+}
