@@ -8,6 +8,7 @@ import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.EventNode;
 import eu.mhutti1.healthchain.storage.LocalStorage;
+import eu.mhutti1.healthchain.utils.Crypto;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
@@ -35,10 +36,11 @@ public class CredentialOfferHandler implements HttpHandler {
     Map<String, String> params = RequestUtils.queryToMap(query);
 
     String token = params.get("token");
-    String issuerDid = params.get("issuer_did");
-    String proverDid = params.get("prover_did");
+    String proverUsername = params.get("prover_username");
+    String proverDid = Crypto.getDid(proverUsername);
 
     Wallet issuerWallet = null;
+    String issuerDid = null;
     AnoncredsResults.IssuerCreateAndStoreCredentialDefResult credDef = null;
     String credOfferJSON = null;
 
@@ -47,6 +49,7 @@ public class CredentialOfferHandler implements HttpHandler {
 
     try {
       issuerWallet = SessionManager.getSessionCredentials(token).getWallet();
+      issuerDid = SessionManager.getSessionCredentials(token).getDid();
     } catch (SessionInvalidException e) {
       response = "Invalid session token";
       responseCode = 400;

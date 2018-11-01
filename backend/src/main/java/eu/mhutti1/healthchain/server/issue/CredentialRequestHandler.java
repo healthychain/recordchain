@@ -34,7 +34,8 @@ public class CredentialRequestHandler implements HttpHandler {
 
     String token = params.get("token");
     String eventId = params.get("event_id");
-    String masterSecret = params.get("mater_secret");
+//    String masterSecret = params.get("mater_secret");
+    String masterSecret = "master_secret";
 
     Wallet proverWallet = null;
     String proverDid = null;
