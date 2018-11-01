@@ -49,7 +49,9 @@ public class GetNotificationsHandler implements HttpHandler {
     if(did != null) {
       responseCode = RequestUtils.statusOK();
       EventQueue eventQueue = LocalStorage.get(did);
-      if(eventQueue != null) {
+      if (eventQueue == null) {
+        response = "No events for specified did";
+      } else {
         List<EventNode> events = eventQueue.getAllEvents();
         response = new JSONArray(events.stream().map(event -> event.toJSON()).collect(Collectors.toList())).toString();
       }

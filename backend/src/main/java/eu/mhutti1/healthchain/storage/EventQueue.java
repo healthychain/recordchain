@@ -6,6 +6,7 @@ import org.mapdb.DataOutput2;
 import org.mapdb.Serializer;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.NoSuchElementException;
 /**
  * Created by jedraz on 31/10/2018.
  */
-public class EventQueue implements Serializer {
+public class EventQueue implements Serializable {
 
   private final LinkedHashMap<String, EventNode> events;
 
@@ -38,15 +39,5 @@ public class EventQueue implements Serializer {
       return new ArrayList<>(events.values());
     }
     else return new ArrayList<>();
-  }
-
-  @Override
-  public void serialize(@NotNull DataOutput2 out, @NotNull Object value) throws IOException {
-
-  }
-
-  @Override
-  public Object deserialize(@NotNull DataInput2 input, int available) throws IOException {
-    return null;
   }
 }

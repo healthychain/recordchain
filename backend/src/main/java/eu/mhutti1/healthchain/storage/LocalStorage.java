@@ -1,9 +1,6 @@
 package eu.mhutti1.healthchain.storage;
 
-import org.mapdb.DB;
-import org.mapdb.DBMaker;
-import org.mapdb.HTreeMap;
-import org.mapdb.Serializer;
+import org.mapdb.*;
 
 
 import java.util.HashMap;
@@ -18,13 +15,13 @@ public class LocalStorage {
 
   public static void getStore() {
     if(instance == null) {
-//      instance = DBMaker.fileDB("storage.db").make();
+      instance = DBMaker.fileDB("storage.db").checksumHeaderBypass().make();
       if(store == null) {
-//        store = instance.hashMap("store")
-//                .keySerializer(Serializer.STRING)
-//                .valueSerializer(Serializer.JAVA)
-//                .createOrOpen();
-        store = new HashMap<>();
+        store = instance.hashMap("store")
+                .keySerializer(Serializer.STRING)
+                .valueSerializer(Serializer.JAVA)
+                .createOrOpen();
+        //store = new HashMap<>();
         if(store == null) {
           throw new RuntimeException("Store could not be instantiated");
         }
@@ -33,11 +30,13 @@ public class LocalStorage {
   }
 
   public static void store(String key, EventNode node) {
-    if(!store.containsKey(key)) {
-      store.put(key, new EventQueue());
+    EventQueue eventQueue = new EventQueue();
+    if(store.containsKey(key)) {
+      eventQueue = store.get(key);
     }
-    store.get(key).insertEvent(node);
-//    instance.commit();
+    eventQueue.insertEvent(node);
+    store.put(key, eventQueue);
+    instance.commit();
   }
 
   public static void rollbackLastCommit() {
