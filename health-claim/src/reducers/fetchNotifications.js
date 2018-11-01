@@ -5,7 +5,7 @@ import {
 } from "../actions/fetchNotifications";
 
 const initialState = {
-  claims: [],
+  notifications: [],
   loading: false,
   error: null
 };

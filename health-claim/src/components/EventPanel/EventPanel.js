@@ -13,8 +13,11 @@ export default class EventPanel extends Component {
     this.toggleView = this.toggleView.bind(this);
   }
 
-  shouldComponentUpdate(newProps) {
-    return newProps.events !== this.props.events;
+  shouldComponentUpdate(newState, newProps) {
+    return (
+      newProps.events !== this.props.events ||
+      newState.collapsed !== this.state.collapsed
+    );
   }
 
   toggleView() {
