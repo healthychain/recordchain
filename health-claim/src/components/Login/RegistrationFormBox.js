@@ -26,7 +26,7 @@ export default class RegistrationFormBox extends React.Component {
     return (
       <div>
         <h1 className="Page__Title">Sign up</h1>
-        <Box>
+        <div className="Box Box__NP">
           <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
             <div className="Flex__Double">
               <div className="Flex__Half Flex__Grey Flex__Separator">
@@ -53,6 +53,11 @@ export default class RegistrationFormBox extends React.Component {
                   id="passowrd"
                 />
                 <hr />
+                <input
+                  type="submit"
+                  value="Sign up"
+                  className="Button Button__Green"
+                />
               </div>
               <div className="Flex__Half">
                 <h2 className="Page__Halftitle">Doctor approval</h2>
@@ -75,13 +80,8 @@ export default class RegistrationFormBox extends React.Component {
                 </div>
               </div>
             </div>
-            <input
-              type="submit"
-              value="Sign up"
-              className="Button Button__Green"
-            />
           </form>
-        </Box>
+        </div>
       </div>
     );
   }
