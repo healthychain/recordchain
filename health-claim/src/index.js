@@ -10,11 +10,13 @@ import AppContainer from "./containers/AppContainer";
 const store = Store();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <AppContainer />
-    </Router>
-  </Provider>,
+  <div>
+    <Provider store={store}>
+      <Router>
+        <AppContainer />
+      </Router>
+    </Provider>
+  </div>,
   document.getElementById("root")
 );
 // If you want your app to work offline and load faster, you can change
