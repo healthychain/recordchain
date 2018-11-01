@@ -27,20 +27,16 @@ public class CredentialRequestHandler implements HttpHandler {
     String query = httpExchange.getRequestURI().getQuery();
     Map<String, String> params = RequestUtils.queryToMap(query);
 
-    String proverWalletId = params.get("prover_wallet_id");
-    String proverWalletKey = params.get("prover_wallet_key");
+    String token = params.get("token");
     String proverDid = params.get("prover_did");
     String masterSecret = params.get("mater_secret");
 
     Wallet proverWallet = null;
+    AnoncredsResults.ProverCreateCredentialRequestResult createCredReqResult = null;
     String credOfferJSON = null; //take from local db
     String credDefJSON = null; // take from local db
-
-
     String response = RequestUtils.messageOK();
     int responseCode = RequestUtils.statusOK();
-
-    AnoncredsResults.ProverCreateCredentialRequestResult createCredReqResult = null;
 
     System.out.println("\nProver creates credential Request");
 

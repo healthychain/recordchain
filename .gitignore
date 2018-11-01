@@ -142,6 +142,7 @@ backend/.gradle/*/taskArtifacts/*
 # Build
 backend/build
 
+backend/storage.db
 
 # User-specific stuff:
  backend/.idea/workspace.xml

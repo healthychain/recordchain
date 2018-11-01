@@ -1,30 +1,47 @@
 package eu.mhutti1.healthchain.utils;
 
-import java.math.BigInteger;
-import java.nio.charset.Charset;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.bitcoinj.core.Base58;
+
+import java.util.Random;
 
 /**
  * Created by jedraz on 26/10/2018.
  */
 public class Crypto {
 
-  public static String generateWalletId(String username) throws NoSuchAlgorithmException {
-    return hashPlainText(username);
+  public static int DID_LENGTH = 22;
+
+  public static String hashPlainText(String plainText) {
+    return DigestUtils.sha1Hex(plainText);
   }
 
-  public static String generateWalletKey(String password) throws NoSuchAlgorithmException {
-    return hashPlainText(password);
+  public static String createToken() {
+    return RandomStringUtils.randomAlphanumeric(32);
   }
 
-  private static String hashPlainText(String plainText) throws NoSuchAlgorithmException {
-    MessageDigest md = MessageDigest.getInstance("MD5");
-    byte[] array = md.digest(plainText.getBytes(Charset.forName("UTF-8")));
-    StringBuffer sb = new StringBuffer();
-    for (int i = 0; i < array.length; ++i) {
-      sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
+  private static char getCharFromRandomNumber(int number) {
+    return (char) (97 + number % 25);
+  }
+
+  // Important did has to have 22 chars !!!
+  public static String getDid(String username) {
+    String encoded = hashPlainText(username);
+    String candidate;
+    if (encoded.length() >= DID_LENGTH) {
+      candidate = encoded.substring(0, DID_LENGTH);
     }
-    return sb.toString();
+    else {
+      Random randomGenerator = new Random(encoded.hashCode());
+      StringBuilder sb = new StringBuilder(encoded);
+      while (sb.length() < DID_LENGTH) {
+        sb.append(String.valueOf(getCharFromRandomNumber(randomGenerator.nextInt())));
+      }
+      candidate = sb.toString();
+    }
+
+    return Base58.encode(candidate.getBytes()).substring(0, DID_LENGTH);
   }
+
 }
