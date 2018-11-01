@@ -23,8 +23,8 @@ public class TrustAnchor extends Role{
     super(wallet, did, verKey);
   }
 
-  public TrustAnchor(Role issuerRole, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
-    super(issuerRole, walletId, walletKey);
+  public TrustAnchor(Role issuerRole, String did, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
+    super(issuerRole, did, walletId, walletKey);
   }
 
   @Override

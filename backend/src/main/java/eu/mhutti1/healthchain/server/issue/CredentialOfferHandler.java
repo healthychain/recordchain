@@ -4,6 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.constants.HealthRecord;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.server.session.SessionInvalidException;
+import eu.mhutti1.healthchain.server.session.SessionManager;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
@@ -29,32 +31,23 @@ public class CredentialOfferHandler implements HttpHandler {
     String query = httpExchange.getRequestURI().getQuery();
     Map<String, String> params = RequestUtils.queryToMap(query);
 
-    String issuerWalletId = params.get("issuer_wallet_id");
-    String issuerWalletKey = params.get("issuer_wallet_key");
+    String token = params.get("token");
     String issuerDid = params.get("issuer_did");
     String proverDid = params.get("prover_did");
 
     Wallet issuerWallet = null;
+    //get from local db
     AnoncredsResults.IssuerCreateAndStoreCredentialDefResult credDef = null;
     String credOfferJSON = null;
 
     String response = RequestUtils.messageOK();
     int responseCode = RequestUtils.statusOK();
 
-
     try {
-      issuerWallet = Wallet.openWallet(issuerWalletId, issuerWalletKey).get();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-      response = RequestUtils.messageInternalServerError();
-      responseCode = RequestUtils.statuSInternalServerError();
-    } catch (ExecutionException e) {
-      e.printStackTrace();
-      response = RequestUtils.messageInternalServerError();
-      responseCode = RequestUtils.statuSInternalServerError();
-    } catch (IndyException e) {
-      response = RequestUtils.messageUnauthorized();
-      responseCode = RequestUtils.statusUnauthorized();
+      issuerWallet = SessionManager.getSessionCredentials(token).getWallet();
+    } catch (SessionInvalidException e) {
+      response = "Invalid session token";
+      responseCode = 400;
     }
 
     if(issuerWallet == null) {
@@ -68,7 +61,6 @@ public class CredentialOfferHandler implements HttpHandler {
     System.out.println("Create credential offer\n");
     String credDefJSON = "{\"seqNo\": 1, \"dest\": \"" + proverDid + "\", \"data\": " + HealthRecord.getSchemaDataJSON() + "}";
     System.out.println("Cred Def JSON:\n" + credDefJSON);
-
 
     try {
       credDef = issuerCreateAndStoreCredentialDef(
