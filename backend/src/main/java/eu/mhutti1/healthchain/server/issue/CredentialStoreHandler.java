@@ -5,11 +5,9 @@ import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
-import eu.mhutti1.healthchain.storage.EventNode;
 import eu.mhutti1.healthchain.storage.LocalStorage;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
-import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
 import org.hyperledger.indy.sdk.wallet.Wallet;
 import org.json.JSONObject;
 
@@ -19,10 +17,9 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Created by jedraz on 30/10/2018.
+ * Created by jedraz on 01/11/2018.
  */
-public class CredentialIssueHandler implements HttpHandler {
-
+public class CredentialStoreHandler implements HttpHandler {
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
 
@@ -34,21 +31,22 @@ public class CredentialIssueHandler implements HttpHandler {
     String token = params.get("token");
     String eventId = params.get("event_id");
 
-    Wallet issuerWallet = null;
-    String issuerDid = null;
+    Wallet proverWallet = null;
+    String proverDid = null;
 
-    String response = RequestUtils.messageOK();
     int responseCode = RequestUtils.statusOK();
+    String response = "OK";
+
 
     try {
-      issuerWallet = SessionManager.getSessionCredentials(token).getWallet();
-      issuerDid = SessionManager.getSessionCredentials(token).getDid();
+      proverWallet = SessionManager.getSessionCredentials(token).getWallet();
+      proverDid = SessionManager.getSessionCredentials(token).getDid();
     } catch (SessionInvalidException e) {
       response = "Invalid session token";
       responseCode = 400;
     }
 
-    if (issuerWallet == null) {
+    if (proverWallet == null) {
       httpExchange.sendResponseHeaders(responseCode, response.length());
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
@@ -56,25 +54,14 @@ public class CredentialIssueHandler implements HttpHandler {
       return;
     }
 
-    JSONObject payload = LocalStorage.getEvent(issuerDid, eventId).getPayload();
-    String credentialRequestJSON = payload.getString("credentialRequestJSON");
+    JSONObject payload = LocalStorage.getEvent(proverDid, eventId).getPayload();
     String credDefJSON = payload.getString("credDefJSON");
-    String credOfferJSON = payload.getString("credOfferJSON");
+    String credential = payload.getString("credential");
     String credentialRequestMetadataJSON = payload.getString("credentialRequestMetadataJSON");
-    String proverDid = LocalStorage.getEvent(issuerDid, eventId).getFromDid();
 
-    String cred_values = "{\n" +
-            "        \"sex\": {\"raw\": \"male\", \"encoded\": \"5944657099558967239210949258394887428692050081607692519917050\"},\n" +
-            "        \"name\": {\"raw\": \"Alex\", \"encoded\": \"1139481716457488690172217916278103335\"},\n" +
-            "        \"height\": {\"raw\": \"175\", \"encoded\": \"175\"},\n" +
-            "        \"age\": {\"raw\": \"28\", \"encoded\": \"28\"}\n" +
-            "    }";
-
-    // Issuer create Credential
-    AnoncredsResults.IssuerCreateCredentialResult createCredentialResult = null;
+    // Prover store Credential
     try {
-      createCredentialResult = Anoncreds.issuerCreateCredential(issuerWallet, credOfferJSON, credentialRequestJSON,
-              cred_values, null, - 1).get();
+      Anoncreds.proverStoreCredential(proverWallet, "id1", credentialRequestMetadataJSON, credential, credDefJSON, null).get();
     } catch (InterruptedException e) {
       e.printStackTrace();
       response = RequestUtils.messageInternalServerError();
@@ -84,23 +71,16 @@ public class CredentialIssueHandler implements HttpHandler {
       response = RequestUtils.messageInternalServerError();
       responseCode = RequestUtils.statuSInternalServerError();
     } catch (IndyException e) {
-      e.printStackTrace();
       response = RequestUtils.messageUnauthorized();
       responseCode = RequestUtils.statusUnauthorized();
     }
 
-    String credential = createCredentialResult.getCredentialJson();
-
-    JSONObject newPayload = new JSONObject()
-            .put("credential", credential)
-            .put("credDefJSON", credDefJSON)
-            .put("credentialRequestMetadataJSON", credentialRequestMetadataJSON);
-
-    LocalStorage.store(proverDid, new EventNode("", issuerDid, newPayload, "credential_store", null));
+    System.out.println("Credentials issued successfully");
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();
     os.write(response.getBytes());
     os.close();
+
   }
 }

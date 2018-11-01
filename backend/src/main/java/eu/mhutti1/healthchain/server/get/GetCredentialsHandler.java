@@ -1,16 +1,14 @@
-package eu.mhutti1.healthchain.server.issue;
+package eu.mhutti1.healthchain.server.get;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
-import eu.mhutti1.healthchain.storage.EventNode;
-import eu.mhutti1.healthchain.storage.LocalStorage;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
-import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
 import org.hyperledger.indy.sdk.wallet.Wallet;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -18,32 +16,25 @@ import java.io.OutputStream;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-
 /**
- * Created by jedraz on 29/10/2018.
+ * Created by jedraz on 01/11/2018.
  */
-public class CredentialRequestHandler implements HttpHandler {
-
+public class GetCredentialsHandler implements HttpHandler {
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
-
     httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
     String query = httpExchange.getRequestURI().getQuery();
     Map<String, String> params = RequestUtils.queryToMap(query);
 
     String token = params.get("token");
-    String eventId = params.get("event_id");
-    String masterSecret = params.get("mater_secret");
+
+    String response = null;
+    int responseCode = 200;
 
     Wallet proverWallet = null;
-    String proverDid = null;
-    AnoncredsResults.ProverCreateCredentialRequestResult createCredReqResult = null;
-    String response = RequestUtils.messageOK();
-    int responseCode = RequestUtils.statusOK();
 
     try {
-      proverDid = SessionManager.getSessionCredentials(token).getDid();
       proverWallet = SessionManager.getSessionCredentials(token).getWallet();
     } catch (SessionInvalidException e) {
       e.printStackTrace();
@@ -51,7 +42,7 @@ public class CredentialRequestHandler implements HttpHandler {
       responseCode = RequestUtils.statusUnauthorized();
     }
 
-    if(proverWallet == null || proverDid == null) {
+    if(proverWallet == null){
       httpExchange.sendResponseHeaders(responseCode, response.length());
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
@@ -59,21 +50,8 @@ public class CredentialRequestHandler implements HttpHandler {
       return;
     }
 
-    JSONObject payload = LocalStorage.getEvent(proverDid, eventId).getPayload();
-    String credOfferJSON = payload.getString("credOfferJSON");
-    String credDefJSON = payload.getString("credDefJSON");
-    String issuerDid = LocalStorage.getEvent(proverDid, eventId).getFromDid();
-
-    System.out.println("\nProver creates credential Request");
-
     try {
-      createCredReqResult = Anoncreds.proverCreateCredentialReq(
-              proverWallet,
-              proverDid,
-              credOfferJSON,
-              credDefJSON,
-              masterSecret
-      ).get();
+      response = Anoncreds.proverGetCredential(proverWallet, new JSONObject().toString()).get();
     } catch (InterruptedException e) {
       e.printStackTrace();
       response = RequestUtils.messageInternalServerError();
@@ -87,23 +65,7 @@ public class CredentialRequestHandler implements HttpHandler {
       responseCode = RequestUtils.statusUnauthorized();
     }
 
-    if (createCredReqResult == null) {
-      httpExchange.sendResponseHeaders(responseCode, response.length());
-      OutputStream os = httpExchange.getResponseBody();
-      os.write(response.getBytes());
-      os.close();
-      return;
-    }
-
-    // store this shit in the database
-
-    JSONObject newPayload = new JSONObject()
-            .put("credentialRequestJSON", createCredReqResult.getCredentialRequestJson())
-            .put("credentialRequestMetadataJSON", createCredReqResult.getCredentialRequestMetadataJson())
-            .put("credDefJSON", credDefJSON)
-            .put("credOfferJSON", credOfferJSON);
-
-    LocalStorage.store(proverDid, new EventNode("", issuerDid, newPayload, "credential_issue", null));
+    response = RequestUtils.wrapResponse("credentials", response);
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

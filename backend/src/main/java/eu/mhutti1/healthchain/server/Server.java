@@ -6,9 +6,8 @@ import eu.mhutti1.healthchain.server.create.*;
 import eu.mhutti1.healthchain.server.createOLD.DoctorCreateHandler;
 import eu.mhutti1.healthchain.server.createOLD.PatientCreateHandler;
 import eu.mhutti1.healthchain.server.events.GetNotificationsHandler;
-import eu.mhutti1.healthchain.server.issue.CreateMasterKeyHandler;
-import eu.mhutti1.healthchain.server.issue.CredentialOfferHandler;
-import eu.mhutti1.healthchain.server.issue.CredentialRequestHandler;
+import eu.mhutti1.healthchain.server.get.GetCredentialsHandler;
+import eu.mhutti1.healthchain.server.issue.*;
 import eu.mhutti1.healthchain.server.verify.DoctorVerifyHandler;
 import eu.mhutti1.healthchain.server.verify.PatientVerifyHandler;
 import eu.mhutti1.healthchain.storage.LocalStorage;
@@ -49,9 +48,14 @@ public class Server {
     //issue credential handshake
     server.createContext("/credential_offer", new CredentialOfferHandler());
     server.createContext("/credential_request", new CredentialRequestHandler());
+    server.createContext("/credential_issue", new CredentialIssueHandler());
+    server.createContext("/credential_store", new CredentialStoreHandler());
 
     //notifications
     server.createContext("/get_events", new GetNotificationsHandler());
+
+    //get credentials
+    server.createContext("/get_credentials", new GetCredentialsHandler());
 
     server.setExecutor(null); // creates a default executor
     server.start();

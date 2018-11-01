@@ -6,10 +6,13 @@ import eu.mhutti1.healthchain.constants.HealthRecord;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
+import eu.mhutti1.healthchain.storage.EventNode;
+import eu.mhutti1.healthchain.storage.LocalStorage;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
 import org.hyperledger.indy.sdk.wallet.Wallet;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -36,7 +39,6 @@ public class CredentialOfferHandler implements HttpHandler {
     String proverDid = params.get("prover_did");
 
     Wallet issuerWallet = null;
-    //get from local db
     AnoncredsResults.IssuerCreateAndStoreCredentialDefResult credDef = null;
     String credOfferJSON = null;
 
@@ -117,8 +119,11 @@ public class CredentialOfferHandler implements HttpHandler {
       return;
     }
 
+    JSONObject payload = new JSONObject()
+            .put("credOfferJSON", credOfferJSON)
+            .put("credDefJSON", credDefJSON);
 
-    // do sth with credOfferJSON and credDef.getCredDefJson()
+    LocalStorage.store(proverDid, new EventNode("", issuerDid, payload, "credential_request", null));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();
