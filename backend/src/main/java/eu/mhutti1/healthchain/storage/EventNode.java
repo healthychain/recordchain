@@ -10,12 +10,17 @@ import org.mapdb.DataOutput2;
 import org.mapdb.Serializer;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jedraz on 31/10/2018.
  */
-public class EventNode implements Serializer{
+public class EventNode implements Serializable {
   private String id;
   private String type;
   private String fromDid;
@@ -58,13 +63,24 @@ public class EventNode implements Serializer{
             .put("payload", payload);
   }
 
-  @Override
-  public void serialize(@NotNull DataOutput2 out, @NotNull Object value) throws IOException {
 
+  private void writeObject(ObjectOutputStream oos)
+      throws IOException {
+    // write the object
+    oos.writeObject(id);
+    oos.writeObject(type);
+    oos.writeObject(fromDid);
+    oos.writeObject(created);
+    oos.writeObject(payload.toString());
   }
 
-  @Override
-  public Object deserialize(@NotNull DataInput2 input, int available) throws IOException {
-    return null;
+  private void readObject(ObjectInputStream ois)
+      throws ClassNotFoundException, IOException {
+
+    id = (String) ois.readObject();
+    type = (String) ois.readObject();
+    fromDid = (String) ois.readObject();
+    created = (Timestamp) ois.readObject();
+    payload = new JSONObject((String) ois.readObject());
   }
 }
