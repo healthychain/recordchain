@@ -1,0 +1,25 @@
+.RoleButton__container {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 0.25rem;
+  border: 1px solid transparent;
+}
+
+.RoleButton__option {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  background-color: white;
+  height: 30px;
+  font-weight: 500;
+  color: gray;
+}
+
+.RoleButton__selected {
+  background-color: #007bff;
+  color: white;
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import Box from "../UI/Containers";
 import QRReaderButton from "../QRReader/QRReaderButton";
+import RoleButton from "./RoleButton";
 import "./LoginForm.scss";
 
 export default class RegistrationFormBox extends React.Component {
@@ -9,20 +10,29 @@ export default class RegistrationFormBox extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = { isPatient: true };
   }
+
+  toggleRole = isPatient => this.setState(() => ({ isPatient }));
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
   handleSubmit(event) {
-    this.props.register(this.state.username, this.state.password);
+    this.props.register(
+      this.state.username,
+      this.state.password,
+      this.state.did,
+      this.state.isPatient
+    );
     console.log(this.state.username);
     event.stopPropagation();
     event.preventDefault();
   }
 
   render() {
+    const { isPatient } = this.state;
     return (
       <div>
         <h1 className="Page__Title">Sign up</h1>
@@ -52,6 +62,7 @@ export default class RegistrationFormBox extends React.Component {
                   name="password"
                   id="passowrd"
                 />
+                <RoleButton isPatient={isPatient} toggle={this.toggleRole} />
                 <hr />
                 <input
                   type="submit"
@@ -74,8 +85,8 @@ export default class RegistrationFormBox extends React.Component {
                     placeholder="Doctor DID"
                     className="Input__Text"
                     type="username"
-                    name="doctor_did"
-                    id="doctor_did"
+                    name="did"
+                    id="did"
                   />
                 </div>
               </div>
