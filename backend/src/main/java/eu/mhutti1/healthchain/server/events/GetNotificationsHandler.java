@@ -33,7 +33,7 @@ public class GetNotificationsHandler implements HttpHandler {
 
     String token = params.get("token");
 
-    String response = "[]";
+    String response = new JSONArray().toString();
     int responseCode = 200;
 
     String did = null;

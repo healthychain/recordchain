@@ -22,6 +22,11 @@ class Doctor extends Component {
     this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
+  componentDidMount() {
+    const { sessionID } = this.props;
+    this.props.fetchNotifications(sessionID);
+  }
+
   patientSuggestion = patient => {
     const { name, id } = patient;
     return (
@@ -39,6 +44,7 @@ class Doctor extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
+      this.props.notifications !== nextProps.notifications ||
       this.props.loggedIn !== nextProps.loggedIn ||
       this.props.id !== nextProps.id ||
       this.state.dropdownOpen !== nextState.dropdownOpen
@@ -52,6 +58,7 @@ class Doctor extends Component {
   }
 
   render() {
+    debugger;
     const mockPatients = [
       { name: "John Cena", id: 1 },
       { name: "Andrej Kiska", id: 2 },
@@ -61,6 +68,7 @@ class Doctor extends Component {
     if (!this.props.loggedIn) {
       return <Redirect to="/" />;
     }
+    console.log(this.props);
 
     return (
       <div className="doctor-layout">
@@ -96,7 +104,9 @@ class Doctor extends Component {
           </div>
         </div>
         <EventPanel
-          events={this.props.fetchNotifications(this.props.sessionID)}
+          loading={this.props.notificationsLoading}
+          error={this.props.notificationsError}
+          events={this.props.notifications}
         />
       </div>
     );

@@ -19,11 +19,12 @@ export const fetchNotificationsSuccess = notifications => ({
 function fetchNotifications(sessionID) {
   return dispatch => {
     dispatch(fetchNotificationsBegin());
-    return fetch(`http://localhost:8000/get_events/${sessionID}`)
+    return fetch(`http://localhost:8000/get_events/?token=${sessionID}`)
       .then(raw => handleErrors(raw))
       .then(response => response.json())
       .then(json => {
-        dispatch(fetchNotificationsSuccess(json.notifications));
+        console.log(json);
+        dispatch(fetchNotificationsSuccess(json.events));
         return json.notifications;
       })
       .catch(error => fetchNotificationsError(error));

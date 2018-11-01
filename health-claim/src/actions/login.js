@@ -12,9 +12,9 @@ export const loginError = error => ({
   payload: { error }
 });
 
-export const loginSuccess = response => ({
+export const loginSuccess = token => ({
   type: LOGIN_SUCCESS,
-  payload: { response }
+  payload: { token }
 });
 
 export const logoutCall = () => ({
@@ -28,7 +28,8 @@ function login(username, password) {
       `http://localhost:8000/doctor_verify/?username=${username}&password=${password}`
     )
       .then(raw => handleErrors(raw))
-      .then(response => dispatch(loginSuccess(response)))
+      .then(response => response.json())
+      .then(json => dispatch(loginSuccess(json.token)))
       .catch(error => loginError(error));
   };
 }

@@ -23,11 +23,12 @@ const login = (state = initialState, action) => {
         success: false
       };
     case LOGIN_SUCCESS: {
+      debugger;
       return {
         ...state,
         loading: false,
         success: true,
-        token: action.payload.response
+        token: action.payload.token
       };
     }
     case LOGOUT: {
