@@ -6,6 +6,7 @@ import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.EventNode;
+import eu.mhutti1.healthchain.storage.EventQueue;
 import eu.mhutti1.healthchain.storage.LocalStorage;
 import org.json.JSONArray;
 
@@ -32,7 +33,7 @@ public class GetNotificationsHandler implements HttpHandler {
 
     String token = params.get("token");
 
-    String response = "Succesfully verified and signed";
+    String response = "[]";
     int responseCode = 200;
 
     String did = null;
@@ -47,8 +48,11 @@ public class GetNotificationsHandler implements HttpHandler {
 
     if(did != null) {
       responseCode = RequestUtils.statusOK();
-      List<EventNode> events = LocalStorage.get(did).getAllEvents();
-      response = new JSONArray(events.stream().map(event -> event.toJSON()).collect(Collectors.toList())).toString();
+      EventQueue eventQueue = LocalStorage.get(did);
+      if(eventQueue != null) {
+        List<EventNode> events = eventQueue.getAllEvents();
+        response = new JSONArray(events.stream().map(event -> event.toJSON()).collect(Collectors.toList())).toString();
+      }
     }
 
     httpExchange.sendResponseHeaders(responseCode, response.length());

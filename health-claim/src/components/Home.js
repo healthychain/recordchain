@@ -6,7 +6,7 @@ import "./UI/Buttons.scss";
 export default class Home extends Component {
   render() {
     return (
-      <>
+      <div className="Home__Container">
         <h3 className="Page__Title">Welcome</h3>
         <Box nopad>
           <div className="Flex__Double">
@@ -42,7 +42,7 @@ export default class Home extends Component {
             </div>
           </div>
         </Box>
-      </>
+      </div>
     );
   }
 }

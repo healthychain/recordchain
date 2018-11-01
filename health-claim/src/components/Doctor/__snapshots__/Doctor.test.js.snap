@@ -1,69 +1,88 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Doctor should render correctly with mocked records 1`] = `
-<div>
+<div
+  className="doctor-layout"
+>
   <div
-    className="record-select"
+    className="doctor-main"
   >
     <div
-      className="btn-group"
-      onClick={[Function]}
-      onKeyDown={[Function]}
+      className="record-select"
     >
-      <button
-        aria-expanded={false}
-        aria-haspopup={true}
-        aria-label={null}
-        className="search-button bg-search-button dropdown-toggle btn btn-secondary btn-block"
-        onClick={[Function]}
-        type="button"
-      >
-        Select a patient
-      </button>
       <div
-        aria-hidden={true}
-        className="bg-search-button dropdown-menu"
-        role="menu"
-        tabIndex="-1"
+        className="btn-group"
+        onClick={[Function]}
+        onKeyDown={[Function]}
       >
-        <div>
-          <button
-            className="dropdown-item"
-            onClick={[Function]}
-            tabIndex="0"
-            type="button"
-          >
-            John Cena - ID1
-          </button>
-        </div>
-        <div>
-          <button
-            className="dropdown-item"
-            onClick={[Function]}
-            tabIndex="0"
-            type="button"
-          >
-            Andrej Kiska - ID2
-          </button>
-        </div>
-        <div>
-          <button
-            className="dropdown-item"
-            onClick={[Function]}
-            tabIndex="0"
-            type="button"
-          >
-            Jeorrej Olasxzu - ID3
-          </button>
+        <button
+          aria-expanded={false}
+          aria-haspopup={true}
+          aria-label={null}
+          className="search-button bg-search-button dropdown-toggle btn btn-secondary btn-block"
+          onClick={[Function]}
+          type="button"
+        >
+          Select a patient
+        </button>
+        <div
+          aria-hidden={true}
+          className="bg-search-button dropdown-menu"
+          role="menu"
+          tabIndex="-1"
+        >
+          <div>
+            <button
+              className="dropdown-item"
+              onClick={[Function]}
+              tabIndex="0"
+              type="button"
+            >
+              John Cena - ID1
+            </button>
+          </div>
+          <div>
+            <button
+              className="dropdown-item"
+              onClick={[Function]}
+              tabIndex="0"
+              type="button"
+            >
+              Andrej Kiska - ID2
+            </button>
+          </div>
+          <div>
+            <button
+              className="dropdown-item"
+              onClick={[Function]}
+              tabIndex="0"
+              type="button"
+            >
+              Jeorrej Olasxzu - ID3
+            </button>
+          </div>
         </div>
       </div>
     </div>
+    <div
+      className="patient-display"
+    >
+      <div>
+        No patient selected
+      </div>
+    </div>
   </div>
-  <div
-    className="patient-display"
-  >
-    <div>
-      No patient selected
+  <div>
+    <div
+      className="EventPanel"
+    >
+      <div
+        className="Toggle__Open"
+        onClick={[Function]}
+      >
+        Minimize
+      </div>
+      Open
     </div>
   </div>
 </div>

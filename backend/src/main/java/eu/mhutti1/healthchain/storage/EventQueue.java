@@ -34,7 +34,10 @@ public class EventQueue implements Serializer {
   }
 
   public List<EventNode> getAllEvents() {
-    return new ArrayList<>(events.values());
+    if(events != null) {
+      return new ArrayList<>(events.values());
+    }
+    else return new ArrayList<>();
   }
 
   @Override

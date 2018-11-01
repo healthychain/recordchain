@@ -15,12 +15,15 @@ export const registerSuccess = () => ({
   type: REGISTER_SUCCESS
 });
 
-function register(username, password) {
+function register(username, password, did, isPatient) {
   return dispatch => {
     dispatch(registerBegin());
-    return fetch(
-      `http://localhost:8000/doctor_create?username=${username}&password=${password}&issuer_wallet_id=myWallet&issuer_wallet_key=wallet_key&issuer_did=Th7MpTaRZVRYnPiabds81Y`
-    )
+
+    const url = isPatient
+      ? `http://localhost:8000/create_user_req?username=${username}&password=${password}&issuer_did=${did}`
+      : `http://localhost:8000/doctor_create?username=${username}&password=${password}&issuer_wallet_id=myWallet&issuer_wallet_key=wallet_key&issuer_did=Th7MpTaRZVRYnPiabds81Y`;
+
+    return fetch()
       .then(raw => handleErrors(raw))
       .then(response => dispatch(registerSuccess()))
       .catch(error => dispatch(registerError(error)));

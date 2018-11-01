@@ -1,6 +1,7 @@
 import React from "react";
 import Box from "../UI/Containers";
 import QRReaderButton from "../QRReader/QRReaderButton";
+import RoleButton from "./RoleButton";
 import "./LoginForm.scss";
 
 export default class RegistrationFormBox extends React.Component {
@@ -9,24 +10,33 @@ export default class RegistrationFormBox extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = { isPatient: true };
   }
+
+  toggleRole = isPatient => this.setState(() => ({ isPatient }));
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
   handleSubmit(event) {
-    this.props.register(this.state.username, this.state.password);
+    this.props.register(
+      this.state.username,
+      this.state.password,
+      this.state.did,
+      this.state.isPatient
+    );
     console.log(this.state.username);
     event.stopPropagation();
     event.preventDefault();
   }
 
   render() {
+    const { isPatient } = this.state;
     return (
-      <div>
+      <div className="Form__Container">
         <h1 className="Page__Title">Sign up</h1>
-        <Box>
+        <div className="Box Box__NP">
           <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
             <div className="Flex__Double">
               <div className="Flex__Half Flex__Grey Flex__Separator">
@@ -52,7 +62,15 @@ export default class RegistrationFormBox extends React.Component {
                   name="password"
                   id="passowrd"
                 />
+                <br />
+                <label className="Input__Label">I am a:</label>
+                <RoleButton isPatient={isPatient} toggle={this.toggleRole} />
                 <hr />
+                <input
+                  type="submit"
+                  value="Sign up"
+                  className="Button Button__Green"
+                />
               </div>
               <div className="Flex__Half">
                 <h2 className="Page__Halftitle">Doctor approval</h2>
@@ -69,19 +87,14 @@ export default class RegistrationFormBox extends React.Component {
                     placeholder="Doctor DID"
                     className="Input__Text"
                     type="username"
-                    name="doctor_did"
-                    id="doctor_did"
+                    name="did"
+                    id="did"
                   />
                 </div>
               </div>
             </div>
-            <input
-              type="submit"
-              value="Sign up"
-              className="Button Button__Green"
-            />
           </form>
-        </Box>
+        </div>
       </div>
     );
   }

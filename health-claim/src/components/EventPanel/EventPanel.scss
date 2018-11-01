@@ -1,0 +1,39 @@
+.EventPanel {
+  width: 400px;
+  height: 100%;
+  border-left: 1px solid #e0e0e0;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.01), 0 8px 32px -8px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+  &__Closed {
+    width: 20px;
+    height: 200px;
+  }
+}
+
+.Event {
+  border-bottom: 1px solid #e0e0e0;
+  min-height: 60px;
+}
+
+.Toggle {
+  text-align: center;
+  width: 100px;
+  border-left: 1px solid #e0e0e0;
+  height: 100%;
+  user-select: none;
+  cursor: pointer;
+  background-color: #fafafa;
+  color: #666;
+  font-size: 12px;
+  &__Open {
+    height: auto;
+    text-align: center;
+    width: 100px;
+    border-left: 1px solid #e0e0e0;
+    user-select: none;
+    cursor: pointer;
+    background-color: #fafafa;
+    color: #666;
+    font-size: 12px;
+  }
+}

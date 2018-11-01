@@ -9,10 +9,11 @@ html {
 }
 
 .Main {
-  max-width: 960px;
+  // max-width: 960px;
   margin: 0 auto;
   padding-bottom: 96px;
 }
+
 .Page__Title {
   padding-top: 1.67em;
   margin-bottom: 0.33em;
@@ -69,7 +70,7 @@ html {
     height: 56px;
     margin-left: 48px;
     margin-right: 48px;
-    max-width: 960px;
+    // max-width: 960px;
   }
   .Header__Link,
   .Header__Logo {

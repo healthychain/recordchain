@@ -30,7 +30,7 @@ export default class LoginForm extends Component {
       return <h1>Loading</h1>;
     }
     return (
-      <>
+      <div className="Form__Container">
         <h1 className="Page__Title">{`${this.props.userType} Login`}</h1>
         <Box>
           <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
@@ -64,7 +64,7 @@ export default class LoginForm extends Component {
             />
           </form>
         </Box>
-      </>
+      </div>
     );
   }
 }
