@@ -55,6 +55,8 @@ public class GetNotificationsHandler implements HttpHandler {
       }
     }
 
+    response = RequestUtils.wrapResponse("events", response);
+
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();
     os.write(response.getBytes());

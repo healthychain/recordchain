@@ -54,6 +54,7 @@ public abstract class VerifyHandler implements HttpHandler {
       responseCode = 400;
     }
 
+    response = RequestUtils.wrapResponse("token", response);
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();
