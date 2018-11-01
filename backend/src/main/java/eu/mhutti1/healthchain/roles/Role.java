@@ -36,15 +36,16 @@ public abstract class Role {
     this.wallet = indyWallet.getWallet();
     DidResults.CreateAndStoreMyDidResult result = Did.createAndStoreMyDid(
             wallet,
-            new DidJSONParameters.CreateAndStoreMyDidJSONParameter(null, null, null, null).toString()
+//            "{}"
+            new DidJSONParameters.CreateAndStoreMyDidJSONParameter(did, null, null, null).toString()
     ).get();
     this.did = result.getDid();
     this.verKey = result.getVerkey();
 
-    System.out.println("User DID: " + did + " User Verkey: " + verKey);
+    System.out.println("User DID: " + this.did + " User Verkey: " + verKey);
     System.out.println("Build NYM request to add User to the ledger\n");
 
-    String nymRequest = buildNymRequest(issuerRole.getDid(), did, verKey, null, getRole()).get();
+    String nymRequest = buildNymRequest(issuerRole.getDid(), this.did, verKey, null, getRole()).get();
 
     System.out.println("NYM request JSON:\n" + nymRequest);
 

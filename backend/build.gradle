@@ -13,6 +13,9 @@ repositories {
     maven {
         url 'https://mvnrepository.com/artifact/commons-codec/commons-codec'
     }
+    maven {
+        url 'https://mvnrepository.com/artifact/org.bitcoinj/bitcoinj-core'
+    }
 }
 
 dependencies {
@@ -21,4 +24,5 @@ dependencies {
     compile 'org.json:json:20180813'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
     compile group: 'org.mapdb', name: 'mapdb', version: '3.0.7'
+    compile group: 'org.bitcoinj', name: 'bitcoinj-core', version: '0.14.7'
 }

@@ -2,6 +2,7 @@ package eu.mhutti1.healthchain.utils;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.bitcoinj.core.Base58;
 
 import java.util.Random;
 
@@ -27,15 +28,20 @@ public class Crypto {
   // Important did has to have 22 chars !!!
   public static String getDid(String username) {
     String encoded = hashPlainText(username);
+    String candidate;
     if (encoded.length() >= DID_LENGTH) {
-      return encoded.substring(0, DID_LENGTH);
+      candidate = encoded.substring(0, DID_LENGTH);
     }
-    Random randomGenerator = new Random(encoded.hashCode());
-    StringBuilder sb = new StringBuilder(encoded);
-    while(sb.length() < DID_LENGTH) {
-      sb.append(String.valueOf(getCharFromRandomNumber(randomGenerator.nextInt())));
+    else {
+      Random randomGenerator = new Random(encoded.hashCode());
+      StringBuilder sb = new StringBuilder(encoded);
+      while (sb.length() < DID_LENGTH) {
+        sb.append(String.valueOf(getCharFromRandomNumber(randomGenerator.nextInt())));
+      }
+      candidate = sb.toString();
     }
-    return sb.toString();
+
+    return Base58.encode(candidate.getBytes()).substring(0, DID_LENGTH);
   }
 
 }

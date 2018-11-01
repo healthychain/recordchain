@@ -2,8 +2,7 @@ package eu.mhutti1.healthchain.server;
 
 import com.sun.net.httpserver.HttpServer;
 import eu.mhutti1.healthchain.constants.IndyPool;
-import eu.mhutti1.healthchain.server.create.DoctorCreateHandler;
-import eu.mhutti1.healthchain.server.create.PatientCreateHandler;
+import eu.mhutti1.healthchain.server.create.*;
 import eu.mhutti1.healthchain.server.events.GetNotificationsHandler;
 import eu.mhutti1.healthchain.server.issue.CreateMasterKeyHandler;
 import eu.mhutti1.healthchain.server.issue.CredentialOfferHandler;
@@ -26,10 +25,18 @@ public class Server {
     IndyPool.initlaizePool();
 
     HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+    //old creation
     server.createContext("/patient_create", new PatientCreateHandler());
-    server.createContext("/patient_verify", new PatientVerifyHandler());
     server.createContext("/doctor_create", new DoctorCreateHandler());
+
+    //new creation
+    server.createContext("/create_user_req", new CreateRequestHandler());
+    server.createContext("/create_patient_approve", new CreateApprovePatientHandler());
+
+    //verification
+    server.createContext("/patient_verify", new PatientVerifyHandler());
     server.createContext("/doctor_verify", new DoctorVerifyHandler());
+
     server.createContext("/create_master_secret", new CreateMasterKeyHandler());
     server.createContext("/credential_offer", new CredentialOfferHandler());
     server.createContext("/credential_request", new CredentialRequestHandler());
