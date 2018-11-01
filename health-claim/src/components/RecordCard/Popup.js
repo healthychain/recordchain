@@ -1,21 +1,19 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table} from 'reactstrap';
 
 const record_data = [{
-    "name": "Irina",
+    "name": "Irina Danes",
     "age": "21",
     "dob": "01/06/1997",
     "address": "London",
     "general": {
         "heartbeat": "good",
-        "bloodpressure": "",
+        "bloodpressure": "good",
         "surgeries": "none"
     },
     "eyesight": "good",
-    "medications": {
-        "medication1": "a",
-        "medication2": "b"
-    }
+    "medications": "none",
+    "allergies": "none"
 }]
 
 class ModalExample extends React.Component {
@@ -54,41 +52,63 @@ class ModalExample extends React.Component {
           <ModalBody>
 
             <div>
-                <table>
-                    <thead>
-                        {/* <th>FirsName</th>
-                        <th>Last Name</th> */}
-                    </thead>
+                <Table hover>
                     <tbody>
-                        {this.state.json.map((data, i) => {
-                            return (
-                                <tr key={i}>
-                                <div>
-                                    <td><b> Name: </b> {data.name} 
-                                    <br />
-                                    <b> Age: </b> {data.age}
-                                    <br />
-                                    <b> Date of Birth: </b> {data.dob}
-                                    <br />
-                                    <b> Address: </b> {data.address}
-                                    <br />
-                                    <b> General: </b> <br />
-                                    <b> {'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'} Heartbeat: </b> {data.general.heartbeat}   <br />
-                                    <b> {'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'} Blood pressure: </b> {data.general.bloodpressure}   <br />
-                                    <b> {'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'} Surgeries: </b> {data.general.surgeries}                              
-                                    <br />
-                                    <b> Eyesight: </b> {data.eyesight}
-                                    <br />
-                                    <b> Medications: </b> <br />
-                                    <b> {'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'} Medication 1: </b> {data.medications.medication1}   <br />
-                                    <b> {'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'} Medication 2: </b> {data.medications.medication2}   <br />
-                                    </td>
-                                </div>
+                    {this.state.json.map((data, i) => {
+                        return (
+                            <div>
+                            <tr key={i}>
+                                <th scope="row">Name</th>
+                                <td>{data.name}</td>
                                 </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
+                                <tr>
+                                <th scope="row">Age</th>
+                                <td>{data.age}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Date of Birth</th>
+                                <td>{data.dob}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Address</th>
+                                <td>{data.address}</td>
+                            </tr>
+                            <tr>                            
+
+                                <th scope="row"><br />General</th>
+                            </tr>
+                            <tr>
+                                {/* <th scope="row"></th> */}
+                                <td>Heartbeat</td>
+                                <td>{data.general.heartbeat}</td>
+                            </tr>
+                            <tr>
+                                {/* <th scope="row"></th> */}
+                                <td>Blood Pressure</td>
+                                <td>{data.general.bloodpressure}</td>
+                            </tr>
+                            <tr>
+                                {/* <th scope="row"></th> */}
+                                <td>Surgeries</td>
+                                <td>{data.general.surgeries}</td>
+                            </tr>
+                            <tr>
+                                <td>Eyesight</td>
+                                <td>{data.eyesight}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><br />Prescribed Medications</th>
+                                <td><br />{data.medications}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Allergies</th>
+                                <td>{data.allergies}</td>
+                            </tr>
+                            </div>
+                        )
+                    })}
+                </tbody>
+            </Table>
             </div>
 
           </ModalBody>
