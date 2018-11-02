@@ -12,7 +12,8 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch, props) => ({
   ...props,
-  login: (username, password) => dispatch(login(username, password))
+  login: (username, password, account_type) =>
+    dispatch(login(username, password, account_type))
 });
 
 export default withRouter(

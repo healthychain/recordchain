@@ -16,14 +16,20 @@ export default class LoginForm extends Component {
   }
 
   handleSubmit(event) {
-    this.props.login(this.state.username, this.state.password);
+    this.props.login(
+      this.state.username,
+      this.state.password,
+      this.props.userType.toLowerCase()
+    );
     event.stopPropagation();
     event.preventDefault();
   }
 
   render() {
+    const { userType } = this.props;
+
     if (this.props.loginSuccess) {
-      return <Redirect to="/doctor" />;
+      return <Redirect to={`/${userType.toLowerCase()}`} />;
     } else if (this.props.error) {
       return <h1>Error</h1>;
     } else if (this.props.loading) {

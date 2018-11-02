@@ -23,16 +23,20 @@ export const logoutCall = () => ({
   type: LOGOUT
 });
 
-function login(username, password) {
+function login(username, password, account_type) {
   return dispatch => {
     dispatch(loginBegin());
     return fetch(
-      `${apiEndpoint}/doctor_verify/?username=${username}&password=${password}`
+      `${apiEndpoint}/${account_type}_verify/?username=${username}&password=${password}`
     )
       .then(raw => handleErrors(raw))
       .then(response => response.json())
-      .then(json => dispatch(loginSuccess(json.token)))
-      .catch(error => loginError(error));
+      .then(json => {
+        console.log(json.token);
+        dispatch(loginSuccess(json.token));
+      })
+
+      .catch(error => dispatch(loginError(error)));
   };
 }
 

@@ -6,13 +6,14 @@ import handle from "../actions/handleNotification";
 
 const mapStateToProps = (state, props) => ({
   ...props,
+  token: state.login.token,
   events: state.fetchNotifications.notifications
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
   ...props,
-  handle: (url, index, allNotifications) =>
-    dispatch(handle(url, index, allNotifications))
+  handle: (url, allNotifications, notificationID, token) =>
+    dispatch(handle(url, allNotifications, notificationID, token))
 });
 
 export default withRouter(

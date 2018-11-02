@@ -1,9 +1,13 @@
-.record-select {
+.doctor-inner {
   align-content: center;
   margin: 0 auto;
   margin-top: 3em;
   margin-left: 0 auto;
   text-align: center;
+  &-alt {
+    padding-top: 3em;
+    width: 600px;
+  }
 }
 .doctor-main {
   margin: 0 auto;

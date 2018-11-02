@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import {
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
+// import {
+//   ButtonDropdown,
+//   DropdownToggle,
+//   DropdownMenu,
+//   DropdownItem
+// } from "reactstrap";
 import { Redirect } from "react-router-dom";
 import "./Doctor.scss";
-import PatientViewContainer from "../../containers/PatientViewContainer";
+// import PatientViewContainer from "../../containers/PatientViewContainer";
 import EventPanel from "../EventPanel/EventPanel";
+import { apiEndpoint } from "../../apiEndpoint";
 
 class Doctor extends Component {
   constructor(props) {
@@ -18,8 +19,8 @@ class Doctor extends Component {
       dropdownOpen: false
     };
 
-    this.patientSuggestion = this.patientSuggestion.bind(this);
-    this.toggleDropdown = this.toggleDropdown.bind(this);
+    // this.patientSuggestion = this.patientSuggestion.bind(this);
+    // this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
   componentDidMount() {
@@ -27,52 +28,91 @@ class Doctor extends Component {
     this.props.fetchNotifications(sessionID);
   }
 
-  patientSuggestion = patient => {
-    const { name, id } = patient;
-    return (
-      <div key={id}>
-        <DropdownItem
-          onClick={() => {
-            this.props.selectPatient({ id, name });
-          }}
-        >
-          {name + " - ID" + id}
-        </DropdownItem>
-      </div>
-    );
-  };
+  // patientSuggestion = patient => {
+  //   const { name, id } = patient;
+  //   return (
+  //     <div key={id}>
+  //       <DropdownItem
+  //         onClick={() => {
+  //           this.props.selectPatient({ id, name });
+  //         }}
+  //       >
+  //         {name + " - ID" + id}
+  //       </DropdownItem>
+  //     </div>
+  //   );
+  // };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return (
-      this.props.notifications !== nextProps.notifications ||
-      this.props.loggedIn !== nextProps.loggedIn ||
-      this.props.id !== nextProps.id ||
-      this.state.dropdownOpen !== nextState.dropdownOpen
-    );
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return (
+  //     this.props.notifications !== nextProps.notifications ||
+  //     this.props.loggedIn !== nextProps.loggedIn ||
+  //     this.props.id !== nextProps.id ||
+  //     this.state.dropdownOpen !== nextState.dropdownOpen
+  //   );
+  // }
 
-  toggleDropdown() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
-  }
+  // toggleDropdown() {
+  //   this.setState({
+  //     dropdownOpen: !this.state.dropdownOpen
+  //   });
+  // }
 
   render() {
-    const mockPatients = [
-      { name: "John Cena", id: 1 },
-      { name: "Andrej Kiska", id: 2 },
-      { name: "Jeorrej Olasxzu", id: 3 }
-    ];
+    // const mockPatients = [
+    //   { name: "John Cena", id: 1 },
+    //   { name: "Andrej Kiska", id: 2 },
+    //   { name: "Jeorrej Olasxzu", id: 3 }
+    // ];
 
     if (!this.props.loggedIn) {
       return <Redirect to="/" />;
     }
-    console.log(this.props);
 
     return (
       <div className="doctor-layout">
         <div className="doctor-main">
-          <div className="record-select">
+          <div className="doctor-inner-alt">
+            <div className="Box">
+              <label className="Input__Label">Your username</label>
+              <input
+                onChange={e => this.setState({ username: e.target.value })}
+                className="Input__Text"
+                type="text"
+                value={this.state.username}
+              />
+              <br /> <label className="Input__Label">Input</label>
+              <textarea
+                onChange={e => this.setState({ input: e.target.value })}
+                className="Input__Area"
+                type="text"
+                value={this.state.input}
+              />
+              <hr />
+              <button
+                onClick={() =>
+                  fetch(
+                    `${apiEndpoint}/credential_offer?token=${
+                      this.props.sessionID
+                    }&prover_username=${this.state.username}`
+                  )
+                }
+                className="Button Button__Green"
+              >
+                Issue credentials
+              </button>
+              <button
+                onClick={() =>
+                  this.props.fetchNotifications(this.props.sessionID)
+                }
+                className="Button Button__Green"
+              >
+                Refresh
+              </button>
+            </div>
+            <br />
+          </div>
+          {/* <div className="doctor-inner">
             <ButtonDropdown
               isOpen={this.state.dropdownOpen}
               toggle={this.toggleDropdown}
@@ -100,7 +140,7 @@ class Doctor extends Component {
             ) : (
               <div>No patient selected</div>
             )}
-          </div>
+          </div> */}
         </div>
         <EventPanel
           loading={this.props.notificationsLoading}

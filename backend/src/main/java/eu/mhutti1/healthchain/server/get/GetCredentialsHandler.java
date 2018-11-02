@@ -51,7 +51,7 @@ public class GetCredentialsHandler implements HttpHandler {
     }
 
     try {
-      response = Anoncreds.proverGetCredential(proverWallet, new JSONObject().toString()).get();
+      response = Anoncreds.proverGetCredential(proverWallet, "id1").get();
     } catch (InterruptedException e) {
       e.printStackTrace();
       response = RequestUtils.messageInternalServerError();
@@ -65,7 +65,7 @@ public class GetCredentialsHandler implements HttpHandler {
       responseCode = RequestUtils.statusUnauthorized();
     }
 
-    response = RequestUtils.wrapResponse("credentials", response);
+    response = "{\"credentials\":" + response + "}";
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

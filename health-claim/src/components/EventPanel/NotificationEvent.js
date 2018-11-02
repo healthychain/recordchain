@@ -3,11 +3,11 @@ import "./EventPanel.scss";
 
 class NotificationEvent extends Component {
   render() {
-    const { payload, handle, acceptURL, idx, events } = this.props;
+    const { handle, acceptAction, events, token, id } = this.props;
     return (
       <div className={"Event"}>
-        <p>Username = {payload.username}</p>
-        <p onClick={() => handle(acceptURL, idx, events)}>Accept</p>
+        <p>{acceptAction}</p>
+        <p onClick={() => handle(acceptAction, events, id, token)}>Accept</p>
         {/* <p onClick={() => handle(rejectURL, idx, events)}>Reject</p> */}
       </div>
     );

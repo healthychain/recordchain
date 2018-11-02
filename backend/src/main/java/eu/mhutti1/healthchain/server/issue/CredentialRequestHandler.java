@@ -104,7 +104,7 @@ public class CredentialRequestHandler implements HttpHandler {
             .put("credDefJSON", credDefJSON)
             .put("credOfferJSON", credOfferJSON);
 
-    LocalStorage.store(proverDid, new EventNode("", issuerDid, newPayload, "credential_issue", null));
+    LocalStorage.store(issuerDid, new EventNode("", proverDid, newPayload, "credential_issue", null));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

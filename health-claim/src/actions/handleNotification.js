@@ -7,10 +7,15 @@ export const handleNotification = notifications => ({
   payload: { notifications }
 });
 
-function handle(url, index, allNotifications) {
+function handle(url, allNotifications, notificationID, token) {
   return dispatch => {
-    dispatch(handleNotification(allNotifications.splice(index, 1)));
-    return fetch(`${apiEndpoint}/${url}`);
+    return fetch(`${apiEndpoint}/${url}token=${token}`).then(
+      dispatch(
+        handleNotification(
+          allNotifications.filter(elem => elem.id !== notificationID)
+        )
+      )
+    );
   };
 }
 

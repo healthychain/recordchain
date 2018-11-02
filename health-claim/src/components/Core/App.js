@@ -1,13 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import Claim from "../Claim/Claim";
+import "bootstrap/dist/css/bootstrap.css";
 import NotFound from "../NotFound/NotFound";
 import Home from "../Home";
 import "./App.scss";
+import Patient from "../Patient/Patient";
 import DoctorContainer from "../../containers/DoctorContainer";
 import LoginFormContainer from "../../containers/LoginFormContainer";
 import RegisterFormContainer from "../../containers/RegisterFormContainer";
 import MessageScreen from "../MessageScreen/MessageScreen";
+import Coffin from "../../containers/Coffin";
 
 export class App extends React.PureComponent {
   shouldComponentUpdate(newProps) {
@@ -81,7 +83,7 @@ export class App extends React.PureComponent {
                     />
                   )}
                 />
-                <Route path="/patient" exact component={Claim} />
+                <Route path="/patient" exact component={Coffin} />
                 <Route path="/doctor" exact component={DoctorContainer} />
                 {/* Finally, catch all unmatched routes */}
                 <Route component={NotFound} />\

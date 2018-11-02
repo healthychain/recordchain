@@ -1,5 +1,5 @@
 import React from "react";
-import Box from "../UI/Containers";
+import "../UI/Containers";
 import QRReaderButton from "../QRReader/QRReaderButton";
 import RoleButton from "./RoleButton";
 import "./LoginForm.scss";
@@ -26,7 +26,6 @@ export default class RegistrationFormBox extends React.Component {
       this.state.did,
       this.state.isPatient
     );
-    console.log(this.state.username);
     event.stopPropagation();
     event.preventDefault();
   }

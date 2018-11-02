@@ -9,6 +9,8 @@ import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.EventNode;
 import eu.mhutti1.healthchain.storage.LocalStorage;
 import eu.mhutti1.healthchain.utils.Crypto;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
@@ -64,7 +66,7 @@ public class CredentialOfferHandler implements HttpHandler {
     }
 
     System.out.println("Create credential offer\n");
-    String credDefJSON = "{\"seqNo\": 1, \"dest\": \"" + proverDid + "\", \"data\": " + HealthRecord.getSchemaDataJSON() + "}";
+    String credDefJSON = "{\"seqNo\": 2, \"dest\": \"" + proverDid + "\", \"data\": " + HealthRecord.getSchemaDataJSON() + "}";
     System.out.println("Cred Def JSON:\n" + credDefJSON);
 
     try {
@@ -72,7 +74,7 @@ public class CredentialOfferHandler implements HttpHandler {
               issuerWallet,
               issuerDid,
               HealthRecord.getSchemaDataJSON(),
-              "cred_def_tag",
+          RandomStringUtils.randomAlphabetic(12),
               "CL",
               "{\"support_revocation\": false}"
       ).get();
@@ -124,7 +126,7 @@ public class CredentialOfferHandler implements HttpHandler {
 
     JSONObject payload = new JSONObject()
             .put("credOfferJSON", credOfferJSON)
-            .put("credDefJSON", credDefJSON);
+            .put("credDefJSON", credDef.getCredDefJson());
 
     LocalStorage.store(proverDid, new EventNode("", issuerDid, payload, "credential_request", null));
 

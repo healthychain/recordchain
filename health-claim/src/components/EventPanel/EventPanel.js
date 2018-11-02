@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 
 import "./EventPanel.scss";
 import NotificationEventContainer from "../../containers/NotificationEventContainer";
+import Patient from "../Patient/Patient";
 
 export default class EventPanel extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { collapsed: false };
+    this.state = { collapsed: true };
 
     this.toggleView = this.toggleView.bind(this);
   }
@@ -33,7 +34,12 @@ export default class EventPanel extends Component {
     return (
       <div>
         {this.state.collapsed ? (
-          <div className="Toggle" onClick={this.toggleView}>
+          <div
+            className={
+              this.props.events.length === 0 ? "Toggle" : "Toggle__Red"
+            }
+            onClick={this.toggleView}
+          >
             Notifications
           </div>
         ) : (
