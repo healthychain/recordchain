@@ -49,7 +49,7 @@ public class CredentialRequestHandler implements HttpHandler {
     } catch (SessionInvalidException e) {
       e.printStackTrace();
       response = "Invalid token";
-      responseCode = RequestUtils.statusUnauthorized();
+      responseCode =  RequestUtils.statusSessionExpired();
     }
 
     if(proverWallet == null || proverDid == null) {

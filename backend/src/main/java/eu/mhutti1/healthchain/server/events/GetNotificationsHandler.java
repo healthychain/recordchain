@@ -43,7 +43,7 @@ public class GetNotificationsHandler implements HttpHandler {
     } catch (SessionInvalidException e) {
       e.printStackTrace();
       response = "Invalid token";
-      responseCode = RequestUtils.statusUnauthorized();
+      responseCode = RequestUtils.statusSessionExpired();
     }
 
     if(did != null) {

@@ -33,7 +33,11 @@ public class SessionManager {
 
   public static boolean isSessionValid(String token) {
     if(sessions.containsKey(token)){
-      return sessions.get(token).isValid();
+      boolean isValid = sessions.get(token).isValid();
+      if(!isValid) {
+        sessions.remove(token);
+      }
+      return isValid;
     }
     return false;
   }

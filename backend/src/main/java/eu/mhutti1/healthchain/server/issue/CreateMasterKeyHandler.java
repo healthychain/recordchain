@@ -38,7 +38,7 @@ public class CreateMasterKeyHandler implements HttpHandler {
       proverWallet = SessionManager.getSessionCredentials(token).getWallet();
     } catch (SessionInvalidException e) {
       response = "Invalid session token";
-      responseCode = 400;
+      responseCode = RequestUtils.statusSessionExpired();
     }
 
     if(proverWallet != null) {

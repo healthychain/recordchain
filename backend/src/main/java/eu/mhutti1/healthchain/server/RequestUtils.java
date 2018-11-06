@@ -51,4 +51,8 @@ public class RequestUtils {
     return 400;
   }
 
+  public static int statusSessionExpired() {
+    return 401;
+  }
+
 }

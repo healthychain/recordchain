@@ -10,6 +10,7 @@ import eu.mhutti1.healthchain.server.get.GetCredentialsHandler;
 import eu.mhutti1.healthchain.server.issue.*;
 import eu.mhutti1.healthchain.server.verify.DoctorVerifyHandler;
 import eu.mhutti1.healthchain.server.verify.PatientVerifyHandler;
+import eu.mhutti1.healthchain.server.verify.SessionVerifyHandler;
 import eu.mhutti1.healthchain.storage.LocalStorage;
 import org.hyperledger.indy.sdk.IndyException;
 
@@ -41,6 +42,9 @@ public class Server {
     //verification
     server.createContext("/patient_verify", new PatientVerifyHandler());
     server.createContext("/doctor_verify", new DoctorVerifyHandler());
+
+    //valid session verifier
+    server.createContext("/verify_session", new SessionVerifyHandler());
 
     //master secret creation
     server.createContext("/create_master_secret", new CreateMasterKeyHandler());

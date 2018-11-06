@@ -45,7 +45,7 @@ public class CredentialIssueHandler implements HttpHandler {
       issuerDid = SessionManager.getSessionCredentials(token).getDid();
     } catch (SessionInvalidException e) {
       response = "Invalid session token";
-      responseCode = 400;
+      responseCode = RequestUtils.statusSessionExpired();
     }
 
     if (issuerWallet == null) {

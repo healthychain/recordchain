@@ -49,7 +49,7 @@ public abstract class CreateApproveHandler implements HttpHandler {
     } catch (SessionInvalidException e) {
       e.printStackTrace();
       response = "Invalid session token";
-      responseCode = 400;
+      responseCode =  RequestUtils.statusSessionExpired();
     }
 
     EventNode event = LocalStorage.getEvent(issuerDid, eventId);
