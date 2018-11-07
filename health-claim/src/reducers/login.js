@@ -8,18 +8,18 @@ import {
 const initialState = {
   success: false,
   loading: false,
-  error: null
+  error: false
 };
 
 const login = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_BEGIN:
-      return { ...state, loading: true, error: null };
+      return { ...state, loading: true, error: false };
     case LOGIN_ERROR:
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
+        error: true,
         success: false
       };
     case LOGIN_SUCCESS: {

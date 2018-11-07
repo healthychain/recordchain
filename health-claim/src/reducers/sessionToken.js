@@ -6,8 +6,6 @@ const initialState = {
 
 const sessionToken = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_BEGIN:
-      return { ...state, loading: true, error: null };
     case STORE_TOKEN: {
       return {
         ...state,
@@ -18,3 +16,5 @@ const sessionToken = (state = initialState, action) => {
       return state;
   }
 };
+
+export default sessionToken;

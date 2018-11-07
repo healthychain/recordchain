@@ -1,5 +1,6 @@
 import { apiEndpoint } from "../apiEndpoint";
 import handleErrors from "./handleErrors";
+import { storeToken } from "./sessionToken";
 
 export const LOGIN_BEGIN = "LOGIN_BEGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -9,8 +10,7 @@ export const LOGOUT = "LOGOUT";
 export const loginBegin = () => ({ type: LOGIN_BEGIN });
 
 export const loginError = error => ({
-  type: LOGIN_ERROR,
-  payload: { error }
+  type: LOGIN_ERROR
 });
 
 export const loginSuccess = token => ({
@@ -33,10 +33,10 @@ function login(username, password, account_type) {
       .then(json => {
         console.log(json.token);
         dispatch(loginSuccess(json.token));
-        dispatch(storeTokenCookie(json.token));
+        dispatch(storeToken(json.token));
       })
 
-      .catch(error => dispatch(loginError(error)));
+      .catch(error => dispatch(loginError()));
   };
 }
 

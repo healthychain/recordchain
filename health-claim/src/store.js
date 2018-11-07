@@ -10,13 +10,15 @@ import fetchPatientClaims from "./reducers/fetchPatientClaims";
 import selectPatient from "./reducers/selectPatient";
 import login from "./reducers/login";
 import register from "./reducers/register";
+import verifySession from "./reducers/verifySession";
+import sessionToken from "./reducers/sessionToken";
 
 const loggerMiddleware = createLogger();
 
 const persistConfig = {
   key: "root",
   storage,
-  whiteList: []
+  whitelist: ["sessionToken"]
 };
 
 const reducer = combineReducers({
@@ -24,7 +26,9 @@ const reducer = combineReducers({
   fetchNotifications,
   selectPatient,
   login,
-  register
+  register,
+  verifySession,
+  sessionToken
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
