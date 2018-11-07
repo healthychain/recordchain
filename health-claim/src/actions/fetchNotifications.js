@@ -28,6 +28,7 @@ function fetchNotifications(sessionID) {
       .then(raw => handleErrors(raw))
       .then(response => response.json())
       .then(json => {
+        debugger;
         dispatch(fetchNotificationsSuccess(JSON.parse(json.events)));
         return json.notifications;
       })
@@ -39,6 +40,7 @@ const checkSessionValidity = (responseJson, dispatch) => {
   if (responseJson.status === 401) {
     dispatch(logout());
   }
+  return responseJson;
 };
 
 export default fetchNotifications;
