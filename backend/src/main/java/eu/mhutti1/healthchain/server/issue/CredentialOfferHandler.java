@@ -39,7 +39,10 @@ public class CredentialOfferHandler implements HttpHandler {
 
     String token = params.get("token");
     String proverUsername = params.get("prover_username");
+    String data = params.get("data");
     String proverDid = Crypto.getDid(proverUsername);
+    System.out.println(data);
+
 
     Wallet issuerWallet = null;
     String issuerDid = null;
@@ -67,6 +70,7 @@ public class CredentialOfferHandler implements HttpHandler {
 
     System.out.println("Create credential offer\n");
     String credDefJSON = "{\"seqNo\": 2, \"dest\": \"" + proverDid + "\", \"data\": " + HealthRecord.getSchemaDataJSON() + "}";
+    //String credDefJSON = "{\"seqNo\": 2, \"dest\": \"" + proverDid + "\", \"data\": " + HealthRecord.getCustomSchemaDataJSON(data) + "}";
     System.out.println("Cred Def JSON:\n" + credDefJSON);
 
     try {
@@ -74,7 +78,8 @@ public class CredentialOfferHandler implements HttpHandler {
               issuerWallet,
               issuerDid,
               HealthRecord.getSchemaDataJSON(),
-          RandomStringUtils.randomAlphabetic(12),
+              //HealthRecord.getCustomSchemaDataJSON(),
+              RandomStringUtils.randomAlphabetic(12),
               "CL",
               "{\"support_revocation\": false}"
       ).get();
@@ -124,9 +129,13 @@ public class CredentialOfferHandler implements HttpHandler {
       return;
     }
 
+    System.out.println(credOfferJSON);
+    //Create credDataJSON Object
+
     JSONObject payload = new JSONObject()
             .put("credOfferJSON", credOfferJSON)
             .put("credDefJSON", credDef.getCredDefJson());
+            //.put("credDataJSON", credData);
 
     LocalStorage.store(proverDid, new EventNode("", issuerDid, payload, "credential_request", null));
 

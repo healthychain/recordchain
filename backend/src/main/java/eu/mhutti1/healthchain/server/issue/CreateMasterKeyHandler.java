@@ -28,7 +28,7 @@ public class CreateMasterKeyHandler implements HttpHandler {
     Map<String, String> params = RequestUtils.queryToMap(query);
 
     String token = params.get("token");
-    String masterSecret = params.get("master_secret");
+    String masterSecret = params.get("master_secret"); //master_secret
 
     Wallet proverWallet = null;
     String response = "Master secret created";
