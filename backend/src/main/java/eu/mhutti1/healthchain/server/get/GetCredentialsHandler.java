@@ -3,6 +3,7 @@ package eu.mhutti1.healthchain.server.get;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import org.hyperledger.indy.sdk.IndyException;
@@ -19,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by jedraz on 01/11/2018.
  */
-public class GetCredentialsHandler implements HttpHandler {
+public class GetCredentialsHandler extends NonEventConsumer {
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
     httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");

@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.roles.Role;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.EventNode;
@@ -21,14 +22,14 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by jedraz on 31/10/2018.
  */
-public abstract class CreateApproveHandler implements HttpHandler {
+public abstract class CreateApproveHandler extends EventConsumer {
 
   public abstract Role createVerifier(Wallet wallet, String did, String verKey);
 
   public abstract Role createAccountHolder(Role role, String did, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException;
 
   @Override
-  public void handle(HttpExchange httpExchange) throws IOException {
+  public boolean handleEventAction(HttpExchange httpExchange) throws IOException {
     httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
     String query = httpExchange.getRequestURI().getQuery();
@@ -67,7 +68,7 @@ public abstract class CreateApproveHandler implements HttpHandler {
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
       os.close();
-      return;
+      return false;
     }
 
     try {
@@ -100,5 +101,6 @@ public abstract class CreateApproveHandler implements HttpHandler {
     OutputStream os = httpExchange.getResponseBody();
     os.write(response.getBytes());
     os.close();
+    return true;
   }
 }

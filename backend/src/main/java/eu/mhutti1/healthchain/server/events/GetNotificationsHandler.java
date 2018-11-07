@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 /**
  * Created by jedraz on 31/10/2018.
  */
-public class GetNotificationsHandler implements HttpHandler {
+public class GetNotificationsHandler extends NonEventConsumer {
 
 
   @Override

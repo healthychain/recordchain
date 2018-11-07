@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.constants.HealthRecord;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.EventNode;
@@ -27,10 +28,11 @@ import static org.hyperledger.indy.sdk.anoncreds.Anoncreds.issuerCreateAndStoreC
 /**
  * Created by jedraz on 29/10/2018.
  */
-public class CredentialOfferHandler implements HttpHandler {
+public class CredentialOfferHandler extends EventConsumer {
+
 
   @Override
-  public void handle(HttpExchange httpExchange) throws IOException {
+  public boolean handleEventAction(HttpExchange httpExchange) throws IOException {
 
     httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
@@ -62,7 +64,7 @@ public class CredentialOfferHandler implements HttpHandler {
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
       os.close();
-      return;
+      return false;
     }
 
     System.out.println("Create credential offer\n");
@@ -96,7 +98,7 @@ public class CredentialOfferHandler implements HttpHandler {
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
       os.close();
-      return;
+      return false;
     }
 
     System.out.println("Returned Cred Definition:\n" + credDef);
@@ -121,7 +123,7 @@ public class CredentialOfferHandler implements HttpHandler {
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
       os.close();
-      return;
+      return false;
     }
 
     JSONObject payload = new JSONObject()
@@ -134,5 +136,6 @@ public class CredentialOfferHandler implements HttpHandler {
     OutputStream os = httpExchange.getResponseBody();
     os.write(response.getBytes());
     os.close();
+    return true;
   }
 }

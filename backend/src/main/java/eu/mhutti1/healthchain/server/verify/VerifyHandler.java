@@ -3,6 +3,7 @@ package eu.mhutti1.healthchain.server.verify;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.utils.Crypto;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
@@ -18,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by jedraz on 29/10/2018.
  */
-public abstract class VerifyHandler implements HttpHandler {
+public abstract class VerifyHandler extends NonEventConsumer {
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {

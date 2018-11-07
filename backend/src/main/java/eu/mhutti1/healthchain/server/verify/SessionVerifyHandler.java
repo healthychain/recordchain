@@ -3,6 +3,7 @@ package eu.mhutti1.healthchain.server.verify;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import org.hyperledger.indy.sdk.wallet.Wallet;
@@ -14,7 +15,7 @@ import java.util.Map;
 /**
  * Created by jedraz on 06/11/2018.
  */
-public class SessionVerifyHandler implements HttpHandler {
+public class SessionVerifyHandler extends NonEventConsumer {
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
