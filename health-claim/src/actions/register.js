@@ -1,6 +1,5 @@
 import { apiEndpoint } from "../apiEndpoint";
-
-// import { apiEndpoint } from "../apiEndpoint";
+import handleErrors from "./handleErrors";
 
 export const REGISTER_BEGIN = "REGISTER_BEGIN";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
@@ -31,12 +30,5 @@ function register(username, password, did, isPatient) {
       .catch(error => dispatch(registerError(error)));
   };
 }
-
-const handleErrors = response => {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response;
-};
 
 export default register;

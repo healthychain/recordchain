@@ -1,4 +1,5 @@
 import { apiEndpoint } from "../apiEndpoint";
+import handleErrors from "./handleErrors";
 
 export const FETCH_CLAIMS_BEGIN = "FETCH_CLAIMS_BEGIN";
 export const FETCH_CLAIMS_SUCCESS = "FETCH_CLAIMS_SUCCESS";
@@ -29,12 +30,5 @@ function fetchClaims(patientID) {
       .catch(error => fetchClaimsError(error));
   };
 }
-
-const handleErrors = response => {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response;
-};
 
 export default fetchClaims;

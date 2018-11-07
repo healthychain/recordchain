@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 import "./EventPanel.scss";
 import NotificationEventContainer from "../../containers/NotificationEventContainer";
-import Patient from "../Patient/Patient";
 
 export default class EventPanel extends Component {
   constructor(props) {

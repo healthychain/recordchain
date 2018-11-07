@@ -142,7 +142,8 @@ exports[`Claim should render correctly with mocked records 1`] = `
   <h5
     className="record"
   >
-     Record number 
+     
+    Record number 
      
   </h5>
   <div
