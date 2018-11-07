@@ -1,13 +1,12 @@
 package eu.mhutti1.healthchain.server.issue;
 
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.EventNode;
-import eu.mhutti1.healthchain.storage.LocalStorage;
+import eu.mhutti1.healthchain.storage.EventStorage;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
@@ -57,12 +56,12 @@ public class CredentialIssueHandler extends EventConsumer {
       return false;
     }
 
-    JSONObject payload = LocalStorage.getEvent(issuerDid, eventId).getPayload();
+    JSONObject payload = EventStorage.getEvent(issuerDid, eventId).getPayload();
     String credentialRequestJSON = payload.getString("credentialRequestJSON");
     String credDefJSON = payload.getString("credDefJSON");
     String credOfferJSON = payload.getString("credOfferJSON");
     String credentialRequestMetadataJSON = payload.getString("credentialRequestMetadataJSON");
-    String proverDid = LocalStorage.getEvent(issuerDid, eventId).getFromDid();
+    String proverDid = EventStorage.getEvent(issuerDid, eventId).getFromDid();
 
     String cred_values = "{\n" +
             "        \"sex\": {\"raw\": \"male\", \"encoded\": \"5944657099558967239210949258394887428692050081607692519917050\"},\n" +
@@ -97,7 +96,7 @@ public class CredentialIssueHandler extends EventConsumer {
             .put("credDefJSON", credDefJSON)
             .put("credentialRequestMetadataJSON", credentialRequestMetadataJSON);
 
-    LocalStorage.store(proverDid, new EventNode("", issuerDid, newPayload, "credential_store", null));
+    EventStorage.store(proverDid, new EventNode("", issuerDid, newPayload, "credential_store", null));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

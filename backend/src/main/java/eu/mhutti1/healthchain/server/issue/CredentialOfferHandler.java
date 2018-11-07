@@ -1,17 +1,16 @@
 package eu.mhutti1.healthchain.server.issue;
 
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.constants.HealthRecord;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
+import eu.mhutti1.healthchain.storage.CredDefStorage;
 import eu.mhutti1.healthchain.storage.EventNode;
-import eu.mhutti1.healthchain.storage.LocalStorage;
+import eu.mhutti1.healthchain.storage.EventStorage;
 import eu.mhutti1.healthchain.utils.Crypto;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.RandomUtils;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
@@ -80,6 +79,8 @@ public class CredentialOfferHandler extends EventConsumer {
               "CL",
               "{\"support_revocation\": false}"
       ).get();
+
+      CredDefStorage.getStore().put(proverDid, new CredDefStorage.CredDef(credDef.getCredDefId(), credDef.getCredDefJson()));
     } catch (InterruptedException e) {
       e.printStackTrace();
       response = RequestUtils.messageInternalServerError();
@@ -130,7 +131,7 @@ public class CredentialOfferHandler extends EventConsumer {
             .put("credOfferJSON", credOfferJSON)
             .put("credDefJSON", credDef.getCredDefJson());
 
-    LocalStorage.store(proverDid, new EventNode("", issuerDid, payload, "credential_request", null));
+    EventStorage.store(proverDid, new EventNode("", issuerDid, payload, "credential_request", null));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

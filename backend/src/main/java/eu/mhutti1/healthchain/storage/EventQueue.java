@@ -41,7 +41,7 @@ public class EventQueue implements Serializable {
     else return new ArrayList<>();
   }
 
-  public void removeEvent(String event) {
-    events.remove(event);
+  public void removeEvent(String nodeId) {
+    events.remove(nodeId);
   }
 }

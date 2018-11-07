@@ -1,13 +1,12 @@
 package eu.mhutti1.healthchain.server.events;
 
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.EventNode;
 import eu.mhutti1.healthchain.storage.EventQueue;
-import eu.mhutti1.healthchain.storage.LocalStorage;
+import eu.mhutti1.healthchain.storage.EventStorage;
 import org.json.JSONArray;
 
 import java.io.IOException;
@@ -15,7 +14,6 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by jedraz on 31/10/2018.
@@ -48,7 +46,7 @@ public class GetNotificationsHandler extends NonEventConsumer {
 
     if(did != null) {
       responseCode = RequestUtils.statusOK();
-      EventQueue eventQueue = LocalStorage.get(did);
+      EventQueue eventQueue = EventStorage.get(did);
       if (eventQueue == null) {
         response = new JSONArray().toString();
       } else {

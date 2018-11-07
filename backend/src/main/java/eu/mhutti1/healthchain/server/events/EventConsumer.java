@@ -5,7 +5,7 @@ import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
-import eu.mhutti1.healthchain.storage.LocalStorage;
+import eu.mhutti1.healthchain.storage.EventStorage;
 import org.hyperledger.indy.sdk.wallet.Wallet;
 
 import java.io.IOException;
@@ -41,7 +41,7 @@ public abstract class EventConsumer implements HttpHandler {
     }
 
     if (handleEventAction(httpExchange)) {
-      LocalStorage.get(proverDid).removeEvent(eventId);
+      EventStorage.remove(proverDid, eventId);
     }
   }
 
