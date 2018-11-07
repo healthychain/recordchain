@@ -20,8 +20,9 @@ export const verifySession = token => {
   return dispatch => {
     dispatch(verifyBegin());
     return fetch(`${apiEndpoint}/verify_session/?token=${token}`)
-      .then(raw => handleErrors(raw))
-      .then(response => response.json())
+      .then(raw => {
+        return handleErrors(raw);
+      })
       .then(json => {
         dispatch(verifySuccess());
       })
