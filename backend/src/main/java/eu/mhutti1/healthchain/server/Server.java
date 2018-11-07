@@ -5,7 +5,9 @@ import eu.mhutti1.healthchain.constants.IndyPool;
 import eu.mhutti1.healthchain.server.create.*;
 import eu.mhutti1.healthchain.server.createOLD.DoctorCreateHandler;
 import eu.mhutti1.healthchain.server.createOLD.PatientCreateHandler;
+import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.events.GetNotificationsHandler;
+import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.server.get.GetCredentialsHandler;
 import eu.mhutti1.healthchain.server.issue.*;
 import eu.mhutti1.healthchain.server.verify.DoctorVerifyHandler;
@@ -23,45 +25,64 @@ import java.util.concurrent.ExecutionException;
  */
 public class Server {
 
+  private class EventServer {
+    HttpServer server;
+    public EventServer() throws IOException {
+      server = HttpServer.create(new InetSocketAddress(8000), 0);
+      server.setExecutor(null);
+    }
+
+    public void createEndpoint(String endpoint, NonEventConsumer nonEventConsumer) {
+      server.createContext(endpoint, nonEventConsumer);
+    }
+
+    public void createEventEndpoint(String endpoint, EventConsumer eventConsumer) {
+      server.createContext(endpoint, eventConsumer);
+    }
+
+    public void start() {
+      server.start();
+    }
+  }
+
   public Server() throws IOException, InterruptedException, ExecutionException, IndyException {
 
     IndyPool.initlaizePool();
     LocalStorage.getStore();
 
-    HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+    EventServer server = new EventServer();
+
     //old creation
-    server.createContext("/patient_create", new PatientCreateHandler());
-    server.createContext("/doctor_create", new DoctorCreateHandler());
+//    server.createEndpoint("/patient_create", new PatientCreateHandler());
+//    server.createEndpoint("/doctor_create", new DoctorCreateHandler());
 
     //creation
-    server.createContext("/create_patient_req", new CreateRequestPatientHandler());
-    server.createContext("/create_patient_approve", new CreateApprovePatientHandler());
-    server.createContext("/create_doctor_req", new CreateRequestDoctorHandler());
-    server.createContext("/create_doctor_approve", new CreateApproveDoctorHandler());
+    server.createEndpoint("/create_patient_req", new CreateRequestPatientHandler());
+    server.createEventEndpoint("/create_patient_approve", new CreateApprovePatientHandler());
+    server.createEndpoint("/create_doctor_req", new CreateRequestDoctorHandler());
+    server.createEventEndpoint("/create_doctor_approve", new CreateApproveDoctorHandler());
 
     //verification
-    server.createContext("/patient_verify", new PatientVerifyHandler());
-    server.createContext("/doctor_verify", new DoctorVerifyHandler());
+    server.createEndpoint("/patient_verify", new PatientVerifyHandler());
+    server.createEndpoint("/doctor_verify", new DoctorVerifyHandler());
 
     //valid session verifier
-    server.createContext("/verify_session", new SessionVerifyHandler());
+    server.createEndpoint("/verify_session", new SessionVerifyHandler());
 
     //master secret creation
-    server.createContext("/create_master_secret", new CreateMasterKeyHandler());
+    server.createEndpoint("/create_master_secret", new CreateMasterKeyHandler());
 
     //issue credential handshake
-    server.createContext("/credential_offer", new CredentialOfferHandler());
-    server.createContext("/credential_request", new CredentialRequestHandler());
-    server.createContext("/credential_issue", new CredentialIssueHandler());
-    server.createContext("/credential_store", new CredentialStoreHandler());
+    server.createEventEndpoint("/credential_offer", new CredentialOfferHandler());
+    server.createEventEndpoint("/credential_request", new CredentialRequestHandler());
+    server.createEventEndpoint("/credential_issue", new CredentialIssueHandler());
+    server.createEventEndpoint("/credential_store", new CredentialStoreHandler());
 
     //notifications
-    server.createContext("/get_events", new GetNotificationsHandler());
+    server.createEndpoint("/get_events", new GetNotificationsHandler());
 
     //get credentials
-    server.createContext("/get_credentials", new GetCredentialsHandler());
-
-    server.setExecutor(null); // creates a default executor
+    server.createEndpoint("/get_credentials", new GetCredentialsHandler());
     server.start();
   }
 }

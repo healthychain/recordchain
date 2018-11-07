@@ -3,6 +3,7 @@ package eu.mhutti1.healthchain.server.issue;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.EventNode;
@@ -21,10 +22,10 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by jedraz on 30/10/2018.
  */
-public class CredentialIssueHandler implements HttpHandler {
+public class CredentialIssueHandler extends EventConsumer {
 
   @Override
-  public void handle(HttpExchange httpExchange) throws IOException {
+  public boolean handleEventAction(HttpExchange httpExchange) throws IOException {
 
     httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
@@ -53,7 +54,7 @@ public class CredentialIssueHandler implements HttpHandler {
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
       os.close();
-      return;
+      return false;
     }
 
     JSONObject payload = LocalStorage.getEvent(issuerDid, eventId).getPayload();
@@ -102,5 +103,6 @@ public class CredentialIssueHandler implements HttpHandler {
     OutputStream os = httpExchange.getResponseBody();
     os.write(response.getBytes());
     os.close();
+    return true;
   }
 }
