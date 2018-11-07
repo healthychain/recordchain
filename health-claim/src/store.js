@@ -16,7 +16,7 @@ const loggerMiddleware = createLogger();
 const persistConfig = {
   key: "root",
   storage,
-  whiteList: []
+  whitelist: []
 };
 
 const reducer = combineReducers({
