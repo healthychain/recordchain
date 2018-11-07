@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import QRReader from "../QRReader/QRReader";
+import React from "react";
 import RegistrationFormBox from "./RegistrationFormBox";
 import "./LoginForm.scss";
 import { Redirect } from "react-router-dom";
