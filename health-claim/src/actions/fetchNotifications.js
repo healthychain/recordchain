@@ -1,4 +1,6 @@
 import { apiEndpoint } from "../apiEndpoint";
+import logout from "./login";
+import handleErrors from "./handleErrors";
 
 export const FETCH_NOTIFICATIONS_BEGIN = "FETCH_NOTIFICATIONS_BEGIN";
 export const FETCH_NOTIFICATIONS_SUCCESS = "FETCH_NOTIFICATIONS_SUCCESS";
@@ -22,6 +24,7 @@ function fetchNotifications(sessionID) {
   return dispatch => {
     dispatch(fetchNotificationsBegin());
     return fetch(`${apiEndpoint}/get_events/?token=${sessionID}`)
+      .then(res => checkSessionValidity(res, dispatch))
       .then(raw => handleErrors(raw))
       .then(response => response.json())
       .then(json => {
@@ -32,11 +35,10 @@ function fetchNotifications(sessionID) {
   };
 }
 
-const handleErrors = response => {
-  if (!response.ok) {
-    throw Error(response.statusText);
+const checkSessionValidity = (responseJson, dispatch) => {
+  if (responseJson.status === 401) {
+    dispatch(logout());
   }
-  return response;
 };
 
 export default fetchNotifications;

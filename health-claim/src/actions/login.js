@@ -1,6 +1,5 @@
 import { apiEndpoint } from "../apiEndpoint";
-
-// import { apiEndpoint } from "../apiEndpoint";
+import handleErrors from "./handleErrors";
 
 export const LOGIN_BEGIN = "LOGIN_BEGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -43,12 +42,5 @@ function login(username, password, account_type) {
 export function logout() {
   return dispatch => dispatch(logoutCall());
 }
-
-const handleErrors = response => {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response;
-};
 
 export default login;

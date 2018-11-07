@@ -2,8 +2,8 @@ import { combineReducers } from "redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
-// import { composeWithDevTools } from "redux-devtools-extension";
-// redux logger dev tools
+import storage from "redux-persist/lib/storage";
+import { persistStore, persistReducer } from "redux-persist";
 
 import fetchNotifications from "./reducers/fetchNotifications";
 import fetchPatientClaims from "./reducers/fetchPatientClaims";
@@ -13,6 +13,12 @@ import register from "./reducers/register";
 
 const loggerMiddleware = createLogger();
 
+const persistConfig = {
+  key: "root",
+  storage,
+  whiteList: []
+};
+
 const reducer = combineReducers({
   fetchPatientClaims,
   fetchNotifications,
@@ -21,12 +27,13 @@ const reducer = combineReducers({
   register
 });
 
+const persistedReducer = persistReducer(persistConfig, reducer);
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const Store = () => {
-  return createStore(
-    reducer,
-    // allow for redux dev tool extension in chrome
+export default () => {
+  let store = createStore(
+    persistedReducer,
     composeEnhancers(
       applyMiddleware(
         thunkMiddleware, // lets us dispatch() functions
@@ -34,6 +41,6 @@ const Store = () => {
       )
     )
   );
+  let persistor = persistStore(store);
+  return { store, persistor };
 };
-
-export default Store;
