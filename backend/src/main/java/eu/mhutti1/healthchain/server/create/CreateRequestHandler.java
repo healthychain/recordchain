@@ -1,11 +1,10 @@
 package eu.mhutti1.healthchain.server.create;
 
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.storage.EventNode;
-import eu.mhutti1.healthchain.storage.LocalStorage;
+import eu.mhutti1.healthchain.storage.EventStorage;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -42,7 +41,7 @@ public abstract class CreateRequestHandler extends NonEventConsumer {
 
     // later on register for email notofication
 
-    LocalStorage.store(issuerDid, new EventNode("", null, payload, getApproveEndpoint(), getDismissEndpoint()));
+    EventStorage.store(issuerDid, new EventNode("", null, payload, getApproveEndpoint(), getDismissEndpoint()));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

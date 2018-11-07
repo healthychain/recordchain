@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.roles.Role;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.utils.Crypto;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
 import org.hyperledger.indy.sdk.IndyException;
@@ -17,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by jedraz on 29/10/2018.
  */
-public abstract class CreateHandler implements HttpHandler {
+public abstract class CreateHandler extends NonEventConsumer {
 
   public abstract Role createVerifier(Wallet wallet, String did, String verKey);
 

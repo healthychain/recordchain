@@ -1,12 +1,11 @@
 package eu.mhutti1.healthchain.server.issue;
 
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
-import eu.mhutti1.healthchain.storage.LocalStorage;
+import eu.mhutti1.healthchain.storage.EventStorage;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.wallet.Wallet;
@@ -55,7 +54,7 @@ public class CredentialStoreHandler extends EventConsumer {
       return false;
     }
 
-    JSONObject payload = LocalStorage.getEvent(proverDid, eventId).getPayload();
+    JSONObject payload = EventStorage.getEvent(proverDid, eventId).getPayload();
     String credDefJSON = payload.getString("credDefJSON");
     String credential = payload.getString("credential");
     String credentialRequestMetadataJSON = payload.getString("credentialRequestMetadataJSON");

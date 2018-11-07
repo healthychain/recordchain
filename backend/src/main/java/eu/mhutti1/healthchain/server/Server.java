@@ -10,10 +10,14 @@ import eu.mhutti1.healthchain.server.events.GetNotificationsHandler;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.server.get.GetCredentialsHandler;
 import eu.mhutti1.healthchain.server.issue.*;
+import eu.mhutti1.healthchain.server.proof.ProofApproveHandler;
+import eu.mhutti1.healthchain.server.proof.ProofRequestPatientHandler;
+import eu.mhutti1.healthchain.server.proof.ProofRequestRequestHandler;
+import eu.mhutti1.healthchain.server.proof.ProofVerifyHandler;
 import eu.mhutti1.healthchain.server.verify.DoctorVerifyHandler;
 import eu.mhutti1.healthchain.server.verify.PatientVerifyHandler;
 import eu.mhutti1.healthchain.server.verify.SessionVerifyHandler;
-import eu.mhutti1.healthchain.storage.LocalStorage;
+import eu.mhutti1.healthchain.storage.EventStorage;
 import org.hyperledger.indy.sdk.IndyException;
 
 import java.io.IOException;
@@ -48,13 +52,13 @@ public class Server {
   public Server() throws IOException, InterruptedException, ExecutionException, IndyException {
 
     IndyPool.initlaizePool();
-    LocalStorage.getStore();
+    EventStorage.getStore();
 
     EventServer server = new EventServer();
 
     //old creation
-//    server.createEndpoint("/patient_create", new PatientCreateHandler());
-//    server.createEndpoint("/doctor_create", new DoctorCreateHandler());
+    server.createEndpoint("/patient_create", new PatientCreateHandler());
+    server.createEndpoint("/doctor_create", new DoctorCreateHandler());
 
     //creation
     server.createEndpoint("/create_patient_req", new CreateRequestPatientHandler());
@@ -77,6 +81,16 @@ public class Server {
     server.createEventEndpoint("/credential_request", new CredentialRequestHandler());
     server.createEventEndpoint("/credential_issue", new CredentialIssueHandler());
     server.createEventEndpoint("/credential_store", new CredentialStoreHandler());
+
+    // proof handling
+    server.createEndpoint("/proof_request_patient", new ProofRequestPatientHandler());
+    server.createEventEndpoint("/proof_request_patient_approve", new ProofApproveHandler());
+
+
+    // third party endpointr
+    server.createEndpoint("/proof_request_request", new ProofRequestRequestHandler());
+    server.createEndpoint("/proof_verify", new ProofVerifyHandler());
+
 
     //notifications
     server.createEndpoint("/get_events", new GetNotificationsHandler());

@@ -6,7 +6,7 @@ import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.EventNode;
-import eu.mhutti1.healthchain.storage.LocalStorage;
+import eu.mhutti1.healthchain.storage.EventStorage;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
@@ -60,10 +60,10 @@ public class CredentialRequestHandler extends EventConsumer {
       return false;
     }
 
-    JSONObject payload = LocalStorage.getEvent(proverDid, eventId).getPayload();
+    JSONObject payload = EventStorage.getEvent(proverDid, eventId).getPayload();
     String credOfferJSON = payload.getString("credOfferJSON");
     String credDefJSON = payload.getString("credDefJSON");
-    String issuerDid = LocalStorage.getEvent(proverDid, eventId).getFromDid();
+    String issuerDid = EventStorage.getEvent(proverDid, eventId).getFromDid();
 
     System.out.println("\nProver creates credential Request");
 
@@ -104,7 +104,7 @@ public class CredentialRequestHandler extends EventConsumer {
             .put("credDefJSON", credDefJSON)
             .put("credOfferJSON", credOfferJSON);
 
-    LocalStorage.store(issuerDid, new EventNode("", proverDid, newPayload, "credential_issue", null));
+    EventStorage.store(issuerDid, new EventNode("", proverDid, newPayload, "credential_issue", null));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

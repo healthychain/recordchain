@@ -1,14 +1,13 @@
 package eu.mhutti1.healthchain.server.create;
 
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.roles.Role;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.EventNode;
-import eu.mhutti1.healthchain.storage.LocalStorage;
+import eu.mhutti1.healthchain.storage.EventStorage;
 import eu.mhutti1.healthchain.utils.Crypto;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.wallet.Wallet;
@@ -53,7 +52,7 @@ public abstract class CreateApproveHandler extends EventConsumer {
       responseCode =  RequestUtils.statusSessionExpired();
     }
 
-    EventNode event = LocalStorage.getEvent(issuerDid, eventId);
+    EventNode event = EventStorage.getEvent(issuerDid, eventId);
     JSONObject payload = event.getPayload();
 
     String username = payload.getString("username");
