@@ -34,6 +34,7 @@ function login(username, password, account_type) {
       .then(json => {
         console.log(json.token);
         dispatch(loginSuccess(json.token));
+        dispatch(storeTokenCookie(json.token));
       })
 
       .catch(error => dispatch(loginError(error)));

@@ -13,9 +13,7 @@ const mapDispatchToProps = (dispatch, props) => ({
   logout: () => dispatch(logoutCall())
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
