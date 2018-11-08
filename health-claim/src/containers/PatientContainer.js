@@ -7,8 +7,8 @@ import Patient from "../components/Patient/Patient";
 
 const mapStateToProps = (state, props) => ({
   ...props,
-  loggedIn: state.login.success,
-  sessionID: state.login.token,
+  loggedIn: state.verifySession.success,
+  sessionID: state.sessionToken.token,
   notificationsLoading: state.fetchNotifications.loading,
   notificationsError: state.fetchNotifications.error,
   notifications: state.fetchNotifications.notifications

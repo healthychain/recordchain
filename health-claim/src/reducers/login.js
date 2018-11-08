@@ -19,7 +19,6 @@ const login = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: true,
         success: false
       };
     case LOGIN_SUCCESS: {

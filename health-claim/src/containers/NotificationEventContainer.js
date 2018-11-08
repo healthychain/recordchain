@@ -6,7 +6,7 @@ import handle from "../actions/handleNotification";
 
 const mapStateToProps = (state, props) => ({
   ...props,
-  token: state.login.token,
+  token: state.sessionToken.token,
   events: state.fetchNotifications.notifications
 });
 

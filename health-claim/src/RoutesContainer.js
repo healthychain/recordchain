@@ -2,7 +2,8 @@ import Routes from "./Routes";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state, props) => ({
-  ...props
+  ...props,
+  loggedIn: state.verifySession.success
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

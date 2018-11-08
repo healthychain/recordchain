@@ -5,6 +5,8 @@ import { storeToken } from "./sessionToken";
 export const VERIFY_BEGIN = "VERIFY_BEGIN";
 export const VERIFY_SUCCESS = "VERIFY_SUCCESS";
 export const VERIFY_ERROR = "VERIFY_ERROR";
+export const VERIFY_DOCTOR = "VERIFY_DOCTOR";
+export const VERIFY_PATIENT = "VERIFY_PATIENT";
 
 export const verifyBegin = () => ({ type: VERIFY_BEGIN });
 

@@ -5,7 +5,7 @@ import { logoutCall } from "../actions/login";
 
 const mapStateToProps = (state, props) => ({
   ...props,
-  loggedIn: state.login.success
+  loggedIn: state.verifySession.success
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

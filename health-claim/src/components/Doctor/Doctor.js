@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import "./Doctor.scss";
 import EventPanel from "../EventPanel/EventPanel";
 import { apiEndpoint } from "../../apiEndpoint";
@@ -13,16 +12,18 @@ class Doctor extends Component {
     };
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.sessionID !== this.props.sessionID) {
+      this.props.fetchNotifications(newProps.sessionID);
+    }
+  }
+
   componentDidMount() {
     const { sessionID } = this.props;
     this.props.fetchNotifications(sessionID);
   }
 
   render() {
-    if (!this.props.loggedIn) {
-      return <Redirect to="/" />;
-    }
-
     return (
       <div className="doctor-layout">
         <div className="doctor-main">
@@ -48,7 +49,8 @@ class Doctor extends Component {
                   fetch(
                     `${apiEndpoint}/credential_offer?token=${
                       this.props.sessionID
-                    }&prover_username=${this.state.username}`
+                    }&prover_username=${this.state.username}
+                    &data=${JSON.parse(this.state.input)}`
                   )
                 }
                 className="Button Button__Green"

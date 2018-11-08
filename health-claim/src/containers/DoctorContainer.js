@@ -11,7 +11,7 @@ const mapStateToProps = (state, props) => ({
   name: state.selectPatient.selectedPatientName,
   birthDate: state.selectPatient.selectedPatientBirthDate,
   loggedIn: state.login.success,
-  sessionID: state.login.token,
+  sessionID: state.sessionToken.token,
   notificationsLoading: state.fetchNotifications.loading,
   notificationsError: state.fetchNotifications.error,
   notifications: state.fetchNotifications.notifications

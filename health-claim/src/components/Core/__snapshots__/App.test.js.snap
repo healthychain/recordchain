@@ -1,52 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App should render without crashing 1`] = `
-<BrowserRouter>
-  <React.Fragment>
-    <div
-      className="Header"
-    >
+<withRouter(Connect(SessionAuthenticator))>
+  <BrowserRouter>
+    <div>
       <div
-        className="Header__Upper"
+        className="Header"
       >
         <div
-          className="Header__Nav"
+          className="Header__Upper"
         >
           <div
-            className="Header__Layout"
+            className="Header__Nav"
           >
             <div
-              className="Header__Logo"
+              className="Header__Layout"
             >
-              HealthClaim
+              <div
+                className="Header__Logo"
+              >
+                HealthClaim
+              </div>
+               
             </div>
-             
           </div>
+        </div>
+        <div
+          className="Header__Lower"
+        >
+          <h2
+            className="Header__Title"
+          >
+            Decentralized Healthcare
+          </h2>
         </div>
       </div>
       <div
-        className="Header__Lower"
+        className="Body"
       >
-        <h2
-          className="Header__Title"
+        <div
+          className="Main"
         >
-          Decentralized Healthcare
-        </h2>
-      </div>
-    </div>
-    <div
-      className="Body"
-    >
-      <div
-        className="Main"
-      >
-        <BrowserRouter>
           <Route
             component={[Function]}
           />
-        </BrowserRouter>
+        </div>
       </div>
     </div>
-  </React.Fragment>
-</BrowserRouter>
+  </BrowserRouter>
+</withRouter(Connect(SessionAuthenticator))>
 `;
