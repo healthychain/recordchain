@@ -26,9 +26,8 @@ function fetchNotifications(sessionID) {
     return fetch(`${apiEndpoint}/get_events/?token=${sessionID}`)
       .then(res => checkSessionValidity(res, dispatch))
       .then(raw => handleErrors(raw))
-      .then(response => response.json())
+      .then(response => response.json(), console.log(sessionID))
       .then(json => {
-        debugger;
         dispatch(fetchNotificationsSuccess(JSON.parse(json.events)));
         return json.notifications;
       })

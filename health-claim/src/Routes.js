@@ -20,7 +20,9 @@ class Routes extends Component {
           exact
           render={props =>
             loggedIn ? (
-              <DoctorContainer />
+              <Redirect
+                to={{ pathname: "/doctor", state: { from: props.location } }}
+              />
             ) : (
               <LoginFormContainer userType="Doctor" />
             )
@@ -31,7 +33,9 @@ class Routes extends Component {
           exact
           render={props =>
             loggedIn ? (
-              <PatientContainer />
+              <Redirect
+                to={{ pathname: "/patient", state: { from: props.location } }}
+              />
             ) : (
               <LoginFormContainer userType="Patient" />
             )
@@ -74,7 +78,12 @@ class Routes extends Component {
             loggedIn ? (
               <PatientContainer />
             ) : (
-              <LoginFormContainer userType="Patient" />
+              <Redirect
+                to={{
+                  pathname: "/login-patient",
+                  state: { from: props.location }
+                }}
+              />
             )
           }
         />
@@ -85,7 +94,12 @@ class Routes extends Component {
             loggedIn ? (
               <DoctorContainer />
             ) : (
-              <LoginFormContainer userType="Doctor" />
+              <Redirect
+                to={{
+                  pathname: "/login-doctor",
+                  state: { from: props.location }
+                }}
+              />
             )
           }
         />

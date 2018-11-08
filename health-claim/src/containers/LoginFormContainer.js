@@ -5,7 +5,7 @@ import login from "../actions/login";
 
 const mapStateToProps = (state, props) => ({
   ...props,
-  loginSuccess: state.login.success,
+  loginSuccess: state.verifySession.success,
   loading: state.login.loading,
   error: state.login.error
 });

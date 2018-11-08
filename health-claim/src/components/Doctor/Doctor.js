@@ -12,6 +12,12 @@ class Doctor extends Component {
     };
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.sessionID !== this.props.sessionID) {
+      this.props.fetchNotifications(newProps.sessionID);
+    }
+  }
+
   componentDidMount() {
     const { sessionID } = this.props;
     this.props.fetchNotifications(sessionID);

@@ -18,12 +18,6 @@ export const verifySuccess = () => ({
   type: VERIFY_SUCCESS
 });
 
-export const verifyDoctor = () => ({
-  type: VERIFY_DOCTOR
-});
-
-export const verifyPatient = () => ({});
-
 export const verifySession = token => {
   return dispatch => {
     dispatch(verifyBegin());
