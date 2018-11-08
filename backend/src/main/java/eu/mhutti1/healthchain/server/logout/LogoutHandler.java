@@ -50,6 +50,8 @@ public class LogoutHandler extends NonEventConsumer {
 
     response = "{\"response\":" + response + "}";
 
+    System.out.println("\nLogging out for: " + token);
+
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();
     os.write(response.getBytes());

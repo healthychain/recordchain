@@ -8,11 +8,16 @@ export const VERIFY_SUCCESS = "VERIFY_SUCCESS";
 export const VERIFY_ERROR = "VERIFY_ERROR";
 export const VERIFY_DOCTOR = "VERIFY_DOCTOR";
 export const VERIFY_PATIENT = "VERIFY_PATIENT";
+export const INVALIDATE_SESSION = "INVALIDATE_SESSION";
 
 export const verifyBegin = () => ({ type: VERIFY_BEGIN });
 
 export const verifyError = () => ({
   type: VERIFY_ERROR
+});
+
+export const invalidateSession = () => ({
+  type: INVALIDATE_SESSION
 });
 
 export const verifySuccess = () => ({

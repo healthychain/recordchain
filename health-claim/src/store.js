@@ -12,6 +12,7 @@ import login from "./reducers/login";
 import register from "./reducers/register";
 import verifySession from "./reducers/verifySession";
 import sessionToken from "./reducers/sessionToken";
+import logout from "./reducers/logout";
 
 const loggerMiddleware = createLogger();
 
@@ -26,6 +27,7 @@ const reducer = combineReducers({
   fetchNotifications,
   selectPatient,
   login,
+  logout,
   register,
   verifySession,
   sessionToken
