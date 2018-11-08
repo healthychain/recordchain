@@ -21,6 +21,7 @@ class Routes extends Component {
           render={props =>
             loggedIn ? (
               <Redirect
+                push
                 to={{ pathname: "/doctor", state: { from: props.location } }}
               />
             ) : (
@@ -34,6 +35,7 @@ class Routes extends Component {
           render={props =>
             loggedIn ? (
               <Redirect
+                push
                 to={{ pathname: "/patient", state: { from: props.location } }}
               />
             ) : (

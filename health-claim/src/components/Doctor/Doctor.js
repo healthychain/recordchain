@@ -18,10 +18,10 @@ class Doctor extends Component {
     }
   }
 
-  componentDidMount() {
-    const { sessionID } = this.props;
-    this.props.fetchNotifications(sessionID);
-  }
+  // componentDidMount() {
+  //   const { sessionID } = this.props;
+  //   this.props.fetchNotifications(sessionID);
+  // }
 
   render() {
     return (

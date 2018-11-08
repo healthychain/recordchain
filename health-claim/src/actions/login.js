@@ -25,7 +25,6 @@ export const logoutCall = () => ({
 
 function login(username, password, account_type) {
   return dispatch => {
-    console.log("LOGGING IN NOW");
     dispatch(loginBegin());
     return fetch(
       `${apiEndpoint}/${account_type}_verify/?username=${username}&password=${password}`
@@ -34,7 +33,7 @@ function login(username, password, account_type) {
       .then(response => response.json())
       .then(json => {
         dispatch(verifySuccess());
-        dispatch(loginSuccess(json.token));
+        // dispatch(loginSuccess(json.token));
         dispatch(storeToken(json.token));
       })
 
