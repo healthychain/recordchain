@@ -17,7 +17,9 @@ import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
 import org.hyperledger.indy.sdk.wallet.Wallet;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -41,6 +43,7 @@ public class CredentialOfferHandler extends EventConsumer {
     String token = params.get("token");
     String proverUsername = params.get("prover_username");
     String proverDid = Crypto.getDid(proverUsername);
+    System.out.println(params.get("data"));
 
     Wallet issuerWallet = null;
     String issuerDid = null;
