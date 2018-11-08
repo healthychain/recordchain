@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import "./Doctor.scss";
 import EventPanel from "../EventPanel/EventPanel";
 import { apiEndpoint } from "../../apiEndpoint";
@@ -19,10 +18,6 @@ class Doctor extends Component {
   }
 
   render() {
-    if (!this.props.loggedIn) {
-      return <Redirect to="/" />;
-    }
-
     return (
       <div className="doctor-layout">
         <div className="doctor-main">

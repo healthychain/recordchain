@@ -3,6 +3,7 @@ import {
   VERIFY_SUCCESS,
   VERIFY_ERROR
 } from "../actions/verifySession";
+import { LOGOUT } from "../actions/login";
 
 const initialState = {
   success: false,
@@ -14,6 +15,7 @@ const verifySession = (state = initialState, action) => {
     case VERIFY_BEGIN:
       return { ...state, loading: true };
     case VERIFY_ERROR:
+    case LOGOUT:
       return {
         ...state,
         loading: false,

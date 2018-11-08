@@ -1,6 +1,7 @@
 import { apiEndpoint } from "../apiEndpoint";
 import handleErrors from "./handleErrors";
 import { storeToken } from "./sessionToken";
+import { verifySuccess, verifyError } from "./verifySession";
 
 export const LOGIN_BEGIN = "LOGIN_BEGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -32,16 +33,19 @@ function login(username, password, account_type) {
       .then(response => response.json())
       .then(json => {
         console.log(json.token);
+        dispatch(verifySuccess());
         dispatch(loginSuccess(json.token));
         dispatch(storeToken(json.token));
       })
 
-      .catch(error => dispatch(loginError()));
+      .catch(error => dispatch(loginError(error)));
   };
 }
 
 export function logout() {
-  return dispatch => dispatch(logoutCall());
+  return dispatch => {
+    dispatch(verifyError());
+  };
 }
 
 export default login;

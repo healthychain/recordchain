@@ -23,10 +23,6 @@ class Patient extends Component {
   }
 
   render() {
-    if (!this.props.loggedIn) {
-      return <Redirect to="/" />;
-    }
-
     return (
       <div className="doctor-layout">
         <div className="doctor-main">

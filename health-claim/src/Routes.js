@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import Home from "./components/Home";
-import NotFound from "./components/NotFound/NotFound";
 import MessageScreen from "./components/MessageScreen/MessageScreen";
 import DoctorContainer from "./containers/DoctorContainer";
 import PatientContainer from "./containers/PatientContainer";
@@ -11,18 +10,32 @@ import RegisterFormContainer from "./containers/RegisterFormContainer";
 
 class Routes extends Component {
   render() {
+    const { loggedIn } = this.props;
+
     return (
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/welcome" exact component={Home} />
         <Route
           path="/login-doctor"
           exact
-          render={() => <LoginFormContainer userType="Doctor" />}
+          render={props =>
+            loggedIn ? (
+              <DoctorContainer />
+            ) : (
+              <LoginFormContainer userType="Doctor" />
+            )
+          }
         />
         <Route
           path="/login-patient"
           exact
-          render={() => <LoginFormContainer userType="Patient" />}
+          render={props =>
+            loggedIn ? (
+              <PatientContainer />
+            ) : (
+              <LoginFormContainer userType="Patient" />
+            )
+          }
         />
         <Route
           path="/register"
@@ -54,10 +67,29 @@ class Routes extends Component {
             />
           )}
         />
-        <Route path="/patient" exact component={PatientContainer} />
-        <Route path="/doctor" exact component={DoctorContainer} />
-        {/* Finally, catch all unmatched routes */}
-        <Route component={NotFound} />\
+        <Route
+          path="/patient"
+          exact
+          component={props =>
+            loggedIn ? (
+              <PatientContainer />
+            ) : (
+              <LoginFormContainer userType="Patient" />
+            )
+          }
+        />
+        <Route
+          path="/doctor"
+          exact
+          component={props =>
+            loggedIn ? (
+              <DoctorContainer />
+            ) : (
+              <LoginFormContainer userType="Doctor" />
+            )
+          }
+        />
+        <Redirect to="/welcome" />\
       </Switch>
     );
   }
