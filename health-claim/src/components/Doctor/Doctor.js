@@ -43,7 +43,8 @@ class Doctor extends Component {
                   fetch(
                     `${apiEndpoint}/credential_offer?token=${
                       this.props.sessionID
-                    }&prover_username=${this.state.username}`
+                    }&prover_username=${this.state.username}
+                    &data=${JSON.parse(this.state.input)}`
                   )
                 }
                 className="Button Button__Green"
