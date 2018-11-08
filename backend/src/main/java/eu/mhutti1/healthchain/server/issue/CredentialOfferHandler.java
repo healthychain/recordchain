@@ -41,6 +41,7 @@ public class CredentialOfferHandler extends EventConsumer {
     String token = params.get("token");
     String proverUsername = params.get("prover_username");
     String proverDid = Crypto.getDid(proverUsername);
+    System.out.println(params.get("data"));
 
     Wallet issuerWallet = null;
     String issuerDid = null;
