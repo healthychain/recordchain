@@ -31,6 +31,12 @@ public class SessionManager {
     else throw new SessionInvalidException();
   }
 
+  public static void deleteSession(String token) {
+    if(sessions.containsKey(token)) {
+      sessions.remove(sessions);
+    }
+  }
+
   public static boolean isSessionValid(String token) {
     if(sessions.containsKey(token)){
       boolean isValid = sessions.get(token).isValid();

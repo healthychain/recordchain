@@ -4,34 +4,25 @@ import "./LoginForm.scss";
 import { Redirect } from "react-router-dom";
 
 export default class LoginForm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
+  handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = () => {
+    console.log("dispatching function");
     this.props.login(
       this.state.username,
       this.state.password,
       this.props.userType.toLowerCase()
     );
-    event.stopPropagation();
-    event.preventDefault();
-  }
+  };
 
   render() {
     const { userType } = this.props;
 
     if (this.props.loginSuccess) {
+      console.log("login success");
       return <Redirect to={`/${userType.toLowerCase()}`} />;
-    } else if (this.props.error) {
-      return <h1>Error</h1>;
     } else if (this.props.loading) {
       return <h1>Loading</h1>;
     }
@@ -63,11 +54,13 @@ export default class LoginForm extends Component {
             />
             <hr />
 
-            <input
-              type="submit"
+            <div
+              onClick={() => this.handleSubmit()}
               value="Log in"
               className="Button Button__Green"
-            />
+            >
+              Log in
+            </div>
           </form>
         </Box>
       </div>
