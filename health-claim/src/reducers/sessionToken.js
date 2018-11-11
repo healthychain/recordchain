@@ -1,4 +1,4 @@
-import { STORE_TOKEN } from "../actions/sessionToken";
+import { STORE_TOKEN, DELETE_INVALID_TOKEN } from "../actions/sessionToken";
 
 const initialState = {
   token: null
@@ -10,6 +10,11 @@ const sessionToken = (state = initialState, action) => {
       return {
         ...state,
         token: action.payload.token
+      };
+    }
+    case DELETE_INVALID_TOKEN: {
+      return {
+        token: null
       };
     }
     default:

@@ -1,7 +1,8 @@
 import {
   VERIFY_BEGIN,
   VERIFY_SUCCESS,
-  VERIFY_ERROR
+  VERIFY_ERROR,
+  INVALIDATE_SESSION
 } from "../actions/verifySession";
 import { LOGOUT } from "../actions/login";
 
@@ -22,6 +23,13 @@ const verifySession = (state = initialState, action) => {
         success: false
       };
     case VERIFY_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        success: true
+      };
+    }
+    case INVALIDATE_SESSION: {
       return {
         ...state,
         loading: false,

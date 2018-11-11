@@ -1,17 +1,23 @@
 import { apiEndpoint } from "../apiEndpoint";
 import handleErrors from "./handleErrors";
-import { storeToken } from "./sessionToken";
+import { storeToken, deleteInvalidToken } from "./sessionToken";
+import { logoutCall } from "./login";
 
 export const VERIFY_BEGIN = "VERIFY_BEGIN";
 export const VERIFY_SUCCESS = "VERIFY_SUCCESS";
 export const VERIFY_ERROR = "VERIFY_ERROR";
 export const VERIFY_DOCTOR = "VERIFY_DOCTOR";
 export const VERIFY_PATIENT = "VERIFY_PATIENT";
+export const INVALIDATE_SESSION = "INVALIDATE_SESSION";
 
 export const verifyBegin = () => ({ type: VERIFY_BEGIN });
 
 export const verifyError = () => ({
   type: VERIFY_ERROR
+});
+
+export const invalidateSession = () => ({
+  type: INVALIDATE_SESSION
 });
 
 export const verifySuccess = () => ({
@@ -21,14 +27,22 @@ export const verifySuccess = () => ({
 export const verifySession = token => {
   return dispatch => {
     dispatch(verifyBegin());
-    return fetch(`${apiEndpoint}/verify_session/?token=${token}`)
-      .then(raw => {
-        return handleErrors(raw);
-      })
-      .then(json => {
-        dispatch(verifySuccess());
-      })
-      .catch(error => dispatch(verifyError()));
+    return token
+      ? fetch(`${apiEndpoint}/verify_session/?token=${token}`)
+          .then(raw => {
+            return handleErrors(raw);
+          })
+          .then(json => {
+            dispatch(verifySuccess());
+          })
+          .catch(error => {
+            dispatch(verifyError());
+            dispatch(logoutCall());
+            dispatch(deleteInvalidToken());
+          })
+      : dispatch(verifyError()) &&
+          dispatch(logoutCall()) &&
+          dispatch(deleteInvalidToken());
   };
 };
 

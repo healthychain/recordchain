@@ -32,9 +32,9 @@ function login(username, password, account_type) {
       .then(raw => handleErrors(raw))
       .then(response => response.json())
       .then(json => {
-        dispatch(verifySuccess());
-        // dispatch(loginSuccess(json.token));
         dispatch(storeToken(json.token));
+        dispatch(loginSuccess(json.token));
+        dispatch(verifySuccess());
       })
 
       .catch(error => dispatch(loginError(error)));

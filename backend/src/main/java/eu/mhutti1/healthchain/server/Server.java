@@ -10,6 +10,7 @@ import eu.mhutti1.healthchain.server.events.GetNotificationsHandler;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.server.get.GetCredentialsHandler;
 import eu.mhutti1.healthchain.server.issue.*;
+import eu.mhutti1.healthchain.server.logout.LogoutHandler;
 import eu.mhutti1.healthchain.server.proof.ProofApproveHandler;
 import eu.mhutti1.healthchain.server.proof.ProofRequestPatientHandler;
 import eu.mhutti1.healthchain.server.proof.ProofRequestRequestHandler;
@@ -69,6 +70,9 @@ public class Server {
     //verification
     server.createEndpoint("/patient_verify", new PatientVerifyHandler());
     server.createEndpoint("/doctor_verify", new DoctorVerifyHandler());
+
+    //logout
+    server.createEndpoint("/logout", new LogoutHandler());
 
     //valid session verifier
     server.createEndpoint("/verify_session", new SessionVerifyHandler());
