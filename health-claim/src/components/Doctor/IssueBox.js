@@ -52,7 +52,6 @@ class IssueBox extends Component {
       <div>
         <p className="App-intro">
           <form onSubmit={this.handleSubmit}>
-            <h3>Issue a new record</h3>
             <input type="submit" value="Add section" />
           </form>
         </p>

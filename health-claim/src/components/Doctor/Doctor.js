@@ -26,21 +26,22 @@ class Doctor extends Component {
   }
 
   render() {
-    console.log(JSON.stringify(this.state.data));
-    console.log(this.state.data);
+    // console.log(JSON.stringify(this.state.data));
+    // console.log(this.state.data);
     return (
       <div className="doctor-layout">
         <div className="doctor-main">
           <div className="doctor-inner-alt">
             <div className="Box">
-              <label className="Input__Label">Your username</label>
+              <h3>Issue a new record</h3>
+              <label className="Input__Label">Patient's username</label>
               <input
                 onChange={e => this.setState({ username: e.target.value })}
                 className="Input__Text"
                 type="text"
                 value={this.state.username}
               />
-              <br /> <label className="Input__Label">Input</label>
+              <br /> <label className="Input__Label">Health record</label>
               <IssueBox data={this.state.data} />
               <hr />
               <button
