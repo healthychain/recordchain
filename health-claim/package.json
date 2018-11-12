@@ -19,6 +19,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.5",
+    "react-table": "^6.8.6",
     "reactstrap": "^6.5.0",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
