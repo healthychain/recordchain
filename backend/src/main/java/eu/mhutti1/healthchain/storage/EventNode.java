@@ -71,6 +71,18 @@ public class EventNode implements Serializable {
             .put("dismissAction", dismissAction);
   }
 
+  @Override
+  public boolean equals(Object object) {
+    if (object instanceof EventNode) {
+      return ((EventNode) object).id.equals(this.id);
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return id.hashCode();
+  }
 
   private void writeObject(ObjectOutputStream oos)
       throws IOException {
