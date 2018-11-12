@@ -9,7 +9,8 @@ class Doctor extends Component {
     super(props);
 
     this.state = {
-      dropdownOpen: false
+      dropdownOpen: false,
+      data: []
     };
   }
 
@@ -25,6 +26,8 @@ class Doctor extends Component {
   }
 
   render() {
+    console.log(JSON.stringify(this.state.data));
+    console.log(this.state.data);
     return (
       <div className="doctor-layout">
         <div className="doctor-main">
@@ -38,21 +41,16 @@ class Doctor extends Component {
                 value={this.state.username}
               />
               <br /> <label className="Input__Label">Input</label>
-              <textarea
-                onChange={e => this.setState({ input: e.target.value })}
-                className="Input__Area"
-                type="text"
-                value={this.state.input}
-              />
-              <IssueBox />
+              <IssueBox data={this.state.data} />
               <hr />
               <button
                 onClick={() =>
                   fetch(
                     `${apiEndpoint}/credential_offer?token=${
                       this.props.sessionID
-                    }&prover_username=${this.state.username}
-                    &data=${JSON.stringify(this.state.input)}`
+                    }&prover_username=${
+                      this.state.username
+                    }&data=${JSON.stringify(this.state.data)}`
                   )
                 }
                 className="Button Button__Green"

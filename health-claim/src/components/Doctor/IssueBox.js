@@ -3,8 +3,8 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 
 class IssueBox extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       data: [],
       section: "",
@@ -18,6 +18,10 @@ class IssueBox extends Component {
       this.setState({ sectionData: event.target.value });
   };
   handleSubmit = event => {
+    this.props.data.push({
+      section: this.state.section,
+      sectionData: this.state.sectionData
+    });
     this.state.data.push({
       section: this.state.section,
       sectionData: this.state.sectionData
@@ -32,19 +36,18 @@ class IssueBox extends Component {
         contentEditable
         suppressContentEditableWarning
         onBlur={e => {
-          const data = [...this.state.data];
+          const data = [...this.props.data];
           data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
           this.setState({ data });
         }}
         dangerouslySetInnerHTML={{
-          __html: this.state.data[cellInfo.index][cellInfo.column.id]
+          __html: this.props.data[cellInfo.index][cellInfo.column.id]
         }}
       />
     );
   };
   render() {
     const { data } = this.state;
-    console.log(this.state.data);
     return (
       <div>
         <p className="App-intro">
@@ -71,7 +74,7 @@ class IssueBox extends Component {
               }
             ]}
             defaultPageSize={5}
-            className=" -highlight"
+            className="-highlight"
             showPaginationBottom={true}
             showPageSizeOptions={false}
           />
