@@ -52,10 +52,10 @@ class Routes extends Component {
           render={() => (
             <MessageScreen
               success
-              redirect="/login-doctor"
+              redirect="/"
               title="You're all set!"
               text="You have successfully registered."
-              buttonText="Log in"
+              buttonText="Go to homepage"
             />
           )}
         />
