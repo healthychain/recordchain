@@ -17,7 +17,7 @@ export default class Claim extends Component {
 
     this.state = {
       isSelected: false,
-      dropdownOpen: false,
+      dropdownOpen: false
     };
 
     this.claimSuggestion = this.claimSuggestion.bind(this);
@@ -25,7 +25,7 @@ export default class Claim extends Component {
   }
 
   handleClick(index) {
-    this.setState({ selectedCardIndex: index })
+    this.setState({ selectedCardIndex: index });
   }
 
   renderRecords(records) {
@@ -41,7 +41,7 @@ export default class Claim extends Component {
                 isSelected={isCardSelected}
               />
             </div>
-          )
+          );
         })}
       </div>
     );
@@ -56,9 +56,7 @@ export default class Claim extends Component {
   claimSuggestion = claim => {
     return (
       <div>
-        <DropdownItem onClick={() => {}}>
-          {claim}
-        </DropdownItem>
+        <DropdownItem onClick={() => {}}>{claim}</DropdownItem>
       </div>
     );
   };
@@ -93,7 +91,10 @@ export default class Claim extends Component {
             <Button color="link">See older health records</Button>
           </div>
         </div>
-        <h5 className="record"> Record number {this.state.selectedCardIndex} </h5>
+        <h5 className="record">
+          {" "}
+          Record number {this.state.selectedCardIndex}{" "}
+        </h5>
         <div className="bar"> </div>
         <div className="make-claim">
           Make a claim about your record
@@ -106,9 +107,7 @@ export default class Claim extends Component {
             <DropdownToggle color="primary">
               {this.props.claim ? this.props.claim : "Select a claim type"}
             </DropdownToggle>
-            <DropdownMenu>
-              {claims.map(this.claimSuggestion)}
-            </DropdownMenu>
+            <DropdownMenu>{claims.map(this.claimSuggestion)}</DropdownMenu>
           </ButtonDropdown>
           <Button className="claim-button">Post claim</Button>
         </div>

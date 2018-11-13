@@ -4,6 +4,11 @@ hr {
   border: none;
   border-bottom: 1px solid #f0f0f0;
 }
+
+.Form__Container {
+  max-width: 960px;
+  margin: 0 auto;
+}
 .Form__Rack {
   padding-bottom: 16px;
   border-bottom: 1px solid #f0f0f0;
@@ -30,6 +35,23 @@ hr {
   font-weight: 600;
   margin-bottom: 8px;
 }
+.Input__Area {
+  display: block;
+  padding: 0 12px;
+  height: 200px;
+  width: calc(100% - 24px);
+  max-width: 376px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12),
+    0 10px 16px -4px rgba(0, 0, 0, 0.02);
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 0 1px #305ed4, 0 10px 16px -4px rgba(0, 0, 0, 0.02);
+  }
+}
+
 .Input__Text {
   display: block;
   padding: 0 12px;

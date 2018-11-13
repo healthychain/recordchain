@@ -3,6 +3,9 @@ package eu.mhutti1.healthchain.server.issue;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.server.events.NonEventConsumer;
+import eu.mhutti1.healthchain.server.session.SessionInvalidException;
+import eu.mhutti1.healthchain.server.session.SessionManager;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.wallet.Wallet;
@@ -15,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by jedraz on 29/10/2018.
  */
-public class CreateMasterKeyHandler implements HttpHandler {
+public class CreateMasterKeyHandler extends NonEventConsumer {
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
@@ -25,37 +28,34 @@ public class CreateMasterKeyHandler implements HttpHandler {
     String query = httpExchange.getRequestURI().getQuery();
     Map<String, String> params = RequestUtils.queryToMap(query);
 
-    String proverWalletId = params.get("prover_wallet_id");
-    String proverWalletKey = params.get("prover_wallet_key");
+    String token = params.get("token");
     String masterSecret = params.get("master_secret");
 
     Wallet proverWallet = null;
-    String response = "OK";
+    String response = "Master secret created";
     int responseCode = 200;
 
     try {
-      proverWallet = Wallet.openWallet(proverWalletId, proverWalletKey).get();
-    } catch (IndyException e) {
-      response = "Couldn't open the wallet";
-      responseCode = 400;
-    } catch (InterruptedException e) {
-      response = "Internal server error";
-      responseCode = 500;
-    } catch (ExecutionException e) {
-      response = "Internal server error";
-      responseCode = 500;
+      proverWallet = SessionManager.getSessionCredentials(token).getWallet();
+    } catch (SessionInvalidException e) {
+      response = "Invalid session token";
+      responseCode = RequestUtils.statusSessionExpired();
     }
 
     if(proverWallet != null) {
       try {
         Anoncreds.proverCreateMasterSecret(proverWallet, masterSecret).get();
+        System.out.println("Write master secret to the wallet\n");
       } catch (InterruptedException e) {
+        e.printStackTrace();
         response = "Internal server error";
         responseCode = 500;
       } catch (ExecutionException e) {
+        e.printStackTrace();
         response = "Internal server error";
         responseCode = 500;
       } catch (IndyException e) {
+        e.printStackTrace();
         response = "Couldn't create the master secret";
         responseCode = 400;
       }

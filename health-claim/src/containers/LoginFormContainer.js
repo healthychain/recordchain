@@ -5,14 +5,15 @@ import login from "../actions/login";
 
 const mapStateToProps = (state, props) => ({
   ...props,
-  loginSuccess: state.login.success,
+  loginSuccess: state.verifySession.success,
   loading: state.login.loading,
   error: state.login.error
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
   ...props,
-  login: (username, password) => dispatch(login(username, password))
+  login: (username, password, account_type) =>
+    dispatch(login(username, password, account_type))
 });
 
 export default withRouter(

@@ -18,8 +18,8 @@ import static org.hyperledger.indy.sdk.ledger.Ledger.signAndSubmitRequest;
  */
 public class IdentityOwner extends Role{
 
-  public IdentityOwner(Role issuerRole, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
-    super(issuerRole, walletId, walletKey);
+  public IdentityOwner(Role issuerRole, String did, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException {
+    super(issuerRole, did, walletId, walletKey);
   }
 
   @Override

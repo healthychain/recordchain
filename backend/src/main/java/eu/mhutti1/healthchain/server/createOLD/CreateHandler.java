@@ -1,9 +1,11 @@
-package eu.mhutti1.healthchain.server.create;
+package eu.mhutti1.healthchain.server.createOLD;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.roles.Role;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.server.events.NonEventConsumer;
+import eu.mhutti1.healthchain.utils.Crypto;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.wallet.Wallet;
@@ -16,11 +18,11 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by jedraz on 29/10/2018.
  */
-public abstract class CreateHandler implements HttpHandler {
+public abstract class CreateHandler extends NonEventConsumer {
 
   public abstract Role createVerifier(Wallet wallet, String did, String verKey);
 
-  public abstract Role createAccountHolder(Role role, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException;
+  public abstract Role createAccountHolder(Role role, String did, String walletId, String walletKey) throws InterruptedException, ExecutionException, IndyException;
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
@@ -42,8 +44,9 @@ public abstract class CreateHandler implements HttpHandler {
 
     Wallet issuerWallet = null;
     Role accountHolder = null;
-    String walletId = String.valueOf(password.concat(username).hashCode());
-    String key = String.valueOf(password.hashCode());
+    String walletId = Crypto.hashPlainText(username);
+    String walletKey = Crypto.hashPlainText(password);
+    String did = Crypto.getDid(username);
 
     try {
       issuerWallet = IndyWallet.openWallet(issuerWalletId, issuerWalletKey);
@@ -68,11 +71,13 @@ public abstract class CreateHandler implements HttpHandler {
     }
 
     try {
-      accountHolder = createAccountHolder(createVerifier(issuerWallet, issuerDid, null), walletId, key);
+      accountHolder = createAccountHolder(createVerifier(issuerWallet, issuerDid, null), did, walletId, walletKey);
     } catch (IndyException e) {
+      e.printStackTrace();
       response = "Error creating the account";
       responseCode = 400;
     } catch (ExecutionException e) {
+      e.printStackTrace();
       response = "Error creating the account";
       responseCode = 400;
     } catch (InterruptedException e) {

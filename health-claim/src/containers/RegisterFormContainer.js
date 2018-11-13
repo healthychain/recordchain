@@ -12,7 +12,8 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch, props) => ({
   ...props,
-  register: (username, password) => dispatch(register(username, password))
+  register: (username, password, did, isPatient) =>
+    dispatch(register(username, password, did, isPatient))
 });
 
 export default withRouter(

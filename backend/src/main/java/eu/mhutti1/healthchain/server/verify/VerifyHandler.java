@@ -3,9 +3,13 @@ package eu.mhutti1.healthchain.server.verify;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.server.events.NonEventConsumer;
+import eu.mhutti1.healthchain.server.session.SessionManager;
+import eu.mhutti1.healthchain.utils.Crypto;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.wallet.Wallet;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -15,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by jedraz on 29/10/2018.
  */
-public abstract class VerifyHandler implements HttpHandler {
+public abstract class VerifyHandler extends NonEventConsumer {
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
@@ -28,15 +32,17 @@ public abstract class VerifyHandler implements HttpHandler {
     String password = params.get("password");
     String username = params.get("username");
 
-    String walletId = String.valueOf(password.concat(username).hashCode());
-    String key = String.valueOf(password.hashCode());
+    String walletId = Crypto.hashPlainText(username);
+    String walletKey = Crypto.hashPlainText(password);
+    String did = Crypto.getDid(username);
 
-    String response = "Account verified";
+    String response;
+    String token;
     int responseCode = 200;
 
     try {
-      Wallet wallet = IndyWallet.openWallet(walletId, key);
-      wallet.closeWallet();
+      token = SessionManager.addSession(did, walletId, walletKey);
+      response = token;
     } catch (IndyException e) {
       response = "No such account";
       responseCode = 400;
@@ -48,6 +54,8 @@ public abstract class VerifyHandler implements HttpHandler {
       response = "Internal server error";
       responseCode = 400;
     }
+
+    response = RequestUtils.wrapResponse("token", response);
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

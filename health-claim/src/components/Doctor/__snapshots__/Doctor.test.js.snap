@@ -1,69 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Doctor should render correctly with mocked records 1`] = `
-<div>
+<div
+  className="doctor-layout"
+>
   <div
-    className="record-select"
+    className="doctor-main"
   >
     <div
-      className="btn-group"
-      onClick={[Function]}
-      onKeyDown={[Function]}
+      className="doctor-inner-alt"
     >
-      <button
-        aria-expanded={false}
-        aria-haspopup={true}
-        aria-label={null}
-        className="search-button bg-search-button dropdown-toggle btn btn-secondary btn-block"
-        onClick={[Function]}
-        type="button"
-      >
-        Select a patient
-      </button>
       <div
-        aria-hidden={true}
-        className="bg-search-button dropdown-menu"
-        role="menu"
-        tabIndex="-1"
+        className="Box"
       >
-        <div>
-          <button
-            className="dropdown-item"
-            onClick={[Function]}
-            tabIndex="0"
-            type="button"
-          >
-            John Cena - ID1
-          </button>
-        </div>
-        <div>
-          <button
-            className="dropdown-item"
-            onClick={[Function]}
-            tabIndex="0"
-            type="button"
-          >
-            Andrej Kiska - ID2
-          </button>
-        </div>
-        <div>
-          <button
-            className="dropdown-item"
-            onClick={[Function]}
-            tabIndex="0"
-            type="button"
-          >
-            Jeorrej Olasxzu - ID3
-          </button>
-        </div>
+        <label
+          className="Input__Label"
+        >
+          Your username
+        </label>
+        <input
+          className="Input__Text"
+          onChange={[Function]}
+          type="text"
+        />
+        <br />
+         
+        <label
+          className="Input__Label"
+        >
+          Input
+        </label>
+        <textarea
+          className="Input__Area"
+          onChange={[Function]}
+          type="text"
+        />
+        <hr />
+        <button
+          className="Button Button__Green"
+          onClick={[Function]}
+        >
+          Issue credentials
+        </button>
+        <button
+          className="Button Button__Green"
+          onClick={[Function]}
+        >
+          Refresh
+        </button>
       </div>
+      <br />
     </div>
   </div>
-  <div
-    className="patient-display"
-  >
-    <div>
-      No patient selected
+  <div>
+    <div
+      className="Toggle"
+      onClick={[Function]}
+    >
+      Notifications
     </div>
   </div>
 </div>

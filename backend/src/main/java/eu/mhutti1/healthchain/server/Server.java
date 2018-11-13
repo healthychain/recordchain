@@ -2,12 +2,23 @@ package eu.mhutti1.healthchain.server;
 
 import com.sun.net.httpserver.HttpServer;
 import eu.mhutti1.healthchain.constants.IndyPool;
-import eu.mhutti1.healthchain.server.create.DoctorCreateHandler;
-import eu.mhutti1.healthchain.server.create.PatientCreateHandler;
-import eu.mhutti1.healthchain.server.issue.CredentialOfferHandler;
-import eu.mhutti1.healthchain.server.issue.CredentialRequestHandler;
+import eu.mhutti1.healthchain.server.create.*;
+import eu.mhutti1.healthchain.server.createOLD.DoctorCreateHandler;
+import eu.mhutti1.healthchain.server.createOLD.PatientCreateHandler;
+import eu.mhutti1.healthchain.server.events.EventConsumer;
+import eu.mhutti1.healthchain.server.events.GetNotificationsHandler;
+import eu.mhutti1.healthchain.server.events.NonEventConsumer;
+import eu.mhutti1.healthchain.server.get.GetCredentialsHandler;
+import eu.mhutti1.healthchain.server.issue.*;
+import eu.mhutti1.healthchain.server.logout.LogoutHandler;
+import eu.mhutti1.healthchain.server.proof.ProofApproveHandler;
+import eu.mhutti1.healthchain.server.proof.ProofRequestPatientHandler;
+import eu.mhutti1.healthchain.server.proof.ProofRequestRequestHandler;
+import eu.mhutti1.healthchain.server.proof.ProofVerifyHandler;
 import eu.mhutti1.healthchain.server.verify.DoctorVerifyHandler;
 import eu.mhutti1.healthchain.server.verify.PatientVerifyHandler;
+import eu.mhutti1.healthchain.server.verify.SessionVerifyHandler;
+import eu.mhutti1.healthchain.storage.EventStorage;
 import org.hyperledger.indy.sdk.IndyException;
 
 import java.io.IOException;
@@ -19,18 +30,77 @@ import java.util.concurrent.ExecutionException;
  */
 public class Server {
 
+  private class EventServer {
+    HttpServer server;
+    public EventServer() throws IOException {
+      server = HttpServer.create(new InetSocketAddress(8000), 0);
+      server.setExecutor(null);
+    }
+
+    public void createEndpoint(String endpoint, NonEventConsumer nonEventConsumer) {
+      server.createContext(endpoint, nonEventConsumer);
+    }
+
+    public void createEventEndpoint(String endpoint, EventConsumer eventConsumer) {
+      server.createContext(endpoint, eventConsumer);
+    }
+
+    public void start() {
+      server.start();
+    }
+  }
+
   public Server() throws IOException, InterruptedException, ExecutionException, IndyException {
 
     IndyPool.initlaizePool();
+    EventStorage.getStore();
 
-    HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-    server.createContext("/patient_create", new PatientCreateHandler());
-    server.createContext("/patient_verify", new PatientVerifyHandler());
-    server.createContext("/doctor_create", new DoctorCreateHandler());
-    server.createContext("/doctor_verify", new DoctorVerifyHandler());
-    server.createContext("/credential_offer", new CredentialOfferHandler());
-    server.createContext("/credential_request", new CredentialRequestHandler());
-    server.setExecutor(null); // creates a default executor
+    EventServer server = new EventServer();
+
+    //old creation
+    server.createEndpoint("/patient_create", new PatientCreateHandler());
+    server.createEndpoint("/doctor_create", new DoctorCreateHandler());
+
+    //creation
+    server.createEndpoint("/create_patient_req", new CreateRequestPatientHandler());
+    server.createEventEndpoint("/create_patient_approve", new CreateApprovePatientHandler());
+    server.createEndpoint("/create_doctor_req", new CreateRequestDoctorHandler());
+    server.createEventEndpoint("/create_doctor_approve", new CreateApproveDoctorHandler());
+
+    //verification
+    server.createEndpoint("/patient_verify", new PatientVerifyHandler());
+    server.createEndpoint("/doctor_verify", new DoctorVerifyHandler());
+
+    //logout
+    server.createEndpoint("/logout", new LogoutHandler());
+
+    //valid session verifier
+    server.createEndpoint("/verify_session", new SessionVerifyHandler());
+
+    //master secret creation
+    server.createEndpoint("/create_master_secret", new CreateMasterKeyHandler());
+
+    //issue credential handshake
+    server.createEventEndpoint("/credential_offer", new CredentialOfferHandler());
+    server.createEventEndpoint("/credential_request", new CredentialRequestHandler());
+    server.createEventEndpoint("/credential_issue", new CredentialIssueHandler());
+    server.createEventEndpoint("/credential_store", new CredentialStoreHandler());
+
+    // proof handling
+    server.createEndpoint("/proof_request_patient", new ProofRequestPatientHandler());
+    server.createEventEndpoint("/proof_request_patient_approve", new ProofApproveHandler());
+
+
+    // third party endpointr
+    server.createEndpoint("/proof_request_request", new ProofRequestRequestHandler());
+    server.createEndpoint("/proof_verify", new ProofVerifyHandler());
+
+
+    //notifications
+    server.createEndpoint("/get_events", new GetNotificationsHandler());
+
+    //get credentials
+    server.createEndpoint("/get_credentials", new GetCredentialsHandler());
     server.start();
   }
 }
