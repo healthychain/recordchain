@@ -40,17 +40,10 @@ class IssueBox extends Component {
         credentials: "same-origin", // include, *same-origin, omit
         headers: {
           "Content-Type": "application/json; charset=utf-8"
-          // "Content-Type": "application/x-www-form-urlencoded",
         },
         body: JSON.stringify(this.state.data.join(",")) // body data type must match "Content-Type" header
       }
     );
-
-    // fetch(
-    //   `${apiEndpoint}/credential_offer?token=${
-    //     this.props.sessionID
-    //   }&prover_username=${this.state.username}`
-    // );
   };
   renderEditable = cellInfo => {
     return (
