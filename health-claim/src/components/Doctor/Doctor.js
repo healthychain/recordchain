@@ -33,7 +33,10 @@ class Doctor extends Component {
         <div className="doctor-main">
           <div className="doctor-inner-alt">
             <div className="Box">
-              <IssueBox callback={this.props.storeRecord} />
+              <IssueBox
+                sessionID={this.props.sessionID}
+                callback={this.props.storeRecord}
+              />
               <button
                 onClick={() =>
                   this.props.fetchNotifications(this.props.sessionID)

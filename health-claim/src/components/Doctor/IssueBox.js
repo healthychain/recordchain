@@ -33,11 +33,29 @@ class IssueBox extends Component {
     //     this.state.data
     //   )}`
     // );
-    fetch(
+    // Default options are marked with *
+    return fetch(
       `${apiEndpoint}/credential_offer?token=${
         this.props.sessionID
-      }&prover_username=${this.state.username}`
+      }&prover_username=${this.state.username}`,
+      {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "no-cors", // no-cors, cors, *same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "same-origin", // include, *same-origin, omit
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+          // "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: JSON.stringify(this.state.data) // body data type must match "Content-Type" header
+      }
     );
+
+    // fetch(
+    //   `${apiEndpoint}/credential_offer?token=${
+    //     this.props.sessionID
+    //   }&prover_username=${this.state.username}`
+    // );
   };
   renderEditable = cellInfo => {
     return (
