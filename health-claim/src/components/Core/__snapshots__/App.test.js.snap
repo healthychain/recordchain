@@ -4,6 +4,10 @@ exports[`App should render without crashing 1`] = `
 <withRouter(Connect(SessionAuthenticator))>
   <BrowserRouter>
     <div>
+      <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        rel="stylesheet"
+      />
       <div
         className="Header"
       >

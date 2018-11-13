@@ -18,6 +18,7 @@ class NotificationEvent extends Component {
       id,
       requireMasterSecret
     } = this.props;
+    const { masterSecret } = this.state;
     console.log(this.props);
     return (
       <div className={"Event"}>
@@ -46,14 +47,16 @@ class NotificationEvent extends Component {
             onClick={() =>
               this.props.requireMasterSecret && !this.state.masterSecret
                 ? null
-                : handle(acceptAction, events, id, token)
+                : handle(acceptAction, events, id, token, masterSecret)
             }
           >
             <i className="fa fa-check" />
           </div>
           <div
             className="Action__Dismiss"
-            onClick={() => handle(dismissAction, events, id, token)}
+            onClick={() =>
+              handle(dismissAction, events, id, token, masterSecret)
+            }
           >
             <i className="fa fa-times" />
           </div>
