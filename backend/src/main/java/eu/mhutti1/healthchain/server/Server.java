@@ -8,6 +8,8 @@ import eu.mhutti1.healthchain.server.createOLD.PatientCreateHandler;
 import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.events.GetNotificationsHandler;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
+import eu.mhutti1.healthchain.server.login.DoctorVerify;
+import eu.mhutti1.healthchain.server.login.PatientVerify;
 import eu.mhutti1.healthchain.server.session.GetCredentialsHandler;
 import eu.mhutti1.healthchain.server.issue.*;
 import eu.mhutti1.healthchain.server.logout.LogoutHandler;
@@ -15,9 +17,8 @@ import eu.mhutti1.healthchain.server.proof.ProofApproveHandler;
 import eu.mhutti1.healthchain.server.proof.ProofRequestPatientHandler;
 import eu.mhutti1.healthchain.server.proof.ProofRequestRequestHandler;
 import eu.mhutti1.healthchain.server.proof.ProofVerifyHandler;
-import eu.mhutti1.healthchain.server.verify.DoctorVerifyHandler;
-import eu.mhutti1.healthchain.server.verify.PatientVerifyHandler;
 import eu.mhutti1.healthchain.server.verify.SessionVerifyHandler;
+import eu.mhutti1.healthchain.server.login.VerifyHandler;
 import eu.mhutti1.healthchain.storage.EventStorage;
 import org.hyperledger.indy.sdk.IndyException;
 
@@ -68,8 +69,9 @@ public class Server {
     server.createEventEndpoint("/create_doctor_approve", new CreateApproveDoctorHandler());
 
     //verification
-    server.createEndpoint("/patient_verify", new PatientVerifyHandler());
-    server.createEndpoint("/doctor_verify", new DoctorVerifyHandler());
+    server.createEndpoint("/patient_verify", new PatientVerify() {
+    });
+    server.createEndpoint("/doctor_verify", new DoctorVerify());
 
     //logout
     server.createEndpoint("/logout", new LogoutHandler());

@@ -3,5 +3,5 @@ package eu.mhutti1.healthchain.server.login;
 /**
  * Created by jedraz on 13/11/2018.
  */
-public class DoctorVerify {
+public class DoctorVerify extends VerifyHandler {
 }

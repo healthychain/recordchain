@@ -41,13 +41,13 @@ public class CredentialOfferHandler extends EventConsumer {
     String token = params.get("token");
     String proverUsername = params.get("prover_username");
     String proverDid = Crypto.getDid(proverUsername);
-    System.out.println("DATAAaAAAAAAAA: " + params.get("data"));
-    String data = params.get("data");
-    String[] definitions = data.split(";");
-    for (String d : definitions) {
-      System.out.println(d);
-    }
-    System.out.println(definitions);
+//    System.out.println("DATAAaAAAAAAAA: " + params.get("data"));
+//    String data = params.get("data");
+//    String[] definitions = data.split(";");
+//    for (String d : definitions) {
+//      System.out.println(d);
+//    }
+//    System.out.println(definitions);
 
 //    JsonObject jo = json.createObjectBuilder()
 //            .add("employees", Json.createArrayBuilder()
@@ -55,14 +55,14 @@ public class CredentialOfferHandler extends EventConsumer {
 //                            .add("firstName", "John")
 //                            .add("lastName", "Doe")))
 //            .build();
-    String[][] jsonDefs = new String[definitions.length][2];
-    for (int i = 0; i < definitions.length; ++i) {
-      jsonDefs[i] = definitions[i].split(":");
-      for (String d : jsonDefs[i]) {
-        System.out.println(d);
-      }
-    }
-    System.out.println(jsonDefs);
+//    String[][] jsonDefs = new String[definitions.length][2];
+//    for (int i = 0; i < definitions.length; ++i) {
+//      jsonDefs[i] = definitions[i].split(":");
+//      for (String d : jsonDefs[i]) {
+//        System.out.println(d);
+//      }
+//    }
+//    System.out.println(jsonDefs);
 
     Wallet issuerWallet = null;
     String issuerDid = null;
