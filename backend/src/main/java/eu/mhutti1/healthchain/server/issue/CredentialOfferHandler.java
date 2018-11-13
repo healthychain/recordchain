@@ -15,7 +15,7 @@ import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
 import org.hyperledger.indy.sdk.wallet.Wallet;
-import org.json.JSONObject;
+import org.json.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -41,7 +41,28 @@ public class CredentialOfferHandler extends EventConsumer {
     String token = params.get("token");
     String proverUsername = params.get("prover_username");
     String proverDid = Crypto.getDid(proverUsername);
-    System.out.println(params.get("data"));
+    System.out.println("DATAAaAAAAAAAA: " + params.get("data"));
+    String data = params.get("data");
+    String[] definitions = data.split(";");
+    for (String d : definitions) {
+      System.out.println(d);
+    }
+    System.out.println(definitions);
+
+//    JsonObject jo = json.createObjectBuilder()
+//            .add("employees", Json.createArrayBuilder()
+//                    .add(Json.createObjectBuilder()
+//                            .add("firstName", "John")
+//                            .add("lastName", "Doe")))
+//            .build();
+    String[][] jsonDefs = new String[definitions.length][2];
+    for (int i = 0; i < definitions.length; ++i) {
+      jsonDefs[i] = definitions[i].split(":");
+      for (String d : jsonDefs[i]) {
+        System.out.println(d);
+      }
+    }
+    System.out.println(jsonDefs);
 
     Wallet issuerWallet = null;
     String issuerDid = null;
