@@ -7,6 +7,7 @@ import DoctorContainer from "./containers/DoctorContainer";
 import PatientContainer from "./containers/PatientContainer";
 import LoginFormContainer from "./containers/LoginFormContainer";
 import RegisterFormContainer from "./containers/RegisterFormContainer";
+import SettingsContainer from "./containers/SettingsContainer";
 
 class Routes extends Component {
   render() {
@@ -97,6 +98,22 @@ class Routes extends Component {
               <Redirect
                 to={{
                   pathname: "/login-doctor",
+                  state: { from: props.location }
+                }}
+              />
+            )
+          }
+        />
+        <Route
+          path="/settings"
+          exact
+          component={props =>
+            loggedIn ? (
+              <SettingsContainer />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: "/settings",
                   state: { from: props.location }
                 }}
               />
