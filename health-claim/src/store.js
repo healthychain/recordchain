@@ -13,6 +13,8 @@ import register from "./reducers/register";
 import verifySession from "./reducers/verifySession";
 import sessionToken from "./reducers/sessionToken";
 import logout from "./reducers/logout";
+import createMasterSecret from "./reducers/createMasterSecret";
+import storeRecord from "./reducers/storeRecord";
 
 const loggerMiddleware = createLogger();
 
@@ -30,7 +32,9 @@ const reducer = combineReducers({
   logout,
   register,
   verifySession,
-  sessionToken
+  sessionToken,
+  createMasterSecret,
+  storeRecord
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
@@ -48,5 +52,8 @@ export default () => {
     )
   );
   let persistor = persistStore(store);
-  return { store, persistor };
+  return {
+    store,
+    persistor
+  };
 };

@@ -23,10 +23,10 @@ export const fetchNotificationsSuccess = notifications => ({
 function fetchNotifications(sessionID) {
   return dispatch => {
     dispatch(fetchNotificationsBegin());
-    return fetch(`${apiEndpoint}/get_events/?token=${sessionID}`)
+    return fetch(`${apiEndpoint}/get_events?token=${sessionID}`)
       .then(res => checkSessionValidity(res, dispatch))
       .then(raw => handleErrors(raw))
-      .then(response => response.json(), console.log(sessionID))
+      .then(response => response.json())
       .then(json => {
         dispatch(fetchNotificationsSuccess(JSON.parse(json.events)));
         return json.notifications;

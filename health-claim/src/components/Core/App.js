@@ -29,6 +29,11 @@ export class App extends React.PureComponent {
               </div>
               <div className="Header__Lower">
                 <h2 className="Header__Title">Decentralized Healthcare</h2>
+                {this.props.loggedIn ? (
+                  <div className="Header__Link">
+                    <Link to="/settings">Settings</Link>
+                  </div>
+                ) : null}
               </div>
             </div>
             <div className="Body">

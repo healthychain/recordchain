@@ -1,8 +1,13 @@
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import {
+  connect
+} from "react-redux";
+import {
+  withRouter
+} from "react-router-dom";
 import Doctor from "../components/Doctor/Doctor";
 import selectPatient from "../actions/selectPatient";
 import fetchNotifications from "../actions/fetchNotifications";
+import storeRecord from "../actions/storeRecord"
 // import fetchPatientInfo from "../actions/fetchPatientInfo";
 
 const mapStateToProps = (state, props) => ({
@@ -20,8 +25,17 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = (dispatch, props) => ({
   ...props,
   // fetchPatientInfo: patientID => dispatch(fetchPatientInfo(patientID)),
-  selectPatient: ({ id, name, birthDate }) =>
-    dispatch(selectPatient({ id, name, birthDate })),
+  storeRecord: data => dispatch(storeRecord(data)),
+  selectPatient: ({
+      id,
+      name,
+      birthDate
+    }) =>
+    dispatch(selectPatient({
+      id,
+      name,
+      birthDate
+    })),
   fetchNotifications: sessionID => dispatch(fetchNotifications(sessionID))
 });
 
