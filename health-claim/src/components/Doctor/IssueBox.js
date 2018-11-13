@@ -39,23 +39,16 @@ class IssueBox extends Component {
         this.props.sessionID
       }&prover_username=${this.state.username}`,
       {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        mode: "no-cors", // no-cors, cors, *same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
+        method: "POST", 
+        mode: "no-cors",
+        cache: "no-cache", 
+        credentials: "same-origin", 
         headers: {
           "Content-Type": "application/json; charset=utf-8"
-          // "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify(this.state.data) // body data type must match "Content-Type" header
+        body: JSON.stringify(this.state.data)
       }
     );
-
-    // fetch(
-    //   `${apiEndpoint}/credential_offer?token=${
-    //     this.props.sessionID
-    //   }&prover_username=${this.state.username}`
-    // );
   };
   renderEditable = cellInfo => {
     return (
