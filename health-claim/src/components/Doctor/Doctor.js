@@ -33,7 +33,7 @@ class Doctor extends Component {
         <div className="doctor-main">
           <div className="doctor-inner-alt">
             <div className="Box">
-              <h3>Issue a new record</h3>
+              {/* <h3>Issue a new record</h3>
               <label className="Input__Label">Patient's username</label>
               <input
                 onChange={e => this.setState({ username: e.target.value })}
@@ -41,23 +41,31 @@ class Doctor extends Component {
                 type="text"
                 value={this.state.username}
               />
-              <br /> <label className="Input__Label">Health record</label>
-              <IssueBox data={this.state.data} />
-              <hr />
+              <br /> <label className="Input__Label">Health record</label> */}
+              <IssueBox callback={this.props.storeRecord} />
+              {/* <hr />
               <button
-                onClick={() =>
+                onClick={() => {
                   fetch(
                     `${apiEndpoint}/credential_offer?token=${
                       this.props.sessionID
                     }&prover_username=${
                       this.state.username
                     }&data=${JSON.stringify(this.state.data)}`
-                  )
-                }
+                  );
+                }}
                 className="Button Button__Green"
               >
                 Issue credentials
               </button>
+              <button
+                onClick={() =>
+                  this.props.fetchNotifications(this.props.sessionID)
+                }
+                className="Button Button__Green"
+              >
+                Refresh
+              </button> */}
               <button
                 onClick={() =>
                   this.props.fetchNotifications(this.props.sessionID)
