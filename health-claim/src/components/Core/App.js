@@ -12,6 +12,10 @@ export class App extends React.PureComponent {
       <SessionAuthenticator>
         <Router>
           <div>
+            <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            />
             <div className="Header">
               <div className="Header__Upper">
                 <div className="Header__Nav">

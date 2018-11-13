@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Doctor should render correctly with mocked records 1`] = `
+exports[`Doctor should render correctly 1`] = `
 <div
   className="doctor-layout"
 >
@@ -54,10 +54,20 @@ exports[`Doctor should render correctly with mocked records 1`] = `
   </div>
   <div>
     <div
+      className="ToggleButton"
+      onClick={[Function]}
+    >
+      <i
+        className="fa fa-bell"
+      />
+    </div>
+    <div
       className="Toggle"
       onClick={[Function]}
     >
-      Notifications
+      <div
+        className={null}
+      />
     </div>
   </div>
 </div>
