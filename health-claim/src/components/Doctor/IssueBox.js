@@ -24,16 +24,11 @@ class IssueBox extends Component {
   };
 
   handleSubmitIssue = event => {
-    console.log("Handle issue submit");
-    console.log(this.state.data);
-    // fetch(
-    //   `${apiEndpoint}/credential_offer?token=${
-    //     this.props.sessionID
-    //   }&prover_username=${this.state.username}&data=${JSON.stringify(
-    //     this.state.data
-    //   )}`
-    // );
-    // Default options are marked with *
+    //JSONify each data row
+    for (var i = 0; i < this.state.data.length; i++) {
+      this.state.data[i] = JSON.stringify(this.state.data[i]);
+    }
+
     return fetch(
       `${apiEndpoint}/credential_offer?token=${
         this.props.sessionID
@@ -47,7 +42,7 @@ class IssueBox extends Component {
           "Content-Type": "application/json; charset=utf-8"
           // "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify(this.state.data) // body data type must match "Content-Type" header
+        body: JSON.stringify(this.state.data.join(",")) // body data type must match "Content-Type" header
       }
     );
 
