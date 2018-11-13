@@ -3,6 +3,7 @@ package eu.mhutti1.healthchain.server.issue;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import org.hyperledger.indy.sdk.IndyException;
@@ -17,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by jedraz on 29/10/2018.
  */
-public class CreateMasterKeyHandler implements HttpHandler {
+public class CreateMasterKeyHandler extends NonEventConsumer {
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
@@ -38,7 +39,7 @@ public class CreateMasterKeyHandler implements HttpHandler {
       proverWallet = SessionManager.getSessionCredentials(token).getWallet();
     } catch (SessionInvalidException e) {
       response = "Invalid session token";
-      responseCode = 400;
+      responseCode = RequestUtils.statusSessionExpired();
     }
 
     if(proverWallet != null) {

@@ -4,8 +4,10 @@ import {
   FETCH_NOTIFICATIONS_ERROR
 } from "../actions/fetchNotifications";
 
+import { HANDLE_NOTIFICATION } from "../actions/handleNotification";
+
 const initialState = {
-  claims: [],
+  notifications: [],
   loading: false,
   error: null
 };
@@ -28,6 +30,13 @@ const fetchNotifications = (state = initialState, action) => {
         notifications: action.payload.notifications
       };
     }
+    case HANDLE_NOTIFICATION:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        notifications: action.payload.notifications
+      };
     default:
       return state;
   }

@@ -1,13 +1,12 @@
 package eu.mhutti1.healthchain.server.events;
 
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.EventNode;
 import eu.mhutti1.healthchain.storage.EventQueue;
-import eu.mhutti1.healthchain.storage.LocalStorage;
+import eu.mhutti1.healthchain.storage.EventStorage;
 import org.json.JSONArray;
 
 import java.io.IOException;
@@ -15,12 +14,11 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by jedraz on 31/10/2018.
  */
-public class GetNotificationsHandler implements HttpHandler {
+public class GetNotificationsHandler extends NonEventConsumer {
 
 
   @Override
@@ -33,7 +31,7 @@ public class GetNotificationsHandler implements HttpHandler {
 
     String token = params.get("token");
 
-    String response = "[]";
+    String response = new JSONArray().toString();
     int responseCode = 200;
 
     String did = null;
@@ -43,17 +41,21 @@ public class GetNotificationsHandler implements HttpHandler {
     } catch (SessionInvalidException e) {
       e.printStackTrace();
       response = "Invalid token";
-      responseCode = RequestUtils.statusUnauthorized();
+      responseCode = RequestUtils.statusSessionExpired();
     }
 
     if(did != null) {
       responseCode = RequestUtils.statusOK();
-      EventQueue eventQueue = LocalStorage.get(did);
-      if(eventQueue != null) {
+      EventQueue eventQueue = EventStorage.get(did);
+      if (eventQueue == null) {
+        response = new JSONArray().toString();
+      } else {
         List<EventNode> events = eventQueue.getAllEvents();
         response = new JSONArray(events.stream().map(event -> event.toJSON()).collect(Collectors.toList())).toString();
       }
     }
+
+    response = RequestUtils.wrapResponse("events", response);
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

@@ -1,4 +1,6 @@
 .EventPanel {
+  -webkit-transition: width 0.2s; /* Safari */
+  transition: width 0.2s;
   width: 400px;
   height: 100%;
   border-left: 1px solid #e0e0e0;
@@ -16,6 +18,21 @@
 }
 
 .Toggle {
+  &__Red {
+    -webkit-transition: width 0.2s; /* Safari */
+    transition: width 0.2s;
+    text-align: center;
+    width: 100px;
+    border-left: 1px solid #e0e0e0;
+    height: 100%;
+    user-select: none;
+    cursor: pointer;
+    background-color: salmon;
+    color: #666;
+    font-size: 12px;
+  }
+  -webkit-transition: width 0.2s; /* Safari */
+  transition: width 0.2s;
   text-align: center;
   width: 100px;
   border-left: 1px solid #e0e0e0;

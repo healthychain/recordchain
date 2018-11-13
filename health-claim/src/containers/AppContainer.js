@@ -1,21 +1,26 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import App from "../components/Core/App";
-import { logoutCall } from "../actions/login";
+import { logout } from "../actions/logout";
 
 const mapStateToProps = (state, props) => ({
   ...props,
-  loggedIn: state.login.success
+  loggedIn: state.verifySession.success,
+  token: state.sessionToken.token
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
   ...props,
-  logout: () => dispatch(logoutCall())
+  logout: token => dispatch(logout(token))
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
-);
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...stateProps,
+  logout: () => dispatchProps.logout(stateProps.token)
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps
+)(App);

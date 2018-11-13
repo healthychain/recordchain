@@ -1,15 +1,21 @@
 package eu.mhutti1.healthchain.server.issue;
 
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import eu.mhutti1.healthchain.constants.HealthRecord;
 import eu.mhutti1.healthchain.server.RequestUtils;
+import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
+import eu.mhutti1.healthchain.storage.CredDefStorage;
+import eu.mhutti1.healthchain.storage.EventNode;
+import eu.mhutti1.healthchain.storage.EventStorage;
+import eu.mhutti1.healthchain.utils.Crypto;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
 import org.hyperledger.indy.sdk.wallet.Wallet;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,10 +27,11 @@ import static org.hyperledger.indy.sdk.anoncreds.Anoncreds.issuerCreateAndStoreC
 /**
  * Created by jedraz on 29/10/2018.
  */
-public class CredentialOfferHandler implements HttpHandler {
+public class CredentialOfferHandler extends EventConsumer {
+
 
   @Override
-  public void handle(HttpExchange httpExchange) throws IOException {
+  public boolean handleEventAction(HttpExchange httpExchange) throws IOException {
 
     httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
@@ -32,11 +39,12 @@ public class CredentialOfferHandler implements HttpHandler {
     Map<String, String> params = RequestUtils.queryToMap(query);
 
     String token = params.get("token");
-    String issuerDid = params.get("issuer_did");
-    String proverDid = params.get("prover_did");
+    String proverUsername = params.get("prover_username");
+    String proverDid = Crypto.getDid(proverUsername);
+    System.out.println(params.get("data"));
 
     Wallet issuerWallet = null;
-    //get from local db
+    String issuerDid = null;
     AnoncredsResults.IssuerCreateAndStoreCredentialDefResult credDef = null;
     String credOfferJSON = null;
 
@@ -45,9 +53,10 @@ public class CredentialOfferHandler implements HttpHandler {
 
     try {
       issuerWallet = SessionManager.getSessionCredentials(token).getWallet();
+      issuerDid = SessionManager.getSessionCredentials(token).getDid();
     } catch (SessionInvalidException e) {
       response = "Invalid session token";
-      responseCode = 400;
+      responseCode = RequestUtils.statusSessionExpired();
     }
 
     if(issuerWallet == null) {
@@ -55,11 +64,11 @@ public class CredentialOfferHandler implements HttpHandler {
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
       os.close();
-      return;
+      return false;
     }
 
     System.out.println("Create credential offer\n");
-    String credDefJSON = "{\"seqNo\": 1, \"dest\": \"" + proverDid + "\", \"data\": " + HealthRecord.getSchemaDataJSON() + "}";
+    String credDefJSON = "{\"seqNo\": 2, \"dest\": \"" + proverDid + "\", \"data\": " + HealthRecord.getSchemaDataJSON() + "}";
     System.out.println("Cred Def JSON:\n" + credDefJSON);
 
     try {
@@ -67,10 +76,12 @@ public class CredentialOfferHandler implements HttpHandler {
               issuerWallet,
               issuerDid,
               HealthRecord.getSchemaDataJSON(),
-              "cred_def_tag",
+          RandomStringUtils.randomAlphabetic(12),
               "CL",
               "{\"support_revocation\": false}"
       ).get();
+
+      CredDefStorage.getStore().put(proverDid, new CredDefStorage.CredDef(credDef.getCredDefId(), credDef.getCredDefJson()));
     } catch (InterruptedException e) {
       e.printStackTrace();
       response = RequestUtils.messageInternalServerError();
@@ -89,7 +100,7 @@ public class CredentialOfferHandler implements HttpHandler {
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
       os.close();
-      return;
+      return false;
     }
 
     System.out.println("Returned Cred Definition:\n" + credDef);
@@ -114,15 +125,19 @@ public class CredentialOfferHandler implements HttpHandler {
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
       os.close();
-      return;
+      return false;
     }
 
+    JSONObject payload = new JSONObject()
+            .put("credOfferJSON", credOfferJSON)
+            .put("credDefJSON", credDef.getCredDefJson());
 
-    // do sth with credOfferJSON and credDef.getCredDefJson()
+    EventStorage.store(proverDid, new EventNode("", issuerDid, payload, "credential_request", null));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();
     os.write(response.getBytes());
     os.close();
+    return true;
   }
 }

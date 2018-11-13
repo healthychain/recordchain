@@ -1,4 +1,7 @@
-// import { apiEndpoint } from "../apiEndpoint";
+import { apiEndpoint } from "../apiEndpoint";
+import handleErrors from "./handleErrors";
+import { storeToken } from "./sessionToken";
+import { verifySuccess, verifyError } from "./verifySession";
 
 export const LOGIN_BEGIN = "LOGIN_BEGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -8,40 +11,41 @@ export const LOGOUT = "LOGOUT";
 export const loginBegin = () => ({ type: LOGIN_BEGIN });
 
 export const loginError = error => ({
-  type: LOGIN_ERROR,
-  payload: { error }
+  type: LOGIN_ERROR
 });
 
-export const loginSuccess = response => ({
+export const loginSuccess = token => ({
   type: LOGIN_SUCCESS,
-  payload: { response }
+  payload: { token }
 });
 
 export const logoutCall = () => ({
   type: LOGOUT
 });
 
-function login(username, password) {
+function login(username, password, account_type) {
   return dispatch => {
+    console.log("LOGGING IN NOW");
     dispatch(loginBegin());
     return fetch(
-      `http://localhost:8000/doctor_verify/?username=${username}&password=${password}`
+      `${apiEndpoint}/${account_type}_verify/?username=${username}&password=${password}`
     )
       .then(raw => handleErrors(raw))
-      .then(response => dispatch(loginSuccess(response)))
-      .catch(error => loginError(error));
+      .then(response => response.json())
+      .then(json => {
+        dispatch(storeToken(json.token));
+        dispatch(loginSuccess(json.token));
+        dispatch(verifySuccess());
+      })
+
+      .catch(error => dispatch(loginError(error)));
   };
 }
 
 export function logout() {
-  return dispatch => dispatch(logoutCall());
+  return dispatch => {
+    dispatch(verifyError());
+  };
 }
-
-const handleErrors = response => {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response;
-};
 
 export default login;

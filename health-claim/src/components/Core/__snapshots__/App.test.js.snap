@@ -1,115 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App should render without crashing 1`] = `
-Array [
-  <div
-    className="Header"
-  >
-    <div
-      className="Header__Upper"
-    >
+<withRouter(Connect(SessionAuthenticator))>
+  <BrowserRouter>
+    <div>
       <div
-        className="Header__Nav"
+        className="Header"
       >
         <div
-          className="Header__Layout"
+          className="Header__Upper"
         >
           <div
-            className="Header__Logo"
-          >
-            HealthClaim
-          </div>
-           
-        </div>
-      </div>
-    </div>
-    <div
-      className="Header__Lower"
-    >
-      <h2
-        className="Header__Title"
-      >
-        Decentralized Healthcare
-      </h2>
-    </div>
-  </div>,
-  <div
-    className="Body"
-  >
-    <div
-      className="Main"
-    >
-      <div
-        className="Home__Container"
-      >
-        <h3
-          className="Page__Title"
-        >
-          Welcome
-        </h3>
-        <div
-          className="Box Box__NP"
-        >
-          <div
-            className="Flex__Double"
+            className="Header__Nav"
           >
             <div
-              className="Flex__Half Flex__Grey Flex__Separator"
+              className="Header__Layout"
             >
-              <h2
-                className="Page__Halftitle"
+              <div
+                className="Header__Logo"
               >
-                Log in
-              </h2>
-              <p
-                className="Page__Text"
-              >
-                If you are a doctor or have already created an account, please log in below.
-              </p>
-              <p>
-                <button
-                  className="Button Button__Green"
-                  onClick={[Function]}
-                >
-                  Doctor
-                </button>
-                     
-                <button
-                  className="Button Button__Green"
-                  onClick={[Function]}
-                >
-                  Patient
-                </button>
-              </p>
-            </div>
-            <div
-              className="Flex__Half"
-            >
-              <h2
-                className="Page__Halftitle"
-              >
-                Sign up
-              </h2>
-              <p
-                className="Page__Text"
-              >
-                Create your account now to keep your medical records safe.
-              </p>
-              <p
-                className="Page__Text"
-              >
-                <button
-                  className="Button Button__Secondary"
-                  onClick={[Function]}
-                >
-                  Sign up
-                </button>
-              </p>
+                HealthClaim
+              </div>
+               
             </div>
           </div>
         </div>
+        <div
+          className="Header__Lower"
+        >
+          <h2
+            className="Header__Title"
+          >
+            Decentralized Healthcare
+          </h2>
+        </div>
+      </div>
+      <div
+        className="Body"
+      >
+        <div
+          className="Main"
+        >
+          <Route
+            component={[Function]}
+          />
+        </div>
       </div>
     </div>
-  </div>,
-]
+  </BrowserRouter>
+</withRouter(Connect(SessionAuthenticator))>
 `;

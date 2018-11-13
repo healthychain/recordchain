@@ -20,7 +20,7 @@ import static org.hyperledger.indy.sdk.ledger.Ledger.signAndSubmitRequest;
 public class Steward extends Role{
 
   public Steward(Wallet wallet, String did, String verKey) {
-    super(wallet, did, verKey);
+      super(wallet, did, verKey);
   }
 
   @Override

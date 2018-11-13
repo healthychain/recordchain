@@ -1,5 +1,7 @@
 package eu.mhutti1.healthchain.server;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +21,10 @@ public class RequestUtils {
       }
     }
     return result;
+  }
+
+  public static String wrapResponse(String key, String payload) {
+    return new JSONObject().put(key, payload).toString();
   }
 
   public static String messageOK(){
@@ -43,6 +49,10 @@ public class RequestUtils {
 
   public static int statusUnauthorized() {
     return 400;
+  }
+
+  public static int statusSessionExpired() {
+    return 401;
   }
 
 }

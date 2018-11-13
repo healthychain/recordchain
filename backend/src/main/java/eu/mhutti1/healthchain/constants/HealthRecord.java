@@ -9,6 +9,7 @@ import static org.hyperledger.indy.sdk.ledger.Ledger.buildSchemaRequest;
  */
 public class HealthRecord {
 
+  private static String schemaId = "1";
   private static String schemaDataJSON;
 
   public static String getSchemaDataJSON() {
@@ -19,12 +20,16 @@ public class HealthRecord {
     return schemaDataJSON;
   }
 
+  public static String getSchemaDataId() {
+    return schemaId;
+  }
+
   private static String createSchemaDataJSON() {
     System.out.println("\nBuild the SCHEMA request to add new schema to the ledger as a Steward\n");
     String name = "health_record";
     String version = "1.0";
     String attributes = "[\"age\", \"sex\", \"height\", \"name\"]";
-    String id = "1";
+    String id = schemaId;
     return new JSONObject("{\"name\":\"" + name + "\",\"version\":\"" + version + "\",\"attrNames\":" + attributes + ",\"ver\":\"" + version + "\",\"id\":\"" + id + "\"}").toString();
   }
 }
