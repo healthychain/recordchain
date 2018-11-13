@@ -28,8 +28,9 @@ public class EventNode implements Serializable {
   private JSONObject payload;
   private String acceptAction;
   private String dismissAction;
+  private boolean requireMasterSecret;
 
-  public EventNode(String type, String fromDid, JSONObject payload, String acceptEndpoint, String dismissEndpoint) {
+  public EventNode(String type, String fromDid, JSONObject payload, String acceptEndpoint, String dismissEndpoint, boolean requireMasterSecret) {
     this.id = RandomStringUtils.randomAlphanumeric(16);
     this.type = type;
     this.fromDid = fromDid;
@@ -37,6 +38,11 @@ public class EventNode implements Serializable {
     this.payload = payload;
     this.acceptAction = acceptEndpoint != null ? createAction(acceptEndpoint, id) : "";
     this.dismissAction = dismissEndpoint != null ? createAction(dismissEndpoint, id) : "";
+    this.requireMasterSecret = requireMasterSecret;
+  }
+
+  public EventNode(String type, String fromDid, JSONObject payload, String acceptEndpoint, String dismissEndpoint) {
+    this(type, fromDid, payload, acceptEndpoint, dismissEndpoint, false);
   }
 
   private String createAction(String endpoint, String id) {
@@ -68,7 +74,8 @@ public class EventNode implements Serializable {
             .put("id", id)
             .put("type", type)
             .put("acceptAction", acceptAction)
-            .put("dismissAction", dismissAction);
+            .put("dismissAction", dismissAction)
+            .put("requireMasterSecret", requireMasterSecret);
   }
 
   @Override
@@ -94,6 +101,7 @@ public class EventNode implements Serializable {
     oos.writeObject(payload.toString());
     oos.writeObject(acceptAction);
     oos.writeObject(dismissAction);
+    oos.writeObject(requireMasterSecret);
   }
 
   private void readObject(ObjectInputStream ois)
@@ -106,5 +114,6 @@ public class EventNode implements Serializable {
     payload = new JSONObject((String) ois.readObject());
     acceptAction = (String) ois.readObject();
     dismissAction = (String) ois.readObject();
+    requireMasterSecret = (Boolean) ois.readObject();
   }
 }
