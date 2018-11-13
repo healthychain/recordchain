@@ -33,10 +33,21 @@ class IssueBox extends Component {
     //     this.state.data
     //   )}`
     // );
-    fetch(
+    // Default options are marked with *
+    return fetch(
       `${apiEndpoint}/credential_offer?token=${
         this.props.sessionID
-      }&prover_username=${this.state.username}`
+      }&prover_username=${this.state.username}`,
+      {
+        method: "POST", 
+        mode: "no-cors",
+        cache: "no-cache", 
+        credentials: "same-origin", 
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify(this.state.data)
+      }
     );
   };
   renderEditable = cellInfo => {
