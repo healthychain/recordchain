@@ -13,6 +13,7 @@ import register from "./reducers/register";
 import verifySession from "./reducers/verifySession";
 import sessionToken from "./reducers/sessionToken";
 import logout from "./reducers/logout";
+import createMasterSecret from "./reducers/createMasterSecret";
 import storeRecord from "./reducers/storeRecord";
 
 const loggerMiddleware = createLogger();
@@ -32,6 +33,7 @@ const reducer = combineReducers({
   register,
   verifySession,
   sessionToken,
+  createMasterSecret,
   storeRecord
 });
 
