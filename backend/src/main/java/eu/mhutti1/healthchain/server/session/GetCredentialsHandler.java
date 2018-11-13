@@ -1,4 +1,4 @@
-package eu.mhutti1.healthchain.server.get;
+package eu.mhutti1.healthchain.server.session;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;

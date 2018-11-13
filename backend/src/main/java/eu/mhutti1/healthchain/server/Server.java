@@ -8,7 +8,7 @@ import eu.mhutti1.healthchain.server.createOLD.PatientCreateHandler;
 import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.events.GetNotificationsHandler;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
-import eu.mhutti1.healthchain.server.get.GetCredentialsHandler;
+import eu.mhutti1.healthchain.server.session.GetCredentialsHandler;
 import eu.mhutti1.healthchain.server.issue.*;
 import eu.mhutti1.healthchain.server.logout.LogoutHandler;
 import eu.mhutti1.healthchain.server.proof.ProofApproveHandler;
