@@ -34,8 +34,8 @@ public class CredentialRequestHandler extends EventConsumer {
 
     String token = params.get("token");
     String eventId = params.get("event_id");
-//    String masterSecret = params.get("mater_secret");
-    String masterSecret = "master_secret";
+    String masterSecret = params.get("master_secret");
+//    String masterSecret = "master_secret";
 
     Wallet proverWallet = null;
     String proverDid = null;
@@ -63,6 +63,7 @@ public class CredentialRequestHandler extends EventConsumer {
     JSONObject payload = EventStorage.getEvent(proverDid, eventId).getPayload();
     String credOfferJSON = payload.getString("credOfferJSON");
     String credDefJSON = payload.getString("credDefJSON");
+    String credValuesJSON = payload.getString("credValuesJSON");
     String issuerDid = EventStorage.getEvent(proverDid, eventId).getFromDid();
 
     System.out.println("\nProver creates credential Request");
@@ -102,7 +103,8 @@ public class CredentialRequestHandler extends EventConsumer {
             .put("credentialRequestJSON", createCredReqResult.getCredentialRequestJson())
             .put("credentialRequestMetadataJSON", createCredReqResult.getCredentialRequestMetadataJson())
             .put("credDefJSON", credDefJSON)
-            .put("credOfferJSON", credOfferJSON);
+            .put("credOfferJSON", credOfferJSON)
+            .put("credValuesJSON", credValuesJSON);
 
     EventStorage.store(issuerDid, new EventNode("", proverDid, newPayload, "credential_issue", null));
 

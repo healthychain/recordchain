@@ -71,6 +71,9 @@ build/Release
 # Indy-SDK
 indy-sdk
 
+backend/credstorage.db
+backend/storage.db
+
 # Dependency directories
 node_modules/
 jspm_packages/

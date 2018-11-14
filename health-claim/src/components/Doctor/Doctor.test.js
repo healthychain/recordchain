@@ -6,7 +6,13 @@ describe("Doctor", () => {
   it("should render correctly with mocked records", () => {
     const tree = renderer
       .create(
-        <Doctor loggedIn notifications={[]} fetchNotifications={() => []} />
+        <Doctor
+          loggedIn
+          notifications={[]}
+          credDef={[]}
+          fetchCredDef={() => console.log("")}
+          fetchNotifications={() => []}
+        />
       )
       .toJSON();
     expect(tree).toMatchSnapshot();
