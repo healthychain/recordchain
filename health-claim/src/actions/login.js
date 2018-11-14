@@ -1,6 +1,6 @@
 import { apiEndpoint } from "../apiEndpoint";
 import handleErrors from "./handleErrors";
-import { storeToken, storeDid } from "./sessionToken";
+import { storeToken, storeDid, storeAccountType } from "./sessionToken";
 import { verifySuccess, verifyError } from "./verifySession";
 
 export const LOGIN_BEGIN = "LOGIN_BEGIN";
@@ -35,6 +35,7 @@ function login(username, password, account_type) {
       .then(json => {
         dispatch(storeToken(json.token));
         dispatch(storeDid(json.did));
+        dispatch(storeAccountType(account_type));
         dispatch(loginSuccess(json.token));
         dispatch(verifySuccess());
       })
