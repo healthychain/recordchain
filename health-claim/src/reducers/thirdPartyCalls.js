@@ -44,7 +44,7 @@ const thirdPartyCalls = (state = initialState, action) => {
         ...state,
         loading: false,
         error: null,
-        proof: action.payload.proof
+        proof: action.payload
       };
 
     case TP_VIEW_ERROR:
