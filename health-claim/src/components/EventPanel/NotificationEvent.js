@@ -19,6 +19,7 @@ class NotificationEvent extends Component {
       requireMasterSecret
     } = this.props;
     const { masterSecret } = this.state;
+    console.log(this.state);
     console.log(this.props);
     return (
       <div className={"Event"}>

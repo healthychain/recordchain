@@ -3,7 +3,9 @@ package eu.mhutti1.healthchain.utils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.bitcoinj.core.Base58;
+import org.json.JSONObject;
 
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -42,6 +44,21 @@ public class Crypto {
     }
 
     return Base58.encode(candidate.getBytes()).substring(0, DID_LENGTH);
+  }
+
+  public static String encodeCredValues(String credValuesJSON) {
+    JSONObject credValues = new JSONObject(credValuesJSON);
+
+    JSONObject encodedCredValues = new JSONObject();
+
+    Iterator<String> keys = credValues.keys();
+
+    while(keys.hasNext()) {
+      String key = keys.next();
+      encodedCredValues.put(key, new JSONObject().put("raw", credValues.get(key)).put("encoded", "23432"));
+    }
+
+    return encodedCredValues.toString();
   }
 
 }

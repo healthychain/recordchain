@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 
 const mapStateToProps = (state, props) => ({
   ...props,
-  loggedIn: state.verifySession.success
+  loggedIn: state.verifySession.success,
+  accountType: state.sessionToken.accountType
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

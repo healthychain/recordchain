@@ -32,4 +32,6 @@ public class HealthRecord {
     String id = schemaId;
     return new JSONObject("{\"name\":\"" + name + "\",\"version\":\"" + version + "\",\"attrNames\":" + attributes + ",\"ver\":\"" + version + "\",\"id\":\"" + id + "\"}").toString();
   }
+
+  public static String[] attrs = new String[]{"age", "sex", "height", "name"};
 }
