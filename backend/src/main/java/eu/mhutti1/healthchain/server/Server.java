@@ -93,6 +93,7 @@ public class Server {
 
 
     // third party endpoint
+    server.createEndpoint("/proof_view", new ProofViewHandler());
     server.createEndpoint("/proof_request_request", new ProofRequestRequestHandler());
     server.createEndpoint("/proof_verify", new ProofVerifyHandler());
 
