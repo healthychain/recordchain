@@ -13,17 +13,19 @@ export const fetchCredDefError = () => ({
   type: FETCH_CRED_DEF_ERROR
 });
 
-export const fetchCredDefSuccess = () => ({
-  type: FETCH_CRED_DEF_SUCCESS
+export const fetchCredDefSuccess = attrs => ({
+  type: FETCH_CRED_DEF_SUCCESS,
+  payload: { attrs }
 });
 
 function fetchCredDef() {
   return dispatch => {
     dispatch(fetchCredDefBegin());
-    return fetch(`${apiEndpoint}/cred_def`)
+    return fetch(`${apiEndpoint}/get_public_schema`)
       .then(raw => handleErrors(raw))
+      .then(raw => raw.json())
       .then(json => {
-        dispatch(fetchCredDefSuccess(json.credDef));
+        dispatch(fetchCredDefSuccess(json.attrs));
       })
       .catch(error => fetchCredDefError());
   };

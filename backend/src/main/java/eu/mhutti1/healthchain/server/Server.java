@@ -8,6 +8,7 @@ import eu.mhutti1.healthchain.server.createOLD.PatientCreateHandler;
 import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.events.GetNotificationsHandler;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
+import eu.mhutti1.healthchain.server.healthrecord.GetSchemaHandler;
 import eu.mhutti1.healthchain.server.session.GetCredentialsHandler;
 import eu.mhutti1.healthchain.server.issue.*;
 import eu.mhutti1.healthchain.server.logout.LogoutHandler;
@@ -95,6 +96,8 @@ public class Server {
     server.createEndpoint("/proof_request_request", new ProofRequestRequestHandler());
     server.createEndpoint("/proof_verify", new ProofVerifyHandler());
 
+    //get public schema def
+    server.createEndpoint("/get_public_schema", new GetSchemaHandler());
 
     //notifications
     server.createEndpoint("/get_events", new GetNotificationsHandler());

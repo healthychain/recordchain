@@ -12,11 +12,8 @@ class Doctor extends Component {
 
     this.state = {
       dropdownOpen: false,
-      data: [],
-      credDef: ["name", "sex", "age"]
+      data: {}
     };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -31,13 +28,7 @@ class Doctor extends Component {
     this.props.fetchNotifications(sessionID);
   }
 
-  handleSubmit(event) {
-    const { credDef } = this.props;
-    const data = {};
-    credDef.map(cred => (data[cred] = this.state[cred]));
-
-    this.props.storeRecord(data);
-
+  handleSubmit = event => {
     fetch(
       `${apiEndpoint}/credential_offer?token=${
         this.props.sessionID
@@ -50,27 +41,29 @@ class Doctor extends Component {
         headers: {
           "Content-Type": "application/json; charset=utf-8"
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(this.state.data)
       }
     );
-  }
+  };
 
   render() {
-    // Uncomment this when backend call for cred def is ready
-    // const { credDef } = this.props;
-    const credDef = ["name", "sex", "age"];
+    const { credDef } = this.props;
 
     return (
       <div className="doctor-layout">
         <div className="doctor-main">
           <div className="doctor-inner-alt">
             <div className="Box">
+              <label className="Input__Label">Patient's username</label>
+              <input
+                onChange={e => this.setState({ username: e.target.value })}
+                className="Input__Text"
+                type="text"
+                value={this.state.username}
+              />
               <h3>Issue a new record</h3>
-              <hr />
-              {/* <IssueBox
-                sessionID={this.props.sessionID}
-                callback={this.props.storeRecord}
-              /> */}
+
+              <br />
               <div className="Form__Rack">
                 {credDef.length === 0 ? (
                   <button
@@ -86,9 +79,14 @@ class Doctor extends Component {
                         {credential[0].toUpperCase() + credential.substring(1)}
                       </label>
                       <input
-                        onChange={e =>
-                          this.setState({ [e.target.name]: e.target.value })
-                        }
+                        onChange={e => {
+                          this.setState({
+                            data: {
+                              ...this.state.data,
+                              [e.target.name]: e.target.value
+                            }
+                          });
+                        }}
                         className="Input__Text"
                         value={this.state[credential]}
                         key={credential}

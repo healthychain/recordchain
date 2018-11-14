@@ -5,7 +5,7 @@ import {
 } from "../actions/fetchCredDef";
 
 const initialState = {
-  credDef: [],
+  attrs: [],
   loading: false,
   error: null
 };
@@ -19,13 +19,13 @@ const fetchCredDef = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload.error,
-        credDef: []
+        attrs: []
       };
     case FETCH_CRED_DEF_SUCCESS: {
       return {
         ...state,
         loading: false,
-        credDef: action.payload.notifications
+        attrs: action.payload.attrs
       };
     }
     default:
