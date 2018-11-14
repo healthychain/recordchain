@@ -35,9 +35,9 @@ class Doctor extends Component {
   render() {
     const { tabIndex } = this.state;
     return (
-      <div className="doctor-layout">
-        <div className="doctor-main">
-          <div className="doctor-inner-alt">
+      <div className="dashboard-layout">
+        <div className="dashboard-main">
+          <div className="dashboard-inner-alt">
             <div className="Box">
               <div className="Box__Tabs">
                 {TABS.map((tab, idx) => (
