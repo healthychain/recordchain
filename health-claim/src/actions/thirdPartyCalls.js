@@ -25,20 +25,36 @@ export const tpViewBegin = () => ({
   type: TP_VIEW_BEGIN
 });
 
-export const tpViewSuccess = data => ({
+export const tpViewSuccess = proof => ({
   type: TP_VIEW_SUCCESS,
-  payload: data
+  payload: proof
 });
 
 export const tpViewError = () => ({
   type: TP_VIEW_ERROR
 });
 
-function tpRequest(userDID, domain, attrs) {
+export function tpRequest(userDID, domain, attrs) {
   return dispatch => {
     //Agent_domain - my domain
     //Req_attrs - attributes requested, comma separated
     dispatch(tpRequestBegin());
-    return fetch(`${domain}/proof_request_request?user_did=${userDID}&`);
+    return fetch(
+      `${domain}/proof_request_request?prover_did=${userDID}&agent_domain=${apiEndpoint}&req_attrs=${attrs}`
+    )
+      .then(raw => handleErrors(raw))
+      .then(dispatch(tpRequestSuccess()))
+      .catch(error => dispatch(tpRequestError()));
+  };
+}
+
+export function tpView(userDID) {
+  return dispatch => {
+    dispatch(tpViewBegin());
+    return fetch(`${apiEndpoint}/proof_verify?prover_did=${userDID}`)
+      .then(raw => handleErrors(raw))
+      .then(response => response.json())
+      .then(json => dispatch(tpViewSuccess(json)))
+      .catch(error => dispatch(tpViewError()));
   };
 }
