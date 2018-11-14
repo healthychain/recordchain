@@ -1,5 +1,6 @@
 package eu.mhutti1.healthchain.server.issue;
 
+import com.squareup.okhttp.RequestBody;
 import com.sun.net.httpserver.HttpExchange;
 import eu.mhutti1.healthchain.constants.HealthRecord;
 import eu.mhutti1.healthchain.server.RequestUtils;
@@ -10,6 +11,7 @@ import eu.mhutti1.healthchain.storage.CredDefStorage;
 import eu.mhutti1.healthchain.storage.EventNode;
 import eu.mhutti1.healthchain.storage.EventStorage;
 import eu.mhutti1.healthchain.utils.Crypto;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
@@ -17,8 +19,7 @@ import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
 import org.hyperledger.indy.sdk.wallet.Wallet;
 import org.json.*;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -41,28 +42,23 @@ public class CredentialOfferHandler extends EventConsumer {
     String token = params.get("token");
     String proverUsername = params.get("prover_username");
     String proverDid = Crypto.getDid(proverUsername);
-//    System.out.println("DATAAaAAAAAAAA: " + params.get("data"));
-//    String data = params.get("data");
-//    String[] definitions = data.split(";");
-//    for (String d : definitions) {
-//      System.out.println(d);
-//    }
-//    System.out.println(definitions);
 
-//    JsonObject jo = json.createObjectBuilder()
-//            .add("employees", Json.createArrayBuilder()
-//                    .add(Json.createObjectBuilder()
-//                            .add("firstName", "John")
-//                            .add("lastName", "Doe")))
-//            .build();
-//    String[][] jsonDefs = new String[definitions.length][2];
-//    for (int i = 0; i < definitions.length; ++i) {
-//      jsonDefs[i] = definitions[i].split(":");
-//      for (String d : jsonDefs[i]) {
-//        System.out.println(d);
-//      }
-//    }
-//    System.out.println(jsonDefs);
+    //Parsing the body data
+    InputStreamReader isr =  new InputStreamReader(httpExchange.getRequestBody(),"utf-8");
+    BufferedReader br = new BufferedReader(isr);
+    int b;
+    StringBuilder buf = new StringBuilder(512);
+    while ((b = br.read()) != -1) {
+      buf.append((char) b);
+    }
+    br.close();
+    isr.close();
+    String data = buf.toString();
+    data = data.replace("\\\"section\\\":","");
+    data = data.replace(",\\\"sectionData\\\"","");
+    data = data.replace("},{",",");
+    System.out.println("Data: " + data);
+    
 
     Wallet issuerWallet = null;
     String issuerDid = null;

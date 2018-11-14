@@ -24,19 +24,25 @@ class IssueBox extends Component {
   };
 
   handleSubmitIssue = event => {
-    console.log("Handle issue submit");
-    console.log(this.state.data);
-    // fetch(
-    //   `${apiEndpoint}/credential_offer?token=${
-    //     this.props.sessionID
-    //   }&prover_username=${this.state.username}&data=${JSON.stringify(
-    //     this.state.data
-    //   )}`
-    // );
-    fetch(
+    //JSONify each data row
+    for (var i = 0; i < this.state.data.length; i++) {
+      this.state.data[i] = JSON.stringify(this.state.data[i]);
+    }
+
+    return fetch(
       `${apiEndpoint}/credential_offer?token=${
         this.props.sessionID
-      }&prover_username=${this.state.username}`
+      }&prover_username=${this.state.username}`,
+      {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "no-cors", // no-cors, cors, *same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "same-origin", // include, *same-origin, omit
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify(this.state.data.join(",")) // body data type must match "Content-Type" header
+      }
     );
   };
   renderEditable = cellInfo => {
