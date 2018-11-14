@@ -9,6 +9,7 @@ export const handleNotification = notifications => ({
 
 function handle(url, allNotifications, notificationID, token, masterSecret) {
   return dispatch => {
+    debugger;
     return masterSecret
       ? fetch(
           `${apiEndpoint}/${url}token=${token}&master_secret=${masterSecret}`

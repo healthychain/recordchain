@@ -43,6 +43,7 @@ public class CredentialOfferHandler extends EventConsumer {
     String proverUsername = params.get("prover_username");
     String proverDid = Crypto.getDid(proverUsername);
 
+
     String credValuesJSON = RequestUtils.getRequestBody(httpExchange);
 
 
@@ -136,7 +137,7 @@ public class CredentialOfferHandler extends EventConsumer {
             .put("credDefJSON", credDef.getCredDefJson())
             .put("credValuesJSON", credValuesJSON);
 
-    EventStorage.store(proverDid, new EventNode("", issuerDid, payload, "credential_request", null));
+    EventStorage.store(proverDid, new EventNode("", issuerDid, payload, "credential_request", null, true));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

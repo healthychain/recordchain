@@ -4,7 +4,10 @@ import Doctor from "../components/Doctor/Doctor";
 import selectPatient from "../actions/selectPatient";
 import fetchNotifications from "../actions/fetchNotifications";
 import storeRecord from "../actions/storeRecord";
+<<<<<<< HEAD
 import fetchCredDef from "../actions/fetchCredDef";
+=======
+>>>>>>> jedrazb/issue_credentials_with_interface
 // import fetchPatientInfo from "../actions/fetchPatientInfo";
 
 const mapStateToProps = (state, props) => ({
@@ -17,7 +20,8 @@ const mapStateToProps = (state, props) => ({
   notificationsLoading: state.fetchNotifications.loading,
   notificationsError: state.fetchNotifications.error,
   notifications: state.fetchNotifications.notifications,
-  credDef: state.fetchCredDef.attrs
+  credDef: state.fetchCredDef.attrs,
+  did: state.sessionToken.did
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
