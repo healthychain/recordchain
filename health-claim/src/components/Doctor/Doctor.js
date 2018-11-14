@@ -3,115 +3,46 @@ import "./Doctor.scss";
 import EventPanel from "../EventPanel/EventPanel";
 import "../Login/LoginForm.scss";
 import { apiEndpoint } from "../../apiEndpoint";
+import IsssueTab from "./IssueTab";
 
-import IssueBox from "./IssueBox.js";
+const TABS = ["Issue", "View"];
 
 class Doctor extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      dropdownOpen: false,
-      data: {}
+      tabIndex: 0
     };
   }
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.sessionID !== this.props.sessionID) {
-      this.props.fetchNotifications(newProps.sessionID);
-    }
-  }
-
-  componentDidMount() {
-    const { sessionID } = this.props;
-    this.props.fetchCredDef();
-    this.props.fetchNotifications(sessionID);
-  }
-
-  handleSubmit = event => {
-    fetch(
-      `${apiEndpoint}/credential_offer?token=${
-        this.props.sessionID
-      }&prover_username=${this.state.username}`,
-      {
-        method: "POST",
-        mode: "no-cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        body: JSON.stringify(this.state.data)
-      }
-    );
-  };
-
   render() {
-    const { credDef } = this.props;
-
+    const { tabIndex } = this.state;
     return (
       <div className="doctor-layout">
         <div className="doctor-main">
           <div className="doctor-inner-alt">
-            <p>{`Your did: ${this.props.did}`}</p>
             <div className="Box">
-              <label className="Input__Label">Patient's username</label>
-              <input
-                onChange={e => this.setState({ username: e.target.value })}
-                className="Input__Text"
-                type="text"
-                value={this.state.username}
-              />
-              <h3>Issue a new record</h3>
-
-              <br />
-              <div className="Form__Rack">
-                {credDef.length === 0 ? (
-                  <button
-                    onClick={() => this.props.fetchCredDef()}
-                    className="Button Button__Green"
+              <div className="Box__Tabs">
+                {TABS.map((tab, idx) => (
+                  <div
+                    onClick={() => this.setState({ tabIndex: idx })}
+                    className={`Tab__single ${
+                      tabIndex === idx ? "Tab__single__active" : ""
+                    }`}
                   >
-                    Refresh
-                  </button>
-                ) : (
-                  credDef.map(credential => (
-                    <div className="Form__Cell" key={credential}>
-                      <label className="Input__Label" htmlFor={credential}>
-                        {credential[0].toUpperCase() + credential.substring(1)}
-                      </label>
-                      <input
-                        onChange={e => {
-                          this.setState({
-                            data: {
-                              ...this.state.data,
-                              [e.target.name]: e.target.value
-                            }
-                          });
-                        }}
-                        className="Input__Text"
-                        value={this.state[credential]}
-                        key={credential}
-                        type="text"
-                        name={credential}
-                      />
-                    </div>
-                  ))
-                )}
-                <button
-                  onClick={this.handleSubmit}
-                  className="Button Button__Green"
-                >
-                  Submit
-                </button>
+                    <p
+                      className={`Tab__text ${
+                        tabIndex === idx ? "Tab__text__active" : ""
+                      }`}
+                    >
+                      {tab}
+                    </p>
+                  </div>
+                ))}
               </div>
-              <button
-                onClick={() =>
-                  this.props.fetchNotifications(this.props.sessionID)
-                }
-                className="Button Button__Green"
-              >
-                Refresh
-              </button>
+              <div className="doctor__content">
+                {tabIndex === 0 && <IsssueTab {...this.props} />}
+              </div>
             </div>
             <br />
           </div>
