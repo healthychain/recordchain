@@ -5,7 +5,8 @@ import createMasterSecret from "../actions/createMasterSecret";
 
 const mapStateToProps = (state, props) => ({
   ...props,
-  token: state.sessionToken.token
+  token: state.sessionToken.token,
+  did: state.sessionToken.did
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
