@@ -59,29 +59,29 @@ class Routes extends Component {
           path="/dashboard"
           exact
           render={props => {
-            return <ThirdPartyContainer />;
+            //   return <ThirdPartyContainer />;
+            // }}
+            if (loggedIn && accountType) {
+              switch (accountType) {
+                case ACCOUNT_TYPE.PATIENT:
+                  return <PatientContainer />;
+                case ACCOUNT_TYPE.DOCTOR:
+                  return <DoctorContainer />;
+                case ACCOUNT_TYPE.THIRD_PARTY:
+                  return <ThirdPartyContainer />;
+                default:
+                  return <div />;
+              }
+            } else if (accountType) {
+              return <LoginFormContainer userType={accountType} />;
+            } else {
+              return (
+                <Redirect
+                  to={{ pathname: "/welcome", state: { from: props.location } }}
+                />
+              );
+            }
           }}
-          //   if (loggedIn && accountType) {
-          //     switch (accountType) {
-          //       case ACCOUNT_TYPE.PATIENT:
-          //         return <PatientContainer />;
-          //       case ACCOUNT_TYPE.DOCTOR:
-          //         return <DoctorContainer />;
-          //       case ACCOUNT_TYPE.THIRD_PARTY:
-          //         return <ThirdPartyContainer />;
-          //       default:
-          //         return <div />;
-          //     }
-          //   } else if (accountType) {
-          //     return <LoginFormContainer userType={accountType} />;
-          //   } else {
-          //     return (
-          //       <Redirect
-          //         to={{ pathname: "/welcome", state: { from: props.location } }}
-          //       />
-          //     );
-          //   }
-          // }}
         />
         <Route
           path="/settings"
