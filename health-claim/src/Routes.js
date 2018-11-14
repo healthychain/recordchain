@@ -47,7 +47,7 @@ class Routes extends Component {
           path="/login-thirdparty"
           exact
           render={props => (
-            <LoginFormContainer userType={ACCOUNT_TYPE.THIRD_PARTY} />
+            <ThirdPartyContainer userType={ACCOUNT_TYPE.THIRD_PARTY} />
           )}
         />
         <Route
@@ -73,7 +73,11 @@ class Routes extends Component {
                   return <div />;
               }
             } else if (accountType) {
-              return <LoginFormContainer userType={accountType} />;
+              return accountType === ACCOUNT_TYPE.THIRD_PARTY ? (
+                <ThirdPartyContainer />
+              ) : (
+                <LoginFormContainer userType={accountType} />
+              );
             } else {
               return (
                 <Redirect

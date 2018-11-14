@@ -29,6 +29,7 @@ class ThirdParty extends Component {
 
   render() {
     const { tabIndex } = this.state;
+    const { proof } = this.props;
     return (
       <div className="dashboard-layout">
         <div className="dashboard-main">
@@ -137,6 +138,20 @@ class ThirdParty extends Component {
                         />
                       </div>
                     </div>{" "}
+                    <>
+                      {proof
+                        ? Object.keys(proof).map(key => (
+                            <>
+                              <label className="Input__Label">
+                                {key[0].toUpperCase() +
+                                  key.substring(1) +
+                                  ":\t " +
+                                  proof[key]}
+                              </label>
+                            </>
+                          ))
+                        : null}
+                    </>
                     <button
                       onClick={() => this.props.tpView(this.state.username)}
                       className="Button Button__Green"

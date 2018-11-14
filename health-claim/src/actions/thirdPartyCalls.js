@@ -40,7 +40,7 @@ export function tpRequest(userDID, domain, attrs) {
     //Req_attrs - attributes requested, comma separated
     dispatch(tpRequestBegin());
     return fetch(
-      `${domain}/proof_request_request?prover_did=${userDID}&agent_domain=${apiEndpoint}&req_attrs=${attrs}`
+      `http://${domain}/proof_request_request?prover_did=${userDID}&agent_domain=${"localhost:8000"}&req_attrs=${attrs}`
     )
       .then(raw => handleErrors(raw))
       .then(dispatch(tpRequestSuccess()))
@@ -51,7 +51,7 @@ export function tpRequest(userDID, domain, attrs) {
 export function tpView(userDID) {
   return dispatch => {
     dispatch(tpViewBegin());
-    return fetch(`${apiEndpoint}/proof_verify?prover_did=${userDID}`)
+    return fetch(`${apiEndpoint}/proof_view?prover_did=${userDID}`)
       .then(raw => handleErrors(raw))
       .then(response => response.json())
       .then(json => dispatch(tpViewSuccess(json)))
