@@ -22,8 +22,8 @@ class Patient extends Component {
   }
 
   render() {
-    const { credentials } = this.props;
-    // console.log(this.props.credentials);
+    const { credentials } = this.props.credentials;
+    console.log(this.props.credentials);
     return (
       <div className="doctor-layout">
         <div className="doctor-main">
