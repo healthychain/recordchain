@@ -9,6 +9,7 @@ import fetchNotifications from "./reducers/fetchNotifications";
 import fetchPatientClaims from "./reducers/fetchPatientClaims";
 import selectPatient from "./reducers/selectPatient";
 import login from "./reducers/login";
+import fetchCredDef from "./reducers/fetchCredDef";
 import register from "./reducers/register";
 import verifySession from "./reducers/verifySession";
 import sessionToken from "./reducers/sessionToken";
@@ -34,7 +35,8 @@ const reducer = combineReducers({
   verifySession,
   sessionToken,
   createMasterSecret,
-  storeRecord
+  storeRecord,
+  fetchCredDef
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
