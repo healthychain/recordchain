@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Table, Container, Row, Col} from "reactstrap";
+import { Table, Container, Row, Col } from "reactstrap";
 import PropTypes from "prop-types";
+import LoadingScreen from "../Loading/LoadingScreen";
 import "./PatientView.css";
 
 class PatientView extends Component {
@@ -19,60 +20,57 @@ class PatientView extends Component {
   }
 
   renderInfo(info) {
-    return info.map((item) => {
+    return info.map(item => {
       return (
         <tr>
           <th>{item.key}</th>
           <th>{item.value}</th>
         </tr>
-      )
-    })
+      );
+    });
   }
 
   renderClaims(claims) {
     return claims.map((claim, index) => {
       var newIndex = index + 1;
-      return <div>
-               <h5 className="claim-title"> Claim {newIndex} </h5>
-               <tr>{claim.title}</tr>
-              </div>
-    })
+      return (
+        <div>
+          <h5 className="claim-title"> Claim {newIndex} </h5>
+          <tr>{claim.title}</tr>
+        </div>
+      );
+    });
   }
 
   render = () => {
-
     const info = [
       { key: "Name", value: this.props.name },
       { key: "ID", value: this.props.id },
-      { key: "DOB", value: "23/04/1977" },
-    ]
+      { key: "DOB", value: "23/04/1977" }
+    ];
 
     return (
       <Container className="patient-view-container">
         {this.props.loading ? (
-          <p>Loading</p>
+          <LoadingScreen />
         ) : (
           <Row>
             <div className="info">
-            <Col className="patient-view-column">
-              {" "}
-              <img
-                alt="patient"
-                className="patient-img"
-                src="http://www.rw-designer.com/icon-image/14771-256x256x32.png"
-              />
-              <Table>
-                <tbody>
-                  {this.renderInfo(info)}
-                </tbody>
-              </Table>
-            </Col>
+              <Col className="patient-view-column">
+                {" "}
+                <img
+                  alt="patient"
+                  className="patient-img"
+                  src="http://www.rw-designer.com/icon-image/14771-256x256x32.png"
+                />
+                <Table>
+                  <tbody>{this.renderInfo(info)}</tbody>
+                </Table>
+              </Col>
             </div>
             <Col className="patient-view-column">
               <Table hover className="claim-table">
-                <tbody>
-                  {this.renderClaims(this.props.claims)}
-                </tbody>
+                <tbody>{this.renderClaims(this.props.claims)}</tbody>
               </Table>
             </Col>
           </Row>
