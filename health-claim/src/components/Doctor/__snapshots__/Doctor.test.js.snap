@@ -10,48 +10,74 @@ exports[`Doctor should render correctly with mocked records 1`] = `
     <div
       className="doctor-inner-alt"
     >
-      <p>
-        Your did: undefined
-      </p>
       <div
         className="Box"
       >
-        <label
-          className="Input__Label"
-        >
-          Patient's username
-        </label>
-        <input
-          className="Input__Text"
-          onChange={[Function]}
-          type="text"
-        />
-        <h3>
-          Issue a new record
-        </h3>
-        <br />
         <div
-          className="Form__Rack"
+          className="Box__Tabs"
         >
-          <button
-            className="Button Button__Green"
+          <div
+            className="Tab__single Tab__single__active"
             onClick={[Function]}
           >
-            Refresh
-          </button>
-          <button
-            className="Button Button__Green"
+            <p
+              className="Tab__text Tab__text__active"
+            >
+              Issue
+            </p>
+          </div>
+          <div
+            className="Tab__single "
             onClick={[Function]}
           >
-            Submit
-          </button>
+            <p
+              className="Tab__text "
+            >
+              View
+            </p>
+          </div>
         </div>
-        <button
-          className="Button Button__Green"
-          onClick={[Function]}
+        <div
+          className="doctor__content"
         >
-          Refresh
-        </button>
+          <div>
+            <h3>
+              Issue a new record
+            </h3>
+            <div
+              className="separator"
+            />
+            <label
+              className="Input__Label"
+            >
+              Patient's username
+            </label>
+            <input
+              className="Input__Text"
+              onChange={[Function]}
+              type="text"
+            />
+            <div
+              className="separator"
+            />
+            <div
+              className="Form__Rack"
+            >
+              <button
+                className="Button Button__Green"
+                onClick={[Function]}
+              >
+                Refresh
+              </button>
+              <button
+                className="Button Button__Green"
+                onClick={[Function]}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <br />
     </div>

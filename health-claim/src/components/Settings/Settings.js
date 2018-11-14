@@ -8,7 +8,8 @@ type Props = {
 };
 
 type State = {
-  masterSecret: String
+  masterSecret: String,
+  did: String
 };
 
 class Settings extends React.Component<Props, State> {
@@ -24,10 +25,15 @@ class Settings extends React.Component<Props, State> {
   };
 
   render() {
-    const { createMasterSecret } = this.props;
+    const { createMasterSecret, did } = this.props;
     return (
       <div className="Settings__container">
         <div className="Settings__inner_container">
+          <div className="Settings__row">
+            <div className="Settings__row__name">Your did</div>
+            <div className="Settings__input__container">{did}</div>
+          </div>
+
           <div className="Settings__row">
             <div className="Settings__row__name">Master secret</div>
             <div className="Settings__input__container">
