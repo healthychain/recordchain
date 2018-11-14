@@ -10,64 +10,35 @@ exports[`Doctor should render correctly with mocked records 1`] = `
     <div
       className="doctor-inner-alt"
     >
+      <p>
+        Your did: undefined
+      </p>
       <div
         className="Box"
       >
+        <label
+          className="Input__Label"
+        >
+          Patient's username
+        </label>
+        <input
+          className="Input__Text"
+          onChange={[Function]}
+          type="text"
+        />
         <h3>
           Issue a new record
         </h3>
-        <hr />
+        <br />
         <div
           className="Form__Rack"
         >
-          <div
-            className="Form__Cell"
+          <button
+            className="Button Button__Green"
+            onClick={[Function]}
           >
-            <label
-              className="Input__Label"
-              htmlFor="name"
-            >
-              Name
-            </label>
-            <input
-              className="Input__Text"
-              name="name"
-              onChange={[Function]}
-              type="text"
-            />
-          </div>
-          <div
-            className="Form__Cell"
-          >
-            <label
-              className="Input__Label"
-              htmlFor="sex"
-            >
-              Sex
-            </label>
-            <input
-              className="Input__Text"
-              name="sex"
-              onChange={[Function]}
-              type="text"
-            />
-          </div>
-          <div
-            className="Form__Cell"
-          >
-            <label
-              className="Input__Label"
-              htmlFor="age"
-            >
-              Age
-            </label>
-            <input
-              className="Input__Text"
-              name="age"
-              onChange={[Function]}
-              type="text"
-            />
-          </div>
+            Refresh
+          </button>
           <button
             className="Button Button__Green"
             onClick={[Function]}

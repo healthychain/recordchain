@@ -9,6 +9,7 @@ describe("Doctor", () => {
         <Doctor
           loggedIn
           notifications={[]}
+          credDef={[]}
           fetchCredDef={() => console.log("")}
           fetchNotifications={() => []}
         />

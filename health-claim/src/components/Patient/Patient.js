@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 
-import { Redirect } from "react-router-dom";
 import "../Doctor/Doctor.scss";
 import "../Login/LoginForm.scss";
 import "../UI/Containers";
 import "../Core/App.scss";
 import EventPanel from "../EventPanel/EventPanel";
-import { apiEndpoint } from "../../apiEndpoint";
 
 class Patient extends Component {
   constructor(props) {
@@ -19,43 +17,39 @@ class Patient extends Component {
 
   componentDidMount() {
     const { sessionID } = this.props;
+    this.props.fetchCreds(sessionID);
     this.props.fetchNotifications(sessionID);
   }
 
   render() {
+    const { credentials } = this.props;
+    // console.log(this.props.credentials);
     return (
       <div className="doctor-layout">
         <div className="doctor-main">
           <div className="doctor-inner-alt">
             <div className="Box">
-              <label className="Input__Label">Input</label>
-              <textarea
-                disabled
-                onChange={e => this.setState({ input: e.target.value })}
-                className="Input__Area"
-                type="text"
-                value={this.state.input}
-              />
+              {!credentials || Object.keys(credentials).length === 0 ? (
+                <>
+                  <h3>No credentials issued yet</h3>{" "}
+                </>
+              ) : (
+                <>
+                  {Object.keys(credentials).map(key => (
+                    <>
+                      <label className="Input__Label">
+                        {key[0].toUpperCase() +
+                          key.substring(1) +
+                          ":\t " +
+                          credentials[key]}
+                      </label>
+                    </>
+                  ))}
+                </>
+              )}
+
               <hr />
-              <button
-                onClick={() =>
-                  fetch(
-                    `${apiEndpoint}/get_credentials?token=${
-                      this.props.sessionID
-                    }`
-                  )
-                    .then(response => response.json())
-                    .then(json => {
-                      console.log(json);
-                      this.setState({
-                        input: JSON.stringify(json.credentials)
-                      });
-                    })
-                }
-                className="Button Button__Green"
-              >
-                Fetch credentials
-              </button>{" "}
+
               <button
                 onClick={() =>
                   this.props.fetchNotifications(this.props.sessionID)
