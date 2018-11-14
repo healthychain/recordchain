@@ -48,31 +48,6 @@ class Routes extends Component {
           render={() => <RegisterFormContainer />}
         />
         <Route
-          path="/register-success"
-          exact
-          render={() => (
-            <MessageScreen
-              success
-              redirect="/"
-              title="You're all set!"
-              text="You have successfully registered."
-              buttonText="Go to homepage"
-            />
-          )}
-        />
-        <Route
-          path="/register-failure"
-          exact
-          render={() => (
-            <MessageScreen
-              redirect="/"
-              title="Something went wrong"
-              text="Please try again"
-              buttonText="Home"
-            />
-          )}
-        />
-        <Route
           path="/patient"
           exact
           component={props =>
