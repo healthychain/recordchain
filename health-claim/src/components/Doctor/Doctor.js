@@ -4,6 +4,7 @@ import EventPanel from "../EventPanel/EventPanel";
 import "../Login/LoginForm.scss";
 import { apiEndpoint } from "../../apiEndpoint";
 import IsssueTab from "./IssueTab";
+import DisplayTab from "./DisplayTab";
 
 const TABS = ["Issue", "View"];
 
@@ -42,6 +43,7 @@ class Doctor extends Component {
               </div>
               <div className="doctor__content">
                 {tabIndex === 0 && <IsssueTab {...this.props} />}
+                {tabIndex === 1 && <DisplayTab {...this.props} />}
               </div>
             </div>
             <br />

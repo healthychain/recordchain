@@ -2,14 +2,14 @@
 
 import * as React from "react";
 
+import LoadingScreen from "../Loading/LoadingScreen";
+
 type Props = {
   verifySession: Function,
   token: String,
   verifySessionLoading: Boolean,
   verifySessionError: Boolean
 };
-
-const LoadingScreen = () => <div>Loading</div>;
 
 class SessionAuthenticator extends React.PureComponent<Props> {
   componentDidMount() {
