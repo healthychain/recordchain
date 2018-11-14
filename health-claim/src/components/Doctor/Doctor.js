@@ -25,6 +25,11 @@ class Doctor extends Component {
     this.props.fetchNotifications(sessionID);
   }
 
+  fetchNotifications() {
+    console.log(this.props.sessionID)
+    this.props.fetchNotifications(this.props.sessionID);
+  }
+
   render() {
     // console.log(JSON.stringify(this.state.data));
     // console.log(this.state.data);
@@ -50,6 +55,7 @@ class Doctor extends Component {
           </div>
         </div>
         <EventPanel
+          fetchNotifications={() => this.fetchNotifications()}
           loading={this.props.notificationsLoading}
           error={this.props.notificationsError}
           events={this.props.notifications}
