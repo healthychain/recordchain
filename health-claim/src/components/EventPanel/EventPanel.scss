@@ -2,6 +2,8 @@
   -webkit-transition: width 0.2s; /* Safari */
   transition: width 0.2s;
   width: 400px;
+  overflow-x: scroll;
+  overflow-y: scroll;
   height: 100%;
   border-left: 1px solid #e0e0e0;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.01), 0 8px 32px -8px rgba(0, 0, 0, 0.08);
