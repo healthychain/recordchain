@@ -13,408 +13,66 @@ exports[`Doctor should render correctly with mocked records 1`] = `
       <div
         className="Box"
       >
-        <div>
-          <h3>
-            Issue a new record
-          </h3>
-          <label
-            className="Input__Label"
+        <h3>
+          Issue a new record
+        </h3>
+        <hr />
+        <div
+          className="Form__Rack"
+        >
+          <div
+            className="Form__Cell"
           >
-            Patient's username
-          </label>
-          <input
-            className="Input__Text"
-            onChange={[Function]}
-            type="text"
-          />
-          <br />
-           
-          <label
-            className="Input__Label"
-          >
-            Health record
-          </label>
-          <p
-            className="App-intro"
-          >
-            <form
-              onSubmit={[Function]}
+            <label
+              className="Input__Label"
+              htmlFor="name"
             >
-              <input
-                type="submit"
-                value="Add section"
-              />
-            </form>
-          </p>
-          <div>
-            <div
-              className="ReactTable -highlight"
-              style={Object {}}
-            >
-              <div
-                className="rt-table"
-                role="grid"
-              >
-                <div
-                  className="rt-thead -header"
-                  style={
-                    Object {
-                      "minWidth": "200px",
-                    }
-                  }
-                >
-                  <div
-                    className="rt-tr"
-                    role="row"
-                  >
-                    <div
-                      className="rt-th rt-resizable-header -cursor-pointer"
-                      onClick={[Function]}
-                      role="columnheader"
-                      style={
-                        Object {
-                          "flex": "100 0 auto",
-                          "maxWidth": "100px",
-                          "width": "100px",
-                        }
-                      }
-                      tabIndex="-1"
-                    >
-                      <div
-                        className="rt-resizable-header-content"
-                      >
-                        Section
-                      </div>
-                      <div
-                        className="rt-resizer"
-                        onMouseDown={[Function]}
-                        onTouchStart={[Function]}
-                      />
-                    </div>
-                    <div
-                      className="rt-th rt-resizable-header -cursor-pointer"
-                      onClick={[Function]}
-                      role="columnheader"
-                      style={
-                        Object {
-                          "flex": "100 0 auto",
-                          "maxWidth": "600px",
-                          "width": "100px",
-                        }
-                      }
-                      tabIndex="-1"
-                    >
-                      <div
-                        className="rt-resizable-header-content"
-                      >
-                        SectionData
-                      </div>
-                      <div
-                        className="rt-resizer"
-                        onMouseDown={[Function]}
-                        onTouchStart={[Function]}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="rt-tbody"
-                  style={
-                    Object {
-                      "minWidth": "200px",
-                    }
-                  }
-                >
-                  <div
-                    className="rt-tr-group"
-                    role="rowgroup"
-                  >
-                    <div
-                      className="rt-tr -padRow -odd"
-                      role="row"
-                      style={Object {}}
-                    >
-                      <div
-                        className="rt-td"
-                        role="gridcell"
-                        style={
-                          Object {
-                            "flex": "100 0 auto",
-                            "maxWidth": "100px",
-                            "width": "100px",
-                          }
-                        }
-                      >
-                        <span>
-                           
-                        </span>
-                      </div>
-                      <div
-                        className="rt-td"
-                        role="gridcell"
-                        style={
-                          Object {
-                            "flex": "100 0 auto",
-                            "maxWidth": "600px",
-                            "width": "100px",
-                          }
-                        }
-                      >
-                        <span>
-                           
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="rt-tr-group"
-                    role="rowgroup"
-                  >
-                    <div
-                      className="rt-tr -padRow -even"
-                      role="row"
-                      style={Object {}}
-                    >
-                      <div
-                        className="rt-td"
-                        role="gridcell"
-                        style={
-                          Object {
-                            "flex": "100 0 auto",
-                            "maxWidth": "100px",
-                            "width": "100px",
-                          }
-                        }
-                      >
-                        <span>
-                           
-                        </span>
-                      </div>
-                      <div
-                        className="rt-td"
-                        role="gridcell"
-                        style={
-                          Object {
-                            "flex": "100 0 auto",
-                            "maxWidth": "600px",
-                            "width": "100px",
-                          }
-                        }
-                      >
-                        <span>
-                           
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="rt-tr-group"
-                    role="rowgroup"
-                  >
-                    <div
-                      className="rt-tr -padRow -odd"
-                      role="row"
-                      style={Object {}}
-                    >
-                      <div
-                        className="rt-td"
-                        role="gridcell"
-                        style={
-                          Object {
-                            "flex": "100 0 auto",
-                            "maxWidth": "100px",
-                            "width": "100px",
-                          }
-                        }
-                      >
-                        <span>
-                           
-                        </span>
-                      </div>
-                      <div
-                        className="rt-td"
-                        role="gridcell"
-                        style={
-                          Object {
-                            "flex": "100 0 auto",
-                            "maxWidth": "600px",
-                            "width": "100px",
-                          }
-                        }
-                      >
-                        <span>
-                           
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="rt-tr-group"
-                    role="rowgroup"
-                  >
-                    <div
-                      className="rt-tr -padRow -even"
-                      role="row"
-                      style={Object {}}
-                    >
-                      <div
-                        className="rt-td"
-                        role="gridcell"
-                        style={
-                          Object {
-                            "flex": "100 0 auto",
-                            "maxWidth": "100px",
-                            "width": "100px",
-                          }
-                        }
-                      >
-                        <span>
-                           
-                        </span>
-                      </div>
-                      <div
-                        className="rt-td"
-                        role="gridcell"
-                        style={
-                          Object {
-                            "flex": "100 0 auto",
-                            "maxWidth": "600px",
-                            "width": "100px",
-                          }
-                        }
-                      >
-                        <span>
-                           
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="rt-tr-group"
-                    role="rowgroup"
-                  >
-                    <div
-                      className="rt-tr -padRow -odd"
-                      role="row"
-                      style={Object {}}
-                    >
-                      <div
-                        className="rt-td"
-                        role="gridcell"
-                        style={
-                          Object {
-                            "flex": "100 0 auto",
-                            "maxWidth": "100px",
-                            "width": "100px",
-                          }
-                        }
-                      >
-                        <span>
-                           
-                        </span>
-                      </div>
-                      <div
-                        className="rt-td"
-                        role="gridcell"
-                        style={
-                          Object {
-                            "flex": "100 0 auto",
-                            "maxWidth": "600px",
-                            "width": "100px",
-                          }
-                        }
-                      >
-                        <span>
-                           
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="pagination-bottom"
-              >
-                <div
-                  className="-pagination"
-                >
-                  <div
-                    className="-previous"
-                  >
-                    <button
-                      className="-btn"
-                      disabled={true}
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      Previous
-                    </button>
-                  </div>
-                  <div
-                    className="-center"
-                  >
-                    <span
-                      className="-pageInfo"
-                    >
-                      Page
-                       
-                      <div
-                        className="-pageJump"
-                      >
-                        <input
-                          onBlur={[Function]}
-                          onChange={[Function]}
-                          onKeyPress={[Function]}
-                          type="number"
-                          value={1}
-                        />
-                      </div>
-                       
-                      of
-                       
-                      <span
-                        className="-totalPages"
-                      >
-                        1
-                      </span>
-                    </span>
-                  </div>
-                  <div
-                    className="-next"
-                  >
-                    <button
-                      className="-btn"
-                      disabled={true}
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      Next
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="rt-noData"
-              >
-                No rows found
-              </div>
-              <div
-                className="-loading"
-              >
-                <div
-                  className="-loading-inner"
-                >
-                  Loading...
-                </div>
-              </div>
-            </div>
+              Name
+            </label>
+            <input
+              className="Input__Text"
+              name="name"
+              onChange={[Function]}
+              type="text"
+            />
           </div>
-          <hr />
+          <div
+            className="Form__Cell"
+          >
+            <label
+              className="Input__Label"
+              htmlFor="sex"
+            >
+              Sex
+            </label>
+            <input
+              className="Input__Text"
+              name="sex"
+              onChange={[Function]}
+              type="text"
+            />
+          </div>
+          <div
+            className="Form__Cell"
+          >
+            <label
+              className="Input__Label"
+              htmlFor="age"
+            >
+              Age
+            </label>
+            <input
+              className="Input__Text"
+              name="age"
+              onChange={[Function]}
+              type="text"
+            />
+          </div>
           <button
             className="Button Button__Green"
             onClick={[Function]}
           >
-            Issue credentials
+            Submit
           </button>
         </div>
         <button
