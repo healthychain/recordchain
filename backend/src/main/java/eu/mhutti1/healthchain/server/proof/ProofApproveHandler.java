@@ -23,6 +23,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -58,30 +60,41 @@ public class ProofApproveHandler extends EventConsumer {
 
     EventNode event = EventStorage.getEvent(offerDid, eventId);
     JSONObject proofRequestJson = event.getPayload();
+    String responseDomain = (String) proofRequestJson.remove("response_domain");
     try {
       String credentialsForProofJson = Anoncreds.proverGetCredentialsForProofReq(offerWallet, proofRequestJson.toString()).get();
 
       JSONObject credentialsForProof = new JSONObject(credentialsForProofJson);
-      JSONArray credentialsForAttribute1 = credentialsForProof.getJSONObject("attrs").getJSONArray("attr1_referent");
-      JSONArray credentialsForAttribute2 = credentialsForProof.getJSONObject("attrs").getJSONArray("attr2_referent");
-      JSONArray credentialsForAttribute3 = credentialsForProof.getJSONObject("attrs").getJSONArray("attr3_referent");
-      JSONArray credentialsForPredicate = credentialsForProof.getJSONObject("predicates").getJSONArray("predicate1_referent");
+      List<String> credIds = new ArrayList();
+      for (int i = 1; credentialsForProof.getJSONObject("attrs").has("attr" + i + "_referent"); i++) {
+        JSONArray temp = credentialsForProof.getJSONObject("attrs").getJSONArray("attr" + i + "_referent");
+        String credentialUuid = temp.getJSONObject(0).getJSONObject("cred_info").getString("referent");
+        credIds.add(credentialUuid);
+      }
 
-      assert (credentialsForAttribute1.length() == 1);
-      assert (credentialsForAttribute2.length() == 1);
-      assert (credentialsForAttribute3.length() == 0);
-      assert (credentialsForPredicate.length() == 1);
+//      JSONArray credentialsForAttribute1 = credentialsForProof.getJSONObject("attrs").getJSONArray("attr1_referent");
+//      JSONArray credentialsForAttribute2 = credentialsForProof.getJSONObject("attrs").getJSONArray("attr2_referent");
+//      JSONArray credentialsForAttribute3 = credentialsForProof.getJSONObject("attrs").getJSONArray("attr3_referent");
+//      JSONArray credentialsForPredicate = credentialsForProof.getJSONObject("predicates").getJSONArray("predicate1_referent");
 
-      String credentialUuid = credentialsForAttribute1.getJSONObject(0).getJSONObject("cred_info").getString("referent");
+//      assert (credentialsForAttribute1.length() == 1);
+//      assert (credentialsForAttribute2.length() == 1);
+//      assert (credentialsForAttribute3.length() == 0);
+//      assert (credentialsForPredicate.length() == 1);
+//TODO: Fix
 
       // Prover create Proof
       String selfAttestedValue = "8-800-300";
-      String requestedCredentialsJson = new JSONObject(String.format("{\n" +
-              "                                          \"self_attested_attributes\":{\"attr3_referent\":\"%s\"},\n" +
-              "                                          \"requested_attributes\":{\"attr1_referent\":{\"cred_id\":\"%s\", \"revealed\":true},\n" +
-              "                                                                    \"attr2_referent\":{\"cred_id\":\"%s\", \"revealed\":false}},\n" +
-              "                                          \"requested_predicates\":{\"predicate1_referent\":{\"cred_id\":\"%s\"}}\n" +
-              "                                        }", selfAttestedValue, credentialUuid, credentialUuid, credentialUuid)).toString();
+      JSONObject requestedCredentialsJsonObj = new JSONObject("{\n" +
+               "                                          \"self_attested_attributes\":{},\n" +
+              "                                          \"requested_attributes\":{}," +
+              "                                          \"requested_predicates\":{}\n" +
+              "                                        }");
+
+      for (int i = 1; i <= credIds.size(); i++) {
+        requestedCredentialsJsonObj.getJSONObject("requested_attributes").put("attr" + i + "_referent", new JSONObject(String.format("{\"cred_id\":\"%s\", \"revealed\": true}", credIds.get(i - 1))));
+      }
+
 
       String schemas = new JSONObject(String.format("{\"%s\":%s}", HealthRecord.getSchemaDataId(), HealthRecord.getSchemaDataJSON())).toString();
 
@@ -92,14 +105,14 @@ public class ProofApproveHandler extends EventConsumer {
       String masterSecretId = "master_secret";
 
 
-      String proofJson = Anoncreds.proverCreateProof(offerWallet, proofRequestJson.toString(), requestedCredentialsJson,
+      String proofJson = Anoncreds.proverCreateProof(offerWallet, proofRequestJson.toString(), requestedCredentialsJsonObj.toString(),
               masterSecretId, schemas, credentialDefs, revocStates).get();
       JSONObject proof = new JSONObject(proofJson);
 
       response = proof.toString();
 
 
-      URL url = new URL("http://localhost:8000/proof_verify");
+      URL url = new URL("http://" + responseDomain + "/proof_verify?prover_did=" + offerDid);
       URLConnection con = url.openConnection();
       HttpURLConnection http = (HttpURLConnection)con;
       http.setRequestMethod("POST"); // PUT is another valid option

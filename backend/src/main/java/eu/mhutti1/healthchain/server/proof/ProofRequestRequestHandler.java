@@ -1,9 +1,11 @@
 package eu.mhutti1.healthchain.server.proof;
 
 import com.sun.net.httpserver.HttpExchange;
+import eu.mhutti1.healthchain.constants.Constants;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionManager;
+import eu.mhutti1.healthchain.storage.ProofStorage;
 import org.json.JSONObject;
 import sun.net.www.http.HttpClient;
 
@@ -14,6 +16,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -22,19 +26,25 @@ import java.util.Map;
  */
 public class ProofRequestRequestHandler extends NonEventConsumer {
 
-  public static String proofRequestJson = new JSONObject("{" +
-      "                    \"nonce\":\"123432421212\",\n" +
-      "                    \"name\":\"proof_req_1\",\n" +
-      "                    \"version\":\"0.1\", " +
-      "                    \"requested_attributes\": {" +
-      "                          \"attr1_referent\":{\"name\":\"name\"}," +
-      "                          \"attr2_referent\":{\"name\":\"sex\"}," +
-      "                          \"attr3_referent\":{\"name\":\"phone\"}" +
-      "                     }," +
-      "                    \"requested_predicates\":{" +
-      "                         \"predicate1_referent\":{\"name\":\"age\",\"p_type\":\">=\",\"p_value\":18}" +
-      "                    }" +
-      "                  }").toString();
+  public static JSONObject generateProofTemplate() {
+    return new JSONObject("{" +
+        "                    \"nonce\":\"123432421212\",\n" +
+        "                    \"name\":\"proof_req_1\",\n" +
+        "                    \"version\":\"0.1\", " +
+        "                    \"requested_attributes\": {" +
+        "                     }," +
+        "                    \"requested_predicates\":{" +
+        "                    }" +
+        "                  }");
+  }
+
+  public String generateProofRequest(String[] attributeNames) {
+    JSONObject pr = generateProofTemplate();
+    for (int i = 1; i <= attributeNames.length; i++) {
+      pr.getJSONObject("requested_attributes").put("attr" + i + "_referent", new JSONObject("{\"name\":\"" + attributeNames[i - 1]+ "\"}"));
+    }
+    return pr.toString();
+  }
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
@@ -48,16 +58,22 @@ public class ProofRequestRequestHandler extends NonEventConsumer {
     String response = "session verified";
     int responseCode = RequestUtils.statusOK();
 
+    String proverDid = params.get("prover_did");
+    String agentDomain = params.get("agent_domain"); // localhost:8000
+    String reqAttrs = params.get("req_attrs");
 
 
 
+    URL url = new URL("http://" + agentDomain + "/proof_request_patient?prover_did=" + proverDid + "&response_domain=" + Constants.SERVER_DOMAIN);
 
-    URL url = new URL("http://localhost:8000/proof_request_patient?" + query);
+    String proofJson = generateProofRequest(reqAttrs.split(","));
+    ProofStorage.getStore().put(proverDid, new ProofStorage.Proof(proofJson, Arrays.asList(reqAttrs.split(","))));
+
     URLConnection con = url.openConnection();
     HttpURLConnection http = (HttpURLConnection)con;
     http.setRequestMethod("POST"); // PUT is another valid option
     http.setDoOutput(true);
-    byte[] out = proofRequestJson.getBytes(StandardCharsets.UTF_8);
+    byte[] out = proofJson.getBytes(StandardCharsets.UTF_8);
     int length = out.length;
 
     http.setFixedLengthStreamingMode(length);
