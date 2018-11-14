@@ -25,9 +25,9 @@ class Patient extends Component {
     const { credentials } = this.props.credentials;
     console.log(this.props.credentials);
     return (
-      <div className="doctor-layout">
-        <div className="doctor-main">
-          <div className="doctor-inner-alt">
+      <div className="dashboard-layout">
+        <div className="dashboard-main">
+          <div className="dashboard-inner-alt">
             <div className="Box">
               {!credentials || Object.keys(credentials).length === 0 ? (
                 <>

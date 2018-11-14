@@ -27,6 +27,13 @@ export default class Home extends Component {
                 >
                   Patient
                 </LinkButton>
+                {"     "}
+                <LinkButton
+                  to="/login-thirdparty"
+                  className="Button Button__Green"
+                >
+                  3rd Party
+                </LinkButton>
               </p>
             </div>
             <div className="Flex__Half">
