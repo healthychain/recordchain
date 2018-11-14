@@ -12,8 +12,8 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch, props) => ({
   ...props,
-  handle: (url, allNotifications, notificationID, token) =>
-    dispatch(handle(url, allNotifications, notificationID, token))
+  handle: (url, allNotifications, notificationID, token, masterSecret) =>
+    dispatch(handle(url, allNotifications, notificationID, token, masterSecret))
 });
 
 export default withRouter(

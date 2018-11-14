@@ -58,7 +58,7 @@ public class CredentialOfferHandler extends EventConsumer {
     data = data.replace(",\\\"sectionData\\\"","");
     data = data.replace("},{",",");
     System.out.println("Data: " + data);
-    
+
 
     Wallet issuerWallet = null;
     String issuerDid = null;
@@ -149,7 +149,7 @@ public class CredentialOfferHandler extends EventConsumer {
             .put("credOfferJSON", credOfferJSON)
             .put("credDefJSON", credDef.getCredDefJson());
 
-    EventStorage.store(proverDid, new EventNode("", issuerDid, payload, "credential_request", null));
+    EventStorage.store(proverDid, new EventNode("", issuerDid, payload, "credential_request", null, true));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();
