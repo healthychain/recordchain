@@ -6,7 +6,7 @@
   text-align: center;
   &-alt {
     padding-top: 3em;
-    width: 600px;
+    min-width: 800px;
   }
 }
 .doctor-main {
@@ -16,8 +16,43 @@
 
 .Form__Rack {
   padding-bottom: 16px;
-  border-bottom: 1px solid #f0f0f0;
+  // border-bottom: 1px solid #f0f0f0;
   margin-bottom: 16px;
+}
+
+.Box__Tabs {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.Tab__single {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 25px;
+  padding: 0 3px;
+}
+
+.Tab__single__active {
+  border-bottom: 3px solid rgba(48, 94, 212, 1);
+}
+
+.Tab__text {
+  padding-bottom: 2px;
+  margin-bottom: 0;
+  font-weight: 500;
+  color: grey;
+}
+
+.Tab__text__active {
+  color: rgba(48, 94, 212, 1);
+  font-weight: 700;
+}
+
+.doctor__content {
+  margin-top: 25px;
 }
 
 .doctor-layout {
@@ -50,4 +85,11 @@
 
 .patient-display {
   margin-top: 2em;
+}
+
+.separator {
+  height: 1px;
+  width: 100%;
+  border-bottom: 1px solid #f0f0f0;
+  margin: 20px 0;
 }
