@@ -26,6 +26,7 @@ class IssueBox extends Component {
   handleSubmitIssue = event => {
     //JSONify each data row
     for (var i = 0; i < this.state.data.length; i++) {
+      // Should not be setting state like this
       this.state.data[i] = JSON.stringify(this.state.data[i]);
     }
 
@@ -34,14 +35,14 @@ class IssueBox extends Component {
         this.props.sessionID
       }&prover_username=${this.state.username}`,
       {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        mode: "no-cors", // no-cors, cors, *same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
+        method: "POST",
+        mode: "no-cors",
+        cache: "no-cache",
+        credentials: "same-origin",
         headers: {
           "Content-Type": "application/json; charset=utf-8"
         },
-        body: JSON.stringify(this.state.data.join(",")) // body data type must match "Content-Type" header
+        body: JSON.stringify(this.state.data.join(","))
       }
     );
   };

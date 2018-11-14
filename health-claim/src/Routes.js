@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { ACCOUNT_TYPE } from "./const";
 
 import Home from "./components/Home";
 import MessageScreen from "./components/MessageScreen/MessageScreen";
@@ -11,36 +12,36 @@ import SettingsContainer from "./containers/SettingsContainer";
 
 class Routes extends Component {
   render() {
-    const { loggedIn } = this.props;
+    const { loggedIn, accountType } = this.props;
 
     return (
       <Switch>
-        <Route path="/welcome" exact component={Home} />
         <Route
-          path="/login-doctor"
+          path="/welcome"
           exact
           render={props =>
-            loggedIn ? (
+            loggedIn && accountType ? (
               <Redirect
-                to={{ pathname: "/doctor", state: { from: props.location } }}
+                to={{ pathname: "/dashboard", state: { from: props.location } }}
               />
             ) : (
-              <LoginFormContainer userType="Doctor" />
+              <Home />
             )
           }
         />
         <Route
+          path="/login-doctor"
+          exact
+          render={props => (
+            <LoginFormContainer userType={ACCOUNT_TYPE.DOCTOR} />
+          )}
+        />
+        <Route
           path="/login-patient"
           exact
-          render={props =>
-            loggedIn ? (
-              <Redirect
-                to={{ pathname: "/patient", state: { from: props.location } }}
-              />
-            ) : (
-              <LoginFormContainer userType="Patient" />
-            )
-          }
+          render={props => (
+            <LoginFormContainer userType={ACCOUNT_TYPE.PATIENT} />
+          )}
         />
         <Route
           path="/register"
@@ -48,36 +49,30 @@ class Routes extends Component {
           render={() => <RegisterFormContainer />}
         />
         <Route
-          path="/patient"
+          path="/dashboard"
           exact
-          component={props =>
-            loggedIn ? (
-              <PatientContainer />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: "/login-patient",
-                  state: { from: props.location }
-                }}
-              />
-            )
-          }
-        />
-        <Route
-          path="/doctor"
-          exact
-          component={props =>
-            loggedIn ? (
-              <DoctorContainer />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: "/login-doctor",
-                  state: { from: props.location }
-                }}
-              />
-            )
-          }
+          render={props => {
+            if (loggedIn && accountType) {
+              switch (accountType) {
+                case ACCOUNT_TYPE.PATIENT:
+                  return <PatientContainer />;
+                case ACCOUNT_TYPE.DOCTOR:
+                  return <DoctorContainer />;
+                case ACCOUNT_TYPE.THIRD_PARTY:
+                  return <div />;
+                default:
+                  return <div />;
+              }
+            } else if (accountType) {
+              return <LoginFormContainer userType={accountType} />;
+            } else {
+              return (
+                <Redirect
+                  to={{ pathname: "/welcome", state: { from: props.location } }}
+                />
+              );
+            }
+          }}
         />
         <Route
           path="/settings"
@@ -95,7 +90,7 @@ class Routes extends Component {
             )
           }
         />
-        <Redirect to="/welcome" />\
+        <Redirect to="/dashboard" />\
       </Switch>
     );
   }

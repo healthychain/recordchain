@@ -1,6 +1,6 @@
 import { apiEndpoint } from "../apiEndpoint";
 import handleErrors from "./handleErrors";
-import { storeToken, deleteInvalidToken } from "./sessionToken";
+import { storeToken, deleteInvalidToken, storeDid } from "./sessionToken";
 import { logoutCall } from "./login";
 
 export const VERIFY_BEGIN = "VERIFY_BEGIN";

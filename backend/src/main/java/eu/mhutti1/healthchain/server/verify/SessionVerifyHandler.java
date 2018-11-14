@@ -32,10 +32,21 @@ public class SessionVerifyHandler extends NonEventConsumer {
 
     boolean isSessionValid = SessionManager.isSessionValid(token);
 
+    String did = "";
+
     if(!isSessionValid) {
       response = "invalid session";
       responseCode = RequestUtils.statusSessionExpired();
     }
+
+    try {
+      did = SessionManager.getSessionCredentials(token).getDid();
+    } catch (SessionInvalidException e) {
+      e.printStackTrace();
+      responseCode = RequestUtils.statusSessionExpired();
+    }
+
+    response = RequestUtils.wrapResponse("did", did);
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

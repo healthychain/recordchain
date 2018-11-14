@@ -1,4 +1,4 @@
-package eu.mhutti1.healthchain.server.session;
+package eu.mhutti1.healthchain.server.credentials;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -57,14 +57,20 @@ public class GetCredentialsHandler extends NonEventConsumer {
       e.printStackTrace();
       response = RequestUtils.messageInternalServerError();
       responseCode = RequestUtils.statuSInternalServerError();
-    } catch (ExecutionException e) {
-      e.printStackTrace();
-      response = RequestUtils.messageInternalServerError();
-      responseCode = RequestUtils.statuSInternalServerError();
+    } catch (ExecutionException e) {;
+      response = new JSONObject().toString();
+      responseCode = RequestUtils.statusOK();
     } catch (IndyException e) {
       response = RequestUtils.messageUnauthorized();
       responseCode = RequestUtils.statusUnauthorized();
     }
+
+    JSONObject credValues = new JSONObject(response);
+
+    if(credValues.has("attrs")) {
+      response = credValues.get("attrs").toString();
+    }
+
 
     response = "{\"credentials\":" + response + "}";
 

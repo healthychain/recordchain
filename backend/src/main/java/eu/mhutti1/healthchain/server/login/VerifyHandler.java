@@ -1,4 +1,4 @@
-package eu.mhutti1.healthchain.server.verify;
+package eu.mhutti1.healthchain.server.login;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -55,7 +55,7 @@ public abstract class VerifyHandler extends NonEventConsumer {
       responseCode = 400;
     }
 
-    response = RequestUtils.wrapResponse("token", response);
+    response = new JSONObject().put("token", response).put("did", did).toString();
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();
