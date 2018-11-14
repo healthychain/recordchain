@@ -4,10 +4,7 @@ import Doctor from "../components/Doctor/Doctor";
 import selectPatient from "../actions/selectPatient";
 import fetchNotifications from "../actions/fetchNotifications";
 import storeRecord from "../actions/storeRecord";
-<<<<<<< HEAD
 import fetchCredDef from "../actions/fetchCredDef";
-=======
->>>>>>> jedrazb/issue_credentials_with_interface
 // import fetchPatientInfo from "../actions/fetchPatientInfo";
 
 const mapStateToProps = (state, props) => ({
