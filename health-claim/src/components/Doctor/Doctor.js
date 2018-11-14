@@ -32,6 +32,7 @@ class Doctor extends Component {
       <div className="doctor-layout">
         <div className="doctor-main">
           <div className="doctor-inner-alt">
+            <p>{`Your did: ${this.props.did}`}</p>
             <div className="Box">
               <IssueBox
                 sessionID={this.props.sessionID}
