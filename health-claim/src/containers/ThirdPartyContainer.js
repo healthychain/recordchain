@@ -1,9 +1,11 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import ThirdParty from "../components/ThirdParty/ThirdParty";
+import { tpRequest, tpView } from "../actions/thirdPartyCalls";
 
 const mapStateToProps = (state, props) => ({
-  ...props
+  ...props,
+  proof: state.thirdPartyCalls.proof
   //   id: state.selectPatient.selectedPatientID,
   //   name: state.selectPatient.selectedPatientName,
   //   birthDate: state.selectPatient.selectedPatientBirthDate,
@@ -17,7 +19,10 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-  ...props
+  ...props,
+  tpRequest: (userDID, domain, attrs) =>
+    dispatch(tpRequest(userDID, domain, attrs)),
+  tpView: userDID => dispatch(tpView(userDID))
 });
 
 export default withRouter(

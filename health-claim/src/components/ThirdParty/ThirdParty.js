@@ -13,6 +13,7 @@ class ThirdParty extends Component {
   }
 
   componentWillReceiveProps(newProps) {
+    console.log(newProps);
     // if (newProps.sessionID !== this.props.sessionID) {
     //   this.props.fetchNotifications(newProps.sessionID);
     // }
@@ -95,7 +96,13 @@ class ThirdParty extends Component {
                       </div>
                     </div>
                     <button
-                      onClick={this.handleSubmit}
+                      onClick={() =>
+                        this.props.tpRequest(
+                          this.state.username,
+                          this.state.domain,
+                          this.state.attrs
+                        )
+                      }
                       className="Button Button__Green"
                     >
                       Request
@@ -131,8 +138,7 @@ class ThirdParty extends Component {
                       </div>
                     </div>{" "}
                     <button
-                      // onClick={this.handleSubmit}
-                      onClick={() => console.log(this.state)}
+                      onClick={() => this.props.tpView(this.state.username)}
                       className="Button Button__Green"
                     >
                       View
