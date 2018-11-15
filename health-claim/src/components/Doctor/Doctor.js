@@ -16,6 +16,22 @@ class Doctor extends Component {
     };
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.sessionID !== this.props.sessionID) {
+      this.props.fetchNotifications(newProps.sessionID);
+    }
+  }
+
+  componentDidMount() {
+    const { sessionID } = this.props;
+    this.props.fetchNotifications(sessionID);
+  }
+
+  fetchNotifications() {
+    console.log(this.props.sessionID)
+    this.props.fetchNotifications(this.props.sessionID);
+  }
+
   render() {
     const { tabIndex } = this.state;
     return (
@@ -50,6 +66,7 @@ class Doctor extends Component {
           </div>
         </div>
         <EventPanel
+          fetchNotifications={() => this.fetchNotifications()}
           loading={this.props.notificationsLoading}
           error={this.props.notificationsError}
           events={this.props.notifications}

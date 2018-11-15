@@ -44,19 +44,24 @@ export default class EventPanel extends Component {
             />
           </div>
         ) : (
-          <div className="EventPanel">
-            <div className="Toggle__Open" onClick={this.toggleView}>
-              Minimize
+            <div className="EventPanel">
+              <div className="TopBar">
+                <div className="Toggle__Open Minimize" onClick={this.toggleView}>
+                  Hide
+                </div>
+                <div className="Refresh" onClick={this.props.fetchNotifications}>
+                  <i class="fa fa-repeat"></i>
+                </div>
+              </div>
+              {this.props.events &&
+                this.props.events.map(
+                  (event, idx) => (
+                    console.log(event),
+                    <NotificationEventContainer {...event} idx={idx} />
+                  )
+                )}
             </div>
-            {this.props.events &&
-              this.props.events.map(
-                (event, idx) => (
-                  console.log(event),
-                  <NotificationEventContainer {...event} idx={idx} />
-                )
-              )}
-          </div>
-        )}
+          )}
       </div>
     );
   }
