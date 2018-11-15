@@ -33,6 +33,16 @@ exports[`Doctor should render correctly with mocked records 1`] = `
             <p
               className="Tab__text "
             >
+              Request
+            </p>
+          </div>
+          <div
+            className="Tab__single "
+            onClick={[Function]}
+          >
+            <p
+              className="Tab__text "
+            >
               View
             </p>
           </div>
