@@ -25,14 +25,14 @@
   color: rgb(28, 29, 92);
   position: absolute;
   top: 68px;
-  right: 56px;
+  right: 15px;
   &__Selected {
     cursor: pointer;
     z-index: 3;
     font-size: 20px;
     position: absolute;
     top: 68px;
-    right: 56px;
+    right: 15px;
     color: white;
   }
 }
@@ -108,4 +108,28 @@
     color: #666;
     font-size: 12px;
   }
+}
+
+.Refresh {
+  padding-right: 10px;
+  height: auto;
+  float: right;
+  font-size: 16px;
+  width: auto;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.Minimize {
+  float: left;
+  font-size: 12px;
+  width: auto;
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+.TopBar {
+  display: inline-block;
+  width: 100%;
+  margin-top: 10px;
 }
