@@ -3,6 +3,9 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 
+apply plugin: 'application'
+mainClassName = "eu.mhutti1.healthchain.Main"
+
 sourceCompatibility = 1.8
 
 repositories {
