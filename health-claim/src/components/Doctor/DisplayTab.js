@@ -15,6 +15,10 @@ class IssueTab extends React.Component<> {
     };
   }
 
+  handleSubmit = event => {
+    //this.props.fetchCreds(sessionID);
+  };
+
   componentWillReceiveProps(newProps) {
     if (newProps.sessionID !== this.props.sessionID) {
       this.props.fetchNotifications(newProps.sessionID);
@@ -39,6 +43,9 @@ class IssueTab extends React.Component<> {
           value={this.state.username}
         />
         <div className="separator" />
+        <button onClick={this.handleSubmit} className="Button Button__Green">
+          Submit
+        </button>
       </div>
     );
   }
