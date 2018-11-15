@@ -87,6 +87,11 @@ public class Server {
     server.createEventEndpoint("/credential_issue", new CredentialIssueHandler());
     server.createEventEndpoint("/credential_store", new CredentialStoreHandler());
 
+    // Temp store read
+    server.createEventEndpoint("/credential_cache_view", new CredentialCacheHandler());
+
+
+
     // proof handling
     server.createEndpoint("/proof_request_patient", new ProofRequestPatientHandler());
     server.createEventEndpoint("/proof_request_patient_approve", new ProofApproveHandler());

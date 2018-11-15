@@ -5,6 +5,7 @@ import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
+import eu.mhutti1.healthchain.storage.ClaimStorage;
 import eu.mhutti1.healthchain.storage.EventStorage;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 /**
  * Created by jedraz on 01/11/2018.
@@ -62,6 +64,12 @@ public class CredentialStoreHandler extends EventConsumer {
     // Prover store Credential
     try {
       Anoncreds.proverStoreCredential(proverWallet, "id1", credentialRequestMetadataJSON, credential, credDefJSON, null).get();
+      JSONObject jsonObject = new JSONObject(credential).getJSONObject("values");
+      Map<String, String> values = jsonObject.keySet().stream().collect(Collectors.toMap(a -> a, a -> (String) jsonObject.getJSONObject(a).get("raw")));
+      ClaimStorage.getStore().put(proverDid, new ClaimStorage.ClaimDef(values));
+      // Store creds in cache for doctor;
+      //ClaimStorage.getStore().put(proverDid, )
+
     } catch (InterruptedException e) {
       e.printStackTrace();
       response = RequestUtils.messageInternalServerError();
