@@ -14,10 +14,7 @@ import eu.mhutti1.healthchain.server.login.PatientVerify;
 import eu.mhutti1.healthchain.server.credentials.GetCredentialsHandler;
 import eu.mhutti1.healthchain.server.issue.*;
 import eu.mhutti1.healthchain.server.logout.LogoutHandler;
-import eu.mhutti1.healthchain.server.proof.ProofApproveHandler;
-import eu.mhutti1.healthchain.server.proof.ProofRequestPatientHandler;
-import eu.mhutti1.healthchain.server.proof.ProofRequestRequestHandler;
-import eu.mhutti1.healthchain.server.proof.ProofVerifyHandler;
+import eu.mhutti1.healthchain.server.proof.*;
 import eu.mhutti1.healthchain.server.verify.SessionVerifyHandler;
 import eu.mhutti1.healthchain.storage.EventStorage;
 import org.hyperledger.indy.sdk.IndyException;
@@ -98,6 +95,7 @@ public class Server {
 
 
     // third party endpoint
+    server.createEndpoint("/proof_view", new ProofViewHandler());
     server.createEndpoint("/proof_request_request", new ProofRequestRequestHandler());
     server.createEndpoint("/proof_verify", new ProofVerifyHandler());
 

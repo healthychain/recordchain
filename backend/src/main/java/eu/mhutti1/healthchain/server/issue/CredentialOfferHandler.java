@@ -117,7 +117,7 @@ public class CredentialOfferHandler extends EventConsumer {
       responseCode = RequestUtils.statuSInternalServerError();
     } catch (ExecutionException e) {
       e.printStackTrace();
-      response = RequestUtils.messageInternalServerError();
+        response = RequestUtils.messageInternalServerError();
       responseCode = RequestUtils.statuSInternalServerError();
     } catch (IndyException e) {
       response = RequestUtils.messageUnauthorized();

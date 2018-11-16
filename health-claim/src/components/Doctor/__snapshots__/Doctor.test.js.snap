@@ -2,13 +2,13 @@
 
 exports[`Doctor should render correctly with mocked records 1`] = `
 <div
-  className="doctor-layout"
+  className="dashboard-layout"
 >
   <div
-    className="doctor-main"
+    className="dashboard-main"
   >
     <div
-      className="doctor-inner-alt"
+      className="dashboard-inner-alt"
     >
       <div
         className="Box"
