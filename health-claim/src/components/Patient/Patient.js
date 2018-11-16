@@ -31,7 +31,7 @@ class Patient extends Component {
             <div className="Box">
               {!credentials || Object.keys(credentials).length === 0 ? (
                 <>
-                  <h3>No credentials issued yet</h3>{" "}
+                  <h3>No health record issued yet</h3>{" "}
                 </>
               ) : (
                 <>
