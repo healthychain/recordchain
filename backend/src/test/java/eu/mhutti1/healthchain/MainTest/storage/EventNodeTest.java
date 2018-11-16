@@ -22,7 +22,8 @@ public class EventNodeTest {
     JSONObject payload = new JSONObject();
     String acceptEndpoint = "test_accept";
     String dismissEndpoint = "test_dismiss";
-    EventNode eventNode = new EventNode(type, fromDid, payload, acceptEndpoint, dismissEndpoint);
+    boolean requireMasterSecret = false;
+    EventNode eventNode = new EventNode(type, fromDid, payload, acceptEndpoint, dismissEndpoint, requireMasterSecret);
 
     Serializable copy = SerializationUtils.clone(eventNode);
     assertEquals(eventNode, copy);

@@ -13,45 +13,55 @@ export default class EventPanel extends Component {
     this.toggleView = this.toggleView.bind(this);
   }
 
-  shouldComponentUpdate(newState, newProps) {
-    return (
-      newProps.events !== this.props.events ||
-      newState.collapsed !== this.state.collapsed
-    );
-  }
-
   toggleView() {
     this.setState({ collapsed: !this.state.collapsed });
   }
 
   render() {
     if (this.props.loading) {
-      return <div>Loading</div>;
+      // return <div>Loading</div>;
     } else if (this.props.error) {
       return <div>Error</div>;
     }
     return (
       <div>
+        <div
+          onClick={this.toggleView}
+          className={
+            this.props.events.length === 0
+              ? "ToggleButton"
+              : "ToggleButton__Selected"
+          }
+        >
+          <i className="fa fa-bell" />
+        </div>
         {this.state.collapsed ? (
-          <div
-            className={
-              this.props.events.length === 0 ? "Toggle" : "Toggle__Red"
-            }
-            onClick={this.toggleView}
-          >
-            Notifications
+          <div className="Toggle" onClick={this.toggleView}>
+            <div
+              className={
+                this.props.events.length === 0 ? null : "NotificationLight"
+              }
+            />
           </div>
         ) : (
-          <div className="EventPanel">
-            <div className="Toggle__Open" onClick={this.toggleView}>
-              Minimize
+            <div className="EventPanel">
+              <div className="TopBar">
+                <div className="Toggle__Open Minimize" onClick={this.toggleView}>
+                  Hide
+                </div>
+                <div className="Refresh" onClick={this.props.fetchNotifications}>
+                  <i class="fa fa-repeat"></i>
+                </div>
+              </div>
+              {this.props.events &&
+                this.props.events.map(
+                  (event, idx) => (
+                    console.log(event),
+                    <NotificationEventContainer {...event} idx={idx} />
+                  )
+                )}
             </div>
-            {this.props.events &&
-              this.props.events.map((event, idx) => (
-                <NotificationEventContainer {...event} idx={idx} />
-              ))}
-          </div>
-        )}
+          )}
       </div>
     );
   }

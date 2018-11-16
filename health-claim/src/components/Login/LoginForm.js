@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Box from "../UI/Containers";
+import LoadingScreen from "../Loading/LoadingScreen";
 import "./LoginForm.scss";
 import { Redirect } from "react-router-dom";
 
@@ -9,7 +10,6 @@ export default class LoginForm extends Component {
   };
 
   handleSubmit = () => {
-    console.log("dispatching function");
     this.props.login(
       this.state.username,
       this.state.password,
@@ -21,10 +21,9 @@ export default class LoginForm extends Component {
     const { userType } = this.props;
 
     if (this.props.loginSuccess) {
-      console.log("login success");
       return <Redirect to={`/${userType.toLowerCase()}`} />;
     } else if (this.props.loading) {
-      return <h1>Loading</h1>;
+      return <LoadingScreen />;
     }
     return (
       <div className="Form__Container">

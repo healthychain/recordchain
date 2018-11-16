@@ -18,6 +18,7 @@ public class Constants {
   public static String WALLET_CREDS = "{\"key\": \"wallet_key\"}";
   public static int PROTOCOL_VERSION = 2;
 
+  public static String SERVER_DOMAIN = "localhost:8000";
 
   //  ROLES
 

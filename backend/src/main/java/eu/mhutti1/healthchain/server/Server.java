@@ -8,15 +8,13 @@ import eu.mhutti1.healthchain.server.createOLD.PatientCreateHandler;
 import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.events.GetNotificationsHandler;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
-import eu.mhutti1.healthchain.server.get.GetCredentialsHandler;
+import eu.mhutti1.healthchain.server.healthrecord.GetSchemaHandler;
+import eu.mhutti1.healthchain.server.login.DoctorVerify;
+import eu.mhutti1.healthchain.server.login.PatientVerify;
+import eu.mhutti1.healthchain.server.credentials.GetCredentialsHandler;
 import eu.mhutti1.healthchain.server.issue.*;
 import eu.mhutti1.healthchain.server.logout.LogoutHandler;
-import eu.mhutti1.healthchain.server.proof.ProofApproveHandler;
-import eu.mhutti1.healthchain.server.proof.ProofRequestPatientHandler;
-import eu.mhutti1.healthchain.server.proof.ProofRequestRequestHandler;
-import eu.mhutti1.healthchain.server.proof.ProofVerifyHandler;
-import eu.mhutti1.healthchain.server.verify.DoctorVerifyHandler;
-import eu.mhutti1.healthchain.server.verify.PatientVerifyHandler;
+import eu.mhutti1.healthchain.server.proof.*;
 import eu.mhutti1.healthchain.server.verify.SessionVerifyHandler;
 import eu.mhutti1.healthchain.storage.EventStorage;
 import org.hyperledger.indy.sdk.IndyException;
@@ -68,8 +66,8 @@ public class Server {
     server.createEventEndpoint("/create_doctor_approve", new CreateApproveDoctorHandler());
 
     //verification
-    server.createEndpoint("/patient_verify", new PatientVerifyHandler());
-    server.createEndpoint("/doctor_verify", new DoctorVerifyHandler());
+    server.createEndpoint("/patient_verify", new PatientVerify());
+    server.createEndpoint("/doctor_verify", new DoctorVerify());
 
     //logout
     server.createEndpoint("/logout", new LogoutHandler());
@@ -86,15 +84,23 @@ public class Server {
     server.createEventEndpoint("/credential_issue", new CredentialIssueHandler());
     server.createEventEndpoint("/credential_store", new CredentialStoreHandler());
 
+    // Temp store read
+    server.createEventEndpoint("/credential_cache_view", new CredentialCacheHandler());
+
+
+
     // proof handling
     server.createEndpoint("/proof_request_patient", new ProofRequestPatientHandler());
     server.createEventEndpoint("/proof_request_patient_approve", new ProofApproveHandler());
 
 
-    // third party endpointr
+    // third party endpoint
+    server.createEndpoint("/proof_view", new ProofViewHandler());
     server.createEndpoint("/proof_request_request", new ProofRequestRequestHandler());
     server.createEndpoint("/proof_verify", new ProofVerifyHandler());
 
+    //get public schema def
+    server.createEndpoint("/get_public_schema", new GetSchemaHandler());
 
     //notifications
     server.createEndpoint("/get_events", new GetNotificationsHandler());

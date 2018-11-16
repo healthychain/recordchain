@@ -9,12 +9,15 @@ import fetchNotifications from "./reducers/fetchNotifications";
 import fetchPatientClaims from "./reducers/fetchPatientClaims";
 import selectPatient from "./reducers/selectPatient";
 import login from "./reducers/login";
+import fetchCredDef from "./reducers/fetchCredDef";
 import register from "./reducers/register";
 import verifySession from "./reducers/verifySession";
 import sessionToken from "./reducers/sessionToken";
 import logout from "./reducers/logout";
 import createMasterSecret from "./reducers/createMasterSecret";
 import storeRecord from "./reducers/storeRecord";
+import fetchCreds from "./reducers/fetchCredentials";
+import thirdPartyCalls from "./reducers/thirdPartyCalls";
 
 const loggerMiddleware = createLogger();
 
@@ -34,7 +37,10 @@ const reducer = combineReducers({
   verifySession,
   sessionToken,
   createMasterSecret,
-  storeRecord
+  storeRecord,
+  fetchCredDef,
+  fetchCreds,
+  thirdPartyCalls
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

@@ -12,6 +12,10 @@ export class App extends React.PureComponent {
       <SessionAuthenticator>
         <Router>
           <div>
+            <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            />
             <div className="Header">
               <div className="Header__Upper">
                 <div className="Header__Nav">
@@ -29,11 +33,20 @@ export class App extends React.PureComponent {
               </div>
               <div className="Header__Lower">
                 <h2 className="Header__Title">Decentralized Healthcare</h2>
-                {this.props.loggedIn ? (
-                  <div className="Header__Link">
-                    <Link to="/settings">Settings</Link>
-                  </div>
-                ) : null}
+                {this.props.loggedIn
+                  ? [
+                      <div className="Header__Link" key="1">
+                        <Link className="Header__Link__text" to="/dashboard">
+                          Dashboard
+                        </Link>
+                      </div>,
+                      <div className="Header__Link" key="2">
+                        <Link className="Header__Link__text" to="/settings">
+                          Settings
+                        </Link>
+                      </div>
+                    ]
+                  : null}
               </div>
             </div>
             <div className="Body">
