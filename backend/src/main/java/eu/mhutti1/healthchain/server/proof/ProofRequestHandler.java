@@ -25,16 +25,16 @@ public abstract class ProofRequestHandler extends NonEventConsumer {
     String data = new BufferedReader(new InputStreamReader(httpExchange.getRequestBody())).lines().collect(Collectors.joining("\n"));
     Map<String, String> params = RequestUtils.queryToMap(query);
 
-    String patientDid = params.get("patient_did");
-
-    Wallet proverWallet = null;
-    String proverDid = null;
+    String proverDid = params.get("prover_did");
+    String responseDomain = params.get("response_domain");
+    JSONObject payload = new JSONObject(data);
+    payload.put("response_domain", responseDomain);
 
     int responseCode = RequestUtils.statusOK();
     String response = "OK";
 
 
-    EventStorage.store(patientDid, new EventNode("", null, new JSONObject(data), getApproveEndpoint(), getDismissEndpoint()));
+    EventStorage.store(proverDid, new EventNode("", null, payload, getApproveEndpoint(), getDismissEndpoint()));
 
 
     httpExchange.sendResponseHeaders(responseCode, response.length());

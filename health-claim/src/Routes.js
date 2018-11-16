@@ -3,12 +3,12 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { ACCOUNT_TYPE } from "./const";
 
 import Home from "./components/Home";
-import MessageScreen from "./components/MessageScreen/MessageScreen";
 import DoctorContainer from "./containers/DoctorContainer";
 import PatientContainer from "./containers/PatientContainer";
 import LoginFormContainer from "./containers/LoginFormContainer";
 import RegisterFormContainer from "./containers/RegisterFormContainer";
 import SettingsContainer from "./containers/SettingsContainer";
+import ThirdPartyContainer from "./containers/ThirdPartyContainer";
 
 class Routes extends Component {
   render() {
@@ -44,6 +44,13 @@ class Routes extends Component {
           )}
         />
         <Route
+          path="/login-thirdparty"
+          exact
+          render={props => (
+            <ThirdPartyContainer userType={ACCOUNT_TYPE.THIRD_PARTY} />
+          )}
+        />
+        <Route
           path="/register"
           exact
           render={() => <RegisterFormContainer />}
@@ -52,6 +59,8 @@ class Routes extends Component {
           path="/dashboard"
           exact
           render={props => {
+            //   return <ThirdPartyContainer />;
+            // }}
             if (loggedIn && accountType) {
               switch (accountType) {
                 case ACCOUNT_TYPE.PATIENT:
@@ -59,12 +68,16 @@ class Routes extends Component {
                 case ACCOUNT_TYPE.DOCTOR:
                   return <DoctorContainer />;
                 case ACCOUNT_TYPE.THIRD_PARTY:
-                  return <div />;
+                  return <ThirdPartyContainer />;
                 default:
                   return <div />;
               }
             } else if (accountType) {
-              return <LoginFormContainer userType={accountType} />;
+              return accountType === ACCOUNT_TYPE.THIRD_PARTY ? (
+                <ThirdPartyContainer />
+              ) : (
+                <LoginFormContainer userType={accountType} />
+              );
             } else {
               return (
                 <Redirect
