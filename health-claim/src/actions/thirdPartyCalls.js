@@ -40,7 +40,7 @@ export function tpRequest(userDID, domain, attrs) {
     //Req_attrs - attributes requested, comma separated
     dispatch(tpRequestBegin());
     return fetch(
-      `http://${domain}/proof_request_request?prover_did=${userDID}&agent_domain=${"localhost:8000"}&req_attrs=${attrs}`
+      `http://localhost:8000/proof_request_request?prover_did=${userDID}&agent_domain=${domain}&req_attrs=${attrs}`
     )
       .then(raw => handleErrors(raw))
       .then(dispatch(tpRequestSuccess()))

@@ -42,6 +42,7 @@ public class ProofApproveHandler extends EventConsumer {
 
     String token = params.get("token");
     String eventId = params.get("event_id");
+    String masterSecretId = params.get("master_secret");
 
     Wallet offerWallet = null;
     Role accountHolder = null;
@@ -71,18 +72,7 @@ public class ProofApproveHandler extends EventConsumer {
         String credentialUuid = temp.getJSONObject(0).getJSONObject("cred_info").getString("referent");
         credIds.add(credentialUuid);
       }
-
-//      JSONArray credentialsForAttribute1 = credentialsForProof.getJSONObject("attrs").getJSONArray("attr1_referent");
-//      JSONArray credentialsForAttribute2 = credentialsForProof.getJSONObject("attrs").getJSONArray("attr2_referent");
-//      JSONArray credentialsForAttribute3 = credentialsForProof.getJSONObject("attrs").getJSONArray("attr3_referent");
-//      JSONArray credentialsForPredicate = credentialsForProof.getJSONObject("predicates").getJSONArray("predicate1_referent");
-
-//      assert (credentialsForAttribute1.length() == 1);
-//      assert (credentialsForAttribute2.length() == 1);
-//      assert (credentialsForAttribute3.length() == 0);
-//      assert (credentialsForPredicate.length() == 1);
-//TODO: Fix
-
+      
       // Prover create Proof
       String selfAttestedValue = "8-800-300";
       JSONObject requestedCredentialsJsonObj = new JSONObject("{\n" +
@@ -101,8 +91,6 @@ public class ProofApproveHandler extends EventConsumer {
       CredDefStorage.CredDef credDef = CredDefStorage.getStore().get(offerDid);
       String credentialDefs = new JSONObject(String.format("{\"%s\":%s}", credDef.credDefId, credDef.credDefJson)).toString();
       String revocStates = new JSONObject("{}").toString();
-      // TODO fix
-      String masterSecretId = "master_secret";
 
 
       String proofJson = Anoncreds.proverCreateProof(offerWallet, proofRequestJson.toString(), requestedCredentialsJsonObj.toString(),

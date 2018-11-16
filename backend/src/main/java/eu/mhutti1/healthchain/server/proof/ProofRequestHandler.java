@@ -34,7 +34,7 @@ public abstract class ProofRequestHandler extends NonEventConsumer {
     String response = "OK";
 
 
-    EventStorage.store(proverDid, new EventNode("", null, payload, getApproveEndpoint(), getDismissEndpoint()));
+    EventStorage.store(proverDid, new EventNode("", null, payload, getApproveEndpoint(), getDismissEndpoint(), true));
 
 
     httpExchange.sendResponseHeaders(responseCode, response.length());

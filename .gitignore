@@ -73,6 +73,9 @@ indy-sdk
 
 backend/credstorage.db
 backend/storage.db
+backend/claimstorage.db 
+backend/proofstorage.db
+
 
 # Dependency directories
 node_modules/

@@ -96,7 +96,7 @@ class Routes extends Component {
             ) : (
               <Redirect
                 to={{
-                  pathname: "/settings",
+                  pathname: "/welcome",
                   state: { from: props.location }
                 }}
               />
