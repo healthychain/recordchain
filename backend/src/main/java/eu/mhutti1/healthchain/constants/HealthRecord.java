@@ -33,5 +33,10 @@ public class HealthRecord {
     return new JSONObject("{\"name\":\"" + name + "\",\"version\":\"" + version + "\",\"attrNames\":" + attributes + ",\"ver\":\"" + version + "\",\"id\":\"" + id + "\"}").toString();
   }
 
-  public static String[] attrs = new String[]{"age", "sex", "height", "name"};
+  public static String[] attrs = new String[]{
+          "{\"name\": \"age\", \"type\": \"number\", \"unit\":\"years\"",
+          "{\"name\": \"height\", \"type\": \"number\", \"unit\":\"cm\"",
+          "{\"name\": \"sex\", \"type\": \"string\"",
+          "{\"name\": \"name\", \"type\": \"string\""
+  };
 }
