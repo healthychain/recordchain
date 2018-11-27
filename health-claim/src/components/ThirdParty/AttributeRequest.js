@@ -38,13 +38,11 @@ class AttributeRequest extends Component {
     ));
   }
 
-  //TODO: Pass to parent
   selectValue = event => {
     this.props.valueCallback(this.props.idx, "p_val", event.target.value);
     this.setState({ input: event.target.value });
   };
 
-  //TODO: Pass to parent
   selectAttributes = event => {
     this.props.valueCallback(this.props.idx, "name", event.target.value);
     event.target.value === "dummy"
@@ -52,7 +50,6 @@ class AttributeRequest extends Component {
       : this.setState({ attribute: event.target.value });
   };
 
-  //TODO: Pass to parent
   selectPredicate = event => {
     this.props.valueCallback(this.props.idx, "p_type", event.target.value);
     this.setState({ predicate: event.target.value });

@@ -10,6 +10,10 @@ export default class RequestBuilder extends Component {
     this.state = { attributeRequests: [{ name: "", p_type: "", p_val: "" }] };
   }
 
+  componentDidMount() {
+    this.props.fetchCredDefTypes();
+  }
+
   // Get backend operator for specific predicate
   getOp = predicate => {
     let text;
@@ -46,7 +50,6 @@ export default class RequestBuilder extends Component {
     }));
   };
 
-  // TODO: send to backend
   handleSubmit = e => {
     const { username, domain } = this.state;
     console.log(this.state);
@@ -71,11 +74,15 @@ export default class RequestBuilder extends Component {
 
   render() {
     const { attributeRequests } = this.state;
+
+    // TODO: implement call for getting these
+    // TODO: get this from backend via call
     const types = {
       string: ["value", "equals"],
       number: ["value", "equals", "less than", "more than"]
     };
 
+    // TODO: get this from backend via call (this.props.credDefTypes)
     const fields = {
       age: "number",
       name: "string"
