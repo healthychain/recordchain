@@ -16,6 +16,23 @@ class AttributeRequest extends Component {
     this.predicates = this.predicates.bind(this);
   }
 
+  getOp = predicate => {
+    console.log(predicate);
+    let text;
+    switch (predicate) {
+      case "less than":
+        text = "<=";
+        break;
+      case "more than":
+        text = ">=";
+        break;
+      default:
+        text = "==";
+        break;
+    }
+    return text;
+  };
+
   types(types) {
     return types.map(type => (
       <option key={type} value={type}>
@@ -23,6 +40,15 @@ class AttributeRequest extends Component {
       </option>
     ));
   }
+
+  buildRequest = () =>
+    this.state.predicate === "value"
+      ? this.state.attribute
+      : {
+          name: this.state.attribute,
+          p_type: this.getOp(this.state.predicate),
+          p_val: this.state.input
+        };
 
   getPredicates = attribute => {
     const attributeType = this.props.attributes[attribute];
