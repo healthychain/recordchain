@@ -6,30 +6,32 @@
 }
 
 .Settings__inner_container {
-  margin-top: 20px;
+  margin-top: 90px;
   max-width: 800px;
-  min-width: 800px;
+  min-width: 700px;
+  min-height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: white;
+  box-shadow: 5px 5px 2px 0px rgba(173, 172, 179, 1);
 }
 
 .Settings__row {
-  padding: 10px 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
   width: 100%;
 }
 
 .Settings__row__name {
+  margin-right: 10px;
   display: flex;
   flex: 1;
   justify-content: center;
   align-items: center;
+
 }
 
 .Settings__input__container {

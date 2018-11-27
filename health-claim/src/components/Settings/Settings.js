@@ -1,6 +1,7 @@
 //@flow
 
 import * as React from "react";
+import { Table} from "reactstrap";
 import "./Settings.scss";
 
 type Props = {
@@ -29,26 +30,34 @@ class Settings extends React.Component<Props, State> {
     return (
       <div className="Settings__container">
         <div className="Settings__inner_container">
+        <Table hover>
+        <tbody>
+          <tr>
           <div className="Settings__row">
-            <div className="Settings__row__name">Your did</div>
-            <div className="Settings__input__container">{did}</div>
+           <th scope="row"><div className="Settings__row__name"> Your DID </div> </th> 
+           <td> <div className="Settings__input__container">{did}</div> </td> 
           </div>
-
+          </tr>
+          <tr>
           <div className="Settings__row">
-            <div className="Settings__row__name">Master secret</div>
-            <div className="Settings__input__container">
-              <input
+            <th scope="row"><div className="Settings__row__name">Master secret</div> </th>
+            <td><div className="Settings__input__container">
+              <input 
                 value={this.state.masterSecret}
                 onChange={this.handleUpdateMasterSecret}
               />
-            </div>
+             </div>
+            </td>
           </div>
+          </tr>
+          </tbody>
+          </Table>
           <div className="Settings__row">
             <div
-              className="Settings__submit__button"
+              className="Button Button__Green"
               onClick={() => createMasterSecret(this.state.masterSecret)}
             >
-              Submit dat shite
+              Submit
             </div>
           </div>
         </div>
