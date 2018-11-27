@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../Doctor/Doctor.scss";
 import "../Login/LoginForm.scss";
+import AttributeRequest from "./AttributeRequest";
 
 const TABS = ["Request", "View"];
 
@@ -14,9 +15,6 @@ class ThirdParty extends Component {
 
   componentWillReceiveProps(newProps) {
     console.log(newProps);
-    // if (newProps.sessionID !== this.props.sessionID) {
-    //   this.props.fetchNotifications(newProps.sessionID);
-    // }
   }
 
   updateState(field, value) {
@@ -28,6 +26,16 @@ class ThirdParty extends Component {
   componentDidMount() {}
 
   render() {
+    const types = {
+      string: ["value", "equals"],
+      number: ["value", "equals", "less than", "more than"]
+    };
+
+    const fields = {
+      age: "number",
+      name: "string"
+    };
+
     const { tabIndex } = this.state;
     const { proof } = this.props;
     return (
@@ -82,17 +90,10 @@ class ThirdParty extends Component {
                         />
                       </div>
                       <div className="Form__Cell">
-                        <label className="Input__Label">
-                          Attributes (comma separated)
-                        </label>
-                        <input
-                          onChange={e =>
-                            this.updateState("attrs", e.target.value)
-                          }
-                          className="Input__Text"
-                          value={this.state.attrs}
-                          type="text"
-                          name="attrs"
+                        <AttributeRequest
+                          name="Age"
+                          types={types}
+                          attributes={fields}
                         />
                       </div>
                     </div>
