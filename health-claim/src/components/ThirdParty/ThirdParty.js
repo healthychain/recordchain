@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../Doctor/Doctor.scss";
 import "../Login/LoginForm.scss";
-import AttributeRequest from "./AttributeRequest";
+import RequestBuilderContainer from "../../containers/RequestBuilderContainer";
 
 const TABS = ["Request", "View"];
 
@@ -13,29 +13,7 @@ class ThirdParty extends Component {
     };
   }
 
-  componentWillReceiveProps(newProps) {
-    console.log(newProps);
-  }
-
-  updateState(field, value) {
-    this.setState({
-      [field]: value
-    });
-  }
-
-  componentDidMount() {}
-
   render() {
-    const types = {
-      string: ["value", "equals"],
-      number: ["value", "equals", "less than", "more than"]
-    };
-
-    const fields = {
-      age: "number",
-      name: "string"
-    };
-
     const { tabIndex } = this.state;
     const { proof } = this.props;
     return (
@@ -64,51 +42,9 @@ class ThirdParty extends Component {
               <div className="doctor__content">
                 {tabIndex === 0 && (
                   <>
-                    <div className="Form__Rack">
-                      <div className="Form__Cell">
-                        <label className="Input__Label">
-                          Request stuff from user (DID)
-                        </label>
-                        <input
-                          onChange={e =>
-                            this.setState({ username: e.target.value })
-                          }
-                          className="Input__Text"
-                          type="text"
-                          value={this.state.username}
-                        />
-                        <br />
-                        <label className="Input__Label">Domain</label>
-                        <input
-                          onChange={e =>
-                            this.updateState("domain", e.target.value)
-                          }
-                          className="Input__Text"
-                          value={this.state.domain}
-                          type="text"
-                          name="domain"
-                        />
-                      </div>
-                      <div className="Form__Cell">
-                        <AttributeRequest
-                          name="Age"
-                          types={types}
-                          attributes={fields}
-                        />
-                      </div>
+                    <div className="Form__Cell">
+                      <RequestBuilderContainer />
                     </div>
-                    <button
-                      onClick={() =>
-                        this.props.tpRequest(
-                          this.state.username,
-                          this.state.domain,
-                          this.state.attrs
-                        )
-                      }
-                      className="Button Button__Green"
-                    >
-                      Request
-                    </button>
                   </>
                 )}
                 {tabIndex === 1 && (
@@ -130,7 +66,7 @@ class ThirdParty extends Component {
                         <label className="Input__Label">Domain</label>
                         <input
                           onChange={e =>
-                            this.updateState("domain", e.target.value)
+                            this.setState({ domain: e.target.value })
                           }
                           className="Input__Text"
                           value={this.state.domain}

@@ -16,23 +16,6 @@ class AttributeRequest extends Component {
     this.predicates = this.predicates.bind(this);
   }
 
-  getOp = predicate => {
-    console.log(predicate);
-    let text;
-    switch (predicate) {
-      case "less than":
-        text = "<=";
-        break;
-      case "more than":
-        text = ">=";
-        break;
-      default:
-        text = "==";
-        break;
-    }
-    return text;
-  };
-
   types(types) {
     return types.map(type => (
       <option key={type} value={type}>
@@ -40,15 +23,6 @@ class AttributeRequest extends Component {
       </option>
     ));
   }
-
-  buildRequest = () =>
-    this.state.predicate === "value"
-      ? this.state.attribute
-      : {
-          name: this.state.attribute,
-          p_type: this.getOp(this.state.predicate),
-          p_val: this.state.input
-        };
 
   getPredicates = attribute => {
     const attributeType = this.props.attributes[attribute];
@@ -64,28 +38,33 @@ class AttributeRequest extends Component {
     ));
   }
 
+  //TODO: Pass to parent
   selectValue = event => {
+    this.props.valueCallback(this.props.idx, "p_val", event.target.value);
     this.setState({ input: event.target.value });
   };
 
+  //TODO: Pass to parent
   selectAttributes = event => {
+    this.props.valueCallback(this.props.idx, "name", event.target.value);
     event.target.value === "dummy"
       ? this.setState({ attribute: null })
       : this.setState({ attribute: event.target.value });
   };
 
+  //TODO: Pass to parent
   selectPredicate = event => {
+    this.props.valueCallback(this.props.idx, "p_type", event.target.value);
     this.setState({ predicate: event.target.value });
   };
 
   render() {
     const selectedAttribute = this.state.attribute;
+    const { idx } = this.props;
     const inputType =
       this.props.attributes[selectedAttribute] === "number" ? "number" : "text";
-    console.log(this.state);
     return (
       <>
-        <label className="Input__Label">{this.props.name}</label>
         <div className="Request__Field__Container">
           <select
             value={this.state.attribute}
@@ -95,7 +74,6 @@ class AttributeRequest extends Component {
             <option value="dummy">Request</option>
             {this.types(Object.keys(this.props.attributes))}
           </select>
-
           {this.state.attribute ? (
             <>
               <select
@@ -105,12 +83,19 @@ class AttributeRequest extends Component {
               >
                 {this.predicates(this.getPredicates(selectedAttribute))}
               </select>
-              <input
-                value={this.state.input}
-                onChange={this.selectValue}
-                className="Input__Text__Variable"
-                type={inputType}
-              />
+              {!this.state.predicate ||
+              this.state.predicate === "value" ? null : (
+                <input
+                  key={idx}
+                  name={`attributeRequest_${idx}`}
+                  data-id={idx}
+                  id={`attributeRequest_${idx}`}
+                  value={this.state.input}
+                  onChange={this.selectValue}
+                  className="Input__Text__Variable"
+                  type={inputType}
+                />
+              )}
             </>
           ) : null}
         </div>
