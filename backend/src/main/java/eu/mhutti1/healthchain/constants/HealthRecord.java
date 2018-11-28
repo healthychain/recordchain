@@ -34,9 +34,9 @@ public class HealthRecord {
   }
 
   public static String[] attrs = new String[]{
-          "{\"name\": \"age\", \"type\": \"number\", \"unit\":\"years\"",
-          "{\"name\": \"height\", \"type\": \"number\", \"unit\":\"cm\"",
-          "{\"name\": \"sex\", \"type\": \"string\"",
-          "{\"name\": \"name\", \"type\": \"string\""
+          "{\"name\": \"age\", \"type\": \"number\", \"unit\":\"years\"}",
+          "{\"name\": \"height\", \"type\": \"number\", \"unit\":\"cm\"}",
+          "{\"name\": \"sex\", \"type\": \"string\"}",
+          "{\"name\": \"name\", \"type\": \"string\"}"
   };
 }
