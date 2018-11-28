@@ -48,7 +48,12 @@ export function tpRequest(userDID, domain, req_attrs, req_pred) {
     dispatch(tpRequestBegin());
     return fetch(`http://localhost:8000/proof_request_request`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      mode: "no-cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      },
       body: JSON.stringify(data)
     })
       .then(raw => handleErrors(raw))

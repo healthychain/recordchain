@@ -6,6 +6,7 @@ import {
 
 const initialState = {
   attrs: [],
+  attrNames: [],
   attrs_types: [],
   loading: false,
   error: null
@@ -26,7 +27,8 @@ const fetchCredDef = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        attrs: action.payload.attrs
+        attrs: action.payload.attrs,
+        attrNames: action.payload.attrs.map(attr => JSON.parse(attr).name)
       };
     }
     default:

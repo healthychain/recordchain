@@ -53,33 +53,30 @@ public class ProofRequestRequestHandler extends NonEventConsumer {
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
-
-
     httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
-
-    String query = httpExchange.getRequestURI().getQuery();
-    Map<String, String> params = RequestUtils.queryToMap(query);
 
     String response = "session verified";
     int responseCode = RequestUtils.statusOK();
 
-    String proverDid = params.get("prover_did");
-    String agentDomain = params.get("agent_domain"); // localhost:8000
-
     JSONObject reqBody = new JSONObject(RequestUtils.getRequestBody(httpExchange));
-    String reqAttrs = reqBody.getString("req_attrs");
-    JSONArray reqPredicatesJSON = new JSONArray(reqBody.getString("req_predicates"));
-    String[] reqPredicates = (String[]) reqPredicatesJSON
-            .toList()
-            .stream()
-            .map(Object::toString)
-            .collect(Collectors.toList())
-            .toArray();
+    String proverDid = reqBody.getString("prover_did");
+    String agentDomain = reqBody.getString("agent_domain"); // localhost:8000
+    JSONArray reqAttrsJSON = (JSONArray) reqBody.get("req_attrs");
+    String[] reqAttrs = new String[reqAttrsJSON.length()];
+    for (int i = 0; i < reqAttrsJSON.length(); i++) {
+      reqAttrs[i] = reqAttrsJSON.get(i).toString();
+    }
+
+    JSONArray reqPredicatesJSON = (JSONArray) reqBody.get("req_pred");
+    String[] reqPredicates = new String[reqPredicatesJSON.length()];
+    for (int i = 0; i < reqAttrsJSON.length(); i++) {
+      reqPredicates[i] = reqPredicatesJSON.get(i).toString();
+    }
 
     URL url = new URL("http://" + agentDomain + "/proof_request_patient?prover_did=" + proverDid + "&response_domain=" + Constants.SERVER_DOMAIN);
 
-    String proofJson = generateProofRequest(reqAttrs.split(","), reqPredicates);
-    ProofStorage.getStore().put(proverDid, new ProofStorage.Proof(proofJson, Arrays.asList(reqAttrs.split(","))));
+    String proofJson = generateProofRequest(reqAttrs, reqPredicates);
+    ProofStorage.getStore().put(proverDid, new ProofStorage.Proof(proofJson, Arrays.asList(reqAttrs)));
 
     URLConnection con = url.openConnection();
     HttpURLConnection http = (HttpURLConnection)con;
