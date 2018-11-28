@@ -48,7 +48,7 @@ class Settings extends React.Component<Props, State> {
               className="Settings__submit__button"
               onClick={() => createMasterSecret(this.state.masterSecret)}
             >
-              Submit dat shite
+              Submit
             </div>
           </div>
         </div>
