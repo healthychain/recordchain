@@ -11,7 +11,7 @@ export default class RequestBuilder extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchCredDefTypes();
+    this.props.fetchCredDef();
   }
 
   // Get backend operator for specific predicate
@@ -52,7 +52,6 @@ export default class RequestBuilder extends Component {
 
   handleSubmit = e => {
     const { username, domain } = this.state;
-    console.log(this.state);
     const req_attrs = [];
     const req_pred = [];
 
@@ -67,27 +66,25 @@ export default class RequestBuilder extends Component {
         req_attrs.push(req.name);
       }
     });
-    console.log(req_attrs);
-    console.log(req_pred);
     this.props.tpRequest(username, domain, req_attrs, req_pred);
   };
 
   render() {
     const { attributeRequests } = this.state;
+    const { credDef } = this.props;
 
-    // TODO: implement call for getting these
-    // TODO: get this from backend via call
     const types = {
       string: ["value", "equals"],
       number: ["value", "equals", "less than", "more than"]
     };
 
-    // TODO: get this from backend via call (this.props.credDefTypes)
-    const fields = {
-      age: "number",
-      name: "string"
-    };
+    let newCredDef = [];
+    let fields = {};
+    credDef.map(def => newCredDef.push(JSON.parse(def)));
 
+    newCredDef.map(attribute => {
+      fields[attribute.name] = attribute.type;
+    });
     return (
       <div>
         <div className="Form__Rack">
