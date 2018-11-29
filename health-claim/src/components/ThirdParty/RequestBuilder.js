@@ -7,7 +7,7 @@ export default class RequestBuilder extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { attributeRequests: [{ name: "", p_type: "", p_val: "" }] };
+    this.state = { attributeRequests: [{ name: "", p_type: "", p_value: "" }] };
   }
 
   componentDidMount() {
@@ -19,10 +19,10 @@ export default class RequestBuilder extends Component {
     let text;
     switch (predicate) {
       case "less than":
-        text = "<";
+        text = "<=";
         break;
       case "more than":
-        text = ">";
+        text = ">=";
         break;
       default:
         text = "==";
@@ -33,9 +33,12 @@ export default class RequestBuilder extends Component {
 
   // Callback for setting values of AttributeRequest components
   valueCallback = (idx, fieldType, value) => {
+    console.log("CALLED WITH " + value);
     this.setState(oldState => {
       let modifiedState = oldState;
+      console.log(oldState);
       modifiedState.attributeRequests[idx][fieldType] = value;
+      console.log(modifiedState);
       return modifiedState;
     });
   };
@@ -45,7 +48,7 @@ export default class RequestBuilder extends Component {
     this.setState(prevState => ({
       attributeRequests: [
         ...prevState.attributeRequests,
-        { name: "", p_type: "", p_val: "" }
+        { name: "", p_type: "", p_value: "" }
       ]
     }));
   };
@@ -56,11 +59,11 @@ export default class RequestBuilder extends Component {
     const req_pred = [];
 
     this.state.attributeRequests.map(req => {
-      if (req.name && req.p_val && req.p_type) {
+      if (req.name && req.p_value && req.p_type) {
         req_pred.push({
           name: req.name,
           p_type: this.getOp(req.p_type),
-          p_val: req.p_val
+          p_value: req.p_value
         });
       } else if (req.name) {
         req_attrs.push(req.name);
@@ -72,7 +75,7 @@ export default class RequestBuilder extends Component {
   render() {
     const { attributeRequests } = this.state;
     const { credDef } = this.props;
-
+    console.log(this.state);
     const types = {
       string: ["value", "equals"],
       number: ["value", "equals", "less than", "more than"]
@@ -110,7 +113,7 @@ export default class RequestBuilder extends Component {
           </div>
           <br />
           <label className="Input__Label">Attributes</label>
-          {attributeRequests.map(({ name, p_type, p_val }, idx) => {
+          {attributeRequests.map(({ name, p_type, p_value }, idx) => {
             return (
               <AttributeRequest
                 valueCallback={this.valueCallback}
@@ -119,7 +122,7 @@ export default class RequestBuilder extends Component {
                 attributes={fields}
                 name={name}
                 p_type={p_type}
-                p_val={p_val}
+                p_value={p_value}
               />
             );
           })}

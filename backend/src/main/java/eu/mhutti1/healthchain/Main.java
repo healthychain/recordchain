@@ -101,7 +101,7 @@ public class Main {
 //            "                          \"attr3_referent\":{\"name\":\"phone\"}" +
 //            "                     }," +
 //            "                    \"requested_predicates\":{" +
-//            "                         \"predicate1_referent\":{\"name\":\"age\",\"p_type\":\">=\",\"p_value\":18}" +
+  //            "                         \"predicate1_referent\":{\"name\":\"age\",\"p_type\":\">=\",\"p_value\":18}" +
 //            "                    }" +
 //            "                  }").toString();
 //

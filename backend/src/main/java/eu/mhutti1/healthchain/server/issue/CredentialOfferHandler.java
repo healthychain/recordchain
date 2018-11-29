@@ -30,7 +30,6 @@ import static org.hyperledger.indy.sdk.anoncreds.Anoncreds.issuerCreateAndStoreC
  */
 public class CredentialOfferHandler extends EventConsumer {
 
-
   @Override
   public boolean handleEventAction(HttpExchange httpExchange) throws IOException {
 

@@ -39,7 +39,7 @@ class AttributeRequest extends Component {
   }
 
   selectValue = event => {
-    this.props.valueCallback(this.props.idx, "p_val", event.target.value);
+    this.props.valueCallback(this.props.idx, "p_value", event.target.value);
     this.setState({ input: event.target.value });
   };
 

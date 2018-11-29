@@ -43,10 +43,12 @@ public class ProofRequestRequestHandler extends NonEventConsumer {
   public String generateProofRequest(String[] attributeNames, String[] predicates) {
     JSONObject pr = generateProofTemplate();
     for (int i = 1; i <= attributeNames.length; i++) {
-      pr.getJSONObject("requested_attributes").put("attr" + i + "_referent", new JSONObject("{\"name\":\"" + attributeNames[i - 1]+ "\"}"));
+      pr.getJSONObject("requested_attributes").put("attr" + i + "_referent", new JSONObject("{\"name\":\"" + attributeNames[i - 1] + "\"}"));
     }
     for (int i = 1; i <= predicates.length; i++) {
-      pr.getJSONObject("requested_attributes").put("predicate" + i + "_referent", new JSONObject( predicates[i - 1]));
+      JSONObject predicate = new JSONObject(predicates[i - 1]);
+      predicate.put("p_value", Integer.parseInt(predicate.getString("p_value")));
+      pr.getJSONObject("requested_predicates").put("predicate" + i + "_referent", predicate);
     }
     return pr.toString();
   }
@@ -69,7 +71,7 @@ public class ProofRequestRequestHandler extends NonEventConsumer {
 
     JSONArray reqPredicatesJSON = (JSONArray) reqBody.get("req_pred");
     String[] reqPredicates = new String[reqPredicatesJSON.length()];
-    for (int i = 0; i < reqAttrsJSON.length(); i++) {
+    for (int i = 0; i < reqPredicatesJSON.length(); i++) {
       reqPredicates[i] = reqPredicatesJSON.get(i).toString();
     }
 

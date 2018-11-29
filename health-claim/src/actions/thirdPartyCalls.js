@@ -46,7 +46,7 @@ export function tpRequest(userDID, domain, req_attrs, req_pred) {
     console.log("DATA");
     console.log(data);
     dispatch(tpRequestBegin());
-    return fetch(`http://localhost:8000/proof_request_request`, {
+    return fetch(`${apiEndpoint}/proof_request_request`, {
       method: "POST",
       mode: "no-cors",
       cache: "no-cache",
