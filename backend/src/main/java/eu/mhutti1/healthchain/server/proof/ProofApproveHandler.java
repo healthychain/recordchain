@@ -13,6 +13,7 @@ import eu.mhutti1.healthchain.storage.EventStorage;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
+import org.hyperledger.indy.sdk.anoncreds.CredentialsSearchForProofReq;
 import org.hyperledger.indy.sdk.wallet.Wallet;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -42,6 +43,7 @@ public class ProofApproveHandler extends EventConsumer {
 
     String token = params.get("token");
     String eventId = params.get("event_id");
+    String masterSecretId = params.get("master_secret");
 
     Wallet offerWallet = null;
     Role accountHolder = null;
@@ -71,18 +73,13 @@ public class ProofApproveHandler extends EventConsumer {
         String credentialUuid = temp.getJSONObject(0).getJSONObject("cred_info").getString("referent");
         credIds.add(credentialUuid);
       }
-
-//      JSONArray credentialsForAttribute1 = credentialsForProof.getJSONObject("attrs").getJSONArray("attr1_referent");
-//      JSONArray credentialsForAttribute2 = credentialsForProof.getJSONObject("attrs").getJSONArray("attr2_referent");
-//      JSONArray credentialsForAttribute3 = credentialsForProof.getJSONObject("attrs").getJSONArray("attr3_referent");
-//      JSONArray credentialsForPredicate = credentialsForProof.getJSONObject("predicates").getJSONArray("predicate1_referent");
-
-//      assert (credentialsForAttribute1.length() == 1);
-//      assert (credentialsForAttribute2.length() == 1);
-//      assert (credentialsForAttribute3.length() == 0);
-//      assert (credentialsForPredicate.length() == 1);
-//TODO: Fix
-
+      List predIds = new ArrayList();
+      for (int i = 1; credentialsForProof.getJSONObject("predicates").has("predicate" + i + "_referent"); i++) {
+        JSONArray temp = credentialsForProof.getJSONObject("predicates").getJSONArray("predicate" + i + "_referent");
+        String credentialUuid = temp.getJSONObject(0).getJSONObject("cred_info").getString("referent");
+        predIds.add(credentialUuid);
+      }
+      
       // Prover create Proof
       String selfAttestedValue = "8-800-300";
       JSONObject requestedCredentialsJsonObj = new JSONObject("{\n" +
@@ -94,6 +91,9 @@ public class ProofApproveHandler extends EventConsumer {
       for (int i = 1; i <= credIds.size(); i++) {
         requestedCredentialsJsonObj.getJSONObject("requested_attributes").put("attr" + i + "_referent", new JSONObject(String.format("{\"cred_id\":\"%s\", \"revealed\": true}", credIds.get(i - 1))));
       }
+      for (int i = 1; i <= predIds.size(); i++) {
+        requestedCredentialsJsonObj.getJSONObject("requested_predicates").put("predicate" + i + "_referent", new JSONObject(String.format("{\"cred_id\":\"%s\"}", predIds.get(i - 1))));
+      }
 
 
       String schemas = new JSONObject(String.format("{\"%s\":%s}", HealthRecord.getSchemaDataId(), HealthRecord.getSchemaDataJSON())).toString();
@@ -101,8 +101,6 @@ public class ProofApproveHandler extends EventConsumer {
       CredDefStorage.CredDef credDef = CredDefStorage.getStore().get(offerDid);
       String credentialDefs = new JSONObject(String.format("{\"%s\":%s}", credDef.credDefId, credDef.credDefJson)).toString();
       String revocStates = new JSONObject("{}").toString();
-      // TODO fix
-      String masterSecretId = "master_secret";
 
 
       String proofJson = Anoncreds.proverCreateProof(offerWallet, proofRequestJson.toString(), requestedCredentialsJsonObj.toString(),

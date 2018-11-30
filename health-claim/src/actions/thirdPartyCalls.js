@@ -34,14 +34,28 @@ export const tpViewError = () => ({
   type: TP_VIEW_ERROR
 });
 
-export function tpRequest(userDID, domain, attrs) {
+export function tpRequest(userDID, domain, req_attrs, req_pred) {
+  const data = {
+    prover_did: userDID,
+    agent_domain: domain,
+    req_attrs,
+    req_pred
+  };
   return dispatch => {
     //Agent_domain - my domain
-    //Req_attrs - attributes requested, comma separated
+    console.log("DATA");
+    console.log(data);
     dispatch(tpRequestBegin());
-    return fetch(
-      `http://${domain}/proof_request_request?prover_did=${userDID}&agent_domain=${"localhost:8000"}&req_attrs=${attrs}`
-    )
+    return fetch(`${apiEndpoint}/proof_request_request`, {
+      method: "POST",
+      mode: "no-cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      body: JSON.stringify(data)
+    })
       .then(raw => handleErrors(raw))
       .then(dispatch(tpRequestSuccess()))
       .catch(error => dispatch(tpRequestError()));

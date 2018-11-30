@@ -4,11 +4,14 @@ import com.sun.net.httpserver.HttpExchange;
 import eu.mhutti1.healthchain.constants.HealthRecord;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
+import eu.mhutti1.healthchain.server.issue.CredentialOfferHandler;
+import eu.mhutti1.healthchain.storage.CredDefStorage;
 import eu.mhutti1.healthchain.storage.EventNode;
 import eu.mhutti1.healthchain.storage.EventStorage;
 import eu.mhutti1.healthchain.storage.ProofStorage;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
+import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -46,6 +49,8 @@ public class ProofVerifyHandler extends NonEventConsumer{
       System.out.println("Alex: " + values.get(i - 1));
     }
 
+    String proofJSON = ProofStorage.getStore().get(proverDid).proofJson;
+
     ProofStorage.Proof p = ProofStorage.getStore().get(proverDid);
     Map<String, String> result = new HashMap<>();
     int i = 0;
@@ -60,10 +65,16 @@ public class ProofVerifyHandler extends NonEventConsumer{
     String response = "failure";
 
 
+    String schemas = new JSONObject(String.format("{\"%s\":%s}", HealthRecord.getSchemaDataId(), HealthRecord.getSchemaDataJSON())).toString();
+    CredDefStorage.CredDef credDef = CredDefStorage.getStore().get(proverDid);
+    String credentialDefs = new JSONObject(String.format("{\"%s\":%s}", credDef.credDefId, credDef.credDefJson)).toString();
+
     System.out.println("11.Verifier is verifying proof from Prover");
     try {
-      assert Anoncreds.verifierVerifyProof(ProofStorage.getStore().get(proverDid).proofJson, proof, HealthRecord.getSchemaDataJSON(), chosenClaimsJson, revocRegsJson, null).get();
-      response = "Success!!!!!";
+      boolean valid = Anoncreds.verifierVerifyProof(proofJSON, proof, schemas, credentialDefs, revocRegsJson, "{}").get();
+      if(!valid) {
+        response = "Failure";
+      }
     } catch (InterruptedException e) {
       e.printStackTrace();
     } catch (ExecutionException e) {

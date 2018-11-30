@@ -67,13 +67,6 @@ public class CredentialIssueHandler extends EventConsumer {
 
     String credValues = Crypto.encodeCredValues(credValuesJSON);
 
-//    String cred_values = "{\n" +
-//            "        \"sex\": {\"raw\": \"male\", \"encoded\": \"5944657099558967239210949258394887428692050081607692519917050\"},\n" +
-//            "        \"name\": {\"raw\": \"Alex\", \"encoded\": \"1139481716457488690172217916278103335\"},\n" +
-//            "        \"height\": {\"raw\": \"175\", \"encoded\": \"175\"},\n" +
-//            "        \"age\": {\"raw\": \"28\", \"encoded\": \"28\"}\n" +
-//            "    }";
-
     // Issuer create Credential
     AnoncredsResults.IssuerCreateCredentialResult createCredentialResult = null;
     try {
