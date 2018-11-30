@@ -1,5 +1,6 @@
 .Settings__container {
   display: flex;
+
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -7,6 +8,9 @@
 
 .Settings__inner_container {
   margin-top: 20px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.01), 0 8px 32px -8px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  padding: 48px;
   max-width: 800px;
   min-width: 800px;
   display: flex;

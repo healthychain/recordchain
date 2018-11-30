@@ -30,7 +30,7 @@ class Settings extends React.Component<Props, State> {
       <div className="Settings__container">
         <div className="Settings__inner_container">
           <div className="Settings__row">
-            <div className="Settings__row__name">Your did</div>
+            <div className="Settings__row__name">Your DID</div>
             <div className="Settings__input__container">{did}</div>
           </div>
 
@@ -45,7 +45,7 @@ class Settings extends React.Component<Props, State> {
           </div>
           <div className="Settings__row">
             <div
-              className="Settings__submit__button"
+              className="Button Button__Green"
               onClick={() => createMasterSecret(this.state.masterSecret)}
             >
               Submit
