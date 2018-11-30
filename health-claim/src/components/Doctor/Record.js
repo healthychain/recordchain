@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table} from 'reactstrap';
 
 const record_data = [{
-    "Name": "Irina Danes",
+    "Name": "David Smith",
     "Age": "21",
     "Date of Birth": "01/06/1997",
     "Address": "London",
