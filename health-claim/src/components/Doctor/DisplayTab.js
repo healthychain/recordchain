@@ -3,6 +3,7 @@ import "./Doctor.scss";
 import EventPanel from "../EventPanel/EventPanel";
 import "../Login/LoginForm.scss";
 import { apiEndpoint } from "../../apiEndpoint";
+import ModalExample from "../Doctor/Record";
 
 class IssueTab extends React.Component<> {
   constructor(props) {
@@ -11,13 +12,15 @@ class IssueTab extends React.Component<> {
     this.state = {
       dropdownOpen: false,
       data: {},
-      username: null
+      username: null,
+      shown: false
     };
   }
 
-  handleSubmit = event => {
+  handleSubmit() {
     //this.props.fetchCreds(sessionID);
-  };
+    this.setState({shown: true});
+  }
 
   componentWillReceiveProps(newProps) {
     if (newProps.sessionID !== this.props.sessionID) {
@@ -43,9 +46,10 @@ class IssueTab extends React.Component<> {
           value={this.state.username}
         />
         <div className="separator" />
-        <button onClick={this.handleSubmit} className="Button Button__Green">
+        <button onClick={this.handleSubmit.bind(this)} className="Button Button__Green">
           Submit
         </button>
+        {this.state.shown && <ModalExample> </ModalExample>}
       </div>
     );
   }
