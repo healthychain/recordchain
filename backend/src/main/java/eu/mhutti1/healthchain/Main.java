@@ -49,7 +49,7 @@ public class Main {
 //    System.out.println("Written by Steward: " + doctor.getVerKey());
 //    System.out.println("Queried from Ledger: " + trustAnchorVerkeyFromLedger);
 //
-////    steward.buildAndSubmitSchema(pool, new HealthRecord().getSchemaDataJSON());
+//steward.buildAgndSubmitSchema(new HealthRecord().getSchemaDataJSON());
 //
 //    String masterSecretId = "master_secret";
 //
