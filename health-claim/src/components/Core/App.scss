@@ -22,7 +22,6 @@ html {
 .Main {
   // max-width: 960px;
   margin: 0 auto;
-  padding-bottom: 96px;
   z-index: 2;
 }
 
@@ -59,6 +58,7 @@ html {
 .Header {
   display: flex;
   flex-direction: column;
+  min-height: 112px;
 }
 .Header__Layout {
   display: flex;
