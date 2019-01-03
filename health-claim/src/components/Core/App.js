@@ -11,7 +11,7 @@ export class App extends React.PureComponent {
     return (
       <SessionAuthenticator>
         <Router>
-          <div>
+          <div className="Wrapper">
             <link
               rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -50,6 +50,19 @@ export class App extends React.PureComponent {
               </div>
             </div>
             <div className="Body">
+              {/* <iframe src="https://giphy.com/embed/5QYmwnydFO8MNqhJOb" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/5QYmwnydFO8MNqhJOb">via GIPHY</a></p> */}
+              <video
+                className="video_background"
+                autoPlay
+                muted
+                id="video1"
+                loop
+              >
+                <source
+                  src="https://media.giphy.com/media/5QYmwnydFO8MNqhJOb/giphy.mp4"
+                  type="video/mp4"
+                />
+              </video>
               <div className="Main">
                 <Route component={RoutesContainer} />
               </div>

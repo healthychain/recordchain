@@ -2,11 +2,18 @@
   background: #ffffff;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.01), 0 8px 32px -8px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
-  padding: 48px;
+  padding: 38px;
 }
 .Home__Container {
   max-width: 960px;
   margin: 0 auto;
+  min-width: 800px;
+  opacity: 0.95;
+}
+
+.Centered {
+  align-items: center;
+  justify-content: center;
 }
 
 .Box__NP {
@@ -16,6 +23,24 @@
   width: 100%;
   display: flex;
 }
+
+.Flex__Column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Flex__Blue {
+  background-color: #91a9b9;
+  color: white;
+}
+
+.Flex__DarkBlue {
+  background-color: #748794;
+  color: white;
+}
+
 .Flex__Separator {
   flex: 3 !important;
 }
@@ -29,6 +54,11 @@
 .Page__Halftitle {
   margin-top: 0;
 }
+
+.Page__medium__text {
+  font-size: 24px;
+}
+
 .Page__Pretitle {
   padding-top: 32px;
 }
