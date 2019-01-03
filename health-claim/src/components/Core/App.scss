@@ -136,7 +136,10 @@ html {
 
 .video_background {
   /* class name used in javascript too */
-  height: 100%; /* height needs to be set to 100% */
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
   position: absolute;
   left: 0;
   top: 0;
