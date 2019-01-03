@@ -11,6 +11,7 @@ html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: scroll;
 }
 
 .Wrapper {
@@ -28,6 +29,7 @@ html {
 .Page__Title {
   font-size: 34px;
   padding: 10px 0px;
+  margin: 0;
   .Page__Title--deadline {
     float: right;
     position: absolute;
