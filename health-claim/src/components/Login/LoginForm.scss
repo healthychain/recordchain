@@ -6,8 +6,10 @@ hr {
 }
 
 .Form__Container {
+  min-width: 500px;
   max-width: 960px;
   margin: 0 auto;
+  opacity: 0.95;
 }
 .Form__Rack {
   padding-bottom: 16px;

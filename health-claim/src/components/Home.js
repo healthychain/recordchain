@@ -13,9 +13,7 @@ export default class Home extends Component {
             <div className="Flex__Double">
               <div className="Flex__Half Flex__Grey Flex__Separator">
                 <h2 className="Page__Halftitle">Log In</h2>
-                <p className="Page__Text">
-                  To access your medical records safely.
-                </p>
+                <p className="Page__Text">To access medical records safely.</p>
                 <p>
                   <LinkButton
                     to="/login-doctor"
