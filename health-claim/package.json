@@ -11,6 +11,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-bootstrap": "^0.32.4",
+    "react-countup": "^4.0.0",
     "react-dom": "^16.5.2",
     "react-favicon": "0.0.14",
     "react-grid-layout": "^0.16.6",

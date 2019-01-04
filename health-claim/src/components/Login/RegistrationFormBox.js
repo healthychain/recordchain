@@ -34,66 +34,74 @@ export default class RegistrationFormBox extends React.Component {
     const { isPatient } = this.state;
     return (
       <div className="Form__Container">
-        <h1 className="Page__Title">Sign up</h1>
-        <div className="Box Box__NP">
-          <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-            <div className="Flex__Double">
-              <div className="Flex__Half Flex__Grey Flex__Separator">
-                {/*<h2 className="Page__Halftitle">Log in</h2>*/}
-                <label className="Input__Label" htmlFor="username">
-                  Your username
-                </label>
-                <input
-                  className="Input__Text"
-                  placeholder="Username"
-                  type="text"
-                  name="username"
-                  id="username"
-                />
-                <br />
-                <label className="Input__Label" htmlFor="password">
-                  Password
-                </label>
-                <input
-                  placeholder="Password"
-                  className="Input__Text"
-                  type="password"
-                  name="password"
-                  id="passowrd"
-                />
-                <br />
-                <label className="Input__Label">I am a:</label>
-                <RoleButton isPatient={isPatient} toggle={this.toggleRole} />
-                <hr />
-                <input
-                  onClick={this.handleSubmit}
-                  type="button"
-                  value="Sign up"
-                  className="Button Button__Green"
-                />
-              </div>
-              <div className="Flex__Half">
-                <h2 className="Page__Halftitle">Doctor approval</h2>
-                <p className="Page__Text">
-                  Use a doctor DID or their QR code to confirm your signup.
-                </p>
-                <QRReaderButton />
-                <br />
-                <div className="Page__Text">
-                  <label className="Input__Label" htmlFor="password">
-                    Or enter doctor's DID
+        <div className="Flex__Column">
+          <div
+            className="Flex__Blue Flex__Centered Flex__Double"
+            style={{ padding: "5px 38px" }}
+          >
+            <h1 className="Page__Title">{`Create new account`}</h1>
+          </div>
+          <div className="Box Box__NP">
+            <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
+              <div className="Flex__Double">
+                <div className="Flex__Half Flex__Grey Flex__Separator">
+                  {/*<h2 className="Page__Halftitle">Log in</h2>*/}
+                  <label className="Input__Label" htmlFor="username">
+                    Username
                   </label>
                   <input
-                    placeholder="Doctor DID"
                     className="Input__Text"
-                    type="username"
-                    name="did"
-                    id="did"
+                    placeholder="Username"
+                    type="text"
+                    name="username"
+                    id="username"
+                  />
+                  <br />
+                  <label className="Input__Label" htmlFor="password">
+                    Password
+                  </label>
+                  <input
+                    placeholder="Password"
+                    className="Input__Text"
+                    type="password"
+                    name="password"
+                    id="passowrd"
+                  />
+                  <br />
+                  <label className="Input__Label">I am a:</label>
+                  <RoleButton isPatient={isPatient} toggle={this.toggleRole} />
+                  <hr />
+                  <input
+                    onClick={this.handleSubmit}
+                    type="button"
+                    value="Sign up"
+                    className="Button Button__Green"
                   />
                 </div>
+                <div className="Flex__Half">
+                  <h2 className="Page__Halftitle">Approval</h2>
+                  <p className="Page__Text">
+                    Use an authorirty DID or their QR code to confirm your
+                    signup.
+                  </p>
+                  <QRReaderButton />
+                  <br />
+                  <div className="Page__Text">
+                    <label className="Input__Label" htmlFor="password">
+                      Or enter authority DID
+                    </label>
+                    <input
+                      placeholder="Doctor DID"
+                      className="Input__Text"
+                      type="username"
+                      name="did"
+                      id="did"
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     );
