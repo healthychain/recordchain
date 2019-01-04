@@ -32,7 +32,11 @@ export class App extends React.PureComponent {
                 </div>
               </div>
               <div className="Header__Lower">
-                <h2 className="Header__Title">Decentralized Healthcare</h2>
+                <h2 className="Header__Title">
+                  <Link style={{ textDecoration: "none" }} to="/dashboard">
+                    Decentralized Healthcare
+                  </Link>
+                </h2>
                 {this.props.loggedIn
                   ? [
                       <div className="Header__Link" key="1">
