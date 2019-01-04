@@ -1,12 +1,13 @@
 package eu.mhutti1.healthchain.constants;
 
+import eu.mhutti1.healthchain.utils.Crypto;
 import org.hyperledger.indy.sdk.pool.PoolJSONParameters;
 
 /**
  * Created by mhutti1 on 17/10/18.
  */
 public class Constants {
-  public static String WALLET_NAME = "myWallet";
+  public static String WALLET_NAME = Crypto.hashPlainText("myWallet");
   public static String PROVER_WALLET_NAME = "prover_wallet";
 
   public static String POOL_NAME = "pool";
@@ -15,7 +16,7 @@ public class Constants {
   public static String WALLET_CONFIG = "{\"id\": \""+ WALLET_NAME + "\"}";
   public static String PROVER_WALLET_CONFIG = "{\"id\": \""+ PROVER_WALLET_NAME + "\"}";
 
-  public static String WALLET_CREDS = "{\"key\": \"wallet_key\"}";
+  public static String WALLET_CREDS = "{\"key\": \"" + Crypto.hashPlainText("myKey") + "\"}";
   public static int PROTOCOL_VERSION = 2;
 
   public static String SERVER_DOMAIN = "localhost:8000";

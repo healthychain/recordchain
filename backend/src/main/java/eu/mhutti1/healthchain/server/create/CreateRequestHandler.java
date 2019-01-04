@@ -5,6 +5,7 @@ import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.storage.EventNode;
 import eu.mhutti1.healthchain.storage.EventStorage;
+import eu.mhutti1.healthchain.utils.Crypto;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -29,7 +30,8 @@ public abstract class CreateRequestHandler extends NonEventConsumer {
 
     String password = params.get("password");
     String username = params.get("username");
-    String issuerDid = params.get("issuer_did");
+    String issuerDid = params.getOrDefault("issuer_did", "Th7MpTaRZVRYnPiabds81Y");
+
 
     String response = "Request sent";
     int responseCode = RequestUtils.statusOK();
