@@ -3,7 +3,9 @@
 exports[`App should render without crashing 1`] = `
 <withRouter(Connect(SessionAuthenticator))>
   <BrowserRouter>
-    <div>
+    <div
+      className="Wrapper"
+    >
       <link
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         rel="stylesheet"
@@ -35,13 +37,35 @@ exports[`App should render without crashing 1`] = `
           <h2
             className="Header__Title"
           >
-            Decentralized Healthcare
+            <Link
+              replace={false}
+              style={
+                Object {
+                  "textDecoration": "none",
+                }
+              }
+              to="/dashboard"
+            >
+              Decentralized Healthcare
+            </Link>
           </h2>
         </div>
       </div>
       <div
         className="Body"
       >
+        <video
+          autoPlay={true}
+          className="video_background"
+          id="video1"
+          loop={true}
+          muted={true}
+        >
+          <source
+            src="https://media.giphy.com/media/5QYmwnydFO8MNqhJOb/giphy.mp4"
+            type="video/mp4"
+          />
+        </video>
         <div
           className="Main"
         >
