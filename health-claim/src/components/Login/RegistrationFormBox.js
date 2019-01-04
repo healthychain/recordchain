@@ -84,13 +84,16 @@ export default class RegistrationFormBox extends React.Component {
                     Use an authorirty DID or their QR code to confirm your
                     signup.
                   </p>
-                  <QRReaderButton />
+                  <QRReaderButton
+                    callback={data => this.setState({ qr: data })}
+                  />
                   <br />
                   <div className="Page__Text">
                     <label className="Input__Label" htmlFor="password">
                       Or enter authority DID
                     </label>
                     <input
+                      value={this.state.qr}
                       placeholder="Doctor DID"
                       className="Input__Text"
                       type="username"

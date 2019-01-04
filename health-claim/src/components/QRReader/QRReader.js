@@ -12,6 +12,7 @@ export default class QRReader extends Component {
   }
   handleScan(data) {
     if (data) {
+      this.props.QRCallback(data);
       this.setState({
         result: data
       });
@@ -29,7 +30,7 @@ export default class QRReader extends Component {
           onScan={this.handleScan}
           style={{ width: "100%" }}
         />
-        <p>{this.state.result}</p>
+        {/* <p>{this.state.result}</p> */}
       </div>
     );
   }
