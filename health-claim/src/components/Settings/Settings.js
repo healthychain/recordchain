@@ -25,6 +25,11 @@ class Settings extends React.Component<Props, State> {
     this.setState({ masterSecret: event.target.value });
   };
 
+  componentDidMount() {
+    const { sessionID } = this.props;
+    this.props.fetchNotifications(sessionID);
+  }
+
   render() {
     const { createMasterSecret, did } = this.props;
     return (

@@ -7,7 +7,8 @@ const mapStateToProps = (state, props) => ({
   ...props,
   loading: state.fetchNotifications.loading,
   error: state.fetchNotifications.error,
-  events: state.fetchNotifications.notifications
+  events: state.fetchNotifications.notifications,
+  sessionID: state.sessionToken.token
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

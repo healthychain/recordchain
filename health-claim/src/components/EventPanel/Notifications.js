@@ -8,12 +8,18 @@ type Props = {
   events: Array<any>,
   loading: Boolean,
   error: Boolean,
-  fetchNotifications: Function
+  fetchNotifications: Function,
+  sessionID: String
 };
 
 export default class EventPanel extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    const { sessionID } = this.props;
+    this.props.fetchNotifications(sessionID);
   }
 
   render() {
