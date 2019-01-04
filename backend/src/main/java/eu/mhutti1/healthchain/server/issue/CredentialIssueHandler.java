@@ -95,7 +95,7 @@ public class CredentialIssueHandler extends EventConsumer {
             .put("credDefJSON", credDefJSON)
             .put("credentialRequestMetadataJSON", credentialRequestMetadataJSON);
 
-    EventStorage.store(proverDid, new EventNode("", issuerDid, newPayload, "credential_store", null));
+    EventStorage.store(proverDid, new EventNode("Your health record is ready to be stored in your wallet", issuerDid, newPayload, "credential_store", null));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

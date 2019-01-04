@@ -70,6 +70,13 @@
   padding: 10px 10px 0 10px;
 }
 
+.Event__Header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .EventActions {
   display: flex;
   flex-direction: row;

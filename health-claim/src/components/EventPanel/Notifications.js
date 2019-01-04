@@ -28,16 +28,15 @@ export default class EventPanel extends Component {
             <h1 className="Page__Title">{`Notifications panel`}</h1>
           </div>
           <div className="Notifications__inner_container">
-            {this.props.events.length !== 0 ? (
-              this.props.events.map(
-                (event, idx) => (
-                  console.log(event),
+            <div style={{ margin: "20px 0", width: "100%" }}>
+              {this.props.events.length !== 0 ? (
+                this.props.events.map((event, idx) => (
                   <NotificationEventContainer {...event} idx={idx} />
-                )
-              )
-            ) : (
-              <p> You currently have no notifications</p>
-            )}
+                ))
+              ) : (
+                <p> You currently have no notifications</p>
+              )}
+            </div>
           </div>
         </div>
       </div>
