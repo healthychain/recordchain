@@ -40,6 +40,8 @@ public class CreateMasterKeyHandler extends NonEventConsumer {
     } catch (SessionInvalidException e) {
       response = "Invalid session token";
       responseCode = RequestUtils.statusSessionExpired();
+    } catch (IndyException e) {
+      e.printStackTrace();
     }
 
     if(proverWallet != null) {

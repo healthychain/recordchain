@@ -9,6 +9,7 @@ import LoginFormContainer from "./containers/LoginFormContainer";
 import RegisterFormContainer from "./containers/RegisterFormContainer";
 import SettingsContainer from "./containers/SettingsContainer";
 import ThirdPartyContainer from "./containers/ThirdPartyContainer";
+import NotificationsContainer from "./containers/NotificationsContainer";
 
 class Routes extends Component {
   render() {
@@ -93,6 +94,22 @@ class Routes extends Component {
           component={props =>
             loggedIn ? (
               <SettingsContainer />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: "/welcome",
+                  state: { from: props.location }
+                }}
+              />
+            )
+          }
+        />
+        <Route
+          path="/notifications"
+          exact
+          component={props =>
+            loggedIn ? (
+              <NotificationsContainer />
             ) : (
               <Redirect
                 to={{

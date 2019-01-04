@@ -48,6 +48,8 @@ public class CredentialCacheHandler extends EventConsumer {
     } catch (SessionInvalidException e) {
       response = "Invalid session token";
       responseCode = RequestUtils.statusSessionExpired();
+    } catch (IndyException e) {
+      e.printStackTrace();
     }
 
     if (issuerWallet == null) {

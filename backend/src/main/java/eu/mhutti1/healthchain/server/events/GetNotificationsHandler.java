@@ -7,6 +7,7 @@ import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.EventNode;
 import eu.mhutti1.healthchain.storage.EventQueue;
 import eu.mhutti1.healthchain.storage.EventStorage;
+import org.hyperledger.indy.sdk.IndyException;
 import org.json.JSONArray;
 
 import java.io.IOException;
@@ -42,6 +43,8 @@ public class GetNotificationsHandler extends NonEventConsumer {
       e.printStackTrace();
       response = "Invalid token";
       responseCode = RequestUtils.statusSessionExpired();
+    } catch (IndyException e) {
+      e.printStackTrace();
     }
 
     if(did != null) {

@@ -6,7 +6,8 @@ import { logout } from "../actions/logout";
 const mapStateToProps = (state, props) => ({
   ...props,
   loggedIn: state.verifySession.success,
-  token: state.sessionToken.token
+  token: state.sessionToken.token,
+  notificationsNumber: state.fetchNotifications.notifications.length
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

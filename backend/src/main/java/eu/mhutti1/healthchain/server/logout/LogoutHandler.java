@@ -35,6 +35,8 @@ public class LogoutHandler extends NonEventConsumer {
       proverWallet = SessionManager.getSessionCredentials(token).getWallet();
     } catch (SessionInvalidException e) {
       response = "Invalid token";
+    } catch (IndyException e) {
+      e.printStackTrace();
     }
 
     if (proverWallet != null) {

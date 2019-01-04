@@ -41,6 +41,8 @@ public class GetCredentialsHandler extends NonEventConsumer {
       e.printStackTrace();
       response = "Invalid token";
       responseCode = RequestUtils.statusSessionExpired();
+    } catch (IndyException e) {
+      e.printStackTrace();
     }
 
     if(proverWallet == null){

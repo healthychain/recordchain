@@ -5,7 +5,7 @@ html {
   background: #f2f2f2;
 }
 .Body {
-  background: #f2f2f2;
+  background: #deeff5;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -145,4 +145,12 @@ html {
   left: 0;
   top: 0;
   z-index: 0;
+}
+
+.video__dark {
+  opacity: 0;
+}
+
+.Body__notcentered {
+  justify-content: flex-start;
 }

@@ -1,13 +1,25 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  withRouter
+} from "react-router-dom";
+import classNames from "classnames";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.scss";
 import RoutesContainer from "../../RoutesContainer";
 
 import SessionAuthenticator from "../../containers/SessionAuthenticatorContainer";
 
-export class App extends React.PureComponent {
+type Props = {
+  loggedIn: Boolean,
+  notificationsNumber: Number
+};
+
+export class App extends React.PureComponent<Props> {
   render() {
+    const { loggedIn, notificationsNumber } = this.props;
     return (
       <SessionAuthenticator>
         <Router>
@@ -48,15 +60,28 @@ export class App extends React.PureComponent {
                         <Link className="Header__Link__text" to="/settings">
                           Settings
                         </Link>
+                      </div>,
+                      <div className="Header__Link" key="3">
+                        <Link
+                          className="Header__Link__text"
+                          to="/notifications"
+                        >
+                          {`Notifications (${notificationsNumber})`}
+                        </Link>
                       </div>
                     ]
                   : null}
               </div>
             </div>
-            <div className="Body">
-              {/* <iframe src="https://giphy.com/embed/5QYmwnydFO8MNqhJOb" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/5QYmwnydFO8MNqhJOb">via GIPHY</a></p> */}
+            <div
+              className={classNames("Body", {
+                ["Body__notcentered"]: loggedIn
+              })}
+            >
               <video
-                className="video_background"
+                className={classNames("video_background", {
+                  ["video__dark"]: loggedIn
+                })}
                 autoPlay
                 muted
                 id="video1"
@@ -78,4 +103,4 @@ export class App extends React.PureComponent {
   }
 }
 
-export default App;
+export default withRouter(App);

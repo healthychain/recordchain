@@ -28,7 +28,7 @@ class Doctor extends Component {
   }
 
   fetchNotifications() {
-    console.log(this.props.sessionID)
+    console.log(this.props.sessionID);
     this.props.fetchNotifications(this.props.sessionID);
   }
 
@@ -36,41 +36,43 @@ class Doctor extends Component {
     const { tabIndex } = this.state;
     return (
       <div className="dashboard-layout">
-        <div className="dashboard-main">
-          <div className="dashboard-inner-alt">
-            <div className="Box">
-              <div className="Box__Tabs">
-                {TABS.map((tab, idx) => (
-                  <div
-                    onClick={() => this.setState({ tabIndex: idx })}
-                    className={`Tab__single ${
-                      tabIndex === idx ? "Tab__single__active" : ""
-                    }`}
-                  >
-                    <p
-                      className={`Tab__text ${
-                        tabIndex === idx ? "Tab__text__active" : ""
+        <div className="Flex__Column">
+          <div
+            className="Flex__Blue Flex__Centered Flex__Double"
+            style={{ padding: "5px 38px" }}
+          >
+            <h1 className="Page__Title">{`Dashboard`}</h1>
+          </div>
+          <div className="dashboard-main">
+            <div className="dashboard-inner-alt">
+              <div className="Box">
+                <div className="Box__Tabs">
+                  {TABS.map((tab, idx) => (
+                    <div
+                      onClick={() => this.setState({ tabIndex: idx })}
+                      className={`Tab__single ${
+                        tabIndex === idx ? "Tab__single__active" : ""
                       }`}
                     >
-                      {tab}
-                    </p>
-                  </div>
-                ))}
+                      <p
+                        className={`Tab__text ${
+                          tabIndex === idx ? "Tab__text__active" : ""
+                        }`}
+                      >
+                        {tab}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <div className="doctor__content">
+                  {tabIndex === 0 && <IsssueTab {...this.props} />}
+                  {tabIndex === 1 && <DisplayTab {...this.props} />}
+                </div>
               </div>
-              <div className="doctor__content">
-                {tabIndex === 0 && <IsssueTab {...this.props} />}
-                {tabIndex === 1 && <DisplayTab {...this.props} />}
-              </div>
+              <br />
             </div>
-            <br />
           </div>
         </div>
-        <EventPanel
-          fetchNotifications={() => this.fetchNotifications()}
-          loading={this.props.notificationsLoading}
-          error={this.props.notificationsError}
-          events={this.props.notifications}
-        />
       </div>
     );
   }

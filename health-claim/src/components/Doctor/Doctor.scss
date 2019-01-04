@@ -1,11 +1,9 @@
 .dashboard-inner {
   align-content: center;
   margin: 0 auto;
-  margin-top: 3em;
   margin-left: 0 auto;
   text-align: center;
   &-alt {
-    padding-top: 3em;
     min-width: 800px;
   }
 }
@@ -57,9 +55,10 @@
 
 .dashboard-layout {
   display: flex;
-  height: calc(100vh - 56px - 56px);
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3em;
 }
 
 .search-button {

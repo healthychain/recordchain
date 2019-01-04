@@ -6,6 +6,7 @@ import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
+import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.wallet.Wallet;
 
 import java.io.IOException;
@@ -30,7 +31,12 @@ public class SessionVerifyHandler extends NonEventConsumer {
     String response = "session verified";
     int responseCode = RequestUtils.statusOK();
 
-    boolean isSessionValid = SessionManager.isSessionValid(token);
+    boolean isSessionValid = false;
+    try {
+      isSessionValid = SessionManager.isSessionValid(token);
+    } catch (IndyException e) {
+      e.printStackTrace();
+    }
 
     String did = "";
 
@@ -44,6 +50,8 @@ public class SessionVerifyHandler extends NonEventConsumer {
     } catch (SessionInvalidException e) {
       e.printStackTrace();
       responseCode = RequestUtils.statusSessionExpired();
+    } catch (IndyException e) {
+      e.printStackTrace();
     }
 
     response = RequestUtils.wrapResponse("did", did);
