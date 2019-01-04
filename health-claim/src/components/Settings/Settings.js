@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import "./Settings.scss";
+import QRCode from "qrcode.react";
 
 type Props = {
   createMasterSecret: Fucntion
@@ -31,6 +32,8 @@ class Settings extends React.Component<Props, State> {
         <div className="Settings__inner_container">
           <div className="Settings__row">
             <div className="Settings__row__name">Your DID</div>
+            <QRCode value={did} />
+
             <div className="Settings__input__container">{did}</div>
           </div>
 
