@@ -31,6 +31,12 @@ class Settings extends React.Component<Props, State> {
     this.props.fetchNotifications(sessionID);
   }
 
+  clipboard = e => {
+    document.getElementById("did").select();
+    document.execCommand("copy");
+    e.target.focus();
+  };
+
   render() {
     const { createMasterSecret, did } = this.props;
     return (
@@ -50,10 +56,14 @@ class Settings extends React.Component<Props, State> {
               </div>
             </div>
             <div className="Settings__row">
-              <div className="Settings__row__name">Your DID</div>
+              <div onClick={this.clipboard} className="Settings__row__name">
+                Your DID (copy)
+              </div>
               <QRCode value={did} />
 
-              <div className="Settings__input__container">{did}</div>
+              <div className="Settings__input__container">
+                <input style={{ width: "80%" }} value={did} readOnly id="did" />{" "}
+              </div>
             </div>
 
             <div className="Settings__row" style={{ marginTop: "20px" }}>
