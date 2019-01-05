@@ -85,8 +85,7 @@ public class Server {
     server.createEventEndpoint("/credential_store", new CredentialStoreHandler());
 
     // Temp store read
-    server.createEventEndpoint("/credential_cache_view", new CredentialCacheHandler());
-
+    server.createEndpoint("/credential_cache_view", new CredentialCacheHandler());
 
 
     // proof handling
