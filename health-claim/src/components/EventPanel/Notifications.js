@@ -40,7 +40,10 @@ export default class EventPanel extends Component {
                   <NotificationEventContainer {...event} idx={idx} />
                 ))
               ) : (
-                <p> You currently have no notifications</p>
+                <p style={{ width: "100%", textAlign: "center" }}>
+                  {" "}
+                  You currently have no notifications
+                </p>
               )}
             </div>
           </div>

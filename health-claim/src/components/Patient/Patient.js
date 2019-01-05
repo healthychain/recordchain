@@ -40,7 +40,7 @@ class Patient extends Component {
                 <div className="separator" />
                 {!credentials || Object.keys(credentials).length === 0 ? (
                   <>
-                    <h3>No health record issued yet</h3>{" "}
+                    <p>No health record issued yet</p>
                   </>
                 ) : (
                   <>
