@@ -48,7 +48,7 @@ class IssueTab extends React.Component<> {
     const { credDef } = this.props;
     return (
       <div>
-        <h3>Issue a new record</h3>
+        <h3>Create new health record</h3>
         <div className="separator" />
         <label className="Input__Label">Patient's username</label>
         <input
@@ -67,29 +67,48 @@ class IssueTab extends React.Component<> {
               Refresh
             </button>
           ) : (
-            credDef.map(credential => (
-              <div className="Form__Cell" key={credential}>
-                <label className="Input__Label" htmlFor={credential}>
-                  {credential[0].toUpperCase() + credential.substring(1)}
-                </label>
-                <input
-                  onChange={e => {
-                    this.setState({
-                      data: {
-                        ...this.state.data,
-                        [e.target.name]: e.target.value
-                      }
-                    });
-                  }}
-                  className="Input__Text"
-                  value={this.state[credential]}
-                  key={credential}
-                  type="text"
-                  name={credential}
-                />
+            credDef.map((credential, idx) => (
+              <div className="HealthRecord__cell" key={credential}>
+                <div className="Flex__Column">
+                  <div className="HealthRecord__key">
+                    <label
+                      className="HealthRecord__key__text"
+                      htmlFor={credential}
+                    >
+                      {credential[0].toUpperCase() + credential.substring(1)}
+                    </label>
+                  </div>
+                  <div className="HealthRecord__key_sep" />
+                </div>
+                <dic
+                  className="Flex__Column"
+                  style={{ width: "100%", height: "39px" }}
+                >
+                  <div className="HealthRecord__value">
+                    <input
+                      onChange={e => {
+                        this.setState({
+                          data: {
+                            ...this.state.data,
+                            [e.target.name]: e.target.value
+                          }
+                        });
+                      }}
+                      className="HealthRecord__Input"
+                      value={this.state[credential]}
+                      key={credential}
+                      type="text"
+                      name={credential}
+                    />
+                    {idx + 1 !== credDef.length && (
+                      <div className="HealthRecord__value_sep" />
+                    )}
+                  </div>
+                </dic>
               </div>
             ))
           )}
+          <div className="separator" />
           <button onClick={this.handleSubmit} className="Button Button__Green">
             Submit
           </button>

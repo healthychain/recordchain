@@ -6,7 +6,7 @@ import { apiEndpoint } from "../../apiEndpoint";
 import IsssueTab from "./IssueTab";
 import DisplayTab from "./DisplayTab";
 
-const TABS = ["Issue", "View"];
+const TABS = ["New Patient", "Recurring Patient"];
 
 class Doctor extends Component {
   constructor(props) {
@@ -28,7 +28,6 @@ class Doctor extends Component {
   }
 
   fetchNotifications() {
-    console.log(this.props.sessionID);
     this.props.fetchNotifications(this.props.sessionID);
   }
 

@@ -33,7 +33,7 @@ class IssueTab extends React.Component<> {
   render() {
     return (
       <div>
-        <h3>View a health record</h3>
+        <h3>Update an existing health record</h3>
         <div className="separator" />
         <label className="Input__Label">Patient's username</label>
         <input

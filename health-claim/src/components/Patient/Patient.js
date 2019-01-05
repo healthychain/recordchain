@@ -36,21 +36,40 @@ class Patient extends Component {
           <div className="dashboard-main">
             <div className="dashboard-inner-alt">
               <div className="Box">
+                <h3>Your personal health record</h3>
+                <div className="separator" />
                 {!credentials || Object.keys(credentials).length === 0 ? (
                   <>
                     <h3>No health record issued yet</h3>{" "}
                   </>
                 ) : (
                   <>
-                    {Object.keys(credentials).map(key => (
-                      <>
-                        <label className="Input__Label">
-                          {key[0].toUpperCase() +
-                            key.substring(1) +
-                            ":\t " +
-                            credentials[key]}
-                        </label>
-                      </>
+                    {Object.keys(credentials).map((key, idx) => (
+                      <div className="HealthRecord__cell" key={key}>
+                        <div className="Flex__Column">
+                          <div className="HealthRecord__key">
+                            <label className="HealthRecord__key__text">
+                              {key[0].toUpperCase() + key.substring(1)}
+                            </label>
+                          </div>
+                          <div className="HealthRecord__key_sep" />
+                        </div>
+                        <dic
+                          className="Flex__Column"
+                          style={{ width: "100%", height: "39px" }}
+                        >
+                          <div className="HealthRecord__value">
+                            <div className="HealthRecord__Input">
+                              <p style={{ padding: "0", margin: "0" }}>
+                                {credentials[key]}
+                              </p>
+                            </div>
+                            {idx + 1 !== Object.keys(credentials).length && (
+                              <div className="HealthRecord__value_sep" />
+                            )}
+                          </div>
+                        </dic>
+                      </div>
                     ))}
                   </>
                 )}
