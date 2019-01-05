@@ -34,7 +34,7 @@ public class CredentialRequestHandler extends EventConsumer {
 
     String token = params.get("token");
     String eventId = params.get("event_id");
-    String masterSecret = params.get("master_secret");
+    String masterSecret = "master_secret";
 //    String masterSecret = "master_secret";
 
     Wallet proverWallet = null;
