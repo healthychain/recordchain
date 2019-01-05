@@ -36,10 +36,12 @@ public class ClaimStorage {
   public static class ClaimDef implements Serializable {
     public final Map<String, String> credentials;
     public final long timestamp;
+    public final int counter;
 
-    public ClaimDef(Map<String, String> credentials) {
+    public ClaimDef(Map<String, String> credentials, int counter) {
       this.credentials = credentials;
       this.timestamp = Instant.now().getEpochSecond();
+      this.counter = counter;
     }
   }
 
