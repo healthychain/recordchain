@@ -5,58 +5,83 @@ package eu.mhutti1.healthchain.constants;
  */
 public class HealthRecordAttributesStandard implements HealthRecordAttributes {
 
-    public static String schemaId = "2";
+    public static String schemaId = "3";
 
     public static String version = "1.0";
 
-    public static String name = "health_record_standard";
+    public static String name = "health_record_standard_sectioned";
     
-    public static String attributes =
-            "[\"resource\"," +
-                    "\"identifier\"," +
-                    "\"active\"," +
-                    "\"name\"," +
-                    "\"gender\"," +
-                    "\"birthdate\"," +
-                    "\"deceased\"," +
-                    "\"address\"," +
-                    "\"maritalStatus\"," +
-                    "\"photo\"," +
-                    "\"contact\"," +
-                    "\"organization\"," +
-                    "\"communication_preference\"," +
-                    "\"activity_level\"," +
-                    "\"heart_rate\"," +
-                    "\"heart_pressure_sys\"," +
-                    "\"heart_pressure_dia\"," +
-                    "\"cholesterol\"," +
-                    "\"eye_sight\"," +
-                    "\"history_surgeries\"," +
-                    "\"list_medications\"," +
-                    "\"last_checkup_date\"]";
-
     public static String[] attrs = new String[]{
-            "{\"name\": \"resource\", \"type\": \"string\"}",
-            "{\"name\": \"identifier\", \"type\": \"number\"}",
-            "{\"name\": \"active\", \"type\": \"boolean\"}",
-            "{\"name\": \"name\", \"type\": \"string\"}",
-            "{\"name\": \"gender\", \"type\": \"string\"}",
-            "{\"name\": \"birthdate\", \"type\": \"string\"}",
-            "{\"name\": \"deceased\", \"type\": \"boolean\"}",
-            "{\"name\": \"address\", \"type\": \"string\"}",
-            "{\"name\": \"maritalStatus\", \"type\": \"string\"}",
-            "{\"name\": \"photo\", \"type\": \"string\"}",
-            "{\"name\": \"contact\", \"type\": \"string\"}",
-            "{\"name\": \"organization\", \"type\": \"string\"}",
-            "{\"name\": \"communication_preference\", \"type\": \"boolean\"}",
-            "{\"name\": \"activity_level\", \"type\": \"string\"}",
-            "{\"name\": \"heart_rate\", \"type\": \"number\", \"unit\": \"bpm\"}",
-            "{\"name\": \"heart_pressure_sys\", \"type\": \"number\", \"unit\": \"mmHg\"}",
-            "{\"name\": \"heart_pressure_dia\", \"type\": \"number\", \"unit\": \"mmHg\"}",
-            "{\"name\": \"cholesterol\", \"type\": \"number\", \"unit\": \"mg/dL\"}",
-            "{\"name\": \"eye_sight\", \"type\": \"number\", \"unit\": \"\"}",
-            "{\"name\": \"history_surgeries\", \"type\": \"string\"}",
-            "{\"name\": \"list_medications\", \"type\": \"string\"}",
-            "{\"name\": \"last_checkup_date\", \"type\": \"string\"}"
+            "{\"name\": \"Name\", \"type\": \"string\"}",
+            "{\"name\": \"NIN\", \"type\": \"string\"}",
+            "{\"name\": \"Gender\", \"type\": \"string\"}",
+            "{\"name\": \"Birthdate\", \"type\": \"string\"}",
+            "{\"name\": \"Address\", \"type\": \"string\"}",
+            "{\"name\": \"Marital status\", \"type\": \"string\"}",
+            "{\"name\": \"Photo link\", \"type\": \"string\"}",
+            "{\"name\": \"Contact phone\", \"type\": \"string\"}",
+            "{\"name\": \"Heart rate\", \"type\": \"number\", \"unit\": \"bpm\"}",
+            "{\"name\": \"Heart pressure sys\", \"type\": \"number\", \"unit\": \"mmHg\"}",
+            "{\"name\": \"Heart pressure dia\", \"type\": \"number\", \"unit\": \"mmHg\"}",
+            "{\"name\": \"Activity level\", \"type\": \"string\"}",
+            "{\"name\": \"Trees\", \"type\": \"string\"}",
+            "{\"name\": \"Flowers\", \"type\": \"string\"}",
+            "{\"name\": \"Weeds\", \"type\": \"string\"}",
+            "{\"name\": \"Grasses\", \"type\": \"string\"}",
+            "{\"name\": \"Animals\", \"type\": \"string\"}",
+            "{\"name\": \"Insects\", \"type\": \"string\"}",
+            "{\"name\": \"Foods\", \"type\": \"string\"}",
+            "{\"name\": \"Medications\", \"type\": \"string\"}",
+            "{\"name\": \"Cholesterol\", \"type\": \"number\", \"unit\": \"mg/dL\"}",
+            "{\"name\": \"WBCs\", \"type\": \"number\", \"unit\": \"cmm\"}",
+            "{\"name\": \"RBCs\", \"type\": \"number\", \"unit\": \"cmm\"}",
+            "{\"name\": \"Platelets\", \"type\": \"number\", \"unit\": \"cmm\"}",
+            "{\"name\": \"Hematocrit\", \"type\": \"number\", \"unit\": \"cmm\"}",
+            "{\"name\": \"Hemoglobin\", \"type\": \"number\", \"unit\": \"g/dL\"}",
+            "{\"name\": \"MCV\", \"type\": \"number\", \"unit\": \"cmm\"}",
+            "{\"name\": \"MCH\", \"type\": \"number\", \"unit\": \"pg\"}",
+            "{\"name\": \"MPV\", \"type\": \"number\", \"unit\": \"cmm\"}",
+            "{\"name\": \"Right correction\", \"type\": \"number\", \"unit\": \"\"}",
+            "{\"name\": \"Left correction\", \"type\": \"number\", \"unit\": \"\"}",
+            "{\"name\": \"Past surgeries\", \"type\": \"string\"}",
+            "{\"name\": \"Medications\", \"type\": \"string\"}",
+            "{\"name\": \"Existing conditions\", \"type\": \"string\"}",
+            "{\"name\": \"Last checkup date\", \"type\": \"string\"}"
     };
+    
+    public static String attributes = "[\"Name\"," +
+            "\"NIN\"," +
+            "\"Gender\"," +
+            "\"Birthdate\"," +
+            "\"Address\"," +
+            "\"Marital status\"," +
+            "\"Photo link\"," +
+            "\"Contact phone\"," +
+            "\"Heart rate\"," +
+            "\"Heart pressure sys\"," +
+            "\"Heart pressure dia\"," +
+            "\"Activity level\"," +
+            "\"Tress\"," +
+            "\"Flowers\"," +
+            "\"Weeds\"," +
+            "\"Grasses\"," +
+            "\"Animals\"," +
+            "\"Insects\"," +
+            "\"Foods\"," +
+            "\"Medications\"," +
+            "\"Cholesterol\"," +
+            "\"WBCs\"," +
+            "\"RBCs\"," +
+            "\"Platelets\"," +
+            "\"Hematocrit\"," +
+            "\"Hemoglobin\"," +
+            "\"MCV\"," +
+            "\"MCH\"," +
+            "\"MPV\"," +
+            "\"Right correction\"," +
+            "\"Left correction\"," +
+            "\"Past surgeries\"," +
+            "\"Medications\"," +
+            "\"Existing conditions\"," +
+            "\"Last checkup date\"]";
 }
