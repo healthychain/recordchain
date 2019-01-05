@@ -46,6 +46,7 @@ class IssueTab extends React.Component<> {
 
   render() {
     const { credDef } = this.props;
+    console.log(this.state);
     return (
       <div>
         <h3>Create new health record</h3>
@@ -95,7 +96,7 @@ class IssueTab extends React.Component<> {
                         });
                       }}
                       className="HealthRecord__Input"
-                      value={this.state[credential]}
+                      value={this.state.data[credential]}
                       key={credential}
                       type="text"
                       name={credential}
