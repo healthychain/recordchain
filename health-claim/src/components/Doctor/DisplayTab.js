@@ -19,7 +19,11 @@ class IssueTab extends React.Component<> {
 
   handleSearch() {
     const { sessionID } = this.props;
-    this.props.fetchCachedCreds(sessionID, this.state.username);
+    this.props.fetchCachedCreds(
+      sessionID,
+      this.state.username,
+      this.state.patientsPractice
+    );
   }
 
   handleSubmit = event => {
@@ -94,7 +98,7 @@ class IssueTab extends React.Component<> {
 
         <div className="separator" />
 
-        {this.props.cachedCreds.length === 0 ? (
+        {!this.props.cachedCreds || this.props.cachedCreds.length === 0 ? (
           <p>No health record data was found </p>
         ) : (
           <div className="Form__Rack">
