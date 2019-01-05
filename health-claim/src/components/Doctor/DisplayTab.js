@@ -22,6 +22,24 @@ class IssueTab extends React.Component<> {
     this.props.fetchCachedCreds(sessionID, this.state.username);
   }
 
+  handleSubmit = event => {
+    fetch(
+      `${apiEndpoint}/credential_offer?token=${
+        this.props.sessionID
+      }&prover_username=${this.state.username}`,
+      {
+        method: "POST",
+        mode: "no-cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify(this.state.data)
+      }
+    );
+  };
+
   componentWillReceiveProps(newProps) {
     if (newProps.sessionID !== this.props.sessionID) {
       this.props.fetchNotifications(newProps.sessionID);
