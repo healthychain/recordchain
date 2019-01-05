@@ -21,13 +21,16 @@ export const fetchCredDefSuccess = attrs => ({
 function fetchCredDef() {
   return dispatch => {
     dispatch(fetchCredDefBegin());
-    return fetch(`${apiEndpoint}/get_public_schema`)
-      .then(raw => handleErrors(raw))
-      .then(raw => raw.json())
-      .then(json => {
-        dispatch(fetchCredDefSuccess(json.attrs));
-      })
-      .catch(error => fetchCredDefError());
+    return (
+      fetch(`${apiEndpoint}/get_public_schema`)
+        .then(raw => handleErrors(raw))
+        .then(raw => raw.json())
+        // .then(file => console.log(file.attrs))
+        .then(json => {
+          dispatch(fetchCredDefSuccess(json.attrs));
+        })
+        .catch(error => fetchCredDefError())
+    );
   };
 }
 

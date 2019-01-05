@@ -52,6 +52,8 @@ public abstract class CreateApproveHandler extends EventConsumer {
       e.printStackTrace();
       response = "Invalid session token";
       responseCode =  RequestUtils.statusSessionExpired();
+    } catch (IndyException e) {
+      e.printStackTrace();
     }
 
     EventNode event = EventStorage.getEvent(issuerDid, eventId);

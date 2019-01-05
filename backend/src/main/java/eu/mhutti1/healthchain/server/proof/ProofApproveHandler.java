@@ -13,6 +13,7 @@ import eu.mhutti1.healthchain.storage.EventStorage;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.anoncreds.AnoncredsResults;
+import org.hyperledger.indy.sdk.anoncreds.CredentialsSearchForProofReq;
 import org.hyperledger.indy.sdk.wallet.Wallet;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -57,6 +58,8 @@ public class ProofApproveHandler extends EventConsumer {
       e.printStackTrace();
       response = "Invalid session token";
       responseCode =  RequestUtils.statusSessionExpired();
+    } catch (IndyException e) {
+      e.printStackTrace();
     }
 
     EventNode event = EventStorage.getEvent(offerDid, eventId);
@@ -72,6 +75,12 @@ public class ProofApproveHandler extends EventConsumer {
         String credentialUuid = temp.getJSONObject(0).getJSONObject("cred_info").getString("referent");
         credIds.add(credentialUuid);
       }
+      List predIds = new ArrayList();
+      for (int i = 1; credentialsForProof.getJSONObject("predicates").has("predicate" + i + "_referent"); i++) {
+        JSONArray temp = credentialsForProof.getJSONObject("predicates").getJSONArray("predicate" + i + "_referent");
+        String credentialUuid = temp.getJSONObject(0).getJSONObject("cred_info").getString("referent");
+        predIds.add(credentialUuid);
+      }
       
       // Prover create Proof
       String selfAttestedValue = "8-800-300";
@@ -83,6 +92,9 @@ public class ProofApproveHandler extends EventConsumer {
 
       for (int i = 1; i <= credIds.size(); i++) {
         requestedCredentialsJsonObj.getJSONObject("requested_attributes").put("attr" + i + "_referent", new JSONObject(String.format("{\"cred_id\":\"%s\", \"revealed\": true}", credIds.get(i - 1))));
+      }
+      for (int i = 1; i <= predIds.size(); i++) {
+        requestedCredentialsJsonObj.getJSONObject("requested_predicates").put("predicate" + i + "_referent", new JSONObject(String.format("{\"cred_id\":\"%s\"}", predIds.get(i - 1))));
       }
 
 

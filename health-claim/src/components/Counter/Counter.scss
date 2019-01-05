@@ -1,0 +1,18 @@
+.display {
+  font-size: 35px;
+  user-select: none;
+  font-family: Arial;
+}
+
+.char {
+  color: black;
+  border-radius: 5px;
+  background-color: #fafafa;
+  border: solid 1px #dddddd;
+  margin: 5px 3px;
+  padding: 6px 9px;
+}
+
+.separator {
+  margin-right: 16px;
+}

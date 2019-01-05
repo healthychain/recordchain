@@ -9,10 +9,11 @@ import LoginFormContainer from "./containers/LoginFormContainer";
 import RegisterFormContainer from "./containers/RegisterFormContainer";
 import SettingsContainer from "./containers/SettingsContainer";
 import ThirdPartyContainer from "./containers/ThirdPartyContainer";
+import NotificationsContainer from "./containers/NotificationsContainer";
 
 class Routes extends Component {
   render() {
-    const { loggedIn, accountType } = this.props;
+    const { loggedIn, accountType, validating } = this.props;
 
     return (
       <Switch>
@@ -59,8 +60,6 @@ class Routes extends Component {
           path="/dashboard"
           exact
           render={props => {
-            //   return <ThirdPartyContainer />;
-            // }}
             if (loggedIn && accountType) {
               switch (accountType) {
                 case ACCOUNT_TYPE.PATIENT:
@@ -102,6 +101,22 @@ class Routes extends Component {
               />
             )
           }
+        />
+        <Route
+          path="/notifications"
+          exact
+          component={props => {
+            return loggedIn ? (
+              <NotificationsContainer />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: "/welcome",
+                  state: { from: props.location }
+                }}
+              />
+            );
+          }}
         />
         <Redirect to="/dashboard" />\
       </Switch>

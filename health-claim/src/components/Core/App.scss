@@ -5,20 +5,33 @@ html {
   background: #f2f2f2;
 }
 .Body {
-  background: #f2f2f2;
+  background: #deeff5;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: scroll;
+}
+
+.Wrapper {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .Main {
   // max-width: 960px;
   margin: 0 auto;
-  padding-bottom: 96px;
+  z-index: 2;
 }
 
 .Page__Title {
-  padding-top: 1.67em;
-  margin-bottom: 0.33em;
-  position: relative;
-  display: block;
+  font-size: 34px;
+  padding: 10px 0px;
+  margin: 0;
   .Page__Title--deadline {
     float: right;
     position: absolute;
@@ -45,10 +58,9 @@ html {
 
 // Temp
 .Header {
-  display: block;
-  left: 0;
-  position: relative;
-  top: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 112px;
 }
 .Header__Layout {
   display: flex;
@@ -60,9 +72,7 @@ html {
 .Header__Upper {
   background: rgb(28, 29, 92);
   height: 56px;
-  top: 0;
   z-index: 99;
-  position: fixed;
   width: 100%;
   .Header__Nav {
     align-items: center;
@@ -106,10 +116,13 @@ html {
   flex-direction: row;
   justify-content: flex-start;
   align-content: center;
-  height: 56px;
+  min-height: 56px;
   padding-left: 48px;
   padding-right: 48px;
-  margin-top: 56px;
+
+  height: 56px;
+  z-index: 3;
+  width: 100%;
   .Header__Title {
     color: #fff;
     line-height: 1;
@@ -121,4 +134,24 @@ html {
   a {
     color: white;
   }
+}
+
+.video_background {
+  /* class name used in javascript too */
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+}
+
+.video__dark {
+  opacity: 0;
+}
+
+.Body__notcentered {
+  justify-content: flex-start;
 }

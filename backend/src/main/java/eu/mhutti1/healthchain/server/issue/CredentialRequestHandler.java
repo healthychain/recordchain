@@ -50,6 +50,8 @@ public class CredentialRequestHandler extends EventConsumer {
       e.printStackTrace();
       response = "Invalid token";
       responseCode =  RequestUtils.statusSessionExpired();
+    } catch (IndyException e) {
+      e.printStackTrace();
     }
 
     if(proverWallet == null || proverDid == null) {
@@ -106,7 +108,7 @@ public class CredentialRequestHandler extends EventConsumer {
             .put("credOfferJSON", credOfferJSON)
             .put("credValuesJSON", credValuesJSON);
 
-    EventStorage.store(issuerDid, new EventNode("", proverDid, newPayload, "credential_issue", null));
+    EventStorage.store(issuerDid, new EventNode("Patient granted you access to edit the health record. Do you wish to continue?", proverDid, newPayload, "credential_issue", null));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

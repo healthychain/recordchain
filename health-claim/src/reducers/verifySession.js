@@ -8,7 +8,7 @@ import { LOGOUT } from "../actions/login";
 
 const initialState = {
   success: false,
-  loading: false
+  loading: true
 };
 
 const verifySession = (state = initialState, action) => {

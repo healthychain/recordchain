@@ -46,6 +46,8 @@ public class CredentialStoreHandler extends EventConsumer {
     } catch (SessionInvalidException e) {
       response = "Invalid session token";
       responseCode = RequestUtils.statusSessionExpired();
+    } catch (IndyException e) {
+      e.printStackTrace();
     }
 
     if (proverWallet == null) {

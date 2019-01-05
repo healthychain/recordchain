@@ -43,7 +43,7 @@ public abstract class CreateRequestHandler extends NonEventConsumer {
 
     // later on register for email notofication
 
-    EventStorage.store(issuerDid, new EventNode("", null, payload, getApproveEndpoint(), getDismissEndpoint()));
+    EventStorage.store(issuerDid, new EventNode("Registration request", username, payload, getApproveEndpoint(), getDismissEndpoint()));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

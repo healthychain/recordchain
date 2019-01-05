@@ -14,7 +14,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +31,7 @@ public class EventNode implements Serializable {
   private String acceptAction;
   private String dismissAction;
   private boolean requireMasterSecret;
+  private String createdAt;
 
   public EventNode(String type, String fromDid, JSONObject payload, String acceptEndpoint, String dismissEndpoint, boolean requireMasterSecret) {
     this.id = RandomStringUtils.randomAlphanumeric(16);
@@ -39,10 +42,15 @@ public class EventNode implements Serializable {
     this.acceptAction = acceptEndpoint != null ? createAction(acceptEndpoint, id) : "";
     this.dismissAction = dismissEndpoint != null ? createAction(dismissEndpoint, id) : "";
     this.requireMasterSecret = requireMasterSecret;
+    this.createdAt = getCurrentTimeStamp();
   }
 
   public EventNode(String type, String fromDid, JSONObject payload, String acceptEndpoint, String dismissEndpoint) {
     this(type, fromDid, payload, acceptEndpoint, dismissEndpoint, false);
+  }
+
+  private String getCurrentTimeStamp() {
+    return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
   }
 
   private String createAction(String endpoint, String id) {
@@ -75,7 +83,9 @@ public class EventNode implements Serializable {
             .put("type", type)
             .put("acceptAction", acceptAction)
             .put("dismissAction", dismissAction)
-            .put("requireMasterSecret", requireMasterSecret);
+            .put("requireMasterSecret", requireMasterSecret)
+            .put("fromDid", fromDid)
+            .put("createdAt", createdAt);
   }
 
   @Override
@@ -102,6 +112,7 @@ public class EventNode implements Serializable {
     oos.writeObject(acceptAction);
     oos.writeObject(dismissAction);
     oos.writeObject(requireMasterSecret);
+    oos.writeObject(createdAt);
   }
 
   private void readObject(ObjectInputStream ois)
@@ -115,5 +126,6 @@ public class EventNode implements Serializable {
     acceptAction = (String) ois.readObject();
     dismissAction = (String) ois.readObject();
     requireMasterSecret = (Boolean) ois.readObject();
+    createdAt = (String) ois.readObject();
   }
 }

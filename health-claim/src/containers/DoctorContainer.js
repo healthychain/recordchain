@@ -17,7 +17,7 @@ const mapStateToProps = (state, props) => ({
   notificationsLoading: state.fetchNotifications.loading,
   notificationsError: state.fetchNotifications.error,
   notifications: state.fetchNotifications.notifications,
-  credDef: state.fetchCredDef.attrs,
+  credDef: state.fetchCredDef.attrNames,
   did: state.sessionToken.did
 });
 

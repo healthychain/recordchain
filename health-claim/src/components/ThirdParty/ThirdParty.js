@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../Doctor/Doctor.scss";
 import "../Login/LoginForm.scss";
+import RequestBuilderContainer from "../../containers/RequestBuilderContainer";
 
 const TABS = ["Request", "View"];
 
@@ -11,21 +12,6 @@ class ThirdParty extends Component {
       tabIndex: 0
     };
   }
-
-  componentWillReceiveProps(newProps) {
-    console.log(newProps);
-    // if (newProps.sessionID !== this.props.sessionID) {
-    //   this.props.fetchNotifications(newProps.sessionID);
-    // }
-  }
-
-  updateState(field, value) {
-    this.setState({
-      [field]: value
-    });
-  }
-
-  componentDidMount() {}
 
   render() {
     const { tabIndex } = this.state;
@@ -56,58 +42,9 @@ class ThirdParty extends Component {
               <div className="doctor__content">
                 {tabIndex === 0 && (
                   <>
-                    <div className="Form__Rack">
-                      <div className="Form__Cell">
-                        <label className="Input__Label">
-                          Request stuff from user (DID)
-                        </label>
-                        <input
-                          onChange={e =>
-                            this.setState({ username: e.target.value })
-                          }
-                          className="Input__Text"
-                          type="text"
-                          value={this.state.username}
-                        />
-                        <br />
-                        <label className="Input__Label">Domain</label>
-                        <input
-                          onChange={e =>
-                            this.updateState("domain", e.target.value)
-                          }
-                          className="Input__Text"
-                          value={this.state.domain}
-                          type="text"
-                          name="domain"
-                        />
-                      </div>
-                      <div className="Form__Cell">
-                        <label className="Input__Label">
-                          Attributes (comma separated)
-                        </label>
-                        <input
-                          onChange={e =>
-                            this.updateState("attrs", e.target.value)
-                          }
-                          className="Input__Text"
-                          value={this.state.attrs}
-                          type="text"
-                          name="attrs"
-                        />
-                      </div>
+                    <div className="Form__Cell">
+                      <RequestBuilderContainer />
                     </div>
-                    <button
-                      onClick={() =>
-                        this.props.tpRequest(
-                          this.state.username,
-                          this.state.domain,
-                          this.state.attrs
-                        )
-                      }
-                      className="Button Button__Green"
-                    >
-                      Request
-                    </button>
                   </>
                 )}
                 {tabIndex === 1 && (
@@ -129,7 +66,7 @@ class ThirdParty extends Component {
                         <label className="Input__Label">Domain</label>
                         <input
                           onChange={e =>
-                            this.updateState("domain", e.target.value)
+                            this.setState({ domain: e.target.value })
                           }
                           className="Input__Text"
                           value={this.state.domain}
