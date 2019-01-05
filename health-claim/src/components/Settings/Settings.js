@@ -1,6 +1,7 @@
 //@flow
 
 import * as React from "react";
+import { Table } from "reactstrap";
 import "./Settings.scss";
 import QRCode from "qrcode.react";
 

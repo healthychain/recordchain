@@ -1,6 +1,7 @@
 package eu.mhutti1.healthchain.server.create;
 
 import com.sun.net.httpserver.HttpExchange;
+import eu.mhutti1.healthchain.constants.Constants;
 import eu.mhutti1.healthchain.roles.Role;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.EventConsumer;
@@ -9,6 +10,7 @@ import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.EventNode;
 import eu.mhutti1.healthchain.storage.EventStorage;
 import eu.mhutti1.healthchain.utils.Crypto;
+import eu.mhutti1.healthchain.wallet.IndyWallet;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.wallet.Wallet;
 import org.json.JSONObject;
