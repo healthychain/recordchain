@@ -44,12 +44,24 @@ class Settings extends React.Component<Props, State> {
           </div>
           <div className="Settings__inner_container">
             <div className="Settings__row">
+              <div className="Settings__row_inner">
+                <h3>Your unique Decentralized Identifier (DID)</h3>
+                <div className="separator" />
+              </div>
+            </div>
+            <div className="Settings__row">
               <div className="Settings__row__name">Your DID</div>
               <QRCode value={did} />
 
               <div className="Settings__input__container">{did}</div>
             </div>
 
+            <div className="Settings__row" style={{ marginTop: "20px" }}>
+              <div className="Settings__row_inner">
+                <h3>Your Master Secret key</h3>
+                <div className="separator" />
+              </div>
+            </div>
             <div className="Settings__row">
               <div className="Settings__row__name">Master secret</div>
               <div className="Settings__input__container">
@@ -62,9 +74,10 @@ class Settings extends React.Component<Props, State> {
             <div className="Settings__row">
               <div
                 className="Button Button__Green"
+                style={{ marginTop: "10px" }}
                 onClick={() => createMasterSecret(this.state.masterSecret)}
               >
-                Submit
+                Update
               </div>
             </div>
           </div>
