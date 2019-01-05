@@ -40,17 +40,7 @@ exports[`Doctor should render correctly with mocked records 1`] = `
               <p
                 className="Tab__text Tab__text__active"
               >
-                New Patient
-              </p>
-            </div>
-            <div
-              className="Tab__single "
-              onClick={[Function]}
-            >
-              <p
-                className="Tab__text "
-              >
-                Recurring Patient
+                Patient Health Record
               </p>
             </div>
           </div>
@@ -59,7 +49,7 @@ exports[`Doctor should render correctly with mocked records 1`] = `
           >
             <div>
               <h3>
-                Create new health record
+                Update an existing health record
               </h3>
               <div
                 className="separator"
@@ -73,29 +63,41 @@ exports[`Doctor should render correctly with mocked records 1`] = `
                 className="Input__Text"
                 onChange={[Function]}
                 type="text"
+                value={null}
               />
+              <label
+                className="Input__Label"
+                style={
+                  Object {
+                    "marginTop": "10px",
+                  }
+                }
+              >
+                The URL of the patient's practice
+              </label>
+              <input
+                className="Input__Text"
+                onChange={[Function]}
+                type="text"
+                value="http://local"
+              />
+              <button
+                className="Button Button__Green"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "marginTop": "20px",
+                  }
+                }
+              >
+                Search
+              </button>
               <div
                 className="separator"
               />
-              <div
-                className="Form__Rack"
-              >
-                <button
-                  className="Button Button__Green"
-                  onClick={[Function]}
-                >
-                  Refresh
-                </button>
-                <div
-                  className="separator"
-                />
-                <button
-                  className="Button Button__Green"
-                  onClick={[Function]}
-                >
-                  Submit
-                </button>
-              </div>
+              <p>
+                No health record data was found 
+              </p>
             </div>
           </div>
         </div>
