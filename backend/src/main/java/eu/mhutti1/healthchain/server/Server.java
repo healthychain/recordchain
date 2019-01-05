@@ -75,9 +75,6 @@ public class Server {
     //valid session verifier
     server.createEndpoint("/verify_session", new SessionVerifyHandler());
 
-    //master secret creation
-    server.createEndpoint("/create_master_secret", new CreateMasterKeyHandler());
-
     //issue credential handshake
     server.createEventEndpoint("/credential_offer", new CredentialOfferHandler());
     server.createEventEndpoint("/credential_request", new CredentialRequestHandler());
