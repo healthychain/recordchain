@@ -5,6 +5,7 @@ import eu.mhutti1.healthchain.constants.IndyPool;
 import eu.mhutti1.healthchain.server.create.*;
 import eu.mhutti1.healthchain.server.createOLD.DoctorCreateHandler;
 import eu.mhutti1.healthchain.server.createOLD.PatientCreateHandler;
+import eu.mhutti1.healthchain.server.events.DismissNotificationHandler;
 import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.events.GetNotificationsHandler;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
@@ -100,6 +101,7 @@ public class Server {
 
     //notifications
     server.createEndpoint("/get_events", new GetNotificationsHandler());
+    server.createEndpoint("/dismiss_notification", new DismissNotificationHandler());
 
     //get credentials
     server.createEndpoint("/get_credentials", new GetCredentialsHandler());
