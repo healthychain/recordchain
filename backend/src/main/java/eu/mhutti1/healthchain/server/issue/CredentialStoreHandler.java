@@ -65,10 +65,16 @@ public class CredentialStoreHandler extends EventConsumer {
 
     // Prover store Credential
     try {
-      Anoncreds.proverStoreCredential(proverWallet, "id1", credentialRequestMetadataJSON, credential, credDefJSON, null).get();
+      ClaimStorage.ClaimDef currentRecord = ClaimStorage.getStore().get(proverDid);
+      int counter = 1;
+      if (currentRecord != null) {
+        counter =  currentRecord.counter + 1;
+      }
+      String credId = "id" + String.valueOf(counter);
+      Anoncreds.proverStoreCredential(proverWallet, credId, credentialRequestMetadataJSON, credential, credDefJSON, null).get();
       JSONObject jsonObject = new JSONObject(credential).getJSONObject("values");
       Map<String, String> values = jsonObject.keySet().stream().collect(Collectors.toMap(a -> a, a -> (String) jsonObject.getJSONObject(a).get("raw")));
-      ClaimStorage.getStore().put(proverDid, new ClaimStorage.ClaimDef(values));
+      ClaimStorage.getStore().put(proverDid, new ClaimStorage.ClaimDef(values, counter));
       // Store creds in cache for doctor;
       //ClaimStorage.getStore().put(proverDid, )
 
