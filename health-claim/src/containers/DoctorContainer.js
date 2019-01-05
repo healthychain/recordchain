@@ -36,8 +36,8 @@ const mapDispatchToProps = (dispatch, props) => ({
       })
     ),
   fetchNotifications: sessionID => dispatch(fetchNotifications(sessionID)),
-  fetchCachedCreds: (sessionID, patientUsername) =>
-    dispatch(fetchCachedCreds(sessionID, patientUsername))
+  fetchCachedCreds: (sessionID, patientUsername, patientDomain) =>
+    dispatch(fetchCachedCreds(sessionID, patientUsername, patientDomain))
 });
 
 export default withRouter(

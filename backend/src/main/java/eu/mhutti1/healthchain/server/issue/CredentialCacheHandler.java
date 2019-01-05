@@ -37,6 +37,7 @@ public class CredentialCacheHandler extends NonEventConsumer {
     String token = params.get("token");
     String proverUsername = params.get("prover_username");
     String proverDid = Crypto.getDid(proverUsername);
+    String proverDomain = params.get("prover_domain");
 
     Wallet issuerWallet = null;
     String issuerDid = null;

@@ -20,11 +20,11 @@ export const fetchCachedCredsSuccess = creds => ({
   payload: { creds }
 });
 
-function fetchCachedCreds(sessionID, proverUsername) {
+function fetchCachedCreds(sessionID, proverUsername, proverDomain) {
   return dispatch => {
     dispatch(fetchCachedCredsBegin());
     return fetch(
-      `${apiEndpoint}/credential_cache_view?token=${sessionID}&prover_username=${proverUsername}`
+      `${apiEndpoint}/credential_cache_view?token=${sessionID}&prover_username=${proverUsername}&prover_domain=${proverDomain}`
     )
       .then(res => checkSessionValidity(res, dispatch))
       .then(raw => handleErrors(raw))
