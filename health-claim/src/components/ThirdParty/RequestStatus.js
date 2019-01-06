@@ -1,5 +1,6 @@
 import * as React from "react";
 import classNames from "classnames";
+import { Link, withRouter } from "react-router-dom";
 
 import "./AttributeRequest.scss";
 
@@ -41,9 +42,11 @@ class RequestStatus extends React.Component {
                 : "Still waiting for the approval from the user"}
             </div>
             {reqStatus[did] ? (
-              <div className="RequestStatus__viewButton RequestStatus__viewButton_green">
-                View
-              </div>
+              <Link to={`/thirdparty/view/${did}`}>
+                <div className="RequestStatus__viewButton RequestStatus__viewButton_green">
+                  View
+                </div>
+              </Link>
             ) : (
               <div className="RequestStatus__viewButton RequestStatus__viewButton_red">
                 Waiting
@@ -56,4 +59,4 @@ class RequestStatus extends React.Component {
   }
 }
 
-export default RequestStatus;
+export default withRouter(RequestStatus);

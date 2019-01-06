@@ -75,7 +75,7 @@ backend/credstorage.db
 backend/storage.db
 backend/claimstorage.db 
 backend/proofstorage.db
-
+backend/credrequeststore.dbbackend/credrequeststore.dbbackend/credrequeststore.dbbackend/credrequeststore.dbbackend/credrequeststore.dbbackend/credrequeststore.dbbackend/credrequeststore.dbbackend/credrequeststore.dbbackend/credrequeststore.db
 
 # Dependency directories
 node_modules/

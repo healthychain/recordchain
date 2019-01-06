@@ -62,10 +62,10 @@ export function tpRequest(userDID, domain, req_attrs, req_pred) {
   };
 }
 
-export function tpView(userDID) {
+export function tpView(username) {
   return dispatch => {
     dispatch(tpViewBegin());
-    return fetch(`${apiEndpoint}/proof_view?prover_did=${userDID}`)
+    return fetch(`${apiEndpoint}/proof_view?prover_username=${username}`)
       .then(raw => handleErrors(raw))
       .then(response => response.json())
       .then(json => dispatch(tpViewSuccess(json)))

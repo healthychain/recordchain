@@ -5,6 +5,7 @@ import eu.mhutti1.healthchain.constants.Constants;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.storage.ProofStorage;
+import eu.mhutti1.healthchain.utils.Crypto;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -34,12 +35,15 @@ public class ProofViewHandler extends NonEventConsumer {
     String response = "session verified";
     int responseCode = RequestUtils.statusOK();
 
-    String proverDid = params.get("prover_did");
+    String proverUsername = params.get("prover_username");
+    String proverDid = Crypto.getDid(proverUsername);
 
-
-    response = new JSONObject(ProofStorage.getStore().get(proverDid).creds).toString();
-
-
+    if(ProofStorage.getStore().containsKey(proverDid)) {
+      response = new JSONObject(ProofStorage.getStore().get(proverDid).creds).toString();
+    }
+    else {
+      response = new JSONObject().toString();
+    }
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();
