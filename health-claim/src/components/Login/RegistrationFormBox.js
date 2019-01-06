@@ -23,7 +23,7 @@ export default class RegistrationFormBox extends React.Component {
     this.props.register(
       this.state.username,
       this.state.password,
-      this.state.did,
+      this.state.qr,
       this.state.isPatient
     );
     event.stopPropagation();
