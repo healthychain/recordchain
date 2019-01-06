@@ -19,6 +19,7 @@ import storeRecord from "./reducers/storeRecord";
 import fetchCreds from "./reducers/fetchCredentials";
 import thirdPartyCalls from "./reducers/thirdPartyCalls";
 import fetchCachedCreds from "./reducers/fetchCachedCreds";
+import fetchCredReqStatus from "./reducers/fetchCredReqStatus";
 
 const loggerMiddleware = createLogger();
 
@@ -42,7 +43,8 @@ const reducer = combineReducers({
   fetchCredDef,
   fetchCreds,
   thirdPartyCalls,
-  fetchCachedCreds
+  fetchCachedCreds,
+  fetchCredReqStatus
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import "../Doctor/Doctor.scss";
 import "../Login/LoginForm.scss";
 import RequestBuilderContainer from "../../containers/RequestBuilderContainer";
+import RequestStatus from "./RequestStatus";
 
-const TABS = ["Request", "View"];
+const TABS = ["Request", "Request Status", "View"];
 
 class ThirdParty extends Component {
   constructor(props) {
@@ -11,6 +12,11 @@ class ThirdParty extends Component {
     this.state = {
       tabIndex: 0
     };
+  }
+
+  componentDidMount() {
+    const { fetchReqStatus } = this.props;
+    fetchReqStatus("third-party");
   }
 
   render() {
@@ -48,6 +54,11 @@ class ThirdParty extends Component {
                   </>
                 )}
                 {tabIndex === 1 && (
+                  <div className="Form__Cell">
+                    <RequestStatus {...this.props} />
+                  </div>
+                )}
+                {tabIndex === 2 && (
                   <>
                     <div className="Form__Rack">
                       <div className="Form__Cell">
