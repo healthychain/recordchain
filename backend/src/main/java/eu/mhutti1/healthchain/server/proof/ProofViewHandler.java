@@ -35,8 +35,7 @@ public class ProofViewHandler extends NonEventConsumer {
     String response = "session verified";
     int responseCode = RequestUtils.statusOK();
 
-    String proverUsername = params.get("prover_username");
-    String proverDid = Crypto.getDid(proverUsername);
+    String proverDid = params.get("prover_did");
 
     if(ProofStorage.getStore().containsKey(proverDid)) {
       response = new JSONObject(ProofStorage.getStore().get(proverDid).creds).toString();

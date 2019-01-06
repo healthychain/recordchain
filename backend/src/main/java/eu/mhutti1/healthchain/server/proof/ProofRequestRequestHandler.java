@@ -6,6 +6,7 @@ import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.ProofStorage;
+import eu.mhutti1.healthchain.utils.Crypto;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import sun.net.www.http.HttpClient;
@@ -61,7 +62,8 @@ public class ProofRequestRequestHandler extends NonEventConsumer {
     int responseCode = RequestUtils.statusOK();
 
     JSONObject reqBody = new JSONObject(RequestUtils.getRequestBody(httpExchange));
-    String proverDid = reqBody.getString("prover_did");
+    String proverUsername = reqBody.getString("prover_username");
+    String proverDid = Crypto.getDid(proverUsername);
     String agentDomain = reqBody.getString("agent_domain"); // localhost:8000
     JSONArray reqAttrsJSON = (JSONArray) reqBody.get("req_attrs");
     String[] reqAttrs = new String[reqAttrsJSON.length()];
