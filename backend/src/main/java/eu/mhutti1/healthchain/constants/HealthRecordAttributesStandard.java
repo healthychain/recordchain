@@ -31,7 +31,6 @@ public class HealthRecordAttributesStandard implements HealthRecordAttributes {
             "{\"name\": \"Animals\", \"type\": \"string\"}",
             "{\"name\": \"Insects\", \"type\": \"string\"}",
             "{\"name\": \"Foods\", \"type\": \"string\"}",
-            "{\"name\": \"Medications\", \"type\": \"string\"}",
             "{\"name\": \"Cholesterol\", \"type\": \"number\", \"unit\": \"mg/dL\"}",
             "{\"name\": \"WBCs\", \"type\": \"number\", \"unit\": \"cmm\"}",
             "{\"name\": \"RBCs\", \"type\": \"number\", \"unit\": \"cmm\"}",
@@ -68,7 +67,6 @@ public class HealthRecordAttributesStandard implements HealthRecordAttributes {
             "\"Animals\"," +
             "\"Insects\"," +
             "\"Foods\"," +
-            "\"Medications\"," +
             "\"Cholesterol\"," +
             "\"WBCs\"," +
             "\"RBCs\"," +
