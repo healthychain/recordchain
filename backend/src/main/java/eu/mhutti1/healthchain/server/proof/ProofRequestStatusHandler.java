@@ -5,6 +5,7 @@ import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.storage.ClaimStorage;
 import eu.mhutti1.healthchain.storage.CredRequestStorage;
+import eu.mhutti1.healthchain.storage.ProofStorage;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class ProofRequestStatusHandler extends NonEventConsumer {
       JSONObject responseJ = new JSONObject();
 
       requests.stream().forEach(request -> {
-        boolean requestStatus = ClaimStorage.getStore().containsKey(request);
+        boolean requestStatus = ProofStorage.getStore().containsKey(request) && ProofStorage.getStore().get(request).creds != null;
         responseJ.put(request, requestStatus);
       });
 

@@ -36,7 +36,7 @@ export const tpViewError = () => ({
 
 export function tpRequest(username, domain, req_attrs, req_pred) {
   const data = {
-    prover_username: username,
+    prover_did: username,
     agent_domain: domain,
     req_attrs,
     req_pred

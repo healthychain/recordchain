@@ -62,8 +62,7 @@ public class ProofRequestRequestHandler extends NonEventConsumer {
     int responseCode = RequestUtils.statusOK();
 
     JSONObject reqBody = new JSONObject(RequestUtils.getRequestBody(httpExchange));
-    String proverUsername = reqBody.getString("prover_username");
-    String proverDid = Crypto.getDid(proverUsername);
+    String proverDid = reqBody.getString("prover_did");
     String agentDomain = reqBody.getString("agent_domain"); // localhost:8000
     JSONArray reqAttrsJSON = (JSONArray) reqBody.get("req_attrs");
     String[] reqAttrs = new String[reqAttrsJSON.length()];
