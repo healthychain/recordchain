@@ -6,7 +6,7 @@ import { apiEndpoint } from "../../apiEndpoint";
 import IsssueTab from "./IssueTab";
 import DisplayTab from "./DisplayTab";
 
-const TABS = ["New Patient", "Recurring Patient"];
+const TABS = ["Patient Health Record"];
 
 class Doctor extends Component {
   constructor(props) {
@@ -64,8 +64,8 @@ class Doctor extends Component {
                   ))}
                 </div>
                 <div className="doctor__content">
-                  {tabIndex === 0 && <IsssueTab {...this.props} />}
-                  {tabIndex === 1 && <DisplayTab {...this.props} />}
+                  {/* {tabIndex === 0 && <IsssueTab {...this.props} />} */}
+                  {tabIndex === 0 && <DisplayTab {...this.props} />}
                 </div>
               </div>
               <br />

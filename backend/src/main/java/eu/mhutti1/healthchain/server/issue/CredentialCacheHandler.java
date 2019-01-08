@@ -3,6 +3,7 @@ package eu.mhutti1.healthchain.server.issue;
 import com.sun.net.httpserver.HttpExchange;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.EventConsumer;
+import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.ClaimStorage;
@@ -23,10 +24,10 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by jedraz on 30/10/2018.
  */
-public class CredentialCacheHandler extends EventConsumer {
+public class CredentialCacheHandler extends NonEventConsumer {
 
   @Override
-  public boolean handleEventAction(HttpExchange httpExchange) throws IOException {
+  public void handle(HttpExchange httpExchange) throws IOException {
 
     httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
@@ -34,7 +35,9 @@ public class CredentialCacheHandler extends EventConsumer {
     Map<String, String> params = RequestUtils.queryToMap(query);
 
     String token = params.get("token");
-    String patient_did = params.get("patient_did");
+    String proverUsername = params.get("prover_username");
+    String proverDid = Crypto.getDid(proverUsername);
+    String proverDomain = params.get("prover_domain");
 
     Wallet issuerWallet = null;
     String issuerDid = null;
@@ -57,14 +60,12 @@ public class CredentialCacheHandler extends EventConsumer {
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
       os.close();
-      return false;
     }
 
     // TODO: verify doctor
 
-    if (ClaimStorage.getStore().get(patient_did) != null) {
-      JSONObject responseJ = new JSONObject(ClaimStorage.getStore().get(patient_did).credentials);
-      responseJ.put("timestamp", ClaimStorage.getStore().get(patient_did).timestamp);
+    if (ClaimStorage.getStore().get(proverDid) != null) {
+      JSONObject responseJ = new JSONObject(ClaimStorage.getStore().get(proverDid).credentials);
       response = responseJ.toString();
     }
 
@@ -73,6 +74,5 @@ public class CredentialCacheHandler extends EventConsumer {
     OutputStream os = httpExchange.getResponseBody();
     os.write(response.getBytes());
     os.close();
-    return true;
   }
 }

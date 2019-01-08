@@ -147,4 +147,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 4px;
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12),
+    0 10px 16px -4px rgba(0, 0, 0, 0.02);
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 0 1px #305ed4, 0 10px 16px -4px rgba(0, 0, 0, 0.02);
+  }
 }

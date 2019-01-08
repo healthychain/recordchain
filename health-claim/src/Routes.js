@@ -10,6 +10,7 @@ import RegisterFormContainer from "./containers/RegisterFormContainer";
 import SettingsContainer from "./containers/SettingsContainer";
 import ThirdPartyContainer from "./containers/ThirdPartyContainer";
 import NotificationsContainer from "./containers/NotificationsContainer";
+import RegisterSuccessForm from "./components/SuccessScreen/RegisterSuccessForm";
 
 class Routes extends Component {
   render() {
@@ -55,6 +56,11 @@ class Routes extends Component {
           path="/register"
           exact
           render={() => <RegisterFormContainer />}
+        />
+        <Route
+          path="/register-success"
+          exact
+          render={() => <RegisterSuccessForm />}
         />
         <Route
           path="/dashboard"

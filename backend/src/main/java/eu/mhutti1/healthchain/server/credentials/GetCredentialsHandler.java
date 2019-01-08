@@ -6,6 +6,7 @@ import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
+import eu.mhutti1.healthchain.storage.ClaimStorage;
 import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.wallet.Wallet;
@@ -34,9 +35,11 @@ public class GetCredentialsHandler extends NonEventConsumer {
     int responseCode = 200;
 
     Wallet proverWallet = null;
+    String proverDid = "";
 
     try {
       proverWallet = SessionManager.getSessionCredentials(token).getWallet();
+      proverDid = SessionManager.getSessionCredentials(token).getDid();
     } catch (SessionInvalidException e) {
       e.printStackTrace();
       response = "Invalid token";
@@ -45,7 +48,7 @@ public class GetCredentialsHandler extends NonEventConsumer {
       e.printStackTrace();
     }
 
-    if(proverWallet == null){
+    if(proverWallet == null) {
       httpExchange.sendResponseHeaders(responseCode, response.length());
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
@@ -54,7 +57,7 @@ public class GetCredentialsHandler extends NonEventConsumer {
     }
 
     try {
-      response = Anoncreds.proverGetCredential(proverWallet, "id1").get();
+      response = Anoncreds.proverGetCredential(proverWallet, "id" + ClaimStorage.getStore().get(proverDid).counter).get();
     } catch (InterruptedException e) {
       e.printStackTrace();
       response = RequestUtils.messageInternalServerError();

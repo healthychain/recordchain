@@ -1,0 +1,18 @@
+.RegisterSuccess__insidebox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.RegisterSuccess__info {
+  display: inline;
+  font-weight: 500;
+  color: grey;
+}
+
+.RegisterSuccess__info__clickable {
+  color: rgba(48, 94, 212, 1);
+  cursor: pointer;
+  font-weight: 600;
+}

@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 const RegisterForm = props => {
   const { loginSuccess, error, loading } = props;
   if (loginSuccess) {
-    return <Redirect to="/" />;
+    return <Redirect to="/register-success" />;
   }
   if (loading) {
     return <h1>Loading</h1>;
