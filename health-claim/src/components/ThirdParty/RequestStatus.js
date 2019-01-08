@@ -26,7 +26,7 @@ class RequestStatus extends React.Component {
       [
         <div className={"RequestStatus__wrapper"}>
           <div className="RequestStatus__key Flex__DarkBlue">
-            <p style={{ fontWeight: "500", margin: "0" }}>{"Username"} </p>
+            <p style={{ fontWeight: "500", margin: "0" }}>{"DID"} </p>
           </div>
           <div className="RequestStatus__value Flex__Blue">{"Message"}</div>
           {<div className="RequestStatus__viewButton Flex__Blue">Action</div>}
