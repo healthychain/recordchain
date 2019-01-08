@@ -5,6 +5,7 @@ import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.storage.EventNode;
 import eu.mhutti1.healthchain.storage.EventStorage;
+import eu.mhutti1.healthchain.utils.Crypto;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -17,7 +18,10 @@ import java.util.Map;
 public abstract class CreateRequestHandler extends NonEventConsumer {
 
   public abstract String getApproveEndpoint();
-  public abstract String getDismissEndpoint();
+
+  public String getDismissEndpoint() {
+    return "dismiss_notification";
+  }
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
@@ -29,7 +33,8 @@ public abstract class CreateRequestHandler extends NonEventConsumer {
 
     String password = params.get("password");
     String username = params.get("username");
-    String issuerDid = params.get("issuer_did");
+    String issuerDid = params.getOrDefault("issuer_did", "Th7MpTaRZVRYnPiabds81Y");
+
 
     String response = "Request sent";
     int responseCode = RequestUtils.statusOK();
@@ -41,7 +46,7 @@ public abstract class CreateRequestHandler extends NonEventConsumer {
 
     // later on register for email notofication
 
-    EventStorage.store(issuerDid, new EventNode("", null, payload, getApproveEndpoint(), getDismissEndpoint()));
+    EventStorage.store(issuerDid, new EventNode("Registration request", username, payload, getApproveEndpoint(), getDismissEndpoint()));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

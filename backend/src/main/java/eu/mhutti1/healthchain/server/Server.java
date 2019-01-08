@@ -5,6 +5,7 @@ import eu.mhutti1.healthchain.constants.IndyPool;
 import eu.mhutti1.healthchain.server.create.*;
 import eu.mhutti1.healthchain.server.createOLD.DoctorCreateHandler;
 import eu.mhutti1.healthchain.server.createOLD.PatientCreateHandler;
+import eu.mhutti1.healthchain.server.events.DismissNotificationHandler;
 import eu.mhutti1.healthchain.server.events.EventConsumer;
 import eu.mhutti1.healthchain.server.events.GetNotificationsHandler;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
@@ -75,9 +76,6 @@ public class Server {
     //valid session verifier
     server.createEndpoint("/verify_session", new SessionVerifyHandler());
 
-    //master secret creation
-    server.createEndpoint("/create_master_secret", new CreateMasterKeyHandler());
-
     //issue credential handshake
     server.createEventEndpoint("/credential_offer", new CredentialOfferHandler());
     server.createEventEndpoint("/credential_request", new CredentialRequestHandler());
@@ -85,8 +83,7 @@ public class Server {
     server.createEventEndpoint("/credential_store", new CredentialStoreHandler());
 
     // Temp store read
-    server.createEventEndpoint("/credential_cache_view", new CredentialCacheHandler());
-
+    server.createEndpoint("/credential_cache_view", new CredentialCacheHandler());
 
 
     // proof handling
@@ -104,6 +101,7 @@ public class Server {
 
     //notifications
     server.createEndpoint("/get_events", new GetNotificationsHandler());
+    server.createEndpoint("/dismiss_notification", new DismissNotificationHandler());
 
     //get credentials
     server.createEndpoint("/get_credentials", new GetCredentialsHandler());

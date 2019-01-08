@@ -27,7 +27,7 @@ export default class QRReaderButton extends React.Component {
 
   _renderSubComp() {
     if (this.state.qrRendered) {
-      return <QRReader />;
+      return <QRReader QRCallback={this.props.callback} />;
     }
     return <></>;
   }

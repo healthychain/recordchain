@@ -1,11 +1,9 @@
 .dashboard-inner {
   align-content: center;
   margin: 0 auto;
-  margin-top: 3em;
   margin-left: 0 auto;
   text-align: center;
   &-alt {
-    padding-top: 3em;
     min-width: 800px;
   }
 }
@@ -16,8 +14,11 @@
 
 .Form__Rack {
   padding-bottom: 16px;
-  // border-bottom: 1px solid #f0f0f0;
   margin-bottom: 16px;
+}
+
+.Box {
+  box-shadow: 0 0 8px rgba(173, 172, 179, 1);
 }
 
 .Box__Tabs {
@@ -57,9 +58,10 @@
 
 .dashboard-layout {
   display: flex;
-  height: calc(100vh - 56px - 56px);
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3em;
 }
 
 .search-button {
@@ -92,4 +94,65 @@
   width: 100%;
   border-bottom: 1px solid #f0f0f0;
   margin: 20px 0;
+}
+
+.HealthRecord__cell {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.HealthRecord__key {
+  background-color: #b2c2ce;
+  color: white;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.HealthRecord__key_sep {
+  background-color: white;
+  width: 300px;
+  height: 2px;
+}
+
+.HealthRecord__value_sep {
+  background-color: #b2c2ce;
+  width: 100%;
+  height: 1px;
+}
+
+.HealthRecord__key__text {
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.HealthRecord__value {
+  width: 100%;
+  height: 100%;
+}
+
+.HealthRecord__Input {
+  width: 100%;
+  height: 38px;
+  border: 1px solid #b2c2ce;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12),
+    0 10px 16px -4px rgba(0, 0, 0, 0.02);
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 0 1px #305ed4, 0 10px 16px -4px rgba(0, 0, 0, 0.02);
+  }
 }

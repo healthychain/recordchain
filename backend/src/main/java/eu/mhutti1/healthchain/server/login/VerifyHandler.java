@@ -35,6 +35,9 @@ public abstract class VerifyHandler extends NonEventConsumer {
     String walletId = Crypto.hashPlainText(username);
     String walletKey = Crypto.hashPlainText(password);
     String did = Crypto.getDid(username);
+    if (username.equals("myWallet")) {
+      did = "Th7MpTaRZVRYnPiabds81Y";
+    }
 
     String response;
     String token;

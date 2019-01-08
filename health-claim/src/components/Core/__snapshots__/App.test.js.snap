@@ -1,56 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App should render without crashing 1`] = `
-<withRouter(Connect(SessionAuthenticator))>
-  <BrowserRouter>
-    <div>
-      <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-        rel="stylesheet"
-      />
-      <div
-        className="Header"
-      >
-        <div
-          className="Header__Upper"
-        >
-          <div
-            className="Header__Nav"
-          >
-            <div
-              className="Header__Layout"
-            >
-              <div
-                className="Header__Logo"
-              >
-                HealthClaim
-              </div>
-               
-            </div>
-          </div>
-        </div>
-        <div
-          className="Header__Lower"
-        >
-          <h2
-            className="Header__Title"
-          >
-            Decentralized Healthcare
-          </h2>
-        </div>
-      </div>
-      <div
-        className="Body"
-      >
-        <div
-          className="Main"
-        >
-          <Route
-            component={[Function]}
-          />
-        </div>
-      </div>
-    </div>
-  </BrowserRouter>
-</withRouter(Connect(SessionAuthenticator))>
+<Route>
+  [Function]
+</Route>
 `;

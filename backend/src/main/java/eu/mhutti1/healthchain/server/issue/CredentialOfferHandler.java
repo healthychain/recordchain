@@ -30,7 +30,6 @@ import static org.hyperledger.indy.sdk.anoncreds.Anoncreds.issuerCreateAndStoreC
  */
 public class CredentialOfferHandler extends EventConsumer {
 
-
   @Override
   public boolean handleEventAction(HttpExchange httpExchange) throws IOException {
 
@@ -61,6 +60,8 @@ public class CredentialOfferHandler extends EventConsumer {
     } catch (SessionInvalidException e) {
       response = "Invalid session token";
       responseCode = RequestUtils.statusSessionExpired();
+    } catch (IndyException e) {
+      e.printStackTrace();
     }
 
     if(issuerWallet == null) {
@@ -137,7 +138,7 @@ public class CredentialOfferHandler extends EventConsumer {
             .put("credDefJSON", credDef.getCredDefJson())
             .put("credValuesJSON", credValuesJSON);
 
-    EventStorage.store(proverDid, new EventNode("", issuerDid, payload, "credential_request", null, true));
+    EventStorage.store(proverDid, new EventNode("Your doctor wants to edit your health record", issuerDid, payload, "credential_request", null, true));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

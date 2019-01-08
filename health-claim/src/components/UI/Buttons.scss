@@ -5,6 +5,7 @@
   height: 48px;
   border: none;
   box-shadow: none;
+  cursor: pointer;
   font-weight: 600;
   &.Button__Green {
     background: #2cbd69;
@@ -17,6 +18,10 @@
   &.Button__Secondary {
     background: #eee;
     color: rgba(48, 94, 212, 1);
+  }
+  &.Button__Smaller {
+    padding: 0px 28px;
+    height: 38px;
   }
   &.Button__Disabled {
     background: #eee;

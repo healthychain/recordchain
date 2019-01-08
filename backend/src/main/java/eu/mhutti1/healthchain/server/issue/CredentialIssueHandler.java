@@ -47,6 +47,8 @@ public class CredentialIssueHandler extends EventConsumer {
     } catch (SessionInvalidException e) {
       response = "Invalid session token";
       responseCode = RequestUtils.statusSessionExpired();
+    } catch (IndyException e) {
+      e.printStackTrace();
     }
 
     if (issuerWallet == null) {
@@ -66,13 +68,6 @@ public class CredentialIssueHandler extends EventConsumer {
     String proverDid = EventStorage.getEvent(issuerDid, eventId).getFromDid();
 
     String credValues = Crypto.encodeCredValues(credValuesJSON);
-
-//    String cred_values = "{\n" +
-//            "        \"sex\": {\"raw\": \"male\", \"encoded\": \"5944657099558967239210949258394887428692050081607692519917050\"},\n" +
-//            "        \"name\": {\"raw\": \"Alex\", \"encoded\": \"1139481716457488690172217916278103335\"},\n" +
-//            "        \"height\": {\"raw\": \"175\", \"encoded\": \"175\"},\n" +
-//            "        \"age\": {\"raw\": \"28\", \"encoded\": \"28\"}\n" +
-//            "    }";
 
     // Issuer create Credential
     AnoncredsResults.IssuerCreateCredentialResult createCredentialResult = null;
@@ -100,7 +95,7 @@ public class CredentialIssueHandler extends EventConsumer {
             .put("credDefJSON", credDefJSON)
             .put("credentialRequestMetadataJSON", credentialRequestMetadataJSON);
 
-    EventStorage.store(proverDid, new EventNode("", issuerDid, newPayload, "credential_store", null));
+    EventStorage.store(proverDid, new EventNode("Your health record is ready to be stored in your wallet", issuerDid, newPayload, "credential_store", null));
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();

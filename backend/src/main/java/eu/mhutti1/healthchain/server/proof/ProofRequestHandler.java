@@ -34,7 +34,7 @@ public abstract class ProofRequestHandler extends NonEventConsumer {
     String response = "OK";
 
 
-    EventStorage.store(proverDid, new EventNode("", null, payload, getApproveEndpoint(), getDismissEndpoint(), true));
+    EventStorage.store(proverDid, new EventNode("Third party wants to access your health data", "", payload, getApproveEndpoint(), getDismissEndpoint(), true));
 
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
@@ -45,8 +45,9 @@ public abstract class ProofRequestHandler extends NonEventConsumer {
     return;
   }
 
-  protected abstract String getDismissEndpoint();
-
+  public String getDismissEndpoint() {
+    return "dismiss_notification";
+  }
   protected abstract String getApproveEndpoint();
 
 }

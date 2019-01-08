@@ -8,6 +8,7 @@ import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.utils.Crypto;
 import eu.mhutti1.healthchain.wallet.IndyWallet;
 import org.hyperledger.indy.sdk.IndyException;
+import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.wallet.Wallet;
 
 import java.io.IOException;
@@ -50,6 +51,7 @@ public abstract class CreateHandler extends NonEventConsumer {
 
     try {
       issuerWallet = IndyWallet.openWallet(issuerWalletId, issuerWalletKey);
+
     } catch (IndyException e) {
       response = "Authority credentials invalid";
       responseCode = 400;

@@ -5,99 +5,104 @@ exports[`Doctor should render correctly with mocked records 1`] = `
   className="dashboard-layout"
 >
   <div
-    className="dashboard-main"
+    className="Flex__Column"
   >
     <div
-      className="dashboard-inner-alt"
+      className="Flex__Blue Flex__Centered Flex__Double"
+      style={
+        Object {
+          "padding": "5px 38px",
+        }
+      }
+    >
+      <h1
+        className="Page__Title"
+      >
+        Dashboard
+      </h1>
+    </div>
+    <div
+      className="dashboard-main"
     >
       <div
-        className="Box"
+        className="dashboard-inner-alt"
       >
         <div
-          className="Box__Tabs"
+          className="Box"
         >
           <div
-            className="Tab__single Tab__single__active"
-            onClick={[Function]}
+            className="Box__Tabs"
           >
-            <p
-              className="Tab__text Tab__text__active"
+            <div
+              className="Tab__single Tab__single__active"
+              onClick={[Function]}
             >
-              Issue
-            </p>
+              <p
+                className="Tab__text Tab__text__active"
+              >
+                Patient Health Record
+              </p>
+            </div>
           </div>
           <div
-            className="Tab__single "
-            onClick={[Function]}
+            className="doctor__content"
           >
-            <p
-              className="Tab__text "
-            >
-              View
-            </p>
-          </div>
-        </div>
-        <div
-          className="doctor__content"
-        >
-          <div>
-            <h3>
-              Issue a new record
-            </h3>
-            <div
-              className="separator"
-            />
-            <label
-              className="Input__Label"
-            >
-              Patient's username
-            </label>
-            <input
-              className="Input__Text"
-              onChange={[Function]}
-              type="text"
-            />
-            <div
-              className="separator"
-            />
-            <div
-              className="Form__Rack"
-            >
+            <div>
+              <h3>
+                Update an existing health record
+              </h3>
+              <div
+                className="separator"
+              />
+              <label
+                className="Input__Label"
+              >
+                Patient's username
+              </label>
+              <input
+                className="Input__Text"
+                onChange={[Function]}
+                type="text"
+                value={null}
+              />
+              <label
+                className="Input__Label"
+                style={
+                  Object {
+                    "marginTop": "10px",
+                  }
+                }
+              >
+                The URL of the patient's practice
+              </label>
+              <input
+                className="Input__Text"
+                onChange={[Function]}
+                type="text"
+                value="http://local"
+              />
               <button
                 className="Button Button__Green"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "marginTop": "20px",
+                  }
+                }
               >
-                Refresh
+                Search
               </button>
-              <button
-                className="Button Button__Green"
-                onClick={[Function]}
-              >
-                Submit
-              </button>
+              <div
+                className="separator"
+              />
+              <p>
+                No health record data was found 
+              </p>
             </div>
           </div>
         </div>
+        <br />
       </div>
-      <br />
-    </div>
-  </div>
-  <div>
-    <div
-      className="ToggleButton"
-      onClick={[Function]}
-    >
-      <i
-        className="fa fa-bell"
-      />
-    </div>
-    <div
-      className="Toggle"
-      onClick={[Function]}
-    >
-      <div
-        className={null}
-      />
     </div>
   </div>
 </div>

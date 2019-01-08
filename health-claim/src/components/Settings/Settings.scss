@@ -3,29 +3,33 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 3em;
 }
 
 .Settings__inner_container {
-  margin-top: 20px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.01), 0 8px 32px -8px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  padding: 48px;
   max-width: 800px;
-  min-width: 800px;
+  min-width: 700px;
+  min-height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: white;
+  box-shadow: 0 0 8px rgba(173, 172, 179, 1);
 }
 
 .Settings__row {
-  padding: 10px 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
   width: 100%;
 }
 
 .Settings__row__name {
+  margin-right: 10px;
   display: flex;
   flex: 1;
   justify-content: center;
@@ -50,4 +54,8 @@
 }
 .Settings__submit__button:hover {
   background-color: magenta;
+}
+
+.Settings__row_inner {
+  width: 100%;
 }

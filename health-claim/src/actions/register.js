@@ -21,7 +21,7 @@ function register(username, password, did, isPatient) {
     dispatch(registerBegin());
     const url = isPatient
       ? `${apiEndpoint}/create_patient_req?username=${username}&password=${password}&issuer_did=${did}`
-      : `${apiEndpoint}/doctor_create?username=${username}&password=${password}&issuer_wallet_id=myWallet&issuer_wallet_key=wallet_key&issuer_did=Th7MpTaRZVRYnPiabds81Y`;
+      : `${apiEndpoint}/create_doctor_req?username=${username}&password=${password}`;
 
     return fetch(url)
       .then(raw => handleErrors(raw))

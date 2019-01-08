@@ -6,6 +6,7 @@ import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.session.SessionInvalidException;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.EventStorage;
+import org.hyperledger.indy.sdk.IndyException;
 import org.hyperledger.indy.sdk.wallet.Wallet;
 
 import java.io.IOException;
@@ -38,6 +39,8 @@ public abstract class EventConsumer implements HttpHandler {
       os.write(response.getBytes());
       os.close();
       return;
+    } catch (IndyException e) {
+      e.printStackTrace();
     }
 
     if (handleEventAction(httpExchange)) {

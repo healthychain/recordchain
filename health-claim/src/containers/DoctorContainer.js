@@ -5,6 +5,7 @@ import selectPatient from "../actions/selectPatient";
 import fetchNotifications from "../actions/fetchNotifications";
 import storeRecord from "../actions/storeRecord";
 import fetchCredDef from "../actions/fetchCredDef";
+import fetchCachedCreds from "../actions/fetchCachedCreds";
 // import fetchPatientInfo from "../actions/fetchPatientInfo";
 
 const mapStateToProps = (state, props) => ({
@@ -17,13 +18,13 @@ const mapStateToProps = (state, props) => ({
   notificationsLoading: state.fetchNotifications.loading,
   notificationsError: state.fetchNotifications.error,
   notifications: state.fetchNotifications.notifications,
-  credDef: state.fetchCredDef.attrs,
-  did: state.sessionToken.did
+  credDef: state.fetchCredDef.attrNames,
+  did: state.sessionToken.did,
+  cachedCreds: state.fetchCachedCreds.credentials
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
   ...props,
-  // fetchPatientInfo: patientID => dispatch(fetchPatientInfo(patientID)),
   fetchCredDef: () => dispatch(fetchCredDef()),
   storeRecord: data => dispatch(storeRecord(data)),
   selectPatient: ({ id, name, birthDate }) =>
@@ -34,7 +35,9 @@ const mapDispatchToProps = (dispatch, props) => ({
         birthDate
       })
     ),
-  fetchNotifications: sessionID => dispatch(fetchNotifications(sessionID))
+  fetchNotifications: sessionID => dispatch(fetchNotifications(sessionID)),
+  fetchCachedCreds: (sessionID, patientUsername, patientDomain) =>
+    dispatch(fetchCachedCreds(sessionID, patientUsername, patientDomain))
 });
 
 export default withRouter(

@@ -16,6 +16,10 @@ class SessionAuthenticator extends React.PureComponent<Props> {
     this.props.verifySession(this.props.token);
   }
 
+  componentWillReceiveProps() {
+    console.log(this.props);
+  }
+
   render() {
     const { verifySessionLoading, verifySessionError, children } = this.props;
     return verifySessionLoading ? <LoadingScreen /> : children;
