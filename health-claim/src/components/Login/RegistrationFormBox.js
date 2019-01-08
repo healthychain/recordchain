@@ -23,7 +23,7 @@ export default class RegistrationFormBox extends React.Component {
     this.props.register(
       this.state.username,
       this.state.password,
-      this.state.did,
+      this.state.qr,
       this.state.isPatient
     );
     event.stopPropagation();
@@ -93,6 +93,7 @@ export default class RegistrationFormBox extends React.Component {
                       Or enter authority DID
                     </label>
                     <input
+                      onChange={e => this.setState({ qr: e.target.value })}
                       value={this.state.qr}
                       placeholder="Doctor DID"
                       className="Input__Text"
