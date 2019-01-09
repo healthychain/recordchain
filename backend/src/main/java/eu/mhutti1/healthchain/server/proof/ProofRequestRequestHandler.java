@@ -5,7 +5,9 @@ import eu.mhutti1.healthchain.constants.Constants;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionManager;
+import eu.mhutti1.healthchain.storage.CredRequestStorage;
 import eu.mhutti1.healthchain.storage.ProofStorage;
+import eu.mhutti1.healthchain.utils.Crypto;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import sun.net.www.http.HttpClient;
@@ -17,6 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -94,6 +97,14 @@ public class ProofRequestRequestHandler extends NonEventConsumer {
       os.write(out);
     }
 
+
+    if(!CredRequestStorage.getStore().containsKey("third-party")){
+      CredRequestStorage.getStore().put("third-party", new CredRequestStorage.CredRequestDef(new ArrayList<String>()));
+    }
+
+    List<String> newOne = CredRequestStorage.getStore().get("third-party").proverDids;
+    newOne.add(proverDid);
+    CredRequestStorage.getStore().put("third-party", new CredRequestStorage.CredRequestDef(newOne));
 
 
     httpExchange.sendResponseHeaders(responseCode, response.length());

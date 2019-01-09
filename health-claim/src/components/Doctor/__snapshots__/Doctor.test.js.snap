@@ -49,7 +49,7 @@ exports[`Doctor should render correctly with mocked records 1`] = `
           >
             <div>
               <h3>
-                Update an existing health record
+                Edit health record
               </h3>
               <div
                 className="separator"

@@ -11,6 +11,7 @@ import SettingsContainer from "./containers/SettingsContainer";
 import ThirdPartyContainer from "./containers/ThirdPartyContainer";
 import NotificationsContainer from "./containers/NotificationsContainer";
 import RegisterSuccessForm from "./components/SuccessScreen/RegisterSuccessForm";
+import ViewProof from "./containers/ViewProofContainer";
 
 class Routes extends Component {
   render() {
@@ -51,6 +52,11 @@ class Routes extends Component {
           render={props => (
             <ThirdPartyContainer userType={ACCOUNT_TYPE.THIRD_PARTY} />
           )}
+        />
+        <Route
+          path="/thirdparty/view/:username"
+          exact
+          render={props => <ViewProof userType={ACCOUNT_TYPE.THIRD_PARTY} />}
         />
         <Route
           path="/register"

@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import "../Doctor/Doctor.scss";
 import "../Login/LoginForm.scss";
 import RequestBuilderContainer from "../../containers/RequestBuilderContainer";
+import RequestStatus from "./RequestStatus";
 
-const TABS = ["Request", "View"];
+const TABS = ["Request", "Request Status"];
 
 class ThirdParty extends Component {
   constructor(props) {
@@ -11,6 +12,11 @@ class ThirdParty extends Component {
     this.state = {
       tabIndex: 0
     };
+  }
+
+  componentDidMount() {
+    const { fetchReqStatus } = this.props;
+    fetchReqStatus("third-party");
   }
 
   render() {
@@ -48,73 +54,15 @@ class ThirdParty extends Component {
                   </>
                 )}
                 {tabIndex === 1 && (
-                  <>
-                    <div className="Form__Rack">
-                      <div className="Form__Cell">
-                        <label className="Input__Label">
-                          Request stuff from user (DID)
-                        </label>
-                        <input
-                          onChange={e =>
-                            this.setState({ username: e.target.value })
-                          }
-                          className="Input__Text"
-                          type="text"
-                          value={this.state.username}
-                        />
-                        <br />
-                        <label className="Input__Label">Domain</label>
-                        <input
-                          onChange={e =>
-                            this.setState({ domain: e.target.value })
-                          }
-                          className="Input__Text"
-                          value={this.state.domain}
-                          type="text"
-                          name="domain"
-                        />
-                      </div>
-                    </div>{" "}
-                    <>
-                      {proof
-                        ? Object.keys(proof).map(key => (
-                            <>
-                              <label className="Input__Label">
-                                {key[0].toUpperCase() +
-                                  key.substring(1) +
-                                  ":\t " +
-                                  proof[key]}
-                              </label>
-                            </>
-                          ))
-                        : null}
-                    </>
-                    <button
-                      onClick={() => this.props.tpView(this.state.username)}
-                      className="Button Button__Green"
-                    >
-                      View
-                    </button>
-                  </>
+                  <div className="Form__Cell">
+                    <RequestStatus {...this.props} />
+                  </div>
                 )}
               </div>
-              {/* <button
-                onClick={() =>
-                  this.props.fetchNotifications(this.props.sessionID)
-                }
-                className="Button Button__Green"
-              >
-                Refresh
-              </button> */}
             </div>
             <br />
           </div>
         </div>
-        {/* <EventPanel
-          loading={this.props.notificationsLoading}
-          error={this.props.notificationsError}
-          events={this.props.notifications}
-        /> */}
       </div>
     );
   }

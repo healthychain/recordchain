@@ -3,12 +3,16 @@ package eu.mhutti1.healthchain.server.proof;
 import com.sun.net.httpserver.HttpExchange;
 import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
+import eu.mhutti1.healthchain.storage.CredRequestStorage;
 import eu.mhutti1.healthchain.storage.EventNode;
 import eu.mhutti1.healthchain.storage.EventStorage;
 import org.hyperledger.indy.sdk.wallet.Wallet;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
