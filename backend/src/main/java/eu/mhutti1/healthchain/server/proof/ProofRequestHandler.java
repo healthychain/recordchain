@@ -40,14 +40,6 @@ public abstract class ProofRequestHandler extends NonEventConsumer {
 
     EventStorage.store(proverDid, new EventNode("Third party wants to access your health data", "", payload, getApproveEndpoint(), getDismissEndpoint(), true));
 
-    if(!CredRequestStorage.getStore().containsKey("third-party")){
-      CredRequestStorage.getStore().put("third-party", new CredRequestStorage.CredRequestDef(new ArrayList<String>()));
-    }
-
-    List<String> newOne = CredRequestStorage.getStore().get("third-party").proverDids;
-    newOne.add(proverDid);
-    CredRequestStorage.getStore().put("third-party", new CredRequestStorage.CredRequestDef(newOne));
-
 
     httpExchange.sendResponseHeaders(responseCode, response.length());
     OutputStream os = httpExchange.getResponseBody();
