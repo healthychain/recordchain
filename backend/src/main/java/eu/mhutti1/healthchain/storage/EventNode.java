@@ -83,7 +83,7 @@ public class EventNode implements Serializable {
             .put("type", type)
             .put("acceptAction", acceptAction)
             .put("dismissAction", dismissAction)
-            .put("requireMasterSecret", requireMasterSecret)
+            .put("requireMasterSecret", false) // Master secret depreciated
             .put("fromDid", fromDid)
             .put("createdAt", createdAt);
   }

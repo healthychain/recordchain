@@ -8,9 +8,4 @@ public class CreateRequestDoctorHandler extends CreateRequestHandler {
   public String getApproveEndpoint() {
     return "create_doctor_approve";
   }
-
-  @Override
-  public String getDismissEndpoint() {
-    return "";
-  }
 }

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Table } from "reactstrap";
 import "./Settings.scss";
+import "../UI/Buttons.scss";
 import QRCode from "qrcode.react";
 
 type Props = {
@@ -31,6 +32,12 @@ class Settings extends React.Component<Props, State> {
     this.props.fetchNotifications(sessionID);
   }
 
+  clipboard = e => {
+    document.getElementById("did").select();
+    document.execCommand("copy");
+    e.target.focus();
+  };
+
   render() {
     const { createMasterSecret, did } = this.props;
     return (
@@ -53,9 +60,36 @@ class Settings extends React.Component<Props, State> {
               <div className="Settings__row__name">Your DID</div>
               <QRCode value={did} />
 
-              <div className="Settings__input__container">{did}</div>
+              <div className="Settings__input__container">
+                <input style={{ width: "80%" }} value={did} readOnly id="did" />{" "}
+              </div>
             </div>
-
+            <div className="Settings__row" style={{ marginTop: "20px" }}>
+              {" "}
+              <div className="Settings__input__container">
+                <a
+                  style={{ width: "80%" }}
+                  href={`mailto:?body=Hello, your doctor's DID is ${did}&subject=Your doctor's HealthClaim ID`}
+                >
+                  <button
+                    style={{ width: "100%" }}
+                    className="Button Button__Secondary"
+                    href={`mailto:?body=Hello, your doctor's DID is ${did}&subject=Your doctor's HealthClaim ID`}
+                  >
+                    e-mail DID
+                  </button>
+                </a>
+              </div>
+              <div className="Settings__input__container">
+                <button
+                  className="Button Button__Secondary"
+                  style={{ width: "80%" }}
+                  onClick={this.clipboard}
+                >
+                  copy DID to clipboard
+                </button>
+              </div>
+            </div>
             <div className="Settings__row" style={{ marginTop: "20px" }}>
               <div className="Settings__row_inner">
                 <h3>Your Master Secret key</h3>

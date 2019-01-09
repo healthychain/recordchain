@@ -49,8 +49,9 @@ public abstract class ProofRequestHandler extends NonEventConsumer {
     return;
   }
 
-  protected abstract String getDismissEndpoint();
-
+  public String getDismissEndpoint() {
+    return "dismiss_notification";
+  }
   protected abstract String getApproveEndpoint();
 
 }

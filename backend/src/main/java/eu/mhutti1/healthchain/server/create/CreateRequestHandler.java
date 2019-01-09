@@ -18,7 +18,10 @@ import java.util.Map;
 public abstract class CreateRequestHandler extends NonEventConsumer {
 
   public abstract String getApproveEndpoint();
-  public abstract String getDismissEndpoint();
+
+  public String getDismissEndpoint() {
+    return "dismiss_notification";
+  }
 
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
