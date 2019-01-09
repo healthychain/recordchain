@@ -34,9 +34,9 @@ export const tpViewError = () => ({
   type: TP_VIEW_ERROR
 });
 
-export function tpRequest(userDID, domain, req_attrs, req_pred) {
+export function tpRequest(username, domain, req_attrs, req_pred) {
   const data = {
-    prover_did: userDID,
+    prover_did: username,
     agent_domain: domain,
     req_attrs,
     req_pred
@@ -62,10 +62,10 @@ export function tpRequest(userDID, domain, req_attrs, req_pred) {
   };
 }
 
-export function tpView(userDID) {
+export function tpView(did) {
   return dispatch => {
     dispatch(tpViewBegin());
-    return fetch(`${apiEndpoint}/proof_view?prover_did=${userDID}`)
+    return fetch(`${apiEndpoint}/proof_view?prover_did=${did}`)
       .then(raw => handleErrors(raw))
       .then(response => response.json())
       .then(json => dispatch(tpViewSuccess(json)))

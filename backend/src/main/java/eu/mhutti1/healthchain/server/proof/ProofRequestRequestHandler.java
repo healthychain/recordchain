@@ -6,6 +6,7 @@ import eu.mhutti1.healthchain.server.RequestUtils;
 import eu.mhutti1.healthchain.server.events.NonEventConsumer;
 import eu.mhutti1.healthchain.server.session.SessionManager;
 import eu.mhutti1.healthchain.storage.ProofStorage;
+import eu.mhutti1.healthchain.utils.Crypto;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import sun.net.www.http.HttpClient;

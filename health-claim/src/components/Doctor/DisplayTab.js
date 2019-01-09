@@ -70,7 +70,7 @@ class IssueTab extends React.Component<> {
     const { cachedCreds, credDef } = this.props;
     return (
       <div>
-        <h3>Update an existing health record</h3>
+        <h3>Edit health record</h3>
         <div className="separator" />
         <label className="Input__Label">Patient's username</label>
         <input

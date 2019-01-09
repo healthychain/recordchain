@@ -93,7 +93,7 @@ export default class RequestBuilder extends Component {
         <div className="Form__Rack">
           <div className="Form__Cell">
             <label className="Input__Label">
-              Request stuff from user (DID)
+              Request proof from user (DID)
             </label>
             <input
               onChange={e => this.setState({ username: e.target.value })}

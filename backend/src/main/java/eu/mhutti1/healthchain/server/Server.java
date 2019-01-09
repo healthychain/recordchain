@@ -85,11 +85,12 @@ public class Server {
     // Temp store read
     server.createEndpoint("/credential_cache_view", new CredentialCacheHandler());
 
+    // Read the status of cred requests
+    server.createEndpoint("/credential_requests_status", new ProofRequestStatusHandler());
 
     // proof handling
     server.createEndpoint("/proof_request_patient", new ProofRequestPatientHandler());
     server.createEventEndpoint("/proof_request_patient_approve", new ProofApproveHandler());
-
 
     // third party endpoint
     server.createEndpoint("/proof_view", new ProofViewHandler());
