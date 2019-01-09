@@ -7,7 +7,8 @@ const mapStateToProps = (state, props) => ({
   ...props,
   loggedIn: state.verifySession.success,
   token: state.sessionToken.token,
-  notificationsNumber: state.fetchNotifications.notifications.length
+  notificationsNumber: state.fetchNotifications.notifications.length,
+  userType: state.sessionToken.accountType
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

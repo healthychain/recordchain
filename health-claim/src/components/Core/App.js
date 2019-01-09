@@ -19,6 +19,7 @@ type Props = {
 
 export class App extends React.PureComponent<Props> {
   render() {
+    const str = this.props.userType === "doctor" ? "Doctor" : "Patient";
     const { loggedIn, notificationsNumber } = this.props;
     return (
       <SessionAuthenticator>
@@ -32,7 +33,8 @@ export class App extends React.PureComponent<Props> {
               <div className="Header__Upper">
                 <div className="Header__Nav">
                   <div className="Header__Layout">
-                    <div className="Header__Logo">HealthClaim</div>{" "}
+                    <div className="Header__Logo">HealthClaim</div>
+                    <div className="Header__Logo">{str}</div>{" "}
                     {this.props.loggedIn ? (
                       <div className="Header__Link">
                         <Link to="/" onClick={() => this.props.logout()}>
