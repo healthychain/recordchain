@@ -43,7 +43,7 @@ public class ProofApproveHandler extends EventConsumer {
 
     String token = params.get("token");
     String eventId = params.get("event_id");
-    String masterSecretId = params.get("master_secret");
+    String masterSecretId = "master_secret";
 
     Wallet offerWallet = null;
     Role accountHolder = null;
@@ -72,13 +72,13 @@ public class ProofApproveHandler extends EventConsumer {
       List<String> credIds = new ArrayList();
       for (int i = 1; credentialsForProof.getJSONObject("attrs").has("attr" + i + "_referent"); i++) {
         JSONArray temp = credentialsForProof.getJSONObject("attrs").getJSONArray("attr" + i + "_referent");
-        String credentialUuid = temp.getJSONObject(0).getJSONObject("cred_info").getString("referent");
+        String credentialUuid = temp.getJSONObject(temp.length() - 1).getJSONObject("cred_info").getString("referent");
         credIds.add(credentialUuid);
       }
       List predIds = new ArrayList();
       for (int i = 1; credentialsForProof.getJSONObject("predicates").has("predicate" + i + "_referent"); i++) {
         JSONArray temp = credentialsForProof.getJSONObject("predicates").getJSONArray("predicate" + i + "_referent");
-        String credentialUuid = temp.getJSONObject(0).getJSONObject("cred_info").getString("referent");
+        String credentialUuid = temp.getJSONObject(temp.length() - 1).getJSONObject("cred_info").getString("referent");
         predIds.add(credentialUuid);
       }
       
