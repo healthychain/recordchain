@@ -3,6 +3,7 @@ package eu.mhutti1.healthchain.wallet;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.hyperledger.indy.sdk.IndyException;
+import org.hyperledger.indy.sdk.anoncreds.Anoncreds;
 import org.hyperledger.indy.sdk.wallet.Wallet;
 import org.hyperledger.indy.sdk.wallet.WalletExistsException;
 import org.json.JSONObject;
@@ -32,6 +33,7 @@ public class IndyWallet {
     this.walletCred = new JSONObject(String.format("{\"%s\": \"%s\"}", "key", key)).toString();
     Wallet.createWallet(walletConfig, walletCred).get();
     this.wallet = Wallet.openWallet(walletConfig, walletCred).get();
+    Anoncreds.proverCreateMasterSecret(this.wallet, "master_secret").get();
   }
 
   public Wallet getWallet() {
