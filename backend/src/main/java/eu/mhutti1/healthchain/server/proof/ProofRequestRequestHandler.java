@@ -66,6 +66,8 @@ public class ProofRequestRequestHandler extends NonEventConsumer {
     JSONObject reqBody = new JSONObject(RequestUtils.getRequestBody(httpExchange));
     String proverDid = reqBody.getString("prover_did");
     String agentDomain = reqBody.getString("agent_domain"); // localhost:8000
+    String responseDomain = reqBody.getString("response_domain");
+    responseDomain = responseDomain.substring(7);
     JSONArray reqAttrsJSON = (JSONArray) reqBody.get("req_attrs");
     String[] reqAttrs = new String[reqAttrsJSON.length()];
     for (int i = 0; i < reqAttrsJSON.length(); i++) {
@@ -78,7 +80,7 @@ public class ProofRequestRequestHandler extends NonEventConsumer {
       reqPredicates[i] = reqPredicatesJSON.get(i).toString();
     }
 
-    URL url = new URL("http://" + agentDomain + "/proof_request_patient?prover_did=" + proverDid + "&response_domain=" + Constants.SERVER_DOMAIN);
+    URL url = new URL("http://" + agentDomain + "/proof_request_patient?prover_did=" + proverDid + "&response_domain=" + responseDomain);
 
     String proofJson = generateProofRequest(reqAttrs, reqPredicates);
     ProofStorage.getStore().put(proverDid, new ProofStorage.Proof(proofJson, Arrays.asList(reqAttrs)));
