@@ -9,13 +9,14 @@ class ViewProof extends React.Component {
 
   getValue(which, key, proof, comparator) {
     if (which[key]) {
+      console.log(which[key]);
       switch (comparator) {
         case "==":
-          return which[key] === proof[key] ? "True" : "False";
+          return which[key] == proof[key] ? "True" : "False";
         case ">=":
-          return which[key] > proof[key] ? "True" : "False";
+          return parseInt(which[key]) < proof[key] ? "True" : "False";
         case "<=":
-          return which[key] < proof[key] ? "True" : "False";
+          return parseInt(which[key]) > proof[key] ? "True" : "False";
         default:
           return which[key] === proof[key] ? "True" : "False";
       }
