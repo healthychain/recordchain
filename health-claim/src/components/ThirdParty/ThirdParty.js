@@ -19,6 +19,10 @@ class ThirdParty extends Component {
     fetchReqStatus("third-party");
   }
 
+  callback = data => {
+    this.setState({ predicates: data });
+  };
+
   render() {
     const { tabIndex } = this.state;
     const { proof } = this.props;
@@ -49,7 +53,7 @@ class ThirdParty extends Component {
                 {tabIndex === 0 && (
                   <>
                     <div className="Form__Cell">
-                      <RequestBuilderContainer />
+                      <RequestBuilderContainer callback={this.callback} />
                     </div>
                   </>
                 )}

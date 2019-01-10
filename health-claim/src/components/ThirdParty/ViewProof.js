@@ -7,9 +7,19 @@ class ViewProof extends React.Component {
     tpView(username);
   }
 
+  getValue(which, key, proof) {
+    if (which[key]) {
+      return which[key] === proof[key] ? "True" : "False";
+    }
+    return proof[key];
+  }
+
   render() {
+    console.log(this.props.predicates);
     const { proof, match } = this.props;
+    let which = {};
     const username = match.params.username;
+    console.log(this.props);
     return (
       <div className="dashboard-layout">
         <div className="dashboard-main">
@@ -18,12 +28,24 @@ class ViewProof extends React.Component {
               <h1 className="Page__Title">{`View the requested health record of: ${username}`}</h1>
               <div className="separator" />
               {proof && Object.keys(proof).length !== 0 ? (
-                Object.keys(proof).map((key, idx) => (
+                Object.keys(proof).map((key, idx, temp) => (
                   <div className="HealthRecord__cell" key={key}>
                     <div className="Flex__Column">
                       <div className="HealthRecord__key">
                         <label className="HealthRecord__key__text">
-                          {key[0].toUpperCase() + key.substring(1)}
+                          {this.props.predicates.map(pred => {
+                            if (key === pred.name) {
+                              console.log(key + "===" + pred.name);
+                              which[key] = pred.p_value;
+                              temp =
+                                key + " " + pred.p_type + " " + pred.p_value;
+                              return null;
+                            }
+                            temp = key;
+                            return null;
+                          })}
+                          {console.log(temp)}
+                          {temp[0].toUpperCase() + temp.substring(1)}
                         </label>
                       </div>
                       <div className="HealthRecord__key_sep" />
@@ -35,7 +57,10 @@ class ViewProof extends React.Component {
                       <div className="HealthRecord__value">
                         <div className="HealthRecord__Input">
                           <p style={{ padding: "0", margin: "0" }}>
-                            {proof[key]}
+                            {console.log(which[key])}
+                            {console.log("which at key above")}
+                            {console.log(proof[key])}
+                            {this.getValue(which, key, proof)}
                           </p>
                         </div>
                         {idx + 1 !== Object.keys(proof).length && (

@@ -69,7 +69,9 @@ export default class RequestBuilder extends Component {
         req_attrs.push(req.name);
       }
     });
-    this.props.tpRequest(username, domain, req_attrs, req_pred);
+    req_pred.map(pred => req_attrs.push(pred.name));
+    this.props.setPredicates(req_pred);
+    this.props.tpRequest(username, domain, req_attrs, []);
   };
 
   render() {
