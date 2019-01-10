@@ -14,6 +14,7 @@ import register from "./reducers/register";
 import verifySession from "./reducers/verifySession";
 import sessionToken from "./reducers/sessionToken";
 import logout from "./reducers/logout";
+import setPredicates from "./reducers/setPredicates";
 import createMasterSecret from "./reducers/createMasterSecret";
 import storeRecord from "./reducers/storeRecord";
 import fetchCreds from "./reducers/fetchCredentials";
@@ -26,7 +27,7 @@ const loggerMiddleware = createLogger();
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["sessionToken"]
+  whitelist: ["sessionToken", "setPredicates"]
 };
 
 const reducer = combineReducers({
@@ -34,6 +35,7 @@ const reducer = combineReducers({
   fetchNotifications,
   selectPatient,
   login,
+  setPredicates,
   logout,
   register,
   verifySession,
