@@ -7,9 +7,18 @@ class ViewProof extends React.Component {
     tpView(username);
   }
 
-  getValue(which, key, proof) {
+  getValue(which, key, proof, comparator) {
     if (which[key]) {
-      return which[key] === proof[key] ? "True" : "False";
+      switch (comparator) {
+        case "==":
+          return which[key] === proof[key] ? "True" : "False";
+        case ">=":
+          return which[key] > proof[key] ? "True" : "False";
+        case "<=":
+          return which[key] < proof[key] ? "True" : "False";
+        default:
+          return which[key] === proof[key] ? "True" : "False";
+      }
     }
     return proof[key];
   }
@@ -19,6 +28,7 @@ class ViewProof extends React.Component {
     console.log(window.location.href);
     const { proof, match } = this.props;
     let which = {};
+    let comparator = {};
     const username = match.params.username;
     return (
       <div className="dashboard-layout">
@@ -35,12 +45,15 @@ class ViewProof extends React.Component {
                         <label className="HealthRecord__key__text">
                           {this.props.predicates.pred.map(pred => {
                             if (key === pred.name) {
-                              console.log(key + "===" + pred.name);
+                              console.log(
+                                key + " " + pred.p_type + " " + pred.name
+                              );
                               which[key] = pred.p_value;
+                              comparator[key] = pred.p_type;
                               temp =
                                 key + " " + pred.p_type + " " + pred.p_value;
                               return null;
-                            } //todo: else here
+                            }
                             temp = key;
                             return null;
                           })}
@@ -60,7 +73,8 @@ class ViewProof extends React.Component {
                             {console.log(which[key])}
                             {console.log("which at key above")}
                             {console.log(proof[key])}
-                            {this.getValue(which, key, proof)}
+                            {console.log(comparator)}
+                            {this.getValue(which, key, proof, comparator[key])}
                           </p>
                         </div>
                         {idx + 1 !== Object.keys(proof).length && (
