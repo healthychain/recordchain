@@ -5,15 +5,15 @@ package eu.mhutti1.healthchain.constants;
  */
 public class HealthRecordAttributesStandard implements HealthRecordAttributes {
 
-    public static String schemaId = "2";
+    public static String schemaId = "8";
 
     public static String version = "1.0";
 
     public static String name = "health_record_standard";
     
     public static String attributes =
-            "[\"resource\"," +
-//                    "\"identifier\"," +
+            "[\"title\"," +
+                    "\"surname\"," +
 //                    "\"active\"," +
 //                    "\"name\"," +
 //                    "\"gender\"," +
@@ -33,15 +33,16 @@ public class HealthRecordAttributesStandard implements HealthRecordAttributes {
 //                    "\"eye_sight\"," +
 //                    "\"history_surgeries\"," +
 //                    "\"list_medications\"," +
-                    "\"last_checkup_date\"]";
+                    "\"age\"]";
 
     public static String[] attrs = new String[]{
-            "{\"name\": \"resource\", \"type\": \"string\"}",
+//            "{\"name\": \"resource\", \"type\": \"string\"}",
 //            "{\"name\": \"identifier\", \"type\": \"number\"}",
 //            "{\"name\": \"active\", \"type\": \"boolean\"}",
 //            "{\"name\": \"name\", \"type\": \"string\"}",
 //            "{\"name\": \"gender\", \"type\": \"string\"}",
-//            "{\"name\": \"birthdate\", \"type\": \"string\"}",
+            "{\"name\": \"title\", \"type\": \"string\"}",
+            "{\"name\": \"surname\", \"type\": \"string\"}",
 //            "{\"name\": \"deceased\", \"type\": \"boolean\"}",
 //            "{\"name\": \"address\", \"type\": \"string\"}",
 //            "{\"name\": \"maritalStatus\", \"type\": \"string\"}",
@@ -57,6 +58,6 @@ public class HealthRecordAttributesStandard implements HealthRecordAttributes {
 //            "{\"name\": \"eye_sight\", \"type\": \"number\", \"unit\": \"\"}",
 //            "{\"name\": \"history_surgeries\", \"type\": \"string\"}",
 //            "{\"name\": \"list_medications\", \"type\": \"string\"}",
-            "{\"name\": \"last_checkup_date\", \"type\": \"string\"}"
+            "{\"name\": \"age\", \"type\": \"number\"}"
     };
 }
