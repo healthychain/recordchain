@@ -6,7 +6,8 @@ import fetchReqStatus from "../actions/fetchCredReqStatus";
 
 const mapStateToProps = (state, props) => ({
   ...props,
-  proof: state.thirdPartyCalls.proof
+  proof: state.thirdPartyCalls.proof,
+  predicates: state.setPredicates.predicates
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
