@@ -11,7 +11,7 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
     maven {
-        url 'https://repo.evernym.com/artifactory/libindy-maven-local'
+        url 'https://repo.sovrin.org/repository/maven-public'
         }
     maven {
         url 'https://mvnrepository.com/artifact/commons-codec/commons-codec'
